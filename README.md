@@ -43,7 +43,14 @@ The requirements to run the code are listed in `requirements.txt`:
 
 ----------------------------------------------
 ## Download the Dataset
-The dataset is hosted in [this](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution) GitHub Repository with [Git LFS](https://git-lfs.github.com/) and in the [challenge repository](https://github.com/facebookresearch/simmc2/tree/main/data). Make sure to install and update Git LFS before cloning the repository:
+The dataset is hosted in [this](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution) GitHub Repository with [Git LFS](https://git-lfs.github.com/) and in the [challenge repository](https://github.com/facebookresearch/simmc2/tree/main/data). 
+
+Make sure to install and update Git LFS before cloning the repository:
 ```bash
 $ git lfs install
+```
+
+Download the dataset:
+```bash
+$ git lfs pull
 ```
