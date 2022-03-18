@@ -1,11 +1,11 @@
 # (SIMMC 2.0) Challenge 2021: Multimodal Coreference Resolution task
 The second Situated Interactive MultiModal Conversations (SIMMC 2.0) Challenge 2021. Project focused on the second task: Multimodal Coreference Resolution.
 
-The [official GitHub Repository](https://github.com/facebookresearch/simmc2) of the challenge is published by the [Meta Research](https://github.com/facebookresearch) team.
+The [official GitHub Repository](https://github.com/facebookresearch/simmc2) of the challenge is published by [Meta Research](https://github.com/facebookresearch) team.
 
 The Multimodal Coreference Resolution task is one of the proposed tracks of the Tenth Dialog System Technology Challenge [DSTC10](https://sites.google.com/dstc.community/dstc10/home).
 
-Clone this repository to download the dataset and the code:
+Clone this repository to download the dataset and code:
 ```bash
 $ git clone https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution.git
 ```
@@ -39,11 +39,15 @@ pip3 install -r requirements.txt
 #### Python requirements
 The requirements to run the code are listed in `requirements.txt`:
 * [numpy](https://github.com/numpy/numpy) - The fundamental package for scientific computing with Python
+* [torch](https://pytorch.org/) - Optimized tensor Python library for deep learning using GPUs and CPUs.
+* [transformers](https://huggingface.co/docs/transformers/index) - State-of-the-art Machine Learning library for PyTorch, TensorFlow and JAX.
+* [tqdm](https://github.com/tqdm/tqdm) - Python library to make loops show a smart progress meter.
+* [tensorboardX](https://pypi.org/project/tensorboardX/) - Python library to watch tensors flow without Tensorflow.
 
 
 ----------------------------------------------
 ## Download the Dataset
-The dataset is hosted in [this](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution) GitHub Repository with [Git LFS](https://git-lfs.github.com/) and in the [challenge repository](https://github.com/facebookresearch/simmc2/tree/main/data). 
+The dataset is hosted in [this](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution) GitHub Repository with [Git LFS](https://git-lfs.github.com/) and also in the [challenge repository](https://github.com/facebookresearch/simmc2/tree/main/data). 
 
 Make sure to install and update Git LFS before cloning the repository:
 ```bash
