@@ -1,5 +1,7 @@
 numpy
-torch
+torch==1.7
 tqdm
+setuptools_rust
+tokenizers==0.6.0
 transformers
 tensorboardX
