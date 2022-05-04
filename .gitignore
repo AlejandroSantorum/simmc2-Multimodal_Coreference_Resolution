@@ -5,11 +5,3 @@
 # virtual environment
 venv
 
-# dataset
-data.zip
-simmc2_scene_images_dstc10_public_part1/
-simmc2_scene_images_dstc10_public_part2/
-simmc2_scene_images_dstc10_teststd/
-simmc2_scene_jsons_dstc10_public/
-simmc2_scene_jsons_dstc10_teststd/
-
