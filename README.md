@@ -5,7 +5,7 @@ The [official GitHub Repository](https://github.com/facebookresearch/simmc2) of 
 
 The Multimodal Coreference Resolution task is one of the proposed tracks of the Tenth Dialog System Technology Challenge [DSTC10](https://sites.google.com/dstc.community/dstc10/home).
 
-Clone this repository to download the dataset and code:
+Clone this repository to download the code and experiments:
 ```bash
 $ git clone https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution.git
 ```
@@ -47,14 +47,18 @@ The requirements to run the code are listed in `requirements.txt`:
 
 ----------------------------------------------
 ## Download the Dataset
-The dataset is hosted in [this](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution) GitHub Repository with [Git LFS](https://git-lfs.github.com/) and also in the [challenge repository](https://github.com/facebookresearch/simmc2/tree/main/data). 
+The dataset is hosted in [Meta's GitHub Repository](https://github.com/facebookresearch/simmc2) with [Git LFS](https://git-lfs.github.com/). The folder [data](https://github.com/facebookresearch/simmc2/tree/main/data) contains the whole dataset and the instructions to be downloaded.
 
 Make sure to install and update Git LFS before cloning the repository:
 ```bash
 $ git lfs install
 ```
 
-Download the dataset:
+```bash
+$ git clone https://github.com/facebookresearch/simmc2.git
+```
+
+You may need to pull using Git LFS:
 ```bash
 $ git lfs pull
 ```
