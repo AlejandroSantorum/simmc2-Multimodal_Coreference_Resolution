@@ -5,3 +5,6 @@
 # virtual environment
 venv
 
+# data
+data/simmc2_*
+data/*_metadata_*
