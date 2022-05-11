@@ -10,7 +10,7 @@ from .util import find_data_dir
 DIALOGUE_ACTS = ("INFORM", "CONFIRM", "REQUEST", "ASK")
 ACTIVITIES = ("GET", "DISAMBIGUATE", "REFINE", "ADD_TO_CART", "COMPARE")
 
-DATA_DIR = find_data_dir('DSTC10-SIMMC')  # give root folder name of simmc2 as argument. Ex) find_data_dir('DSTC10-SIMMC')
+DATA_DIR = find_data_dir('KAIST_BART_based')  # give root folder name of simmc2 as argument. Ex) find_data_dir('DSTC10-SIMMC')
 
 @attr.s
 class Action:

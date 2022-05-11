@@ -8,3 +8,5 @@ venv
 # data
 data/simmc2_*
 data/*_metadata_*
+
+models/KAIST_BART_based/data
