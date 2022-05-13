@@ -1,0 +1,11 @@
+- UNITER + Faster RCNN: ```UNITER_basic_RCNN.sh```
+- UNITER + CLIP: ```UNITER_basic_CLIP.sh```
+- UNITER + both (Faster RCNN + CLIP): ```UNITER_basic_both.sh```
+- UNITER + both + object idx: ```UNITER_basic_both_objid.sh```
+- UNITER + both + object idx + coordinates: ```UNITER_basic_both_objid_pos.sh```
+- UNITER + both + object idx + coordinates + active scene: ```UNITER_basic_both_objid_pos_sceneseg.sh```
+- UNITER + both + object idx + coordinates + active scene + KB (BERT): ```UNITER_basic_both_objid_pos_sceneseg_BERT.sh```
+- UNITER + both + object idx + coordinates + active scene + KB (SBERT): ```UNITER_basic_both_objid_pos_sceneseg_SBERT.sh```
+- UNITER + both + object idx + coordinates + active scene + KB (BERT+SBERT): ```UNITER_basic_both_objid_pos_sceneseg_bothBERT.sh```
+- LXMERT + Faster RCNN: ```LXMERT_basic_RCNN.sh```
+- LXMERT + CLIP: ```LXMERT_basic_CLIP.sh```
