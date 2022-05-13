@@ -12,3 +12,4 @@ data/*_metadata_*
 models/KAIST_BART_based/data
 
 models/uniter_based/processed/*
+models/uniter_based/pretrained/*
