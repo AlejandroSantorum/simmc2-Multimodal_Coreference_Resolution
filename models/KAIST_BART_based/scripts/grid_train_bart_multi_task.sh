@@ -1,7 +1,7 @@
 
 SCRIPTS_PATH="/rmt/dialogue2/interns/alejandro/scripts/"
 
-qsub -l h=!stg-gpu5\&!stg-gpu6\&!stg-gpu7\&!stg-gpu8\&!stg-gpu9,virtual_gpu_free=4000M,gpu=1,gpu_queue=1,arch=*64*,test=*,centos=1,gpu_installed=1 \
+qsub -l h=stg-gpu25,virtual_gpu_free=12000M,gpu=1,gpu_queue=1,arch=*64*,test=*,centos=1,gpu_installed=1 \
     -e /rmt/dialogue2/interns/alejandro/logs \
     -o /rmt/dialogue2/interns/alejandro/logs \
     ${SCRIPTS_PATH}run_on_grid.sh run_bart_multi_task.py \
@@ -14,8 +14,8 @@ qsub -l h=!stg-gpu5\&!stg-gpu6\&!stg-gpu7\&!stg-gpu8\&!stg-gpu9,virtual_gpu_free
         --eval_input_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt \
         --eval_target_file=../data_object_special/simmc2_dials_dstc10_devtest_target.txt \
         --output_dir=../multi_task/model \
-        --train_batch_size=2 \
+        --train_batch_size=8 \
         --output_eval_file=../multi_task/model/report.txt \
         --num_train_epochs=10  \
         --eval_steps=3000  \
-        --warmup_steps=10000 \
+        --warmup_steps=8000 \
