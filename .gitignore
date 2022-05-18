@@ -9,7 +9,13 @@ venv
 data/simmc2_*
 data/*_metadata_*
 
-models/KAIST_BART_based/data
+# GPT-2 baseline data and checkpoints
+models/gpt2_baseline/gpt2_dst/save/
 
+# KAIST data and checkpoints
+models/KAIST_BART_based/data
+models/KAIST_BART_based/multi_task/
+
+# UNITER-based data and checkpoints
 models/uniter_based/processed/*
 models/uniter_based/pretrained/*
