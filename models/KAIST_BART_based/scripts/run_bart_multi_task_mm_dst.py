@@ -106,9 +106,9 @@ def insert_coref(text, coref_chars: list):
     """ coref_chars: [<11>, <44>, ...] """
     try:
         coref_pos_start, coref_pos_end = [(m.start(0), m.end(0)) for m in re.finditer(r"\) *<EOB>", text)][0]
-    
     except:
-        ipdb.set_trace()
+        text = text[:text.rfind("<pad>")+5] + " [  ] ()  <EOB>" + text[text.rfind("<pad>")+5:]
+        coref_pos_start, coref_pos_end = [(m.start(0), m.end(0)) for m in re.finditer(r"\) *<EOB>", text)][0]
         
     coref_list = [int(coref.replace('<', '').replace('>', '')) for coref in coref_chars]
     coref_str = str(coref_list).replace('[', '< ').replace(']',' >') if coref_list else '<  >'
@@ -291,7 +291,7 @@ def main():
     model.config.decoder_start_token_id = 0
     model.to(args.device)
 
-    checkpoint = torch.load(os.path.join(args.model_dir, 'aux_nets.pt'))
+    checkpoint = torch.load(os.path.join(args.model_dir, 'aux_nets.pt'), map_location=torch.device(args.device))
     box_embedding = BoxEmbedding(model.config.d_model).to(args.device)
     nocoref_head = NoCorefHead(model.config.d_model).to(args.device)
     fashion_enc_head = FashionEncoderHead(model.config.d_model).to(args.device)
