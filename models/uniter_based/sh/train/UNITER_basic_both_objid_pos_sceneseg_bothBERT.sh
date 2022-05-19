@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=UNITER_basic_both_objid_pos_sceneseg_SBERT       # 任务名
+#SBATCH --job-name=UNITER_basic_both_objid_pos_sceneseg_bothBERT       # 任务名
 #SBATCH --nodes=1                   # 这里不用动 多节点脚本请查官方文档
 #SBATCH --ntasks=1                  # 这里不用动 多任务脚本请查官方文档
 #SBATCH --cpus-per-task=8           # 要几块CPU (一般4块就够用了)
@@ -24,7 +24,7 @@ echo "START"               # 输出起始信息
 source deactivate
 source /gpfsnyu/packages/anaconda3/5.2.0/bin/activate wilson          # 调用 virtual env
 python -u train.py \
-    --NAME UNITER_basic_both_objid_pos_sceneseg_SBERT \
+    --NAME UNITER_basic_both_objid_pos_sceneseg_bothBERT \
     --obj_id True \
     --vis_feats_clip True \
     --vis_feats_rcnn True \
