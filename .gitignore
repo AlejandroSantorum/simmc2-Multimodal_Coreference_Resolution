@@ -17,7 +17,9 @@ models/KAIST_BART_based/data
 models/KAIST_BART_based/multi_task/
 
 # UNITER-based data and checkpoints
+models/uniter_based/data
 models/uniter_based/processed/*
 models/uniter_based/pretrained/*
 models/uniter_based/model/Transformers_VQA_master/models/pretrained/*
 models/uniter_based/result/
+models/uniter_based/trained
