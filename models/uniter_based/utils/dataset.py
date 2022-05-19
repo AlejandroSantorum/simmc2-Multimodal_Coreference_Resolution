@@ -33,7 +33,8 @@ class UNITER_on_CLIP_BERT_Dataset(Dataset):
         self.KB_emb_dict = torch.load(self.KB_emb_path, map_location=self.device) # KB_emb_dict['obj_string']
         self.KB_emb_dict_SBERT = torch.load(self.KB_emb_SBERT_path, map_location=self.device)
         self.vis_feat_dict = torch.load(self.vis_feat_path, map_location=self.device) # vis_feat_dict[scene_name][local_idx or 'Scene']
-        self.roi_dict = torch.load(self.roi_path, map_location=self.device)
+        if self.more_roi:
+            self.roi_dict = torch.load(self.roi_path, map_location=self.device)
 
     def __len__(self):
         return len(self.data)
@@ -138,7 +139,8 @@ class UNITER_on_CLIP_BERT_Dataset(Dataset):
         for scene_feat_rcnn in scene_feats_rcnn:
             vis_feats_rcnn = torch.cat((vis_feats_rcnn, scene_feat_rcnn), axis=0)
 
-        vis_feats_rcnn = torch.cat((vis_feats_rcnn.to(self.device), roi_feats.to(self.device)), axis=0)
+        if self.more_roi:
+            vis_feats_rcnn = torch.cat((vis_feats_rcnn.to(self.device), roi_feats.to(self.device)), axis=0)
 
         vis_seg = torch.ones_like(vis_feats_rcnn[:,0]).unsqueeze(0)
         vis_mask = torch.ones_like(vis_feats_rcnn[:,0]).unsqueeze(0)
@@ -165,7 +167,9 @@ class UNITER_on_CLIP_BERT_Dataset(Dataset):
                 bboxes = torch.tensor([boxes])
             else:
                 bboxes = torch.cat((bboxes, torch.tensor([boxes])), axis=0)
-        bboxes = torch.cat((bboxes.to(self.device), roi_boxes.to(self.device)), axis=0)
+        
+        if self.more_roi:
+            bboxes = torch.cat((bboxes.to(self.device), roi_boxes.to(self.device)), axis=0)
         bboxes = torch.nn.ZeroPad2d((0,0,0,self.max_n_obj-bboxes.shape[0]))(bboxes) # zero pad to (max_n_obj, 4) x,y,h,w
         new_bboxes = torch.zeros_like(bboxes)
         new_bboxes[:,0:2] = bboxes[:,0:2] 
@@ -411,4 +415,4 @@ def make_loader(split, batch_size, more_roi=True):
     return loader
 
 if __name__ == "__main__":
-    pass
+    dataset = make_loader('train', batch_size=8, more_roi=False)
