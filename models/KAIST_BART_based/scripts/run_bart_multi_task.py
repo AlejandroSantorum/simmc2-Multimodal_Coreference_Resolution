@@ -706,7 +706,9 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
                 misc_loss += loss_per_line
             misc_loss /= batch_size
 
-            (model_loss + 0.1*nocoref_loss + 0.1*misc_loss + 0.1*disam_loss + 0.4*retrieval_loss).backward()
+            #(model_loss + 0.1*nocoref_loss + 0.1*misc_loss + 0.1*disam_loss + 0.4*retrieval_loss).backward()
+            (0*model_loss + 0.2*nocoref_loss + 0.8*misc_loss + 0*disam_loss + 0*retrieval_loss).backward()
+            
             tr_loss += model_loss.item()
             parameters_to_clip = [p for p in model.parameters() if p.grad is not None] + \
                                  [p for p in box_embedding.parameters() if p.grad is not None] + \
