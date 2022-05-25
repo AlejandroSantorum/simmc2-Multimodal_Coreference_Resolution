@@ -1,0 +1,10 @@
+***********************************
+Starting job: gpt2_dst/scripts/evaluate.py --input_path_target=/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/gpt2_baseline/gpt2_dst/data/simmc2_dials_dstc10_devtest_target.txt --input_path_predicted=/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/gpt2_baseline/gpt2_dst/results/simmc2_dials_dstc10_devtest_predicted.txt --output_path_report=/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/gpt2_baseline/gpt2_dst/results/simmc2_dials_dstc10_devtest_report.json  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036069.1.GPU20-0:/usr/local/bin:/bin:/usr/bin; TIME=Sun May  8 08:48:38 EDT 2022
+***********************************
+
+Setting free GPU to number: 0
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/gpt2_baseline
+Linux stg-gpu20.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+***********************************
+Finished job: gpt2_dst/scripts/evaluate.py --input_path_target=/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/gpt2_baseline/gpt2_dst/data/simmc2_dials_dstc10_devtest_target.txt --input_path_predicted=/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/gpt2_baseline/gpt2_dst/results/simmc2_dials_dstc10_devtest_predicted.txt --output_path_report=/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/gpt2_baseline/gpt2_dst/results/simmc2_dials_dstc10_devtest_report.json  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036069.1.GPU20-0:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Sun May  8 08:48:40 EDT 2022
+***********************************

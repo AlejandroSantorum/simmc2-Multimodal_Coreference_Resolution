@@ -1,0 +1,973 @@
+***********************************
+Starting job: run_bart_multi_task_mm_dst.py --prompts_from_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --path_output=../results/mm_dst_predictions.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../multi_task/downloaded_model/checkpoint-22000  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036123.1.GPU25-0:/usr/local/bin:/bin:/usr/bin; TIME=Wed 18 May 07:52:28 GMT 2022
+***********************************
+
+Setting free GPU to number: 0
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/KAIST_BART_based/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = jeans, pattern = plain ] ()  <EOB> What do you think of the grey ones on the right? <EOS>
+total_sequence_coref_replaced: User : Do you have any plain jeans? => Belief State : REQUEST:GET [ type = jeans, pattern = plain ] () <  > <EOB> What do you think of the grey ones on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 39/8609 ===
+Before replace : <s>REQUEST:GET [ type = hoodie ] ()  <EOB> What do you think of the brown hoodie on the back wall? <EOS>
+total_sequence_coref_replaced: User : I'm interested in a hoodie. => Belief State : REQUEST:GET [ type = hoodie ] () <  > <EOB> What do you think of the brown hoodie on the back wall? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>INFORM:GET [ availableSizes = [<B>, <E>], pattern = holiday, type = blouse ] (availableSizes, pattern)  <EOB> Sorry I can't find anything else. Can I get you anything else? <EOS>
+total_sequence_coref_replaced: System : We have this black and white one in the middle of the shelf display, the red and white one at the top left of the wall display, and this white and grey one below it. <SOM> 9, 0, 11 <EOM> User : Do you have other blouses? System : We also have this maroon white and blue blouse at the left of the shelf display. <SOM> 3 <EOM> User : I'd like something like the maroon, white and blue blouse in size range and pattern. => Belief State : INFORM:GET [ availableSizes = ['S', 'XL'], pattern = holiday, type = blouse ] (availableSizes, pattern) < 3 > <EOB> Sorry I can't find anything else. Can I get you anything else? <EOS> 
+
+=== GENERATED SEQUENCE 1, 43/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (brand)  <EOB> That blouse is made by Nature Photographers. <EOS>
+total_sequence_coref_replaced: System : I'm afraid those are the only ones currently available like that. <SOM> 61 <EOM> User : Alright, that's fine. What's the brand on that? System : Which item are you referring to? <SOM>  <EOM> User : That grey and white blouse. => Belief State : INFORM:DISAMBIGUATE [  ] (brand) < 56 > <EOB> That blouse is made by Nature Photographers. <EOS> 
+
+=== GENERATED SEQUENCE 1, 43/8609 ===
+Before replace : <s>INFORM:GET [ brand = Yogi Fit, type = sweater ] ()  <EOB> I'm afraid I don't have anything like that at the moment. Can I help with something else? <EOS>
+total_sequence_coref_replaced: User : I need a new sweater to match the rest of my closet. System : Ok, I can help you with that! What about these black sweaters? I have one on the far top end of the right wall rack and another that's folded on the bottom left corner of the table. <SOM> 41, 15 <EOM> User : Do you have anything by Yogi Fit that's similar to that one on the table? => Belief State : INFORM:GET [ brand = Yogi Fit, type = sweater ] () <  > <EOB> I'm afraid I don't have anything like that at the moment. Can I help with something else? <EOS> 
+
+=== GENERATED SEQUENCE 1, 39/8609 ===
+Before replace : <s>REQUEST:GET [ type = trousers, color = grey ] ()  <EOB> What do you think of the grey pants on the right? <EOS>
+total_sequence_coref_replaced: User : What grey pants can you recommend? => Belief State : REQUEST:GET [ type = trousers, color = grey ] () <  > <EOB> What do you think of the grey pants on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 54/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Sure thing! I am adding them to your cart as we speak. <EOS>
+total_sequence_coref_replaced: System : For that pattern, I can shw you three more dresses on the same rack: the brown one, the dark brown one, and the grey one.  Does any of them look good? <SOM> 35, 14, 36 <EOM> User : Yes, can you help me compare the dark brown dress to the grey one? System : Sure! The sleeveless plain-color dark brown dress from Global Voyager is available in M and shown in M. It enjoys a rating of 4.7 and costs 24.99.  The sleeveless plain-color grey dress from Yogi Fit is shown in  XXL and in stock in XS, S, M, L, XL, and XXL. It has a high rating of 4.3 and costs 124.99. <SOM> 14, 36 <EOM> User : Thank you! I will buy the brown dress on the left side of the floor hanger and the beige one that is also on the left side of that hanger, please. => Belief State : REQUEST:ADD_TO_CART [  ] () < 31, 34, 35 > <EOB> Sure thing! I am adding them to your cart as we speak. <EOS> 
+
+=== GENERATED SEQUENCE 1, 39/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater ] ()  <EOB> Take a look at the maroon sweater on the front rack, the red sweater next to it, and the black sweater hanging on the left wall. <EOS>
+total_sequence_coref_replaced: User : Keep an eye out for nice sweaters. => Belief State : REQUEST:GET [ type = sweater ] () <  > <EOB> Take a look at the maroon sweater on the front rack, the red sweater next to it, and the black sweater hanging on the left wall. <EOS> 
+
+=== GENERATED SEQUENCE 1, 76/8609 ===
+Before replace : <s>REQUEST:GET [ type = blouse ] ()  <EOB> What about this white, black, red blouse, this red, white, yellow one, and this grey, white one? <EOS>
+total_sequence_coref_replaced: System : What about this black dress? <SOM> 23 <EOM> User : Can you add the brown and black jackets to my car? System : Sure I'll add the brown and black jackets to your cart. <SOM> 8, 5 <EOM> User : Can you find me a blouse? => Belief State : REQUEST:GET [ type = blouse ] () <  > <EOB> What about this white, black, red blouse, this red, white, yellow one, and this grey, white one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 39/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater, customerReview = good, color = black ] ()  <EOB> What do you think of the black sweater on the right? <EOS>
+total_sequence_coref_replaced: System : The left is light grey in M with short sleeves and the right is short sleeve in XXL with colors green, violet, and pick. <SOM> 6, 2 <EOM> User : OK. I'd like to quality jackets. System : How about the black sweater on the right. <SOM> 5 <EOM> User : I want to see your black sweaters with good ratings. => Belief State : REQUEST:GET [ type = sweater, customerReview = good, color = black ] () <  > <EOB> What do you think of the black sweater on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 15/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, I will add it to your cart. <EOS>
+total_sequence_coref_replaced: System : Sorry, I can't help. <SOM>  <EOM> User : What about a sweater with long sleeves? System : How about this pink sweater in the top left of the table, the pink one on the bottom right, or the red and black sweater in the top in the middle? <SOM> 35, 22, 26 <EOM> User : Actually, I'll take one of the grey shirt in the top middle of the table. => Belief State : REQUEST:ADD_TO_CART [  ] () < 27 > <EOB> Okay, I will add it to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 19/8609 ===
+Before replace : <s>REQUEST:GET [ type = jeans ] ()  <EOB> I've got the dark blue pair second from the left, the blue-black pair in the third cabinet, and the dark ones in the fourth cabinet. <EOS>
+total_sequence_coref_replaced: System : I've got the brown one hanging in the leftmost cabinet. <SOM> 1 <EOM> User : Not my color.  How about some full sleeve blazers? System : I've got the black one at the right side of the third cabinet, and the other black one in the far right cabinet. <SOM> 2, 8 <EOM> User : Any nice pairs of jeans you could show me? => Belief State : REQUEST:GET [ type = jeans ] () <  > <EOB> I've got the dark blue pair second from the left, the blue-black pair in the third cabinet, and the dark ones in the fourth cabinet. <EOS> 
+
+=== GENERATED SEQUENCE 1, 15/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview, price)  <EOB> The one on the left is rated 4.5 and costs $109.99. The other one has a higher rating at 4.8 and it costs $139.99. <EOS>
+total_sequence_coref_replaced: System : How about these two black coats? <SOM> 8, 2 <EOM> User : What are the ratings and prices of the black coats? System : Which coats are you referring to? <SOM>  <EOM> User : I mean the black coat in the second cubby from the right on the left wall display and the other black one that's in the right most compartment of the left wall display => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview, price) < 8, 2 > <EOB> The one on the left is rated 4.5 and costs $109.99. The other one has a higher rating at 4.8 and it costs $139.99. <EOS> 
+
+=== GENERATED SEQUENCE 1, 20/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (size)  <EOB> It's in size S. <EOS>
+total_sequence_coref_replaced: System : I will add those two blouses to your cart. <SOM> 0, 6 <EOM> User : What's the size of the grey and white blouse anyway. System : Which item are you referring to? <SOM>  <EOM> User : The grey and white one above the blue jeans. => Belief State : INFORM:DISAMBIGUATE [  ] (size) < 6 > <EOB> It's in size S. <EOS> 
+
+=== GENERATED SEQUENCE 1, 20/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater, customerReview = good, brand = Uptown Gallery ] ()  <EOB> How about this pink one? <EOS>
+total_sequence_coref_replaced: User : Do you have Yogi Fit shirt in size XS? System : I found no matches for that search. <SOM>  <EOM> User : Do you have any solid color sweaters with good reviews? => Belief State : REQUEST:GET [ type = sweater, customerReview = good, brand = Uptown Gallery ] () <  > <EOB> How about this pink one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview, brand)  <EOB> It is from River Chateau and has a rating of 4.5. <EOS>
+total_sequence_coref_replaced: System : Both have a rating of 4.5. The red and black costs 239.99 and the pink 169.99. <SOM> 26, 22 <EOM> User : Will you tell me the rating and brand of the red and black sweater? System : Which sweater do you mean? <SOM>  <EOM> User : The red and black sweater in back on the display table. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview, brand) < 26 > <EOB> It is from River Chateau and has a rating of 4.5. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:GET [ price = 109.99, type = jacket ] (price)  <EOB> That jacket is the only one like it. <EOS>
+total_sequence_coref_replaced: System : The black blouse in the middle of the shelf and the black and white one  at the far end of the shelf match your preferences. <SOM> 53, 54 <EOM> User : Also I need a jacket with a twin color pattern and a good rating. System : Here's the grey and white jacket in the middle shelf. <SOM> 51 <EOM> User : Is there anything like that one in price? => Belief State : INFORM:GET [ price = 109.99, type = jacket ] (price) < 51 > <EOB> That jacket is the only one like it. <EOS> 
+
+=== GENERATED SEQUENCE 1, 21/8609 ===
+Before replace : <s>ASK:GET [  ] (price, customerReview)  <EOB> Which items are you inquiring about? <EOS>
+total_sequence_coref_replaced: User : Which of the blouses here do you think would look best with other pieces I wear a lot? System : I suggest you take a look at that black and white spotted shirt on the left and the black blouse hanging behind the grey and white jacket. <SOM> 53, 54 <EOM> User : How much are they, and what are they rated? => Belief State : ASK:GET [  ] (price, customerReview) < 53, 54 > <EOB> Which items are you inquiring about? <EOS> 
+
+=== GENERATED SEQUENCE 1, 68/8609 ===
+Before replace : <s>REQUEST:GET [ type = jeans ] ()  <EOB> There are several dark blue jeans you might like. <EOS>
+total_sequence_coref_replaced: User : Please show me some jeans which go with the rest of my closet. => Belief State : REQUEST:GET [ type = jeans ] () <  > <EOB> There are several dark blue jeans you might like. <EOS> 
+
+=== GENERATED SEQUENCE 1, 39/8609 ===
+Before replace : <s>REQUEST:GET [ type = trousers, color = blue ] ()  <EOB> In the second cabinet from the door, I have that pair of blue pants. <EOS>
+total_sequence_coref_replaced: User : Have you got any blue pants I could see today? => Belief State : REQUEST:GET [ type = trousers, color = blue ] () <  > <EOB> In the second cabinet from the door, I have that pair of blue pants. <EOS> 
+
+=== GENERATED SEQUENCE 1, 21/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (size)  <EOB> The dark brown one is M and the black and gray one is XXL. <EOS>
+total_sequence_coref_replaced: System : I will add them. <SOM> 27, 31 <EOM> User : Do you have anything well rated from Cats Are Great? System : I don't, sorry.  What else can I find for you? <SOM>  <EOM> User : Tell me the size difference between the dark brown dress and the black and gray one? => Belief State : REQUEST:COMPARE [  ] (size) < 9, 33 > <EOB> The dark brown one is M and the black and gray one is XXL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 57/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat, pattern = plain ] ()  <EOB> I have two brown ones and a light grey one. <EOS>
+total_sequence_coref_replaced: User : Do you have any plain pattern coats? => Belief State : REQUEST:GET [ type = coat, pattern = plain ] () <  > <EOB> I have two brown ones and a light grey one. <EOS> 
+
+=== GENERATED SEQUENCE 1, 53/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (availableSizes, customerReview)  <EOB> The one in the back has a 3.7 rating and comes in XS, S, M, L, XL, and XXL. The one just in front of it has a rating of 3.3 and is available in S and XL. <EOS>
+total_sequence_coref_replaced: System : Sorry I don't have any cheap jeans. <SOM>  <EOM> User : Can you get me the sizes and reviews on the black dress in the back and the one just in front of it. System : Which dresses? <SOM>  <EOM> User : The dresses in the second to last wall cabinet. => Belief State : INFORM:DISAMBIGUATE [  ] (availableSizes, customerReview) <  > <EOB> The one in the back has a 3.7 rating and comes in XS, S, M, L, XL, and XXL. The one just in front of it has a rating of 3.3 and is available in S and XL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 8/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater, price = cheap ] ()  <EOB> Sorry, I don't have any sweaters in the cheap price range. <EOS>
+total_sequence_coref_replaced: User : Hey there, good morning!  I'm looking for some sweaters on the cheaper side.  Could you give me some suggestions? => Belief State : REQUEST:GET [ type = sweater, price = cheap ] () <  > <EOB> Sorry, I don't have any sweaters in the cheap price range. <EOS> 
+
+=== GENERATED SEQUENCE 1, 17/8609 ===
+Before replace : <s>INFORM:REFINE [ type = dress, brand = HairDo ] ()  <EOB> I don't happen to have any other dresses from Ocean Wears. <EOS>
+total_sequence_coref_replaced: System : Which pair do you mean? <SOM>  <EOM> User : The gray ones second from the left. System : Those are and XS and cost 189.99. <SOM> 34 <EOM> User : Have you got anything else you could show me? => Belief State : INFORM:REFINE [ type = dress, brand = HairDo ] () <  > <EOB> I don't happen to have any other dresses from Ocean Wears. <EOS> 
+
+=== GENERATED SEQUENCE 1, 20/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat ] ()  <EOB> There is a brown coat and a grey coat which you might like. <EOS>
+total_sequence_coref_replaced: System : They both are in size S. <SOM> 45, 1 <EOM> User : Really? Just go ahead and add the black jacket to my cart, then. System : Confirmed. It will be added. <SOM> 46 <EOM> User : Now tell me if you recommend any coats. => Belief State : REQUEST:GET [ type = coat ] () <  > <EOB> There is a brown coat and a grey coat which you might like. <EOS> 
+
+=== GENERATED SEQUENCE 1, 58/8609 ===
+Before replace : <s>REQUEST:GET [ type = jacket, price = cheap ] ()  <EOB> I'm sorry, I don't have any cheap jackets. <EOS>
+total_sequence_coref_replaced: User : Do you have any cheap jackets? => Belief State : REQUEST:GET [ type = jacket, price = cheap ] () <  > <EOB> I'm sorry, I don't have any cheap jackets. <EOS> 
+
+=== GENERATED SEQUENCE 1, 25/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, it will be added to your cart. <EOS>
+total_sequence_coref_replaced: System : There are several black coats throughout the room. <SOM> 1, 8, 33 <EOM> User : Okay what about a good sweater? System : There is a pink sweater, a red and white sweater, and a black sweater, all of which I recommend. <SOM> 32, 4, 6 <EOM> User : Add the green sweater to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () < 48 > <EOB> Okay, it will be added to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>INFORM:GET [ color = red, white, type = blouse ] (color)  <EOB> Here are some more items. <EOS>
+total_sequence_coref_replaced: User : I need a blouse. System : How do you like these two? <SOM> 0, 21 <EOM> User : Iâ€™d like something similar to the black and white blouse or the red and white one in color. => Belief State : INFORM:GET [ color = red, white, type = blouse ] (color) < 0, 21 > <EOB> Here are some more items. <EOS> 
+
+=== GENERATED SEQUENCE 1, 19/8609 ===
+Before replace : <s>ASK:GET [  ] (price)  <EOB> For which item? <EOS>
+total_sequence_coref_replaced: System : Ok, there's a grey and white one hanging up at the top left, and a maroon, white and blue blouse hanging at the top right. <SOM> 26, 55 <EOM> User : Can you compare those for me? System : Sure, the one on the right has a holiday pattern and long sleeves.  It's from Global Voyager and a size S.  It's rated 3.8, costs $39.99 and comes in S, L, XL and XXL.  The one on the left has a light spots pattern.  It's made by Home Store, costs $29.99 and has a 3.3 rating.  That one is a size XL but it comes in XXL as well. <SOM> 55, 26 <EOM> User : Can I have the price? => Belief State : ASK:GET [  ] (price) < 26, 55 > <EOB> For which item? <EOS> 
+
+=== GENERATED SEQUENCE 1, 17/8609 ===
+Before replace : <s>INFORM:REFINE [ brand = HairDo, type = jacket, pattern = plain ] ()  <EOB> Sorry, but no matches were found. What else can I do for you? <EOS>
+total_sequence_coref_replaced: User : Are there any plain jackets that you can recommend? System : There are several, including a brown jacket and a blue jacket. <SOM> 44, 21 <EOM> User : Refine the brand for only products from HairDo. => Belief State : INFORM:REFINE [ brand = HairDo, type = jacket, pattern = plain ] () <  > <EOB> Sorry, but no matches were found. What else can I do for you? <EOS> 
+
+=== GENERATED SEQUENCE 1, 62/8609 ===
+Before replace : <s>ASK:GET [  ] (customerReview, brand)  <EOB> Which one are you talking about? <EOS>
+total_sequence_coref_replaced: System : Perfect, I'll add it to your cart right away! <SOM> 49 <EOM> User : Are there any red, white and yellow blouses? System : Yes, the one on right right end of the bottom row. <SOM> 5 <EOM> User : Can I have ratings and make of the t-shirt? => Belief State : ASK:GET [  ] (customerReview, brand) < 0 > <EOB> Which one are you talking about? <EOS> 
+
+=== GENERATED SEQUENCE 1, 23/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat, brand = Cats Are Great ] ()  <EOB> What do you think of the black one hanging on the bottom right? <EOS>
+total_sequence_coref_replaced: User : Do you have any coats from Cats Are Great? => Belief State : REQUEST:GET [ type = coat, brand = Cats Are Great ] () <  > <EOB> What do you think of the black one hanging on the bottom right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 52/8609 ===
+Before replace : <s>INFORM:REFINE [ type = dress, brand = Modern Arts, price = affordable ] ()  <EOB> I'm sorry, that's all I have for affordable dresses from Modern Arts. <EOS>
+total_sequence_coref_replaced: System : I have the black one next to it, and the purple and dark brown ones on the other rack. <SOM> 29, 59, 32 <EOM> User : Anything from Modern Arts? System : You are looking for dresses from Modern Arts in the $229.99 price range. What do you think of the purple dress? <SOM> 31 <EOM> User : Can you recommend anything else? => Belief State : INFORM:REFINE [ type = dress, brand = Modern Arts, price = affordable ] () <  > <EOB> I'm sorry, that's all I have for affordable dresses from Modern Arts. <EOS> 
+
+=== GENERATED SEQUENCE 1, 24/8609 ===
+Before replace : <s>REQUEST:GET [ type = trousers ] ()  <EOB> What do you think of the green camo pants or the grey pants on the right? <EOS>
+total_sequence_coref_replaced: User : Which of these pants would liven up my wardrobe? => Belief State : REQUEST:GET [ type = trousers ] () <  > <EOB> What do you think of the green camo pants or the grey pants on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 23/8609 ===
+Before replace : <s>REQUEST:GET [ type = jacket ] ()  <EOB> I have the brown one on the top row of the wall and the two black ones on the bottom row. <EOS>
+total_sequence_coref_replaced: User : What jackets  do you think I would like? => Belief State : REQUEST:GET [ type = jacket ] () <  > <EOB> I have the brown one on the top row of the wall and the two black ones on the bottom row. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>ASK:GET [  ] (brand)  <EOB> Which one? <EOS>
+total_sequence_coref_replaced: System : I have the blue and black one on the top row of the table, the grey one underneath it, and the grey and brown one next to it for you. <SOM> 69, 73, 61 <EOM> User : I'd like to see something with similar sizes as the grey and grey and brown one but in dark violet and extra large. System : I'm sorry, I don't have anything like that. Can I get you something different? <SOM>  <EOM> User : Can you tell me who makes that grey and black sweater? => Belief State : ASK:GET [  ] (brand) < 60 > <EOB> Which one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 48/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (size)  <EOB> It is in size L. <EOS>
+total_sequence_coref_replaced: System : Confirmed, it will be added to your cart. <SOM> 0 <EOM> User : What is the size of the brown t-shirt? System : Which item are you talking about? <SOM>  <EOM> User : I am referring to the brown t-shirt in the middle of the top row. => Belief State : INFORM:DISAMBIGUATE [  ] (size) < 0 > <EOB> It is in size L. <EOS> 
+
+=== GENERATED SEQUENCE 1, 44/8609 ===
+Before replace : <s>REQUEST:GET [ type = dress, pattern = plain, sleeveLength = short ] ()  <EOB> I have three dresses like that, all on the floor hanger in front of us. <EOS>
+total_sequence_coref_replaced: System : Unfortunately, I have nothing by this brand. Would you like to look for anything else? <SOM>  <EOM> User : Yes, what nice short-sleeve top from Home Store can you show me? System : What do you think about the grey and white one at the left end of the top row on the wall in front of us? <SOM> 26 <EOM> User : Hmm, how about a plain-color dress with short sleeves? => Belief State : REQUEST:GET [ type = dress, pattern = plain, sleeveLength = short ] () <  > <EOB> I have three dresses like that, all on the floor hanger in front of us. <EOS> 
+
+=== GENERATED SEQUENCE 1, 8/8609 ===
+Before replace : <s>INFORM:GET [ size = S, sleeveLength = short, type = blouse ] (size, sleevelength)  <EOB> There are several similar items, including a grey and white blouse, a white and black one, and a red, white, and yellow one. <EOS>
+total_sequence_coref_replaced: System : There is a black coat which matches your search criteria. <SOM> 33 <EOM> User : Now recommend me some jackets with full length sleeves. System : What do you think of the blue jacket on the back wall? <SOM> 21 <EOM> User : I actually want to see some blouses. I want something like the red, white, and yellow blouse and the black and white blouse on size and sleeve length. => Belief State : INFORM:GET [ size = S, sleeveLength = short, type = blouse ] (size, sleevelength) < 43 > <EOB> There are several similar items, including a grey and white blouse, a white and black one, and a red, white, and yellow one. <EOS> 
+
+=== GENERATED SEQUENCE 1, 40/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (brand)  <EOB> The dark blue ones are from Ocean Wears and the grey ones are made by Cats Are Great. <EOS>
+total_sequence_coref_replaced: System : Here are some jeans I found. <SOM> 35 <EOM> User : Can you show me some more jeans? System : I have these two options for you. <SOM> 57, 35 <EOM> User : Can you tell me more about their brands? => Belief State : REQUEST:COMPARE [  ] (brand) < 57, 35 > <EOB> The dark blue ones are from Ocean Wears and the grey ones are made by Cats Are Great. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (customerReview)  <EOB> The violet one has a 4.8 rating and the other a 3.6. <EOS>
+total_sequence_coref_replaced: System : That's an extra small. <SOM> 9 <EOM> User : Oh, that will work for me. I'll take it. System : Okay. I've placed it in your cart. <SOM> 9 <EOM> User : Can you tell me the customer review difference of the violet dress and short, purple dress hanging on the back freestanding rack? => Belief State : REQUEST:COMPARE [  ] (customerReview) <  > <EOB> The violet one has a 4.8 rating and the other a 3.6. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>REQUEST:GET [ type = tshirt, sleeveLength = half ] ()  <EOB> What do you think of the dark red t-shirt? <EOS>
+total_sequence_coref_replaced: System : Which ones? <SOM>  <EOM> User : I am referring to the brown jacket on the top right row and the blue jacket on the bottom left row. System : The brown jacket is in size XL and the blue jacket is in size L. <SOM> 2, 3 <EOM> User : Are there any t-shirts with half length sleeves you recommend? => Belief State : REQUEST:GET [ type = tshirt, sleeveLength = half ] () <  > <EOB> What do you think of the dark red t-shirt? <EOS> 
+
+=== GENERATED SEQUENCE 1, 29/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (size)  <EOB> Sure! Both of these jackets are displayed in size S. <EOS>
+total_sequence_coref_replaced: System : Ok, take a look at these three. I have a black jacket on the bottom right, brown jacket above it, and another brown jacket in the top center. <SOM> 2, 40, 46 <EOM> User : Are there any others you could show me? System : I'm sorry, there's nothing else at the moment. Is there something else I can help you with? <SOM>  <EOM> User : Yeah, tell me about the display sizes on those two brown jackets. => Belief State : REQUEST:COMPARE [  ] (size) < 2, 40 > <EOB> Sure! Both of these jackets are displayed in size S. <EOS> 
+
+=== GENERATED SEQUENCE 1, 27/8609 ===
+Before replace : <s>REQUEST:GET [ type = blouse ] ()  <EOB> What do you think of the black blouse hanging on the wall? <EOS>
+total_sequence_coref_replaced: User : Do you have any blouses I can check out? => Belief State : REQUEST:GET [ type = blouse ] () <  > <EOB> What do you think of the black blouse hanging on the wall? <EOS> 
+
+=== GENERATED SEQUENCE 1, 40/8609 ===
+Before replace : <s>REQUEST:GET [ type = dress, sleeveLength = sleeveless ] ()  <EOB> I have this first one on the left, have a look. <EOS>
+total_sequence_coref_replaced: System : I'll put that in your cart. <SOM> 52 <EOM> User : The brown jacket too. The one on the top left. System : That will be in your cart as well. <SOM> 40 <EOM> User : Now how about a sleeveless dress? => Belief State : REQUEST:GET [ type = dress, sleeveLength = sleeveless ] () <  > <EOB> I have this first one on the left, have a look. <EOS> 
+
+=== GENERATED SEQUENCE 1, 15/8609 ===
+Before replace : <s>REQUEST:GET [ type = jacket, price = affordable, brand = Global Voyager ] ()  <EOB> I don't happen to have any affordable jackets from Global Voyager. <EOS>
+total_sequence_coref_replaced: System : Which one do you mean? <SOM>  <EOM> User : That Christmas sweater, I mean. System : That's made by River Chateau. <SOM> 4 <EOM> User : Do any of the zip ups you have on display have an affordable price and come from Global Voyager? => Belief State : REQUEST:GET [ type = jacket, price = affordable, brand = Global Voyager ] () <  > <EOB> I don't happen to have any affordable jackets from Global Voyager. <EOS> 
+
+=== GENERATED SEQUENCE 1, 31/8609 ===
+Before replace : <s>REQUEST:GET [ type = trousers ] ()  <EOB> I have the green pair in the cubby on the right. <EOS>
+total_sequence_coref_replaced: System : Which ones? <SOM>  <EOM> User : The two purple ones on the center rack. System : These are both extra extra large. <SOM> 32, 31 <EOM> User : Do you have pants to show me also? => Belief State : REQUEST:GET [ type = trousers ] () <  > <EOB> I have the green pair in the cubby on the right. <EOS> 
+
+=== GENERATED SEQUENCE 1, 12/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Sure, I will add those to your cart. <EOS>
+total_sequence_coref_replaced: System : I'm sorry, but we don't have anything like that. <SOM>  <EOM> User : Maybe you have hoodies with good reviews? System : How about the blue hoodie hanging on the left cabinet to the back right? We also have two hoodies on the round rack: the green hoodie and the blue hoodie both on the left. <SOM> 10, 21, 22 <EOM> User : Those don't look bad. Would you add that grey coat on the top left most wardrobe to my coat and also add the grey pants underneath them? => Belief State : REQUEST:ADD_TO_CART [  ] () < 26 > <EOB> Sure, I will add those to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 59/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat, sleeveLength = full ] ()  <EOB> Tell me what you think of the grey coat hanging in the back left under the red and white shoeboxes. <EOS>
+total_sequence_coref_replaced: User : Hi! Are there any nice coats with full length sleeves? => Belief State : REQUEST:GET [ type = coat, sleeveLength = full ] () <  > <EOB> Tell me what you think of the grey coat hanging in the back left under the red and white shoeboxes. <EOS> 
+
+=== GENERATED SEQUENCE 1, 14/8609 ===
+Before replace : <s>INFORM:GET [ brand = Coats & More, color = green, price = 114.99, type = hoodie ] (color, size)  <EOB> Sorry, I can't find anything like that. Can I get you anything else? <EOS>
+total_sequence_coref_replaced: User : Do you have some hoodies? System : Take a look at that green hoodie on the back right rack and the green hoodie on the back left rack? <SOM> 12, 2, 3 <EOM> User : I'm looking for something similar to those on color and price but a Coats &amp; More brand. => Belief State : INFORM:GET [ brand = Coats & More, color = green, price = 114.99, type = hoodie ] (color, size) < 2, 3, 5, 12 > <EOB> Sorry, I can't find anything like that. Can I get you anything else? <EOS> 
+
+=== GENERATED SEQUENCE 1, 31/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater ] ()  <EOB> There are several on the table, including a red sweater, a maroon sweater, and a red and black sweater. <EOS>
+total_sequence_coref_replaced: System : There is a white vest on the wall. <SOM> 3 <EOM> User : Okay now show me something like it on price and pattern but from The Vegan Baker and with full length sleeves. System : Sorry, no matches can be found. <SOM>  <EOM> User : What are the sweaters that will go with my closet? => Belief State : REQUEST:GET [ type = sweater ] () <  > <EOB> There are several on the table, including a red sweater, a maroon sweater, and a red and black sweater. <EOS> 
+
+=== GENERATED SEQUENCE 1, 21/8609 ===
+Before replace : <s>INFORM:GET [ price = affordable, customerReview = 3.6, type = dress ] (customerReview)  <EOB> I have the maroon dress next to it, the purple dress on the front rack, and the brown and black one on the back rack fitting that description. <EOS>
+total_sequence_coref_replaced: System : Ok, I will add it to your cart now. <SOM> 24 <EOM> User : I'd also like a sleeveless dress. System : How about the purple one up on the right wall, the brown and black one on the left back rack, or the grey one next to it? They are all sleeveless dresses. <SOM> 10, 20, 15 <EOM> User : I'd like something with ratings like the brown and black one and that maroon one next to it, but with a more affordable price tag. => Belief State : INFORM:GET [ price = affordable, customerReview = 3.6, type = dress ] (customerReview) < 11, 20 > <EOB> I have the maroon dress next to it, the purple dress on the front rack, and the brown and black one on the back rack fitting that description. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (brand)  <EOB> Thank you! The coat you are interested is from North Lodge. The one on the hanger is from Ocean Weavers. <EOS>
+total_sequence_coref_replaced: System : Unfortunately, today I cannot find any other coats by Art news Today. <SOM>  <EOM> User : OK. What brand is the black coat on the rack by the door, behind the grey coat you recommended? System : I am not sure what coat you are referring to, could you expplain? <SOM>  <EOM> User : I mean the black coat that hangs second from us on the left side of the floor hanger by the entrance. I also want to know the brand of the coat that hangs first on the left of that hanger. => Belief State : INFORM:DISAMBIGUATE [  ] (brand) <  > <EOB> Thank you! The coat you are interested is from North Lodge. The one on the hanger is from Ocean Weavers. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:GET [ brand = Art Den, type = AreaRug ] (brand)  <EOB> This red rug is the only one like that. <EOS>
+total_sequence_coref_replaced: User : Can you show me some wooden shelves with a good rating? System : How about these two? Both are wooden and have good ratings. <SOM> 2, 3 <EOM> User : Have anything with the same brand as that red rug in back? => Belief State : INFORM:GET [ brand = Art Den, type = AreaRug ] (brand) < 1 > <EOB> This red rug is the only one like that. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, I will add the brown chair to your cart. <EOS>
+total_sequence_coref_replaced: User : I need a new chair that fits my style. Can you help? System : You may be interested in the brown chair next to the kitchen island. <SOM> 5 <EOM> User : I like it. I'll get it! => Belief State : REQUEST:ADD_TO_CART [  ] () < 5 > <EOB> Okay, I will add the brown chair to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:REFINE [ type = Chair, brand = Modern Arts, color = brown ] ()  <EOB> No, I don't happen to have any other brown chairs by Modern Arts. <EOS>
+total_sequence_coref_replaced: User : I'm hoping to check out some chairs by Modern Arts, preferably in brown. System : What to you think of the rounded brown chair to the left of the white chair on the white rug? <SOM> 5 <EOM> User : Any other chairs you could show me? => Belief State : INFORM:REFINE [ type = Chair, brand = Modern Arts, color = brown ] () <  > <EOB> No, I don't happen to have any other brown chairs by Modern Arts. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>ASK:GET [  ] (price)  <EOB> Which item are you referring to? <EOS>
+total_sequence_coref_replaced: User : Hello! I'm in need of a new chair, do you have any good ones available? System : Take a look at this brown one on the right. What do you think of it? <SOM> 5 <EOM> User : How much is that? => Belief State : ASK:GET [  ] (price) < 5 > <EOB> Which item are you referring to? <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>REQUEST:GET [ type = CoffeeTable, materials = wood ] ()  <EOB> How about the wooden coffee table in front of the brown chair? <EOS>
+total_sequence_coref_replaced: User : I'm trying to find an expensive chair with a good rating. System : I have one brown chair next to the island. <SOM> 5 <EOM> User : How about a wooden coffee table? => Belief State : REQUEST:GET [ type = CoffeeTable, materials = wood ] () <  > <EOB> How about the wooden coffee table in front of the brown chair? <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>ASK:GET [  ] (materials)  <EOB> Which rug do you mean? <EOS>
+total_sequence_coref_replaced: User : What do you have in rugs from Art Den? System : The red oriental rug in the back is from Art Den. <SOM> 1 <EOM> User : What's the rug over there made of? => Belief State : ASK:GET [  ] (materials) < 1 > <EOB> Which rug do you mean? <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, I will add them to your cart. <EOS>
+total_sequence_coref_replaced: User : I need something to cover my floors. System : What do you think of this diamond print rug? Or how about that red one in the other room? <SOM> 1, 4 <EOM> User : I'll take them both! => Belief State : REQUEST:ADD_TO_CART [  ] () < 1, 4 > <EOB> Okay, I will add them to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>ASK:GET [  ] (price)  <EOB> For which item? <EOS>
+total_sequence_coref_replaced: User : I'd like to see what you have in cocktail tables with positive reviews. System : In cocktail tables, I have that wooden one in front of the teal couch. <SOM> 0 <EOM> User : Can I get a price? => Belief State : ASK:GET [  ] (price) < 0 > <EOB> For which item? <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:GET [ color = red, type = AreaRug ] ()  <EOB> Sorry, I don't have anything like that. <EOS>
+total_sequence_coref_replaced: User : I'm shopping for an area rug today. System : I have a red one in the back and a white one in the front. Do you like either of them? <SOM> 1, 4 <EOM> User : Would you have something like those but in red? => Belief State : INFORM:GET [ color = red, type = AreaRug ] () < 1, 4 > <EOB> Sorry, I don't have anything like that. <EOS> 
+
+=== GENERATED SEQUENCE 1, 32/8609 ===
+Before replace : <s>REQUEST:GET [ type = Shelves ] ()  <EOB> I have a set of shelves to the left of the partition wall in front of you. <EOS>
+total_sequence_coref_replaced: User : I'm looking for a nice carpet. System : For rugs, I would recommend the red one to the left in the back, and the white rug in the front. <SOM> 1, 4 <EOM> User : Maybe. What shelves would you recommend? => Belief State : REQUEST:GET [ type = Shelves ] () <  > <EOB> I have a set of shelves to the left of the partition wall in front of you. <EOS> 
+
+=== GENERATED SEQUENCE 1, 12/8609 ===
+Before replace : <s>INFORM:REFINE [ type = hoodie ] ()  <EOB> Sorry, but that's all I have. <EOS>
+total_sequence_coref_replaced: User : Can you help me find a hoodie that goes well with my wardrobe? System : What do you think of the green hoodie on the right, the blue on the left, or the blue in the middle? <SOM> 12, 13, 9 <EOM> User : Any other suggestions? => Belief State : INFORM:REFINE [ type = hoodie ] () <  > <EOB> Sorry, but that's all I have. <EOS> 
+
+=== GENERATED SEQUENCE 1, 24/8609 ===
+Before replace : <s>INFORM:GET [ price = expensive, customerReview = good, type = jeans ] ()  <EOB> The jeans closest to you on the right are among the most expensive in this store. <EOS>
+total_sequence_coref_replaced: System : The outer pairs of those three on the bottom of those shelves both come in that size! Do either of those pairs strike your fancy? <SOM> 9, 11 <EOM> User : Actually, the pair in the middle is drawing my eye. How does that one compare with the pair to the left of it? System : The pair shown here in the middle is a large, whereas the pair to the left is an extra small. <SOM> 10, 11 <EOM> User : I'd really like something that looks like those, but I want to treat myself to something fancier, and I want something with higher reviews. => Belief State : INFORM:GET [ price = expensive, customerReview = good, type = jeans ] () < 9, 10, 11 > <EOB> The jeans closest to you on the right are among the most expensive in this store. <EOS> 
+
+=== GENERATED SEQUENCE 1, 112/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay. I've added those items to your cart. <EOS>
+total_sequence_coref_replaced: System : Which jackets are you interested in? <SOM>  <EOM> User : The blue green jacket in the front and the red and white jacket in the back. System : The green one is available in XXL and the red and white one comes in XS. <SOM> 3, 20 <EOM> User : Bummer. I'll take the light grey coat on the wall in the back and the black coat hanging on the wall. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Okay. I've added those items to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 42/8609 ===
+Before replace : <s>REQUEST:GET [ type = jeans ] ()  <EOB> How do you like these ones? <EOS>
+total_sequence_coref_replaced: System : I am sorry but we don't carry hats with stripes. <SOM>  <EOM> User : How about jackets? Do you have any to match my stuff? System : How do you like these ones? <SOM> 2, 60, 81 <EOM> User : Do you have any jeans instead? => Belief State : REQUEST:GET [ type = jeans ] () <  > <EOB> How do you like these ones? <EOS> 
+
+=== GENERATED SEQUENCE 1, 70/8609 ===
+Before replace : <s>REQUEST:GET [ type = shirt ] ()  <EOB> What do you think of the grey and blue shirt hanging on the left or the blue and grey on the right? <EOS>
+total_sequence_coref_replaced: User : Looking for a button down today. => Belief State : REQUEST:GET [ type = shirt ] () <  > <EOB> What do you think of the grey and blue shirt hanging on the left or the blue and grey on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 44/8609 ===
+Before replace : <s>INFORM:GET [ customerReview = good, brand = Brain Puzzles, color = dirty green, type = hat ] (color)  <EOB> Sorry, but no item matches your search criteria. <EOS>
+total_sequence_coref_replaced: User : Can you recommend me some hats? System : What do you think of the black hats or the dirty green hat on the table? <SOM> 46, 45, 40 <EOM> User : Is there anything with the same color as the black hat but with a good customer rating and from Brain Puzzles? => Belief State : INFORM:GET [ customerReview = good, brand = Brain Puzzles, color = dirty green, type = hat ] (color) <  > <EOB> Sorry, but no item matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 47/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] ()  <EOB> The red and white one is by Uptown Gallery and is available in XS, S, M, L, and XL. It is long sleeved and costs $189.99. The pink one is from Uptown Gallery. It has long sleeves and is priced at $209.99. It also comes in S and L. <EOS>
+total_sequence_coref_replaced: System : I can show you sweaters. I have the red and white one up above on the right and the pink one on the left rack. <SOM> 9, 29 <EOM> User : Any other sweaters to show me? System : I have the pink one on the rack and the red and white one in the cubby. <SOM> 9, 29 <EOM> User : Can you compare them for me? => Belief State : REQUEST:COMPARE [  ] () < 9, 29 > <EOB> The red and white one is by Uptown Gallery and is available in XS, S, M, L, and XL. It is long sleeved and costs $189.99. The pink one is from Uptown Gallery. It has long sleeves and is priced at $209.99. It also comes in S and L. <EOS> 
+
+=== GENERATED SEQUENCE 1, 12/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, that coat will be added to your cart. <EOS>
+total_sequence_coref_replaced: System : The one on the very end is available in XS, S, M, L, XL, and XXL. The one next to the white hat is in XS, S, M, L, XL, and XXL. <SOM> 23, 46 <EOM> User : Let's shift gears. Show me a coat with a plain pattern. System : There are several on the right wall to the right of the door which match your criteria. Take a look at them and let me know what you think. <SOM> 9, 3, 4 <EOM> User : Add the black coat to my cart, please. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Okay, that coat will be added to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 30/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] ()  <EOB> Both of these grey jeans are available in all sizes. <EOS>
+total_sequence_coref_replaced: System : This blouse is only available in small. <SOM> 2 <EOM> User : I'd like to see options from HairDo with heavy stripes. System : I'm sorry, I don't have any blouses by HairDo with stripes and a rating like that. <SOM>  <EOM> User : Can you compare the two pairs of grey jeans? => Belief State : REQUEST:COMPARE [  ] () < 8, 11 > <EOB> Both of these grey jeans are available in all sizes. <EOS> 
+
+=== GENERATED SEQUENCE 1, 14/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat ] ()  <EOB> Tell me what you think of the grey coat on the rack, the black coat in the second cubby from the right, and the other grey coat hanging in the rack. <EOS>
+total_sequence_coref_replaced: User : Hi there! Do you have any coat? => Belief State : REQUEST:GET [ type = coat ] () <  > <EOB> Tell me what you think of the grey coat on the rack, the black coat in the second cubby from the right, and the other grey coat hanging in the rack. <EOS> 
+
+=== GENERATED SEQUENCE 1, 124/8609 ===
+Before replace : <s>INFORM:REFINE [ size = S, customerReview = good, type = suit, pattern = plain ] ()  <EOB> No, I don't happen to have any suits in S with good customer reviews. <EOS>
+total_sequence_coref_replaced: User : How're you doing?  You wouldn't happen to have any suits with a plain pattern in stock, would you? System : What do you think of the brown and white suit on the far end of the left table?  It matches your description. <SOM> 5 <EOM> User : What about something in a size S with good customer reviews? => Belief State : INFORM:REFINE [ size = S, customerReview = good, type = suit, pattern = plain ] () <  > <EOB> No, I don't happen to have any suits in S with good customer reviews. <EOS> 
+
+=== GENERATED SEQUENCE 1, 24/8609 ===
+Before replace : <s>INFORM:REFINE [ customerReview = good, price = expensive, type = joggers ] ()  <EOB> Sorry, but no item matches your search criteria. <EOS>
+total_sequence_coref_replaced: System : There are several grey coats throughout the room which match your criteria. <SOM> 91, 16, 76 <EOM> User : Show me some joggers which will go with my wardrobe. System : There are dark green joggers in the back which match your criteria. <SOM> 63 <EOM> User : Okay, show me something with good reviews and that is expensive. => Belief State : INFORM:REFINE [ customerReview = good, price = expensive, type = joggers ] () <  > <EOB> Sorry, but no item matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 21/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, both items will be added to your cart. <EOS>
+total_sequence_coref_replaced: System : Sorry, no other item matches your search criteria. <SOM>  <EOM> User : Okay, can you now show me a hoodie that goes with my sense of style? System : There is a brown hoodie and a blue hoodie in the closet which you might like. What is your opinion on them? <SOM> 1, 7 <EOM> User : Add the blue hoodie and the brown hoodie to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () < 1, 7 > <EOB> Okay, both items will be added to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 18/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (size, price)  <EOB> It's an XS and costs $239.99. <EOS>
+total_sequence_coref_replaced: System : These two grey pairs and those blue ones  are the best matches. <SOM> 14, 17, 19 <EOM> User : What's the size and price of the grey coat? System : Which coat? <SOM>  <EOM> User : I mean that grey one. => Belief State : INFORM:DISAMBIGUATE [  ] (size, price) <  > <EOB> It's an XS and costs $239.99. <EOS> 
+
+=== GENERATED SEQUENCE 1, 16/8609 ===
+Before replace : <s>REQUEST:GET [ type = dress, price = affordable ] ()  <EOB> I have the black dress hanging on the left wall. <EOS>
+total_sequence_coref_replaced: User : Do you have any affordable dresses to show me? => Belief State : REQUEST:GET [ type = dress, price = affordable ] () <  > <EOB> I have the black dress hanging on the left wall. <EOS> 
+
+=== GENERATED SEQUENCE 1, 28/8609 ===
+Before replace : <s>ASK:GET [  ] (brand)  <EOB> Which one? <EOS>
+total_sequence_coref_replaced: User : I need something long sleeve for camping, like a good jacket. System : What do you think about the blue and green jacket in back, the light grey jacket hanging above the red shoes or the grey and white jacket on the far left? <SOM> 7, 4, 0 <EOM> User : What's the brand on the light grey one? => Belief State : ASK:GET [  ] (brand) < 4 > <EOB> Which one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>ASK:GET [  ] (customerReview)  <EOB> Could you help me find the dress you are interested in? <EOS>
+total_sequence_coref_replaced: System : I can recommend two pairs on the left, at the wall: the light-blue pair  and the blue-black pair next to it. <SOM> 10, 11 <EOM> User : Can we only look at jeans in XL? System : Unfortunately, I cannot find any jeans in that size. <SOM>  <EOM> User : That's OK. Do you have customer ratings for the black dress on the floor rack on the right, behind the grey jacket? => Belief State : ASK:GET [  ] (customerReview) < 15 > <EOB> Could you help me find the dress you are interested in? <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (customerRating, brand)  <EOB> The black one is rated 3.7 and is from North Lodge. The white one is made by StyleNow Feed and has a 4.9 rating. <EOS>
+total_sequence_coref_replaced: System : Which ones? <SOM>  <EOM> User : The black one in that far corner and the white one by the brown couch. System : The black one costs $549 and the white one costs $399. <SOM> 0, 2 <EOM> User : Do they have the same ratings and brands? => Belief State : REQUEST:COMPARE [  ] (customerRating, brand) < 0, 2 > <EOB> The black one is rated 3.7 and is from North Lodge. The white one is made by StyleNow Feed and has a 4.9 rating. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (price, materials)  <EOB> They are both made of wood and each retails for $399. <EOS>
+total_sequence_coref_replaced: System : The major difference is their color, white vs. black. <SOM> 2, 0 <EOM> User : Can I have the price and materials? System : For what item? The tables? <SOM>  <EOM> User : Yes, the end tables we were just discussing. => Belief State : INFORM:DISAMBIGUATE [  ] (price, materials) < 0, 2 > <EOB> They are both made of wood and each retails for $399. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (materials, price)  <EOB> Sure, they're both made of wood and cost $399. <EOS>
+total_sequence_coref_replaced: System : I'm afraid that sofa is the only one like it. <SOM> 1 <EOM> User : Alright, what about a well-rated coffee table? System : There's the two wooden coffee tables you saw earlier, would you like to take a look at those? <SOM> 3, 6 <EOM> User : What are those made of, and how much do they go for? => Belief State : REQUEST:COMPARE [  ] (materials, price) < 3, 6 > <EOB> Sure, they're both made of wood and cost $399. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] ()  <EOB> They are both made of wood. <EOS>
+total_sequence_coref_replaced: System : Would you clarify which items you mean? <SOM>  <EOM> User : The wooden coffee table on the right between the sofas and the one on the left by the lamps. System : Both are made of wood and are from Art Den. <SOM> 3, 6 <EOM> User : What else can you tell me about them? => Belief State : REQUEST:COMPARE [  ] () < 3, 6 > <EOB> They are both made of wood. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (brand, customerRating)  <EOB> Both of these coffee tables are made by Art Den and are rated 3.8. <EOS>
+total_sequence_coref_replaced: System : I'm sorry, I don't have anything affordable. What else can I get you? <SOM>  <EOM> User : Can you tell me the brands and ratings of the two coffee tables? System : Which ones do you mean? <SOM>  <EOM> User : The two wooden coffee tables on either side of the room. => Belief State : INFORM:DISAMBIGUATE [  ] (brand, customerRating) < 3, 6 > <EOB> Both of these coffee tables are made by Art Den and are rated 3.8. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (materials, brand)  <EOB> That table is made of wood and is sold by Art Den. <EOS>
+total_sequence_coref_replaced: System : I don't happen to have any additional items to show you.  May I assist you with something else? <SOM>  <EOM> User : Yeah, can you tell me the materials and brand of that table? System : Could you specify which table you mean? <SOM>  <EOM> User : I mean the one on the left side of the room. => Belief State : INFORM:DISAMBIGUATE [  ] (materials, brand) < 3 > <EOB> That table is made of wood and is sold by Art Den. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (materials, customerRating)  <EOB> It's wooden with a 3.8 rating. <EOS>
+total_sequence_coref_replaced: System : Here's another look at those two again. What do you think? <SOM> 3, 6 <EOM> User : What's the table on the right made of, and how well is it rated? System : I'm sorry, which one? <SOM>  <EOM> User : the one on the right. => Belief State : INFORM:DISAMBIGUATE [  ] (materials, customerRating) < 3 > <EOB> It's wooden with a 3.8 rating. <EOS> 
+
+=== GENERATED SEQUENCE 1, 26/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview, brand)  <EOB> The red and white one has a 3.3 and is from Coats & More.  The gray and white has a higher rating at 4.9 and is made by Cats Are Great. <EOS>
+total_sequence_coref_replaced: System : In the top row, I have the gray and white one, and the red and white one next to it. <SOM> 1, 2 <EOM> User : Can I get the rating and brands? System : For which jacket? <SOM>  <EOM> User : For both of them, please. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview, brand) < 1, 2 > <EOB> The red and white one has a 3.3 and is from Coats & More.  The gray and white has a higher rating at 4.9 and is made by Cats Are Great. <EOS> 
+
+=== GENERATED SEQUENCE 1, 16/8609 ===
+Before replace : <s>INFORM:REFINE [ pattern = plain, type = jacket ] ()  <EOB> I've got the blue jacket on the left side of the rack, the light gray one on the bottom right of the wall, and the red and white one hanging on the rack. <EOS>
+total_sequence_coref_replaced: System : For which jacket? <SOM>  <EOM> User : I mean the one by the hats. System : That jacket is a S. <SOM> 24 <EOM> User : Can you only show me which jackets you have in a plain pattern? => Belief State : INFORM:REFINE [ pattern = plain, type = jacket ] () <  > <EOB> I've got the blue jacket on the left side of the rack, the light gray one on the bottom right of the wall, and the red and white one hanging on the rack. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>INFORM:REFINE [ type = hat, brand = Ocean Wears, size = L ] ()  <EOB> Sorry, nothing matches your search criteria. <EOS>
+total_sequence_coref_replaced: System : There is the grey hat and the black hat. <SOM> 14, 15 <EOM> User : Any in size L? System : Sorry, nothing matches your search criteria. <SOM>  <EOM> User : Okay, what do you recommend? => Belief State : INFORM:REFINE [ type = hat, brand = Ocean Wears, size = L ] () <  > <EOB> Sorry, nothing matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 20/8609 ===
+Before replace : <s>REQUEST:GET [ type = shirt ] ()  <EOB> What do you think of the blue and white shirt, the yellow shirt, or the blue shirt? <EOS>
+total_sequence_coref_replaced: User : Are there any shirts you can recommend? => Belief State : REQUEST:GET [ type = shirt ] () <  > <EOB> What do you think of the blue and white shirt, the yellow shirt, or the blue shirt? <EOS> 
+
+=== GENERATED SEQUENCE 1, 30/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (brand)  <EOB> The brown hoodie is made by 212 Local, and the blue hoodie by Global Voyager. <EOS>
+total_sequence_coref_replaced: User : Hi!  Could you give me some suggestions on coats?  It's always hard for me to decide on one but it's getting really cold out! System : Certainly, how do you like the black and grey coats hanging up on the rack nearest to you?  If you prefer the black one, there's also another black coat in the far cubby on the right you may want to take a look at. <SOM> 17, 12, 5 <EOM> User : Maybe something more casual like a hoodie would be better.  What brand is that brown hoodie on the rack?  And what about the one in the second farthest cubby on the left? => Belief State : REQUEST:COMPARE [  ] (brand) < 3, 19 > <EOB> The brown hoodie is made by 212 Local, and the blue hoodie by Global Voyager. <EOS> 
+
+=== GENERATED SEQUENCE 1, 52/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (brand, customerReview)  <EOB> Sure, they're actually both from Pedals & Gears and rated 3.0. <EOS>
+total_sequence_coref_replaced: System : Sure!  To start with, there's a blue jacket right up front on the round rack.  Moving to the back of the room, there's a blue jacket below the blue shoe boxes.  There's also a light grey jacket to the left of that. <SOM> 10, 29, 7 <EOM> User : Can I have the brand and reviews for the black coats please? System : Which black coats do you mean? <SOM>  <EOM> User : One is to the left of the light grey jacket at the back, and the other is on the back side of the round rack. => Belief State : INFORM:DISAMBIGUATE [  ] (brand, customerReview) < 6, 12, 13 > <EOB> Sure, they're actually both from Pedals & Gears and rated 3.0. <EOS> 
+
+=== GENERATED SEQUENCE 1, 52/8609 ===
+Before replace : <s>INFORM:REFINE [ price = cheap, type = dress, customerReview = good ] ()  <EOB> I'm sorry, I don't have any cheap dresses. <EOS>
+total_sequence_coref_replaced: System : Which one? <SOM>  <EOM> User : The maroon dress hanging on the bottom row of the right wall. System : It is a large and costs $184.99. <SOM> 16 <EOM> User : Can you show me cheaper options? => Belief State : INFORM:REFINE [ price = cheap, type = dress, customerReview = good ] () <  > <EOB> I'm sorry, I don't have any cheap dresses. <EOS> 
+
+=== GENERATED SEQUENCE 1, 20/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (availableSizes, customerReview)  <EOB> It is rated 3.6 and comes in XS, S, L, and XL. <EOS>
+total_sequence_coref_replaced: System : Of course. They have been added to your cart. <SOM> 36, 50 <EOM> User : Will you tell me the available sizes and ratings of the red and white blouse? System : Which blouse do you mean? <SOM>  <EOM> User : The red and white blouse on the front rack. => Belief State : INFORM:DISAMBIGUATE [  ] (availableSizes, customerReview) < 49 > <EOB> It is rated 3.6 and comes in XS, S, L, and XL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 33/8609 ===
+Before replace : <s>REQUEST:GET [ type = jeans ] ()  <EOB> I have the dark blue pair in the leftmost cubby and the light blue pair two cubbies over. <EOS>
+total_sequence_coref_replaced: User : Let's look at jeans that match everything. => Belief State : REQUEST:GET [ type = jeans ] () <  > <EOB> I have the dark blue pair in the leftmost cubby and the light blue pair two cubbies over. <EOS> 
+
+=== GENERATED SEQUENCE 1, 32/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Of course! I'll put those pants in your cart right away. <EOS>
+total_sequence_coref_replaced: User : Is there a pair of bottoms here that would groove with stuff I wear a lot? System : How about something in a darker color? See if you like the brown trousers on the left, the black pair on the right, or the grey pair in between those two. <SOM> 17, 13, 22 <EOM> User : Those brown pants are dreamy! Could you please put them in my cart? => Belief State : REQUEST:ADD_TO_CART [  ] () < 13 > <EOB> Of course! I'll put those pants in your cart right away. <EOS> 
+
+=== GENERATED SEQUENCE 1, 30/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> I will add them to your cart. <EOS>
+total_sequence_coref_replaced: System : Here are some joggers in dark green for you. <SOM> 15, 23 <EOM> User : Do you have any nice coats? System : How do you like these ones? <SOM> 9, 10, 8 <EOM> User : Please add the black ones to my cart! I need them both for cold winter in Sweden. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> I will add them to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>ASK:GET [  ] (brand, customerReview)  <EOB> Which jacket are you referring to? <EOS>
+total_sequence_coref_replaced: System : Unfortunately, I don't see anything like that. Could I help with somethin else? <SOM>  <EOM> User : Do you something else from The Vegan Baker? System : Sorry, I don't see anything else. Is there something else I can help with? <SOM>  <EOM> User : What's the brand and customer reviews of that jacket? => Belief State : ASK:GET [  ] (brand, customerReview) <  > <EOB> Which jacket are you referring to? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Of course, I'll do so right away! <EOS>
+total_sequence_coref_replaced: System : Yes, I have a white, black, and red blouse on the back right, a maroon, white, and blue blouse on the very left, and a black one behind that. <SOM> 1, 2, 0 <EOM> User : Actually, I think I want to buy that brown jacket on the floor rack, and the green hoodie near it. System : Of course, I'll do that right away. <SOM> 6, 10 <EOM> User : Ok, and I'll also take that black blouse please! => Belief State : REQUEST:ADD_TO_CART [  ] () < 0, 6, 8 > <EOB> Of course, I'll do so right away! <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = Sofa, brand = Modern Arts ] ()  <EOB> How about the grey one in the back? <EOS>
+total_sequence_coref_replaced: User : Can you find me a Modern Arts sofa? => Belief State : REQUEST:GET [ type = Sofa, brand = Modern Arts ] () <  > <EOB> How about the grey one in the back? <EOS> 
+
+is_nocoref and object is both on!!! THIS SHOULD NOT HAPPEN!
+=== GENERATED SEQUENCE 1, 12/8609 ===
+Before replace : <s>REQUEST:GET [ type = CouchChair, customerRating = good, materials = leather ] ()  <EOB> How do you like these two? <EOS>
+total_sequence_coref_replaced: User : Do you have any nice accent chairs with a good rating and made of leather? => Belief State : REQUEST:GET [ type = CouchChair, customerRating = good, materials = leather ] () <  > <EOB> How do you like these two? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = Shelves, price = expensive ] ()  <EOB> Sure, what do you think of the tall wooden shelves at the far end of the room on the right? <EOS>
+total_sequence_coref_replaced: User : Hello there, could you kindly suggest something high-end with shelves please for my chateau? => Belief State : REQUEST:GET [ type = Shelves, price = expensive ] () <  > <EOB> Sure, what do you think of the tall wooden shelves at the far end of the room on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = Table, color = wooden ] ()  <EOB> What do you think of the wooden table in the back? <EOS>
+total_sequence_coref_replaced: User : I want some wooden colored tables. Can you pull some up for me? => Belief State : REQUEST:GET [ type = Table, color = wooden ] () <  > <EOB> What do you think of the wooden table in the back? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = AreaRug, customerRating = good ] ()  <EOB> What do you think of the red one in the back or the white one in front? <EOS>
+total_sequence_coref_replaced: User : What area rugs are your customers' favorite? => Belief State : REQUEST:GET [ type = AreaRug, customerRating = good ] () <  > <EOB> What do you think of the red one in the back or the white one in front? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = Table, materials = wood ] ()  <EOB> Take a look at the wooden table on the right. <EOS>
+total_sequence_coref_replaced: User : Does this store have any good wooden tables? => Belief State : REQUEST:GET [ type = Table, materials = wood ] () <  > <EOB> Take a look at the wooden table on the right. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = AreaRug, materials = natural fibers ] ()  <EOB> What do you think of the red one in the back or the white one in front of it? <EOS>
+total_sequence_coref_replaced: User : I'm looking for a natural fiber rug, do you have any? => Belief State : REQUEST:GET [ type = AreaRug, materials = natural fibers ] () <  > <EOB> What do you think of the red one in the back or the white one in front of it? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = AreaRug, materials = natural fibers ] ()  <EOB> What do you think of the red one or the white one? <EOS>
+total_sequence_coref_replaced: User : Do you have any natural fiber rugs? => Belief State : REQUEST:GET [ type = AreaRug, materials = natural fibers ] () <  > <EOB> What do you think of the red one or the white one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 36/8609 ===
+Before replace : <s>REQUEST:GET [ type = Shelves, brand = Modern Arts, customerRating = good ] ()  <EOB> You might fall in love with those shelves against the wall in the back! <EOS>
+total_sequence_coref_replaced: User : I'm partial to the brand Modern Arts. Anything highly rated from them around here? => Belief State : REQUEST:GET [ type = Shelves, brand = Modern Arts, customerRating = good ] () <  > <EOB> You might fall in love with those shelves against the wall in the back! <EOS> 
+
+=== GENERATED SEQUENCE 1, 21/8609 ===
+Before replace : <s>ASK:GET [  ] (price)  <EOB> For which ones? <EOS>
+total_sequence_coref_replaced: System : In the row of jeans on the bottom, counting from the left, you might like the second, fourth, and fifth pairs. <SOM> 26, 18, 31 <EOM> User : What size are the second and the fourth ones? System : The second ones are available in L, and the fourth ones are available in XS and XXL. <SOM> 26, 31 <EOM> User : How much are they? => Belief State : ASK:GET [  ] (price) <  > <EOB> For which ones? <EOS> 
+
+=== GENERATED SEQUENCE 1, 45/8609 ===
+Before replace : <s>REQUEST:GET [ type = shoes, color = blue, pattern = canvas ] ()  <EOB> Sure, what do you think of the blue shoes under the red and white jacket? <EOS>
+total_sequence_coref_replaced: System : Sure, the bright blue jacket is size L, and the dark one is XS. <SOM> 14, 3 <EOM> User : I want something similar to the red and white jacket on the rack, or maybe the black one beside it. System : Ok, well the bright blue and dark blue jackets you just got the sizes for are fairly similar. <SOM> 15, 3, 14 <EOM> User : Do you have any blue shoes with a canvas pattner? => Belief State : REQUEST:GET [ type = shoes, color = blue, pattern = canvas ] () <  > <EOB> Sure, what do you think of the blue shoes under the red and white jacket? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (availableSizes, price)  <EOB> That is 84.99 and comes in S, M, L, XXL. <EOS>
+total_sequence_coref_replaced: System : On the garment rack in the front, I've got the white and black one at the middle left, the red white and yellow one at the back left, and the black one at the back right. <SOM> 40, 37, 43 <EOM> User : Can you tell me the price and what sizes are in stock? System : For which item? <SOM>  <EOM> User : That blue tee I was looking at before. => Belief State : INFORM:DISAMBIGUATE [  ] (availableSizes, price) < 9 > <EOB> That is 84.99 and comes in S, M, L, XXL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 32/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater ] ()  <EOB> I have three on the display table: a black, a pink, and a black. What do you think? <EOS>
+total_sequence_coref_replaced: User : Can you suggest a new sweater to go along with the rest of my closet? => Belief State : REQUEST:GET [ type = sweater ] () <  > <EOB> I have three on the display table: a black, a pink, and a black. What do you think? <EOS> 
+
+=== GENERATED SEQUENCE 1, 39/8609 ===
+Before replace : <s>INFORM:GET [ customerReview = good, color = dirty green, type = hat ] (color)  <EOB> Sorry, I don't have anything else matching that description. <EOS>
+total_sequence_coref_replaced: User : Hey, do you have any cool hats you can show me?  Something that says I'm just trying to hang out. System : Sure, how do you like the black hat on your near right?  The camo hat right past it is also good for a casual look, and the dirty green beanie past that one would be a good outdoor hat.  Any preferences? <SOM> 29, 31, 23 <EOM> User : Do you have anything in that dirty green color but with a good customer rating? => Belief State : INFORM:GET [ customerReview = good, color = dirty green, type = hat ] (color) <  > <EOB> Sorry, I don't have anything else matching that description. <EOS> 
+
+=== GENERATED SEQUENCE 1, 39/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> I'll add it to your cart. <EOS>
+total_sequence_coref_replaced: System : I have light gray, blue, and brown. <SOM> 9, 21, 38 <EOM> User : Narrow it down to gray and white options. System : I don't have anything like that. What else can I do for you? <SOM>  <EOM> User : I'll take the light gray jacket. => Belief State : REQUEST:ADD_TO_CART [  ] () < 9 > <EOB> I'll add it to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 15/8609 ===
+Before replace : <s>REQUEST:GET [ type = dress ] ()  <EOB> What do you think of the black dresses in the closet? <EOS>
+total_sequence_coref_replaced: System : What do you think of the green trousers on the far left of the first closet? <SOM> 26 <EOM> User : Compare the grey trousers and the green trousers, please. The two in the middle. System : The grey trousers have a light stripe pattern, are from Coats &amp; More and in size XS. The other hasa camouflage pattern, is from North Lodge, and is in size XL. <SOM> 28, 31 <EOM> User : Do you have any dresses that might go with my closet? => Belief State : REQUEST:GET [ type = dress ] () <  > <EOB> What do you think of the black dresses in the closet? <EOS> 
+
+=== GENERATED SEQUENCE 1, 68/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Sure! You will see it in your cart in a moment. <EOS>
+total_sequence_coref_replaced: System : It is being sold for $139.99 and shown in a size large. <SOM> 14 <EOM> User : Black is probably best. What other black coats do you have? Just so I can compare. System : It seems that's the only one at the moment. <SOM> 14 <EOM> User : On second thought, I think I'll just take that black dress on the far right rack. Please and thank you. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Sure! You will see it in your cart in a moment. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:GET [ type = hoodie, brand = Art News Today ] ()  <EOB> What do you think of the brown hoodie? <EOS>
+total_sequence_coref_replaced: User : Show me a hoodie in XXL. => Belief State : REQUEST:GET [ type = hoodie, brand = Art News Today ] () <  > <EOB> What do you think of the brown hoodie? <EOS> 
+
+=== GENERATED SEQUENCE 1, 38/8609 ===
+Before replace : <s>ASK:GET [  ] (size, customerReview)  <EOB> Which dresses are you interested in? <EOS>
+total_sequence_coref_replaced: User : I need a new dress. System : You might like three dresses here: the olive one on the floor rack on the left and the black and the black one and the black and grey one that hang next to each other on the wall hanger on the right. <SOM> 11, 9, 8 <EOM> User : Yeah, what's the size of the olive dress and the black and grey one? And are their reviews positive? => Belief State : ASK:GET [  ] (size, customerReview) < 9, 11 > <EOB> Which dresses are you interested in? <EOS> 
+
+=== GENERATED SEQUENCE 1, 87/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (price, brand)  <EOB> The black jacket on the left is by Yogi Fit and costs $174.99, and the one on the right is by Pedals &amp; Gears and costs the same. <EOS>
+total_sequence_coref_replaced: System : What are your thoughts on the black jacket next to the blue item in the top left case, the black jacket to the right of that, or the grey and white jacket at the very right end? <SOM> 5, 7, 13 <EOM> User : Hm, not bad. Could you compare their prices and brands for me? System : Which ones? <SOM>  <EOM> User : Sorry, the two black ones from earlier. The ones to the left. => Belief State : INFORM:DISAMBIGUATE [  ] (price, brand) <  > <EOB> The black jacket on the left is by Yogi Fit and costs $174.99, and the one on the right is by Pedals &amp; Gears and costs the same. <EOS> 
+
+=== GENERATED SEQUENCE 1, 24/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> I'll update your cart for you. <EOS>
+total_sequence_coref_replaced: System : Unfortunately, I don't seem to have any jeans like that.  Could I help you look for something else? <SOM>  <EOM> User : How about giving me a look at some hats I'd like? System : On the left hat table, I've got the black hat second from the back, the green camo hat next to it, and the dirty green color beanie further toward the back. <SOM> 54, 61, 55 <EOM> User : i want to get that beanie, and also the dark blue jeans second from the right.  Please add them to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () < 68, 69 > <EOB> I'll update your cart for you. <EOS> 
+
+=== GENERATED SEQUENCE 1, 83/8609 ===
+Before replace : <s>ASK:GET [  ] (size, brand)  <EOB> Which items are you talking about? <EOS>
+total_sequence_coref_replaced: System : Sorry, but nothing matches your search criteria. What else can I help you with? <SOM>  <EOM> User : Add a pattern of heavy stripes to that criteria. What do you have? System : Sorry, but no item matches your criteria. Anything else? <SOM>  <EOM> User : What is the size and the brand of the brown jacket and the black jacket? => Belief State : ASK:GET [  ] (size, brand) < 12 > <EOB> Which items are you talking about? <EOS> 
+
+=== GENERATED SEQUENCE 1, 48/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater ] ()  <EOB> There are two pink sweaters on the right that you might like. <EOS>
+total_sequence_coref_replaced: User : I need to update my sweater collection. Any recommendations? => Belief State : REQUEST:GET [ type = sweater ] () <  > <EOB> There are two pink sweaters on the right that you might like. <EOS> 
+
+=== GENERATED SEQUENCE 1, 31/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Sure! I am adding it as we speak. <EOS>
+total_sequence_coref_replaced: User : I need a quality plain-looking hat. Do you have any? System : I have three hats in a plain pattern that may fit your needs., all on the table in the middle of the room, all in color dirty green.  Look at the first one facing us, skip one, and look at the third and fourth. <SOM> 20, 11, 27 <EOM> User : I like the fourth hat from us, please add it to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Sure! I am adding it as we speak. <EOS> 
+
+=== GENERATED SEQUENCE 1, 41/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (brand, price)  <EOB> That red sweater is made by Garden Retail and sells for $154.99. <EOS>
+total_sequence_coref_replaced: System : I see some excellent options on that table to the left. Do either of those maroon options closest to you look like what you were wanting? Or how about that red one that's further back? <SOM> 9, 28, 18 <EOM> User : That's quite nice, thank you. I would appreciate it if you could tell me the brand and price. System : Which sweater would you like those details on? <SOM>  <EOM> User : The red one further back on that table. => Belief State : INFORM:DISAMBIGUATE [  ] (brand, price) <  > <EOB> That red sweater is made by Garden Retail and sells for $154.99. <EOS> 
+
+=== GENERATED SEQUENCE 1, 49/8609 ===
+Before replace : <s>ASK:GET [  ] (customerReview)  <EOB> Which one? <EOS>
+total_sequence_coref_replaced: System : Here are some options:  a maroon/white/blue one, a gray/white one, and a second gray/white one. <SOM> 2, 17, 33 <EOM> User : Tell me about the sizes available for the gray/white ones. System : The one on the left comes in S, L, and XXL, and so does the one on the right. <SOM> 17, 33 <EOM> User : What's the rating for the one on the right? => Belief State : ASK:GET [  ] (customerReview) <  > <EOB> Which one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 107/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Great, it's now in your cart. <EOS>
+total_sequence_coref_replaced: System : Sure, the grey jacket at the left end of the righthand shelving unit is XS. <SOM> 5 <EOM> User : Can you compare the sizes of the light grey coat at the back left and the grey coat on the round rack? System : Sure, the one on the rack is XXL, and the one in the shelves is XL/. <SOM> 46, 13 <EOM> User : Ok, I'm going to take the grey coat on the round rack. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Great, it's now in your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 42/8609 ===
+Before replace : <s>REQUEST:GET [ type = hat ] ()  <EOB> What do you think of the hats on the table? <EOS>
+total_sequence_coref_replaced: User : Can you point out a hat for me? => Belief State : REQUEST:GET [ type = hat ] () <  > <EOB> What do you think of the hats on the table? <EOS> 
+
+=== GENERATED SEQUENCE 1, 8/8609 ===
+Before replace : <s>ASK:GET [  ] (customerReview, availableSizes)  <EOB> Which one? <EOS>
+total_sequence_coref_replaced: User : Show me some jackets. System : Here is a light gray one and two brown ones. <SOM> 0, 12, 32 <EOM> User : What is the rating of the brown one, and what sizes does it come in? => Belief State : ASK:GET [  ] (customerReview, availableSizes) <  > <EOB> Which one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (size, price)  <EOB> Of course! The light grey jacket is shown in XL and costs $44.99. The grey one is also shown in XS but costs $174.99. <EOS>
+total_sequence_coref_replaced: System : Ok, I have a blue jacket on the upper left and two light grey ones on the bottom right. <SOM> 0, 7, 6 <EOM> User : Perfect! I'll take the blue one and the left-hand light grey one. System : Sure thing! I'll put them in your cart immediately. <SOM> 0, 6 <EOM> User : Could you compare the sizes and price tags on the right-hand light grey jacket and the grey jacket that's second from the end? => Belief State : REQUEST:COMPARE [  ] (size, price) < 5, 6, 7 > <EOB> Of course! The light grey jacket is shown in XL and costs $44.99. The grey one is also shown in XS but costs $174.99. <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>INFORM:GET [ price = 109.99, sleeveLength = long, type = coat ] (price, sleevelength)  <EOB> There are several black coats on the wall which match your criteria, including a grey coat and a black coat. <EOS>
+total_sequence_coref_replaced: System : The dark blue sweater on the table matches your criteria. <SOM> 5 <EOM> User : Add the black coat in the middle of the bottom row on the wall to my cart. System : Confirmed. I will add that item to your cart for you. <SOM> 10 <EOM> User : Show me something that has the same price point and sleeve length as the black coats on the bottom row. => Belief State : INFORM:GET [ price = 109.99, sleeveLength = long, type = coat ] (price, sleevelength) < 8, 10 > <EOB> There are several black coats on the wall which match your criteria, including a grey coat and a black coat. <EOS> 
+
+=== GENERATED SEQUENCE 1, 14/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview)  <EOB> It has a 4.9 rating. <EOS>
+total_sequence_coref_replaced: System : Sorry, I can't find any like that. <SOM>  <EOM> User : Ok, tell me the  reviews for that other one then. System : Sorry, which one? <SOM>  <EOM> User : The grey one in the display on the left. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview) <  > <EOB> It has a 4.9 rating. <EOS> 
+
+=== GENERATED SEQUENCE 1, 16/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat ] ()  <EOB> Do you like the grey one on the front rack or either of the grey ones on the back rack? They are all coats. <EOS>
+total_sequence_coref_replaced: User : I'd like some coats. => Belief State : REQUEST:GET [ type = coat ] () <  > <EOB> Do you like the grey one on the front rack or either of the grey ones on the back rack? They are all coats. <EOS> 
+
+=== GENERATED SEQUENCE 1, 15/8609 ===
+Before replace : <s>INFORM:REFINE [ type = jacket, price = cheap, customerReview = good ] ()  <EOB> Sorry, I can't find any other jackets that match your criteria. <EOS>
+total_sequence_coref_replaced: User : I'm looking for a cheap work jacket, but something with good reviews so I know it'll last. System : How about the dark green and blue jacket in front? <SOM> 3 <EOM> User : Any others to recommend? => Belief State : INFORM:REFINE [ type = jacket, price = cheap, customerReview = good ] () <  > <EOB> Sorry, I can't find any other jackets that match your criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 81/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (brand)  <EOB> The one on the left is by HairDo and the one behind it is by Ocean Weavers. <EOS>
+total_sequence_coref_replaced: System : Check out this grey, white one on the left wall and the red, white one to the right of it. They both have good customer reviews. <SOM> 3, 4 <EOM> User : Have any other recommendations for me? System : Sorry, I couldn't find anything else. <SOM>  <EOM> User : What's the difference in brands between the white, black blouse  on the bottom rack of the left wall, and the grey, white blouse behind it? => Belief State : REQUEST:COMPARE [  ] (brand) < 13 > <EOB> The one on the left is by HairDo and the one behind it is by Ocean Weavers. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:GET [ customerReview = good, size = XS, pattern = plain, type = hat ] (size, brand)  <EOB> That camo hat has good ratings, as does the grey hat next to it and the black hat at the end of that shelf. <EOS>
+total_sequence_coref_replaced: System : The camo hat is an extra small and costs less, at $64.99. The green hat on the left is an extra extra large priced at $74.99. <SOM> 73, 71 <EOM> User : That's not too bad. I'll take both! Chuck them in the cart if you don't mind. System : Great! I'll put those hats in your cart for you straight away. <SOM> 73, 71 <EOM> User : Actually, hold on. I wanna know if there's anything in the same size and pattern as that camo one but with higher ratings. => Belief State : INFORM:GET [ customerReview = good, size = XS, pattern = plain, type = hat ] (size, brand) <  > <EOB> That camo hat has good ratings, as does the grey hat next to it and the black hat at the end of that shelf. <EOS> 
+
+=== GENERATED SEQUENCE 1, 14/8609 ===
+Before replace : <s>INFORM:GET [ size = L, brand = Garden Retail, type = jacket ] ()  <EOB> Sorry, but no item matches your search criteria. <EOS>
+total_sequence_coref_replaced: System : Which ones do you mean? <SOM>  <EOM> User : I am talking about both blue and green jackets. System : They are both available in XXL, XL, M, L, S, and XS and have a score of 3.9. <SOM> 3, 1 <EOM> User : Show me something similar to the blue and green jacket in front but in L and from Garden Retail. => Belief State : INFORM:GET [ size = L, brand = Garden Retail, type = jacket ] () < 1, 3 > <EOB> Sorry, but no item matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 17/8609 ===
+Before replace : <s>REQUEST:GET [ type = jeans ] ()  <EOB> Do you like the light blue ones on the left or the blue ones in the center? They are both jeans. <EOS>
+total_sequence_coref_replaced: User : Do you have jeans for me? => Belief State : REQUEST:GET [ type = jeans ] () <  > <EOB> Do you like the light blue ones on the left or the blue ones in the center? They are both jeans. <EOS> 
+
+=== GENERATED SEQUENCE 1, 24/8609 ===
+Before replace : <s>INFORM:REFINE [ price = expensive, type = coat ] ()  <EOB> I don't have any expensive coats available. <EOS>
+total_sequence_coref_replaced: User : Do you have any coats available? System : What do you think of the grey coat on the back wall? <SOM> 6 <EOM> User : What about something expensive? => Belief State : INFORM:REFINE [ price = expensive, type = coat ] () <  > <EOB> I don't have any expensive coats available. <EOS> 
+
+=== GENERATED SEQUENCE 1, 67/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (size)  <EOB> They are both in size XXL. <EOS>
+total_sequence_coref_replaced: System : There are several. A brown coat and two grey coats which match your criteria. What do you think? <SOM> 2, 11, 13 <EOM> User : What is the size of the grey coats? System : Which item are you talking about? <SOM>  <EOM> User : The grey coats on the right rack. => Belief State : INFORM:DISAMBIGUATE [  ] (size) < 11, 13 > <EOB> They are both in size XXL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 67/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> I will add them to your cart. <EOS>
+total_sequence_coref_replaced: System : The blue jeans are made by Pedals and Gears and come in xs, s, l and xxl. They have an average rating of 3.4 and cost 239.99. The stripy grey pants come in xs and s only from Vegan Baker. They have an average rating of 3.5 and cost 244.99. <SOM> 17, 63 <EOM> User : Do you have any expensive coats? System : How do you feel about these options? <SOM> 8, 44, 48 <EOM> User : Please add the grey pants and the white hat to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () < 63 > <EOB> I will add them to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 8/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Of course, your cart has been updated. <EOS>
+total_sequence_coref_replaced: System : What do you think of the blue pants on the left, the grey on the far right, or the blue to their left? <SOM> 17, 60, 63 <EOM> User : Can you suggest any others? System : Unfortunately, those are the only ones available. <SOM>  <EOM> User : I like the two grey and white jackets, will you add them to my cart? => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Of course, your cart has been updated. <EOS> 
+
+=== GENERATED SEQUENCE 1, 74/8609 ===
+Before replace : <s>REQUEST:GET [ type = hoodie, sleeveLength = full ] ()  <EOB> There are several green hoodies and a green hoodie which match your criteria. <EOS>
+total_sequence_coref_replaced: User : Is there a hoodie with full length sleeves which you can show me? => Belief State : REQUEST:GET [ type = hoodie, sleeveLength = full ] () <  > <EOB> There are several green hoodies and a green hoodie which match your criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 24/8609 ===
+Before replace : <s>INFORM:REFINE [ type = jacket, sleeveLength = full, customerReview = good ] ()  <EOB> How about the light grey one on the rack on the right, the blue one under the blue shoeboxes, or the grey and white one on that same rack? <EOS>
+total_sequence_coref_replaced: User : Do you have any jackets with full sleeves and good reviews? System : How about the grey one under the blue shoeboxes, the grey and white one on the rack on the right, or maybe the blue one on the right of that same rack? <SOM> 5, 61, 71 <EOM> User : Anything else? => Belief State : INFORM:REFINE [ type = jacket, sleeveLength = full, customerReview = good ] () <  > <EOB> How about the light grey one on the rack on the right, the blue one under the blue shoeboxes, or the grey and white one on that same rack? <EOS> 
+
+=== GENERATED SEQUENCE 1, 41/8609 ===
+Before replace : <s>INFORM:GET [ color = red, price = 244.99, pattern = plain, type = shoes ] (price, customerReview)  <EOB> I'm sorry, I don't have anything like that. Can I get you something different? <EOS>
+total_sequence_coref_replaced: System : I have the gold pair and the grey pair on the right side and the grey pair on the left side. <SOM> 23, 20, 19 <EOM> User : Let's put a pair of the gold ones and a pair of the grey ones on the right in my cart. System : Ok. I will add those two pairs of shoes in now. <SOM> 23, 19 <EOM> User : Do you have something with a similar price and pattern as the gold ones but in red? => Belief State : INFORM:GET [ color = red, price = 244.99, pattern = plain, type = shoes ] (price, customerReview) < 23 > <EOB> I'm sorry, I don't have anything like that. Can I get you something different? <EOS> 
+
+=== GENERATED SEQUENCE 1, 15/8609 ===
+Before replace : <s>INFORM:GET [ sleeveLength = long, brand = Modern Arts, type = blouse ] (sleeveLength, customerReview)  <EOB> This black blouse in the cubby is what I have like that. <EOS>
+total_sequence_coref_replaced: System : The maroon sweater costs $124.99. The red sweater costs $154.99. <SOM> 28, 29 <EOM> User : Can you show me blouses with nice designs? System : Do you like the black one hanging up in the cubby? It is a blouse with a design. <SOM> 8 <EOM> User : Do you have something else with similar sleeves and by the same company as that one? => Belief State : INFORM:GET [ sleeveLength = long, brand = Modern Arts, type = blouse ] (sleeveLength, customerReview) < 8 > <EOB> This black blouse in the cubby is what I have like that. <EOS> 
+
+=== GENERATED SEQUENCE 1, 22/8609 ===
+Before replace : <s>ASK:GET [  ] (price, brand)  <EOB> Which item are you referring to? <EOS>
+total_sequence_coref_replaced: System : In addition to the grey jacket that's in your cart, there's a blue and green jacket next to that, and another grey jacket on the right end of the wall. <SOM> 6, 7, 8 <EOM> User : Could you tell me more about the available sizes and price tags on the grey jacket in my cart and the blue and green one? System : Of course! The grey jacket costs $239.99 and comes in all sizes XS through XXL, while the blue and green jacket costs $139.99 and comes in the same range of sizes. <SOM> 7, 8 <EOM> User : What was the price and brand label on that one again? => Belief State : ASK:GET [  ] (price, brand) <  > <EOB> Which item are you referring to? <EOS> 
+
+=== GENERATED SEQUENCE 1, 37/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat ] ()  <EOB> I have coats. I have the black one hanging up in the second cubby from the right, the light grey one in the next cubby over, and the black coat on the front center rack. <EOS>
+total_sequence_coref_replaced: User : Can you show me coats to match my outfits? => Belief State : REQUEST:GET [ type = coat ] () <  > <EOB> I have coats. I have the black one hanging up in the second cubby from the right, the light grey one in the next cubby over, and the black coat on the front center rack. <EOS> 
+
+=== GENERATED SEQUENCE 1, 57/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (price)  <EOB> The black coat is 139.99 and the grey coat is 59.99. <EOS>
+total_sequence_coref_replaced: User : Show me a blouse that goes with my wardrobe. System : What do you think of the black blouses or the white and black blouse? <SOM> 26, 32, 7 <EOM> User : Tell me how the black coat compares with the grey coat on price. => Belief State : REQUEST:COMPARE [  ] (price) < 9 > <EOB> The black coat is 139.99 and the grey coat is 59.99. <EOS> 
+
+=== GENERATED SEQUENCE 1, 23/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview, size)  <EOB> The one on the left is a S with a 3.7 rating.  The one in the center is an XS with a higher rating at 4.5. <EOS>
+total_sequence_coref_replaced: System : I have two black ones and a gray one. <SOM> 32, 29, 27 <EOM> User : What are the ratings of the black ones, and what size are they? System : Which ones? <SOM>  <EOM> User : I mean the two black hats on the table. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview, size) <  > <EOB> The one on the left is a S with a 3.7 rating.  The one in the center is an XS with a higher rating at 4.5. <EOS> 
+
+=== GENERATED SEQUENCE 1, 43/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (brand)  <EOB> The blue one is by Global Voyager. The grey and white one is Cats Are Great. <EOS>
+total_sequence_coref_replaced: System : I'm sorry, I don't have anything like that. <SOM>  <EOM> User : Can you tell me the brands of the blue jacket on the center rack and the grey and white jacket next to it? System : Which ones? <SOM>  <EOM> User : The two jackets on the back center rack. => Belief State : INFORM:DISAMBIGUATE [  ] (brand) < 16 > <EOB> The blue one is by Global Voyager. The grey and white one is Cats Are Great. <EOS> 
+
+=== GENERATED SEQUENCE 1, 24/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, both items will be added to your cart. <EOS>
+total_sequence_coref_replaced: System : There are several blue and black jeans, as well as a pair of dark blue jeans. <SOM> 31, 33, 30 <EOM> User : What available sizes are available for the blue and black jeans and the dark blue jeans? Also tell me their reviews. System : The blue and black jeans are available in XS and XXL and has a rating of 4.6. The other is in XS, S, M, XL, and XXL and has a rating of 4.7. <SOM> 33, 30 <EOM> User : Add the white hat to my cart along with the grey trousers. => Belief State : REQUEST:ADD_TO_CART [  ] () < 34 > <EOB> Okay, both items will be added to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 10/8609 ===
+Before replace : <s>REQUEST:GET [ type = jacket, customerReview = good, pattern = plain ] ()  <EOB> Here's these three. <EOS>
+total_sequence_coref_replaced: User : Can you find me a plain jacket with a good rating? => Belief State : REQUEST:GET [ type = jacket, customerReview = good, pattern = plain ] () <  > <EOB> Here's these three. <EOS> 
+
+=== GENERATED SEQUENCE 1, 55/8609 ===
+Before replace : <s>INFORM:REFINE [ brand = Ocean Wears, type = jacket, color = grey, white ] ()  <EOB> Sorry, I couldn't find anything. What else can I do for you? <EOS>
+total_sequence_coref_replaced: User : Do you have any jackets that are grey and white? System : Sorry, I couldn't find anything. Can I show you something else? <SOM>  <EOM> User : Do you have anything by Art News Today? => Belief State : INFORM:REFINE [ brand = Ocean Wears, type = jacket, color = grey, white ] () <  > <EOB> Sorry, I couldn't find anything. What else can I do for you? <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>INFORM:REFINE [ brand = StyleNow Feed, customerReview = good, type = coat ] ()  <EOB> I couldn't find anything fitting that criteria. <EOS>
+total_sequence_coref_replaced: System : I couldn't find anything like that today. <SOM>  <EOM> User : How does the black coat hanging on the back circular rack and the brown coat hanging on the wall in back compare? System : The black coat by Cats Are Great is rated at 4.8 and the brown coat by Downtown Stylists is rated at 4.1. <SOM> 47, 17 <EOM> User : Let me include things by StyleNow Feed and good reviews. => Belief State : INFORM:REFINE [ brand = StyleNow Feed, customerReview = good, type = coat ] () <  > <EOB> I couldn't find anything fitting that criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Great! I'll add that to your cart. <EOS>
+total_sequence_coref_replaced: System : Which one? <SOM>  <EOM> User : The one in the middle with the bits of green and... pink I think? System : That top is from Cats are Great. <SOM> 0 <EOM> User : Oh, I hate that brand. Never mind then. I think I'll go with the white-ish grey one on the bottom. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Great! I'll add that to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 21/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, I'll add that now. <EOS>
+total_sequence_coref_replaced: System : Which ones? <SOM>  <EOM> User : The light grey one on the bottom right and the grey one next to it. System : What's the brand of both of them? <SOM> 8, 9 <EOM> User : Add the light grey one to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () < 5, 8 > <EOB> Okay, I'll add that now. <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>REQUEST:GET [ type = dress, price = cheap ] ()  <EOB> I have three on the rack to the left. There is a maroon dress, a beige, and a brown. What do you think? <EOS>
+total_sequence_coref_replaced: User : Can you suggest some cheap dresses, please? => Belief State : REQUEST:GET [ type = dress, price = cheap ] () <  > <EOB> I have three on the rack to the left. There is a maroon dress, a beige, and a brown. What do you think? <EOS> 
+
+=== GENERATED SEQUENCE 1, 40/8609 ===
+Before replace : <s>INFORM:GET [ price = affordable, type = dress ] ()  <EOB> I don't happen to have any dresses like that.  Could I help you find something else? <EOS>
+total_sequence_coref_replaced: User : I'd like to see your collection of sleeveless dresses please. System : In the bottom row, I've got the purple dress on the left, the maroon one in the middle and gray dress on the right. <SOM> 3, 4, 5 <EOM> User : I'd like something like the purple one or the maroon one, but with an affordable price. => Belief State : INFORM:GET [ price = affordable, type = dress ] () < 3, 4 > <EOB> I don't happen to have any dresses like that.  Could I help you find something else? <EOS> 
+
+=== GENERATED SEQUENCE 1, 16/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat ] ()  <EOB> What do you think of the grey coat hanging on the rack to the right of the hat display, the black coat hanging next to the red and white jacket, or the brown coat next to that one? <EOS>
+total_sequence_coref_replaced: System : How about the grey and white jacket next to the beige coat behind the jeans, the red and white jacket on the right side of the rack next to the green one, or the light grey jacket on the left side of the rack between the darker colored jackets? <SOM> 2, 34, 31 <EOM> User : Hm, add the brown hoodie by the red one to my cart. System : Okay, I'll add that now. <SOM> 37 <EOM> User : How about some good coats? => Belief State : REQUEST:GET [ type = coat ] () <  > <EOB> What do you think of the grey coat hanging on the rack to the right of the hat display, the black coat hanging next to the red and white jacket, or the brown coat next to that one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 76/8609 ===
+Before replace : <s>ASK:GET [  ] (size)  <EOB> Sorry, could you identify more precisely which blouses you are interested in? <EOS>
+total_sequence_coref_replaced: System : Were you not interested in that dark green option on the left? <SOM> 3 <EOM> User : Can I get you to put one of those colorful knit tops hanging up front on the right in my cart? Oh and I'd like that black dress in the back of this rack too. System : Certainly! I'll put that top and that dress in your cart for you right away. <SOM> 5, 0 <EOM> User : Wait what's the size of the colorful knit blouse? And what's the size of that white, red, and violet shirt hanging down low on the left? => Belief State : ASK:GET [  ] (size) < 0, 8 > <EOB> Sorry, could you identify more precisely which blouses you are interested in? <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Yes. I will add that hat now. <EOS>
+total_sequence_coref_replaced: System : Both of these hoodies cost $144.99. <SOM> 1, 46 <EOM> User : Let's see some with a plain pattern. System : This green one on the center rack is what I have in a plan pattern for a hoodie. <SOM> 67 <EOM> User : Can you put that black hat on the table in my cart? => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Yes. I will add that hat now. <EOS> 
+
+=== GENERATED SEQUENCE 1, 12/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater ] ()  <EOB> I think you would be very stylish in that black one hanging on the left or the black one on the right. <EOS>
+total_sequence_coref_replaced: User : I want to get just one sweater today, so which sweater here would fit the rest of my wardrobe? => Belief State : REQUEST:GET [ type = sweater ] () <  > <EOB> I think you would be very stylish in that black one hanging on the left or the black one on the right. <EOS> 
+
+=== GENERATED SEQUENCE 1, 27/8609 ===
+Before replace : <s>INFORM:REFINE [ type = hoodie ] ()  <EOB> That's all I have for hoodies. <EOS>
+total_sequence_coref_replaced: User : Do you have hoodies to show me? System : Do you like the green one on the bottom row of the back wall? <SOM> 7 <EOM> User : What else can you show me? => Belief State : INFORM:REFINE [ type = hoodie ] () <  > <EOB> That's all I have for hoodies. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] ()  <EOB> Both of those green hoodies are smalls. <EOS>
+total_sequence_coref_replaced: System : I've got two green options in the size you asked for! One is in the very back on the bottom row, and the other is hanging on a rack up front to the right. Like either of those? <SOM> 17, 24 <EOM> User : Hm, what else you got? System : Oh no, it looks like those are the only options at the moment. Is there some other way I might be of service? <SOM>  <EOM> User : That's alright. Maybe tell me a little more about those green ones to help me make my mind up? => Belief State : REQUEST:COMPARE [  ] () < 17, 24 > <EOB> Both of those green hoodies are smalls. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (materials, price)  <EOB> Sure, the bed on the left is made of memory foam and costs $349, while the one on the right is also memory foam but at a price of $349. <EOS>
+total_sequence_coref_replaced: User : Hello!  I'm shopping for a brown chair, what have you got? System : How about the chair over to the left, you can see it if you look through the bookcase. <SOM> 1 <EOM> User : Can you compare the materials and price of the two beds for me? => Belief State : REQUEST:COMPARE [  ] (materials, price) < 0, 4 > <EOB> Sure, the bed on the left is made of memory foam and costs $349, while the one on the right is also memory foam but at a price of $349. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>REQUEST:GET [ type = Bed ] ()  <EOB> I have two grey beds in the display to the left. Do you like them? <EOS>
+total_sequence_coref_replaced: User : I need a highly-rated area rug that's all natural. System : How do you like the white rug in the display to the left of us? It has high ratings and is made of natural fibers. <SOM> 5 <EOM> User : OK. Do you have recommendations for beds? => Belief State : REQUEST:GET [ type = Bed ] () <  > <EOB> I have two grey beds in the display to the left. Do you like them? <EOS> 
+
+is_nocoref and object is both on!!! THIS SHOULD NOT HAPPEN!
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (customerRating)  <EOB> The black and white chair has a good customer rating, while the brown one has a rating of 4.2. <EOS>
+total_sequence_coref_replaced: User : I can't seem to find a chair for my wardrobe! Please help me! System : Please consider the black and white chair and the brown one next to the kitchen island. <SOM> 1, 3 <EOM> User : Either color would work, but I want at least a good customer star rating. Does either match that? => Belief State : REQUEST:COMPARE [  ] (customerRating) < 1, 3 > <EOB> The black and white chair has a good customer rating, while the brown one has a rating of 4.2. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>INFORM:GET [ customerRating = good, materials = memory foam, type = Bed ] (materials)  <EOB> These two grey ones are the only ones that fit your preferences. <EOS>
+total_sequence_coref_replaced: User : Can you find a decent bed? System : We have these two grey ones? <SOM> 0, 4 <EOM> User : Can you find something similar in material but with a good customer rating? => Belief State : INFORM:GET [ customerRating = good, materials = memory foam, type = Bed ] (materials) < 0, 4 > <EOB> These two grey ones are the only ones that fit your preferences. <EOS> 
+
+is_nocoref and object is both on!!! THIS SHOULD NOT HAPPEN!
+=== GENERATED SEQUENCE 1, 22/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay, I'll add those now. <EOS>
+total_sequence_coref_replaced: User : Hey! I need a leather chair. System : What do you think of the brown chair on the far left and the black and white one to its right. <SOM> 1, 3 <EOM> User : Hmm both are nice. Add both to my bag. => Belief State : REQUEST:ADD_TO_CART [  ] () < 1, 3 > <EOB> Okay, I'll add those now. <EOS> 
+
+=== GENERATED SEQUENCE 1, 113/8609 ===
+Before replace : <s>REQUEST:GET [ type = AreaRug, brand = Home Store, materials = natural fibers ] ()  <EOB> Do you like the white area rug in the back right? <EOS>
+total_sequence_coref_replaced: User : I don't suppose you could find me some wooden Modern Arts shelves? System : Those short brown wooden shelves right in front are made by Modern Arts! <SOM> 6 <EOM> User : Okay, I'll take that into consideration. Now what can you do about an area rug made from natural fibers? => Belief State : REQUEST:GET [ type = AreaRug, brand = Home Store, materials = natural fibers ] () <  > <EOB> Do you like the white area rug in the back right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 16/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Okay. I've added that to your cart. <EOS>
+total_sequence_coref_replaced: System : Sure. I'll add both of those to your cart. <SOM> 77, 2 <EOM> User : I want to look for one similar to the light grey coat's size and brand. The one on the far right side of the wall. System : In addition to that one, there are light grey ones on the front left rack. <SOM> 26, 82, 83 <EOM> User : I'll go with the one on the back of the front rack. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> Okay. I've added that to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 28/8609 ===
+Before replace : <s>REQUEST:GET [ type = shirt, vest, sleeveLength = full, price = expensive ] ()  <EOB> I don't have anything like that. <EOS>
+total_sequence_coref_replaced: User : I want an expensive shirt vest with long sleeves. => Belief State : REQUEST:GET [ type = shirt, vest, sleeveLength = full, price = expensive ] () <  > <EOB> I don't have anything like that. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>ASK:GET [  ] (brand)  <EOB> Which ones do you mean? <EOS>
+total_sequence_coref_replaced: User : Hi, I'm trying to find some good comfy joggers in XL, do you have anything like that? System : I do, take a look at the dark green joggers in the fourth cubby from the right on the left wall, and the joggers in the first cubby from the left on the right wall.  Both are size XL. <SOM> 20, 27 <EOM> User : What brand are the second ones? => Belief State : ASK:GET [  ] (brand) < 20, 27 > <EOB> Which ones do you mean? <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>INFORM:REFINE [ type = AreaRug, materials = natural fibers, customerRating = good ] ()  <EOB> Sorry, those are the only natural fibers rugs with good ratings. <EOS>
+total_sequence_coref_replaced: System : As far as rugs, I have two that might interest you. The first is the white rug to the left under the red sofa, and the second is the grey rug further behind it to the right under a shelf. <SOM> 5, 8 <EOM> User : Are they made with natural fibers and have good ratings? System : No, sorry, neither have that exact criteria. <SOM>  <EOM> User : Ok, well do you have any others to show? => Belief State : INFORM:REFINE [ type = AreaRug, materials = natural fibers, customerRating = good ] () <  > <EOB> Sorry, those are the only natural fibers rugs with good ratings. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> I will add those to your cart. <EOS>
+total_sequence_coref_replaced: System : These rugs aren't in the budget range. <SOM>  <EOM> User : Do you have anything else like the grey sofa in back or the red sofa? System : These are the only items like that. <SOM> 0, 6 <EOM> User : I'm just gonna take that wooden end table in the back and the green chair by the wall. => Belief State : REQUEST:ADD_TO_CART [  ] () < 1 > <EOB> I will add those to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (price, materials)  <EOB> It's leather and costs $399. <EOS>
+total_sequence_coref_replaced: System : How about the grey sofa over to the right in the back? <SOM> 0 <EOM> User : What's that made of? And how much is it? System : Which one? <SOM>  <EOM> User : The sofa you told me about... => Belief State : INFORM:DISAMBIGUATE [  ] (price, materials) < 0 > <EOB> It's leather and costs $399. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>ASK:GET [  ] (brand, materials)  <EOB> Which sofa do you mean? <EOS>
+total_sequence_coref_replaced: System : Of course! Have a look at the green one towards the back by the ladder bookcase. <SOM> 2 <EOM> User : I'm also looking for a good area rug. System : The grey one under that green chair and the black and white one in the middle of the room may be of interest to you. <SOM> 5, 8 <EOM> User : Can you tell me the brand and material for that sofa? => Belief State : ASK:GET [  ] (brand, materials) < 6 > <EOB> Which sofa do you mean? <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>INFORM:GET [ customerRating = 3.7, type = EndTable ] (customerRating)  <EOB> Sure, there's another black end table beside it. <EOS>
+total_sequence_coref_replaced: System : Sorry, I can't seem to find anything like that. <SOM>  <EOM> User : That's ok, that white sofa chair right in front of me just caught my eye, I love it!  Can you add it to my cart?  And also that white lamp beside the red couch to match please. System : Sure, adding one sofa chair and one lamp to your cart. <SOM> 7, 3 <EOM> User : Do you have anything with a similar rating to that black end table way at the back left? => Belief State : INFORM:GET [ customerRating = 3.7, type = EndTable ] (customerRating) < 4 > <EOB> Sure, there's another black end table beside it. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:GET [ type = CouchChair, materials = natural fibers ] ()  <EOB> What do you think about the white chair? <EOS>
+total_sequence_coref_replaced: System : What do you think about the grey sofa and the red sofa? <SOM> 0, 6 <EOM> User : Add the red sofa to my cart for me. System : Okay, I will add the red sofa to your cart. <SOM> 6 <EOM> User : Are there any chairs made out of natural fibers that you can show me? => Belief State : REQUEST:GET [ type = CouchChair, materials = natural fibers ] () <  > <EOB> What do you think about the white chair? <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (materials)  <EOB> Sure, the red couch is made of leather, while the grey one is made from leather. <EOS>
+total_sequence_coref_replaced: System : I certainly can!  If you look in the back left corner you can see a grey couch.  Still on the left side but towards the middle of the room is a red one.  What do you think? <SOM> 0, 6 <EOM> User : Are any of them from Home Store? System : Sorry, I don't have any Home Store couches currently. <SOM>  <EOM> User : That's ok.  How do those two compare in materials? => Belief State : REQUEST:COMPARE [  ] (materials) < 0, 6 > <EOB> Sure, the red couch is made of leather, while the grey one is made from leather. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>INFORM:REFINE [ price = affordable, materials = natural fibers, color = white, pattern = natural fiber, type = AreaRug ] ()  <EOB> I'm sorry, we don't have any white area rugs with natural fibers that are more affordable. <EOS>
+total_sequence_coref_replaced: System : I can definitely help! What do you think about the grey one to the left in the back or the red one to the right and closer to the front? <SOM> 0, 6 <EOM> User : No, those might be expensive, but they don't really look like it! Let's look at area rugs instead please. System : Of course, would you be interested in something like the grey one towards the back on the right, or maybe a white one with a pattern like the one in the center? <SOM> 5, 8 <EOM> User : Those are...just ok. Can you show me something with natural fibers and maybe more on the affordable side. Would only want to splurge on a sofa, not something I walk on. => Belief State : INFORM:REFINE [ price = affordable, materials = natural fibers, color = white, pattern = natural fiber, type = AreaRug ] () <  > <EOB> I'm sorry, we don't have any white area rugs with natural fibers that are more affordable. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:GET [ type = CouchChair ] ()  <EOB> That's the only one available. <EOS>
+total_sequence_coref_replaced: System : No problem! What do you think about the green one in back on this side of the dividing wall. <SOM> 2 <EOM> User : Do you have anything in grey that has a similar rating and cost? System : Sorry, I can't find anything similar. <SOM>  <EOM> User : Do you have any other chairs at all? => Belief State : REQUEST:GET [ type = CouchChair ] () <  > <EOB> That's the only one available. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:GET [ type = Sofa ] ()  <EOB> What do you think of the grey one or the red one? <EOS>
+total_sequence_coref_replaced: System : How do you like the green one? It's from Home Store and made of natural fibers. <SOM> 2 <EOM> User : Anything in red? System : I'm all out of red chairs. <SOM>  <EOM> User : How about a good settee then? => Belief State : REQUEST:GET [ type = Sofa ] () <  > <EOB> What do you think of the grey one or the red one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 28/8609 ===
+Before replace : <s>ASK:GET [  ] (brand, customerRating)  <EOB> Which one? <EOS>
+total_sequence_coref_replaced: System : Take a look at this grey one and that red one. <SOM> 0, 6 <EOM> User : Can you find me one with the same brand and materials as that red sofa? System : That red one is the only one like that. <SOM> 6 <EOM> User : What's the brand and rating? => Belief State : ASK:GET [  ] (brand, customerRating) < 6 > <EOB> Which one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater, size = S, customerReview = good ] ()  <EOB> I have three on the display table. There is a maroon sweater, a red and white sweater, and a green sweater. <EOS>
+total_sequence_coref_replaced: User : Do you have any S sweaters with good reviews? => Belief State : REQUEST:GET [ type = sweater, size = S, customerReview = good ] () <  > <EOB> I have three on the display table. There is a maroon sweater, a red and white sweater, and a green sweater. <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = Chair, color = white ] ()  <EOB> How about the white chair in the back to the right? <EOS>
+total_sequence_coref_replaced: User : What are some good white chairs you have? => Belief State : REQUEST:GET [ type = Chair, color = white ] () <  > <EOB> How about the white chair in the back to the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = Shelves, materials = wood ] ()  <EOB> Sure, what do you think of the tall wooden shelves at the far end of the room on the right? <EOS>
+total_sequence_coref_replaced: User : Hey there, do you have any good wooden shelves? => Belief State : REQUEST:GET [ type = Shelves, materials = wood ] () <  > <EOB> Sure, what do you think of the tall wooden shelves at the far end of the room on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = Chair ] ()  <EOB> I have a white chair in the back on the right and another white chair on the left on the other side of the divide. <EOS>
+total_sequence_coref_replaced: User : I'm having trouble finding a chair that fits my style. Can you help? => Belief State : REQUEST:GET [ type = Chair ] () <  > <EOB> I have a white chair in the back on the right and another white chair on the left on the other side of the divide. <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = Table ] ()  <EOB> How about this brown one? <EOS>
+total_sequence_coref_replaced: User : I'm looking for tables. => Belief State : REQUEST:GET [ type = Table ] () <  > <EOB> How about this brown one? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = Table, customerRating = good ] ()  <EOB> What do you think of the brown table on the right? <EOS>
+total_sequence_coref_replaced: User : I need a new table soon. What do you have with decent customer ratings? => Belief State : REQUEST:GET [ type = Table, customerRating = good ] () <  > <EOB> What do you think of the brown table on the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = CouchChair, price = expensive ] ()  <EOB> Of course! What do you think about the grey one on the left, the white one next to it or the other white one to the right? <EOS>
+total_sequence_coref_replaced: User : Hello there! Could you show me some of your finest sofa chairs? I'm hosting the next book club meeting and would like to impress! => Belief State : REQUEST:GET [ type = CouchChair, price = expensive ] () <  > <EOB> Of course! What do you think about the grey one on the left, the white one next to it or the other white one to the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:GET [ type = CouchChair ] ()  <EOB> What do you think of the grey sofa chairs and the white sofa chair? <EOS>
+total_sequence_coref_replaced: User : Can you pull up a sofa chair? => Belief State : REQUEST:GET [ type = CouchChair ] () <  > <EOB> What do you think of the grey sofa chairs and the white sofa chair? <EOS> 
+
+=== GENERATED SEQUENCE 1, 21/8609 ===
+Before replace : <s>REQUEST:GET [ type = Shelves ] ()  <EOB> How about these wooden shelves? <EOS>
+total_sequence_coref_replaced: User : Can you find me some shelves? => Belief State : REQUEST:GET [ type = Shelves ] () <  > <EOB> How about these wooden shelves? <EOS> 
+
+=== GENERATED SEQUENCE 1, 30/8609 ===
+Before replace : <s>INFORM:GET [ brand = Modern Arts, price = 39.99, type = shirt ] (brand,  price)  <EOB> Sorry, I don't have anything else matching that description. <EOS>
+total_sequence_coref_replaced: System : I have a blue and grey shirt on the lower right of the table, a blue and white shirt next to it, and a grey and brown shirt diagonal to that. <SOM> 17, 11, 18 <EOM> User : Alright, thanks. What's the brand and rating on that grey and brown shirt? And on the light grey shirt at the far end as well? System : Both shirts are by Modern Arts. The light grey shirt has a 3.7 rating, but the grey and brown shirt has only a 2.8 rating. <SOM> 11, 12 <EOM> User : Alright, do you have anything else with a similar brand and price tag to that light grey one? => Belief State : INFORM:GET [ brand = Modern Arts, price = 39.99, type = shirt ] (brand,  price) < 12 > <EOB> Sorry, I don't have anything else matching that description. <EOS> 
+
+=== GENERATED SEQUENCE 1, 30/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Ok. I will add those items now. <EOS>
+total_sequence_coref_replaced: System : Which one do you mean? <SOM>  <EOM> User : The green hoodie hanging up top on the left wall. System : This one is by Downtown Consignment. <SOM> 2 <EOM> User : Let's add the blue jeans in the very back to my cart along with the blue jacket in the center of the right wall. => Belief State : REQUEST:ADD_TO_CART [  ] () < 15 > <EOB> Ok. I will add those items now. <EOS> 
+
+=== GENERATED SEQUENCE 1, 26/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview, availableSizes)  <EOB> Both hoodies have a 4.0 rating and come in S, XL, and XXL. <EOS>
+total_sequence_coref_replaced: System : Well there's another brown hoodie to the left of the other one, and there's another brown hoodie right at the bottom right up front. <SOM> 5, 21, 29 <EOM> User : Can I get a rating and available sizes for the brown hoodies? System : Which brown hoodies? There are several. <SOM>  <EOM> User : I mean the one on the back of the rack up front, and the leftmost of the two hanging in the shelving unit. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview, availableSizes) < 29 > <EOB> Both hoodies have a 4.0 rating and come in S, XL, and XXL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 30/8609 ===
+Before replace : <s>REQUEST:GET [ type = tshirt, customerReview = good ] ()  <EOB> I think you might fall head over heels for that dark yellow one on the table to the left, the dark pink one hanging up on the wall to the right, or the red and white striped shirt hanging on the bottom row against the wall further back. <EOS>
+total_sequence_coref_replaced: User : So I'm shopping for tee shirts today that are well reviewed! => Belief State : REQUEST:GET [ type = tshirt, customerReview = good ] () <  > <EOB> I think you might fall head over heels for that dark yellow one on the table to the left, the dark pink one hanging up on the wall to the right, or the red and white striped shirt hanging on the bottom row against the wall further back. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>INFORM:REFINE [ size = S, type = hoodie, color = green ] ()  <EOB> I don't have any green hoodies in small. <EOS>
+total_sequence_coref_replaced: User : Do you have any quality green hoodies? System : How about the green hoodie on the far wall, on the bottom row? <SOM> 16 <EOM> User : Do you have anything else that comes in a small? => Belief State : INFORM:REFINE [ size = S, type = hoodie, color = green ] () <  > <EOB> I don't have any green hoodies in small. <EOS> 
+
+=== GENERATED SEQUENCE 1, 10/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Sure thing. <EOS>
+total_sequence_coref_replaced: System : We have the light grey coat on the top middle of the right wall display, the black coat on the bottom left of the right wall display, and the black coat above that one. <SOM> 1, 10, 0 <EOM> User : Do those two blue hoodies have the same brand and available sizes? System : They both are made by Global Voyager and are available in S. <SOM> 3, 12 <EOM> User : Can you add the light grey coat and the blue jacket to my cart? => Belief State : REQUEST:ADD_TO_CART [  ] () < 1, 2 > <EOB> Sure thing. <EOS> 
+
+=== GENERATED SEQUENCE 1, 45/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] ()  <EOB> The brown ones are an XS, and the blue ones are XXL. <EOS>
+total_sequence_coref_replaced: System : I'll handle your cart. <SOM> 8 <EOM> User : I'd like to see more dresses with sleeve lengths like the black and beige dresses. System : There's those two you already saw as well as the violet one next to the black one. <SOM> 4, 5, 8 <EOM> User : Can you tell me about those brown pants on the left side by the wall, and the blue ones next to them? => Belief State : REQUEST:COMPARE [  ] () < 6, 7 > <EOB> The brown ones are an XS, and the blue ones are XXL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 38/8609 ===
+Before replace : <s>INFORM:REFINE [ customerReview = good, type = hoodie ] ()  <EOB> Sorry, but no other item matches your search criteria. <EOS>
+total_sequence_coref_replaced: System : It is from Downtown Consignment. <SOM> 16 <EOM> User : Can you now show me a hoodie? System : There are two green hoodies, one in the closet the other on the rack, and a brown hoodie that match your search parameters. What do you think of them? <SOM> 5, 8, 39 <EOM> User : You got anything else with good reviews? => Belief State : INFORM:REFINE [ customerReview = good, type = hoodie ] () <  > <EOB> Sorry, but no other item matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 25/8609 ===
+Before replace : <s>REQUEST:GET [ type = hat, pattern = text ] ()  <EOB> Sure, what do you think of the three hats on the display to the right? <EOS>
+total_sequence_coref_replaced: User : Hello! I need a hat to complete my street style look. Maybe something with words? => Belief State : REQUEST:GET [ type = hat, pattern = text ] () <  > <EOB> Sure, what do you think of the three hats on the display to the right? <EOS> 
+
+=== GENERATED SEQUENCE 1, 8/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] ()  <EOB> The light grey is a StyleNow Feed coat with a rating of 3.8 and costs $179.99. It is available in XS, M, L, XL, and XXL. The black is from North Lodge, has a 4.5 rating, costs $139.99, and is available only in L. <EOS>
+total_sequence_coref_replaced: User : Do you have any plain pattern coats? System : I have a brown on the right-hand rack, a black on the left, and the light grey in the back. What do you think of those? <SOM> 24, 0, 5 <EOM> User : What can you tell me about the light grey in back and the black on the left? => Belief State : REQUEST:COMPARE [  ] () < 5 > <EOB> The light grey is a StyleNow Feed coat with a rating of 3.8 and costs $179.99. It is available in XS, M, L, XL, and XXL. The black is from North Lodge, has a 4.5 rating, costs $139.99, and is available only in L. <EOS> 
+
+=== GENERATED SEQUENCE 1, 16/8609 ===
+Before replace : <s>REQUEST:GET [ type = blouse, customerReview = good ] ()  <EOB> There are several blouses which match your criteria. What do you think of them? <EOS>
+total_sequence_coref_replaced: System : What do you think of the green trousers or the grey trousers? <SOM> 6, 7 <EOM> User : Show me something else like the white, maroon, and blue blouse in terms of price and brand. System : Sorry, that is the only item which matches your criteria. <SOM> 2 <EOM> User : I want to see some blouses with good reviews. What have you got for me? => Belief State : REQUEST:GET [ type = blouse, customerReview = good ] () <  > <EOB> There are several blouses which match your criteria. What do you think of them? <EOS> 
+
+=== GENERATED SEQUENCE 1, 73/8609 ===
+Before replace : <s>ASK:GET [  ] (customerReview, price)  <EOB> Sorry, which black sweater are you seeking further information on? <EOS>
+total_sequence_coref_replaced: System : Can I interest you in that brown one hanging on the far side of that bottom row on the right? <SOM> 5 <EOM> User : Yeah that's pretty sweet. Mind tossing it in the cart for me? System : Not at all. I'll have that brown hoodie in your cart in a jiffy! <SOM> 5 <EOM> User : You know what, that black sweater is pretty cute as well. What do customers have to say about it, and how much does it cost? => Belief State : ASK:GET [  ] (customerReview, price) < 6 > <EOB> Sorry, which black sweater are you seeking further information on? <EOS> 
+
+=== GENERATED SEQUENCE 1, 72/8609 ===
+Before replace : <s>INFORM:REFINE [ customerReview = good, size = XS, type = hat ] ()  <EOB> I can offer you the black and orange hat on our immediate left. <EOS>
+total_sequence_coref_replaced: System : Sure! I am putting them into your cart at this moment. <SOM> 2, 65 <EOM> User : Thanks! Can you also recommend a nice hat? System : i would suggest the black and orange one, the grey one right next to it, and the white one that sits fourth from the right on that shelf on the right. <SOM> 52, 60, 50 <EOM> User : Can we narrow the results done to high customer reviews and size XL? => Belief State : INFORM:REFINE [ customerReview = good, size = XS, type = hat ] () <  > <EOB> I can offer you the black and orange hat on our immediate left. <EOS> 
+
+=== GENERATED SEQUENCE 1, 36/8609 ===
+Before replace : <s>REQUEST:GET [ type = trousers ] ()  <EOB> What do you think of these? <EOS>
+total_sequence_coref_replaced: User : Can you show me some nice trousers? => Belief State : REQUEST:GET [ type = trousers ] () <  > <EOB> What do you think of these? <EOS> 
+
+=== GENERATED SEQUENCE 1, 49/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (brand, availableSizes)  <EOB> The gray one is from The Vegan Baker and comes in XL, S, M, XXL, and L.  The blue one is made by Yogi Fit and comes only in Xl. <EOS>
+total_sequence_coref_replaced: User : I'd like to see any tees you have made by The Vegan Baker. System : How about the gray tee at the far left of the cabinet at the far right?  That's made by The Vegan Baker. <SOM> 7 <EOM> User : Can you tell me the brands and available sizes for that gray tee, and also the blue one closest to us on the garment rack? => Belief State : REQUEST:COMPARE [  ] (brand, availableSizes) < 7, 29 > <EOB> The gray one is from The Vegan Baker and comes in XL, S, M, XXL, and L.  The blue one is made by Yogi Fit and comes only in Xl. <EOS> 
+
+=== GENERATED SEQUENCE 1, 7/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (size, customerReview)  <EOB> The pair on the left is rated 2.9 and is medium. The pair to the right is rated higher at 3.4 and is extra large. <EOS>
+total_sequence_coref_replaced: System : I have canvas shoes. How about the two blue pairs in the cubbies to the right? <SOM> 47, 48 <EOM> User : Can you tell me their sizes and ratings? System : Which ones? <SOM>  <EOM> User : The two blue pairs in the cubbies to the right. => Belief State : INFORM:DISAMBIGUATE [  ] (size, customerReview) < 47, 48 > <EOB> The pair on the left is rated 2.9 and is medium. The pair to the right is rated higher at 3.4 and is extra large. <EOS> 
+
+=== GENERATED SEQUENCE 1, 42/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview, brand)  <EOB> Here's what I found. The one on the left is rated 3.4 and is made by Global Voyager. The other is rated at 3.4 by the same brand. <EOS>
+total_sequence_coref_replaced: System : Here are the differences. The one on the left side costs 129.99 and is made by Global Voyager. The one on the right is also made by Global Voyager and costs 129.99. <SOM> 0, 1 <EOM> User : Provide me with the customer reviews and labels for those two blue hoodies, please. System : Which one are you looking at? <SOM>  <EOM> User : I'm looking at the two hoodies that are side by side in the upper left. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview, brand) < 0, 1 > <EOB> Here's what I found. The one on the left is rated 3.4 and is made by Global Voyager. The other is rated at 3.4 by the same brand. <EOS> 
+
+=== GENERATED SEQUENCE 1, 26/8609 ===
+Before replace : <s>REQUEST:GET [ type = jacket, pattern = twin colors, sleeveLength = full ] ()  <EOB> How do you like these ones? <EOS>
+total_sequence_coref_replaced: System : I am sorry but I don't have anything else that would match your criteria. Is there anything else I can do for you? <SOM>  <EOM> User : Please add those pants to my cart! System : I will add them for you. <SOM> 23, 30 <EOM> User : I am also looking for some twin color long sleeve jacket => Belief State : REQUEST:GET [ type = jacket, pattern = twin colors, sleeveLength = full ] () <  > <EOB> How do you like these ones? <EOS> 
+
+=== GENERATED SEQUENCE 1, 12/8609 ===
+Before replace : <s>REQUEST:GET [ type = dress, customerReview = good, sleeveLength = short ] ()  <EOB> There are several dresses on the rack which match your criteria. <EOS>
+total_sequence_coref_replaced: User : Are there any dresses with good reviews and short sleeves which you can recommend me? => Belief State : REQUEST:GET [ type = dress, customerReview = good, sleeveLength = short ] () <  > <EOB> There are several dresses on the rack which match your criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 26/8609 ===
+Before replace : <s>ASK:GET [  ] (size)  <EOB> Which two do you mean? <EOS>
+total_sequence_coref_replaced: User : Have you got any affordable full-sleeve jackets? System : I've got the blue jacket second from the left in the top row, the light gray one directly below that, and another blue one second from the right in the bottom row. <SOM> 1, 7, 10 <EOM> User : Can I get the size of those two? => Belief State : ASK:GET [  ] (size) < 1, 7 > <EOB> Which two do you mean? <EOS> 
+
+=== GENERATED SEQUENCE 1, 6/8609 ===
+Before replace : <s>INFORM:REFINE [ type = blouse, customerReview = good ] ()  <EOB> I have the black blouse in the cubby on the right, the black and white blouse on the center rack, and the maroon white and blue blouse next to it. <EOS>
+total_sequence_coref_replaced: System : Do you like the grey one in the front left cubby, the black one two cubbies behind it, or the light grey one in the front left cubby? They are all coats. <SOM> 0, 1, 8 <EOM> User : How about blouses with good reviews? System : I have the maroon and white one on the back of the center rack, the white and black one on the same rack, and the black one up in the cubby on the right. <SOM> 14, 5, 16 <EOM> User : What else do you have? => Belief State : INFORM:REFINE [ type = blouse, customerReview = good ] () <  > <EOB> I have the black blouse in the cubby on the right, the black and white blouse on the center rack, and the maroon white and blue blouse next to it. <EOS> 
+
+=== GENERATED SEQUENCE 1, 23/8609 ===
+Before replace : <s>INFORM:REFINE [ type = dress, brand = Ocean Wears ] ()  <EOB> Sorry, but no other item matches your search criteria. <EOS>
+total_sequence_coref_replaced: System : Which item are you talking about? <SOM>  <EOM> User : The beige dress on the bottom row. System : It is from Fancy Nails and is available in L, M, XXL, S, and XL. <SOM> 3 <EOM> User : Are there any other recommendations? => Belief State : INFORM:REFINE [ type = dress, brand = Ocean Wears ] () <  > <EOB> Sorry, but no other item matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 12/8609 ===
+Before replace : <s>INFORM:REFINE [ color = grey, price = cheap, type = jeans ] ()  <EOB> Sorry, but no item matches your search criteria. <EOS>
+total_sequence_coref_replaced: System : Sorry, only the light blue jeans match your criteria. You have already been shown them. <SOM> 9, 14 <EOM> User : Are there any other recommendations that you can show me? System : Sorry, but no item matches your current search criteria. <SOM>  <EOM> User : What else do you have that is grey and cheap? => Belief State : INFORM:REFINE [ color = grey, price = cheap, type = jeans ] () <  > <EOB> Sorry, but no item matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 66/8609 ===
+Before replace : <s>REQUEST:GET [ type = hoodie, customerReview = good ] ()  <EOB> What do you think of the brown hoodie and the blue hoodie on the wall? <EOS>
+total_sequence_coref_replaced: User : Any hoodies with good reviews? => Belief State : REQUEST:GET [ type = hoodie, customerReview = good ] () <  > <EOB> What do you think of the brown hoodie and the blue hoodie on the wall? <EOS> 
+
+=== GENERATED SEQUENCE 1, 15/8609 ===
+Before replace : <s>INFORM:GET [ size = L, type = shoes ] ()  <EOB> Those are the only shoes I have. <EOS>
+total_sequence_coref_replaced: User : Hi. I'm looking for Downtown Consignment shoes. System : You should check out the red shoes on the bottom shelf of the middle island. They are Downtown Consignments. <SOM> 63 <EOM> User : Do you have anything like them, but in large? => Belief State : INFORM:GET [ size = L, type = shoes ] () < 63 > <EOB> Those are the only shoes I have. <EOS> 
+
+=== GENERATED SEQUENCE 1, 53/8609 ===
+Before replace : <s>INFORM:REFINE [ size = XS, customerReview = 3.0, brand = Pedals & Gears, type = coat ] ()  <EOB> Sorry, but no. What else can I do for you? <EOS>
+total_sequence_coref_replaced: System : I have a black coat on the rack, a grey on the wall, and a black on the wall. What do you think? <SOM> 2, 9, 13 <EOM> User : Have anything with the same rating and brand as the black coat on the wall? System : That's the only one available. <SOM> 13 <EOM> User : Anything else in XS? => Belief State : INFORM:REFINE [ size = XS, customerReview = 3.0, brand = Pedals & Gears, type = coat ] () <  > <EOB> Sorry, but no. What else can I do for you? <EOS> 
+
+=== GENERATED SEQUENCE 1, 42/8609 ===
+Before replace : <s>ASK:GET [  ] (price, customerReview)  <EOB> Which ones? <EOS>
+total_sequence_coref_replaced: System : Do you like the grey one hanging up on the right wall or the dark red one on the front right rack? <SOM> 2, 50 <EOM> User : I'll take that grey one. System : Ok, I'll put the grey one in your cart for you. <SOM> 2 <EOM> User : How much is the black jacket on that front rack and what is it rated? I'd also like to know about the red and white one in the center cubby. => Belief State : ASK:GET [  ] (price, customerReview) <  > <EOB> Which ones? <EOS> 
+
+=== GENERATED SEQUENCE 1, 32/8609 ===
+Before replace : <s>INFORM:REFINE [ brand = Pedals & Gears, customerReview = good, type = jacket ] ()  <EOB> Sorry, I don't have anything like that. <EOS>
+total_sequence_coref_replaced: System : The blue one is from Global Voyager and the light grey one is from 212 Local. <SOM> 40, 6 <EOM> User : Are there any more? System : Sorry, I don't have anything else. <SOM>  <EOM> User : What do you have from StyleNow feed with good reviews. => Belief State : INFORM:REFINE [ brand = Pedals & Gears, customerReview = good, type = jacket ] () <  > <EOB> Sorry, I don't have anything like that. <EOS> 
+
+=== GENERATED SEQUENCE 1, 14/8609 ===
+Before replace : <s>REQUEST:GET [ type = trousers ] ()  <EOB> On the right wall, I have the gray pants closest to you, the blue ones next to them, and on the left wall, the brown ones second from the door. <EOS>
+total_sequence_coref_replaced: User : I'd like to see some pants please.  What have you got? => Belief State : REQUEST:GET [ type = trousers ] () <  > <EOB> On the right wall, I have the gray pants closest to you, the blue ones next to them, and on the left wall, the brown ones second from the door. <EOS> 
+
+=== GENERATED SEQUENCE 1, 29/8609 ===
+Before replace : <s>INFORM:REFINE [ color = blue, type = hoodie, brand = 212 Local ] ()  <EOB> Sorry, but no item matches your search criteria. <EOS>
+total_sequence_coref_replaced: User : Show me a hoodie from 212 Local, please. System : The brown hoodie on the wall matches your criteria. What do you think of it? <SOM> 10 <EOM> User : I'm actually looking for something blue. => Belief State : INFORM:REFINE [ color = blue, type = hoodie, brand = 212 Local ] () <  > <EOB> Sorry, but no item matches your search criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 61/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (price)  <EOB> That shirt costs $79.99. <EOS>
+total_sequence_coref_replaced: System : I think you'll love that brown one hanging at the back of that lower bunch of clothes against the wall! <SOM> 10 <EOM> User : Wow I love this shirt on the table! What are they asking for it? System : Sorry, which shirt would you like to know the price of? <SOM>  <EOM> User : That dirty yellow one next to the purple shirt. It's on the bottom shelf of that three-tiered stand. => Belief State : INFORM:DISAMBIGUATE [  ] (price) < 27 > <EOB> That shirt costs $79.99. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview)  <EOB> The grey coat has a rating of 4.6 and the brown coat has an average rating of. <EOS>
+total_sequence_coref_replaced: System : There is a maroon dress, a black dress, and another maroon dress which match your criteria. <SOM> 37, 52, 41 <EOM> User : What are the customer ratings for the grey coat and the brown coat? System : Which ones do you mean? <SOM>  <EOM> User : I am talking about the grey coat on the rack and the brown coat on the back left wall. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview) < 17, 57 > <EOB> The grey coat has a rating of 4.6 and the brown coat has an average rating of. <EOS> 
+
+=== GENERATED SEQUENCE 1, 25/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerReview, availableSizes)  <EOB> The left one has a 5.0 rating and comes in XS, S, M, L, XL, and XXL. The right has a higher rating at 2.6 and is only available in S and XL. <EOS>
+total_sequence_coref_replaced: System : I have one on the top left, fourth one on the bottom, and the second one on the left. Do any of them interest you? <SOM> 0, 7, 11 <EOM> User : Can I get the ratings and available sizes for the left one and the bottom right one? System : Which one? <SOM>  <EOM> User : The second one on the left, and the fourth one on the right on the bottom. => Belief State : INFORM:DISAMBIGUATE [  ] (customerReview, availableSizes) <  > <EOB> The left one has a 5.0 rating and comes in XS, S, M, L, XL, and XXL. The right has a higher rating at 2.6 and is only available in S and XL. <EOS> 
+
+=== GENERATED SEQUENCE 1, 26/8609 ===
+Before replace : <s>REQUEST:GET [ type = coat, size = L ] ()  <EOB> There are several grey coats and a black coat which match your criteria. <EOS>
+total_sequence_coref_replaced: User : Any coats in XL? => Belief State : REQUEST:GET [ type = coat, size = L ] () <  > <EOB> There are several grey coats and a black coat which match your criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 26/8609 ===
+Before replace : <s>ASK:GET [  ] (brand)  <EOB> Sorry, which items would you like to know the brand of? <EOS>
+total_sequence_coref_replaced: User : Can you see if there are any nice sweaters in extra large? Oh and I don't buy things with trash reviews. System : I've got several highly rated sweaters in that size for you to look at! See what you think of the green one and the grey one on the lowest table over there. There's also a funky red and green one in the back by the window for you to consider. <SOM> 21, 1, 18 <EOM> User : Hm yeah those two might do the trick. But tell me the label first. => Belief State : ASK:GET [  ] (brand) < 14, 21 > <EOB> Sorry, which items would you like to know the brand of? <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater, brand = Downtown Consignment ] ()  <EOB> There is a red and white sweater which matches your criteria. <EOS>
+total_sequence_coref_replaced: System : What do you think of the green sweaters or the red and white sweater? <SOM> 21, 14, 1 <EOM> User : Add the green sweater on the top shelf. System : Confirmed. It will be added. <SOM> 14 <EOM> User : Are there any sweaters from Downtown Consignment which you can show me? => Belief State : REQUEST:GET [ type = sweater, brand = Downtown Consignment ] () <  > <EOB> There is a red and white sweater which matches your criteria. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Sure thing. <EOS>
+total_sequence_coref_replaced: System : They are both made out of wood and have a customer rating of 3.7 <SOM> 2, 0 <EOM> User : Do you have anything that is affordable? System : Sorry, I can't find anything that matches your description of an expensive coffee table. <SOM>  <EOM> User : Can you add the grey sofa to my cart? => Belief State : REQUEST:ADD_TO_CART [  ] () < 5 > <EOB> Sure thing. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> I will add it to your cart. <EOS>
+total_sequence_coref_replaced: System : I will add it to your cart. <SOM> 7 <EOM> User : Do you have any other leather rugs with a good customer rating? System : I couldn't find anything that would match these criteria. <SOM>  <EOM> User : Please add another one to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () < 7 > <EOB> I will add it to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>INFORM:DISAMBIGUATE [  ] (customerRating)  <EOB> It has a 3.2 rating. <EOS>
+total_sequence_coref_replaced: System : Ok! Adding it now. <SOM> 3 <EOM> User : By the way, what is it rated? System : Which one? <SOM>  <EOM> User : The one I added to my cart. => Belief State : INFORM:DISAMBIGUATE [  ] (customerRating) < 6 > <EOB> It has a 3.2 rating. <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>ASK:GET [  ] (materials)  <EOB> Which one do you mean? <EOS>
+total_sequence_coref_replaced: System : The wooden one is wood, and the gray one is also made of wood. <SOM> 4, 3 <EOM> User : Please add the gray one to my cart. System : Sure thing.  I'll add the gray one right away for you. <SOM> 4 <EOM> User : Can you tell me what that's made out of? => Belief State : ASK:GET [  ] (materials) < 4 > <EOB> Which one do you mean? <EOS> 
+
+=== GENERATED SEQUENCE 1, 9/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> I'll add those to your cart. <EOS>
+total_sequence_coref_replaced: System : I also have a gray coffee table to offer. <SOM> 3, 4 <EOM> User : What about rugs with high ratings? System : Do you like that blue one? <SOM> 7 <EOM> User : Nevermind.  Just add the wooden table on the right and the black end table to my cart. => Belief State : REQUEST:ADD_TO_CART [  ] () <  > <EOB> I'll add those to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>REQUEST:ADD_TO_CART [  ] ()  <EOB> Great! I'll add that to your cart. <EOS>
+total_sequence_coref_replaced: System : Sorry, which end table are you looking at? <SOM>  <EOM> User : The one on the far side of the red sofa on the other side of that  sofa you just told me about. System : That's from North Lodge <SOM> 0 <EOM> User : Cool. I want it. => Belief State : REQUEST:ADD_TO_CART [  ] () < 0, 2 > <EOB> Great! I'll add that to your cart. <EOS> 
+
+=== GENERATED SEQUENCE 1, 13/8609 ===
+Before replace : <s>REQUEST:COMPARE [  ] (brand, price)  <EOB> The purple one is from Uptown Gallery and costs $224.99. The maroon one is $184.99 from Nature Photographers. <EOS>
+total_sequence_coref_replaced: System : All three on the left are size L. <SOM> 4, 5, 8 <EOM> User : What else might you suggest? System : I'm sorry, those are all we currently have. Can I help you look for something else? <SOM>  <EOM> User : Can you tell me the brands for the purple and maroon ones on the left and how much they are? => Belief State : REQUEST:COMPARE [  ] (brand, price) < 5, 8 > <EOB> The purple one is from Uptown Gallery and costs $224.99. The maroon one is $184.99 from Nature Photographers. <EOS> 
+
+=== GENERATED SEQUENCE 1, 11/8609 ===
+Before replace : <s>ASK:GET [  ] (availableSizes, price)  <EOB> Which ones? <EOS>
+total_sequence_coref_replaced: System : It is rated 3.3. <SOM> 2 <EOM> User : I'll buy that one and also the blue and green jacket on the back of the table to the right. System : Ok, I will put that blouse and that jacket in your cart for you. <SOM> 2, 6 <EOM> User : Cool. Can you tell me the sizing and prices for the grey jacket on the table and that blue green one? => Belief State : ASK:GET [  ] (availableSizes, price) < 5, 6 > <EOB> Which ones? <EOS> 
+
+=== GENERATED SEQUENCE 1, 37/8609 ===
+Before replace : <s>REQUEST:GET [ type = sweater, price = expensive ] ()  <EOB> I've got the Christmas sweater at the far left of the low rung on the wall, the red Christmas sweater second from the right on the lowest rung, and the pink one second from  the right in the top row on the right wall. <EOS>
+total_sequence_coref_replaced: User : I'm thinking about treating myself today.  What have you got in expensive sweaters? => Belief State : REQUEST:GET [ type = sweater, price = expensive ] () <  > <EOB> I've got the Christmas sweater at the far left of the low rung on the wall, the red Christmas sweater second from the right on the lowest rung, and the pink one second from  the right in the top row on the right wall. <EOS> 
+
+***********************************
+Finished job: run_bart_multi_task_mm_dst.py --prompts_from_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --path_output=../results/mm_dst_predictions.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../multi_task/downloaded_model/checkpoint-22000  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036123.1.GPU25-0:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Wed 18 May 08:11:19 GMT 2022
+***********************************

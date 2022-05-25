@@ -1,0 +1,1960 @@
+***********************************
+Starting job: train.py --NAME UNITER_basic_both_objid_pos_sceneseg_bothBERT --obj_id True --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036119.1.GPU15-0:/usr/local/bin:/bin:/usr/bin; TIME=Tue 17 May 18:15:08 GMT 2022
+***********************************
+
+Setting free GPU to number: 0
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/uniter_based
+Linux stg-gpu15 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+UNITER_basic_both_objid_pos_sceneseg_bothBERT batch_size=16, Adam_lr=5e-06, FocalAlpha=5, GAMMA=2, scheduler=False
+
+obj_id
+True
+vis_feats_clip
+True
+vis_feats_rcnn
+True
+pos
+True
+scene_seg
+True
+obj_embs_bert
+True
+obj_embs_sbert
+True
+kb_id_bert
+False
+kb_id_sbert
+False
+attn_bias
+False
+graph_attn
+False
+obj_men
+False
+pred_men
+False
+more_roi
+False
+cuda
+Load UNITER PreTrained Model from ./model/Transformers_VQA_master/models/pretrained/uniter-base.pt
+
+Weights in loaded but not in model:
+cls.predictions.bias
+cls.predictions.decoder.weight
+cls.predictions.transform.LayerNorm.bias
+cls.predictions.transform.LayerNorm.weight
+cls.predictions.transform.dense.bias
+cls.predictions.transform.dense.weight
+feat_regress.bias
+feat_regress.net.0.bias
+feat_regress.net.0.weight
+feat_regress.net.2.bias
+feat_regress.net.2.weight
+feat_regress.weight
+itm_output.bias
+itm_output.weight
+region_classifier.net.0.bias
+region_classifier.net.0.weight
+region_classifier.net.2.bias
+region_classifier.net.2.weight
+region_classifier.net.3.bias
+region_classifier.net.3.weight
+uniter.img_embeddings.mask_embedding.weight
+
+Weights in model but not in loaded:
+
+0 0
+tensor(99.0150, device='cuda:0')
+#pred positives 1337
+#groundtruth positives 2378
+#total pred 113787
+#hit 4
+f1 0.0021534320323014803
+0 250
+tensor(40.0064, device='cuda:0')
+#pred positives 212
+#groundtruth positives 2378
+#total pred 113787
+#hit 31
+f1 0.023938223938223934
+0 500
+tensor(38.3755, device='cuda:0')
+#pred positives 86
+#groundtruth positives 2378
+#total pred 113787
+#hit 16
+f1 0.012987012987012988
+0 750
+tensor(36.2421, device='cuda:0')
+#pred positives 1100
+#groundtruth positives 2378
+#total pred 113787
+#hit 184
+f1 0.10580793559516964
+0 1000
+tensor(36.0626, device='cuda:0')
+#pred positives 489
+#groundtruth positives 2378
+#total pred 113787
+#hit 108
+f1 0.07534007673526334
+0 1250
+tensor(35.2136, device='cuda:0')
+#pred positives 172
+#groundtruth positives 2378
+#total pred 113787
+#hit 43
+f1 0.03372549019607843
+0 1500
+tensor(32.7896, device='cuda:0')
+#pred positives 750
+#groundtruth positives 2378
+#total pred 113787
+#hit 192
+f1 0.12276214833759592
+0 1750
+tensor(30.6835, device='cuda:0')
+#pred positives 2103
+#groundtruth positives 2378
+#total pred 113787
+#hit 496
+f1 0.221379156438295
+0 2000
+tensor(28.8871, device='cuda:0')
+#pred positives 985
+#groundtruth positives 2378
+#total pred 113787
+#hit 312
+f1 0.18554861730597683
+1 0
+tensor(28.6709, device='cuda:0')
+#pred positives 3868
+#groundtruth positives 2378
+#total pred 113787
+#hit 800
+f1 0.25616394492475186
+1 250
+tensor(27.5282, device='cuda:0')
+#pred positives 2224
+#groundtruth positives 2378
+#total pred 113787
+#hit 623
+f1 0.27075184702303345
+1 500
+tensor(26.9323, device='cuda:0')
+#pred positives 2028
+#groundtruth positives 2378
+#total pred 113787
+#hit 630
+f1 0.28597367226509307
+1 750
+tensor(25.8904, device='cuda:0')
+#pred positives 4260
+#groundtruth positives 2378
+#total pred 113787
+#hit 1041
+f1 0.3136486893642664
+1 1000
+tensor(24.0939, device='cuda:0')
+#pred positives 4408
+#groundtruth positives 2378
+#total pred 113787
+#hit 1140
+f1 0.3359858532272325
+1 1250
+tensor(24.6391, device='cuda:0')
+#pred positives 4482
+#groundtruth positives 2378
+#total pred 113787
+#hit 1209
+f1 0.3524781341107872
+1 1500
+tensor(23.0098, device='cuda:0')
+#pred positives 4207
+#groundtruth positives 2378
+#total pred 113787
+#hit 1255
+f1 0.381169324221716
+1 1750
+tensor(22.3322, device='cuda:0')
+#pred positives 4246
+#groundtruth positives 2378
+#total pred 113787
+#hit 1274
+f1 0.38466183574879226
+1 2000
+tensor(21.7402, device='cuda:0')
+#pred positives 4659
+#groundtruth positives 2378
+#total pred 113787
+#hit 1404
+f1 0.39903367912462695
+2 0
+tensor(21.1298, device='cuda:0')
+#pred positives 5911
+#groundtruth positives 2378
+#total pred 113787
+#hit 1551
+f1 0.37423090843286283
+2 250
+tensor(19.4986, device='cuda:0')
+#pred positives 4355
+#groundtruth positives 2378
+#total pred 113787
+#hit 1415
+f1 0.42031783751670876
+2 500
+tensor(18.4926, device='cuda:0')
+#pred positives 4388
+#groundtruth positives 2378
+#total pred 113787
+#hit 1434
+f1 0.4238841265149276
+2 750
+tensor(18.7558, device='cuda:0')
+#pred positives 4882
+#groundtruth positives 2378
+#total pred 113787
+#hit 1524
+f1 0.41983471074380163
+2 1000
+tensor(17.9874, device='cuda:0')
+#pred positives 4633
+#groundtruth positives 2378
+#total pred 113787
+#hit 1500
+f1 0.42789901583226353
+2 1250
+tensor(18.0588, device='cuda:0')
+#pred positives 4377
+#groundtruth positives 2378
+#total pred 113787
+#hit 1487
+f1 0.44026646928201335
+2 1500
+tensor(17.4840, device='cuda:0')
+#pred positives 5297
+#groundtruth positives 2378
+#total pred 113787
+#hit 1655
+f1 0.4312703583061889
+2 1750
+tensor(16.7331, device='cuda:0')
+#pred positives 4082
+#groundtruth positives 2378
+#total pred 113787
+#hit 1501
+f1 0.4647058823529412
+2 2000
+tensor(16.6623, device='cuda:0')
+#pred positives 4922
+#groundtruth positives 2378
+#total pred 113787
+#hit 1681
+f1 0.4605479452054794
+3 0
+tensor(17.4685, device='cuda:0')
+#pred positives 4297
+#groundtruth positives 2378
+#total pred 113787
+#hit 1580
+f1 0.47340823970037454
+3 250
+tensor(15.1304, device='cuda:0')
+#pred positives 5165
+#groundtruth positives 2378
+#total pred 113787
+#hit 1709
+f1 0.45313535728489995
+3 500
+tensor(14.9850, device='cuda:0')
+#pred positives 4341
+#groundtruth positives 2378
+#total pred 113787
+#hit 1614
+f1 0.4804286352135735
+3 750
+tensor(15.0014, device='cuda:0')
+#pred positives 4742
+#groundtruth positives 2378
+#total pred 113787
+#hit 1729
+f1 0.4856741573033708
+3 1000
+tensor(14.1798, device='cuda:0')
+#pred positives 4133
+#groundtruth positives 2378
+#total pred 113787
+#hit 1612
+f1 0.4951620334818
+3 1250
+tensor(13.9250, device='cuda:0')
+#pred positives 4039
+#groundtruth positives 2378
+#total pred 113787
+#hit 1626
+f1 0.506778868630201
+3 1500
+tensor(14.0551, device='cuda:0')
+#pred positives 4378
+#groundtruth positives 2378
+#total pred 113787
+#hit 1670
+f1 0.49437537004144466
+3 1750
+tensor(14.0804, device='cuda:0')
+#pred positives 4456
+#groundtruth positives 2378
+#total pred 113787
+#hit 1707
+f1 0.4995610184372256
+3 2000
+tensor(14.0089, device='cuda:0')
+#pred positives 3855
+#groundtruth positives 2378
+#total pred 113787
+#hit 1616
+f1 0.5185304026953313
+4 0
+tensor(12.4628, device='cuda:0')
+#pred positives 4094
+#groundtruth positives 2378
+#total pred 113787
+#hit 1670
+f1 0.5160692212608159
+4 250
+tensor(12.4023, device='cuda:0')
+#pred positives 4582
+#groundtruth positives 2378
+#total pred 113787
+#hit 1744
+f1 0.5011494252873563
+4 500
+tensor(12.0573, device='cuda:0')
+#pred positives 4179
+#groundtruth positives 2378
+#total pred 113787
+#hit 1662
+f1 0.5069391490010675
+4 750
+tensor(11.7904, device='cuda:0')
+#pred positives 3871
+#groundtruth positives 2378
+#total pred 113787
+#hit 1644
+f1 0.5261641862698031
+4 1000
+tensor(11.9453, device='cuda:0')
+#pred positives 4554
+#groundtruth positives 2378
+#total pred 113787
+#hit 1794
+f1 0.517599538372764
+4 1250
+tensor(12.2221, device='cuda:0')
+#pred positives 4363
+#groundtruth positives 2378
+#total pred 113787
+#hit 1777
+f1 0.5272214804925085
+4 1500
+tensor(11.7361, device='cuda:0')
+#pred positives 4380
+#groundtruth positives 2378
+#total pred 113787
+#hit 1760
+f1 0.520864160994377
+4 1750
+tensor(12.0938, device='cuda:0')
+#pred positives 4320
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+f1 0.5335921170498655
+4 2000
+tensor(12.0760, device='cuda:0')
+#pred positives 4076
+#groundtruth positives 2378
+#total pred 113787
+#hit 1723
+f1 0.5339324449953518
+5 0
+tensor(11.8075, device='cuda:0')
+#pred positives 4299
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+f1 0.5352703309869702
+5 250
+tensor(10.2203, device='cuda:0')
+#pred positives 3889
+#groundtruth positives 2378
+#total pred 113787
+#hit 1711
+f1 0.5460347853837562
+5 500
+tensor(10.0009, device='cuda:0')
+#pred positives 4179
+#groundtruth positives 2378
+#total pred 113787
+#hit 1769
+f1 0.5395760256214732
+5 750
+tensor(10.4595, device='cuda:0')
+#pred positives 4499
+#groundtruth positives 2378
+#total pred 113787
+#hit 1845
+f1 0.5365711792932965
+5 1000
+tensor(10.3085, device='cuda:0')
+#pred positives 4292
+#groundtruth positives 2378
+#total pred 113787
+#hit 1814
+f1 0.543928035982009
+5 1250
+tensor(10.9663, device='cuda:0')
+#pred positives 4024
+#groundtruth positives 2378
+#total pred 113787
+#hit 1760
+f1 0.549828178694158
+5 1500
+tensor(10.2567, device='cuda:0')
+#pred positives 4496
+#groundtruth positives 2378
+#total pred 113787
+#hit 1842
+f1 0.5359324992726215
+5 1750
+tensor(10.3792, device='cuda:0')
+#pred positives 4288
+#groundtruth positives 2378
+#total pred 113787
+#hit 1784
+f1 0.5352535253525353
+5 2000
+tensor(9.9730, device='cuda:0')
+#pred positives 4123
+#groundtruth positives 2378
+#total pred 113787
+#hit 1796
+f1 0.5525303799415474
+6 0
+tensor(10.7724, device='cuda:0')
+#pred positives 4014
+#groundtruth positives 2378
+#total pred 113787
+#hit 1786
+f1 0.5588235294117647
+6 250
+tensor(8.4805, device='cuda:0')
+#pred positives 3975
+#groundtruth positives 2378
+#total pred 113787
+#hit 1763
+f1 0.5550133795057453
+6 500
+tensor(8.8508, device='cuda:0')
+#pred positives 3909
+#groundtruth positives 2378
+#total pred 113787
+#hit 1745
+f1 0.5551137267377126
+6 750
+tensor(9.5014, device='cuda:0')
+#pred positives 4174
+#groundtruth positives 2378
+#total pred 113787
+#hit 1812
+f1 0.553113553113553
+6 1000
+tensor(8.8775, device='cuda:0')
+#pred positives 3674
+#groundtruth positives 2378
+#total pred 113787
+#hit 1715
+f1 0.5667547918043623
+6 1250
+tensor(9.2223, device='cuda:0')
+#pred positives 4142
+#groundtruth positives 2378
+#total pred 113787
+#hit 1800
+f1 0.5521472392638037
+6 1500
+tensor(9.4032, device='cuda:0')
+#pred positives 4174
+#groundtruth positives 2378
+#total pred 113787
+#hit 1829
+f1 0.5583028083028082
+6 1750
+tensor(9.3087, device='cuda:0')
+#pred positives 3947
+#groundtruth positives 2378
+#total pred 113787
+#hit 1799
+f1 0.5688537549407114
+6 2000
+tensor(9.2434, device='cuda:0')
+#pred positives 3810
+#groundtruth positives 2378
+#total pred 113787
+#hit 1774
+f1 0.5733678086619263
+7 0
+tensor(9.1596, device='cuda:0')
+#pred positives 4029
+#groundtruth positives 2378
+#total pred 113787
+#hit 1802
+f1 0.5625097549555174
+7 250
+tensor(7.7036, device='cuda:0')
+#pred positives 3978
+#groundtruth positives 2378
+#total pred 113787
+#hit 1807
+f1 0.5685966016362493
+7 500
+tensor(8.0286, device='cuda:0')
+#pred positives 3932
+#groundtruth positives 2378
+#total pred 113787
+#hit 1786
+f1 0.5660855784469097
+7 750
+tensor(7.8796, device='cuda:0')
+#pred positives 3769
+#groundtruth positives 2378
+#total pred 113787
+#hit 1749
+f1 0.5690580771107858
+7 1000
+tensor(7.9525, device='cuda:0')
+#pred positives 3697
+#groundtruth positives 2378
+#total pred 113787
+#hit 1759
+f1 0.5790946502057613
+7 1250
+tensor(7.7900, device='cuda:0')
+#pred positives 4006
+#groundtruth positives 2378
+#total pred 113787
+#hit 1800
+f1 0.5639097744360902
+7 1500
+tensor(8.2473, device='cuda:0')
+#pred positives 3830
+#groundtruth positives 2378
+#total pred 113787
+#hit 1774
+f1 0.571520618556701
+7 1750
+tensor(8.3014, device='cuda:0')
+#pred positives 4059
+#groundtruth positives 2378
+#total pred 113787
+#hit 1829
+f1 0.5682771477396302
+7 2000
+tensor(8.2944, device='cuda:0')
+#pred positives 3448
+#groundtruth positives 2378
+#total pred 113787
+#hit 1708
+f1 0.5863371095090971
+8 0
+tensor(8.3841, device='cuda:0')
+#pred positives 3732
+#groundtruth positives 2378
+#total pred 113787
+#hit 1771
+f1 0.5797054009819967
+8 250
+tensor(7.1487, device='cuda:0')
+#pred positives 3683
+#groundtruth positives 2378
+#total pred 113787
+#hit 1762
+f1 0.5814222075565089
+8 500
+tensor(7.0086, device='cuda:0')
+#pred positives 4001
+#groundtruth positives 2378
+#total pred 113787
+#hit 1823
+f1 0.5715629408998275
+8 750
+tensor(7.1304, device='cuda:0')
+#pred positives 3548
+#groundtruth positives 2378
+#total pred 113787
+#hit 1732
+f1 0.5845426932163348
+8 1000
+tensor(7.2307, device='cuda:0')
+#pred positives 3606
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+f1 0.5909090909090909
+8 1250
+tensor(7.0733, device='cuda:0')
+#pred positives 3708
+#groundtruth positives 2378
+#total pred 113787
+#hit 1769
+f1 0.5813342096615182
+8 1500
+tensor(7.3460, device='cuda:0')
+#pred positives 3877
+#groundtruth positives 2378
+#total pred 113787
+#hit 1801
+f1 0.5758593125499601
+8 1750
+tensor(7.3068, device='cuda:0')
+#pred positives 3967
+#groundtruth positives 2378
+#total pred 113787
+#hit 1835
+f1 0.5784081954294721
+8 2000
+tensor(7.2858, device='cuda:0')
+#pred positives 3781
+#groundtruth positives 2378
+#total pred 113787
+#hit 1783
+f1 0.5789900957947719
+9 0
+tensor(7.6523, device='cuda:0')
+#pred positives 3663
+#groundtruth positives 2378
+#total pred 113787
+#hit 1761
+f1 0.5830160569442145
+9 250
+tensor(6.3236, device='cuda:0')
+#pred positives 3879
+#groundtruth positives 2378
+#total pred 113787
+#hit 1824
+f1 0.5830270097490811
+9 500
+tensor(6.3172, device='cuda:0')
+#pred positives 3796
+#groundtruth positives 2378
+#total pred 113787
+#hit 1802
+f1 0.5837382572076449
+9 750
+tensor(6.9073, device='cuda:0')
+#pred positives 3837
+#groundtruth positives 2378
+#total pred 113787
+#hit 1813
+f1 0.5834271922767498
+9 1000
+tensor(6.5169, device='cuda:0')
+#pred positives 3586
+#groundtruth positives 2378
+#total pred 113787
+#hit 1760
+f1 0.5902079141515761
+9 1250
+tensor(6.7460, device='cuda:0')
+#pred positives 3615
+#groundtruth positives 2378
+#total pred 113787
+#hit 1767
+f1 0.5896879692975138
+9 1500
+tensor(6.6127, device='cuda:0')
+#pred positives 3745
+#groundtruth positives 2378
+#total pred 113787
+#hit 1803
+f1 0.5889269965703087
+9 1750
+tensor(6.2236, device='cuda:0')
+#pred positives 3912
+#groundtruth positives 2378
+#total pred 113787
+#hit 1828
+f1 0.5812400635930047
+9 2000
+tensor(6.7109, device='cuda:0')
+#pred positives 3721
+#groundtruth positives 2378
+#total pred 113787
+#hit 1781
+f1 0.5840301688801443
+10 0
+tensor(6.3691, device='cuda:0')
+#pred positives 3784
+#groundtruth positives 2378
+#total pred 113787
+#hit 1800
+f1 0.5842259006815969
+10 250
+tensor(5.7890, device='cuda:0')
+#pred positives 3461
+#groundtruth positives 2378
+#total pred 113787
+#hit 1732
+f1 0.5932522692241823
+10 500
+tensor(5.5856, device='cuda:0')
+#pred positives 3558
+#groundtruth positives 2378
+#total pred 113787
+#hit 1761
+f1 0.5933288409703504
+10 750
+tensor(5.7967, device='cuda:0')
+#pred positives 3664
+#groundtruth positives 2378
+#total pred 113787
+#hit 1773
+f1 0.5868917576961271
+10 1000
+tensor(5.9789, device='cuda:0')
+#pred positives 3725
+#groundtruth positives 2378
+#total pred 113787
+#hit 1799
+f1 0.5895461248566279
+10 1250
+tensor(5.9244, device='cuda:0')
+#pred positives 3658
+#groundtruth positives 2378
+#total pred 113787
+#hit 1793
+f1 0.5941020543406229
+10 1500
+tensor(6.0666, device='cuda:0')
+#pred positives 3481
+#groundtruth positives 2378
+#total pred 113787
+#hit 1761
+f1 0.601126472094214
+10 1750
+tensor(6.0839, device='cuda:0')
+#pred positives 3584
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+f1 0.593089567259309
+10 2000
+tensor(6.0813, device='cuda:0')
+#pred positives 3483
+#groundtruth positives 2378
+#total pred 113787
+#hit 1744
+f1 0.5951202866405051
+11 0
+tensor(5.6850, device='cuda:0')
+#pred positives 3591
+#groundtruth positives 2378
+#total pred 113787
+#hit 1758
+f1 0.589043390852739
+11 250
+tensor(5.1333, device='cuda:0')
+#pred positives 3618
+#groundtruth positives 2378
+#total pred 113787
+#hit 1777
+f1 0.5927284856571048
+11 500
+tensor(5.3809, device='cuda:0')
+#pred positives 3838
+#groundtruth positives 2378
+#total pred 113787
+#hit 1812
+f1 0.583011583011583
+11 750
+tensor(5.4011, device='cuda:0')
+#pred positives 3543
+#groundtruth positives 2378
+#total pred 113787
+#hit 1756
+f1 0.5931430501604459
+11 1000
+tensor(5.3995, device='cuda:0')
+#pred positives 3463
+#groundtruth positives 2378
+#total pred 113787
+#hit 1776
+f1 0.6081150487930148
+11 1250
+tensor(5.1000, device='cuda:0')
+#pred positives 3428
+#groundtruth positives 2378
+#total pred 113787
+#hit 1748
+f1 0.6021357216672408
+11 1500
+tensor(5.2504, device='cuda:0')
+#pred positives 3533
+#groundtruth positives 2378
+#total pred 113787
+#hit 1779
+f1 0.6019286076805955
+11 1750
+tensor(5.7153, device='cuda:0')
+#pred positives 3624
+#groundtruth positives 2378
+#total pred 113787
+#hit 1793
+f1 0.5974675108297235
+11 2000
+tensor(5.6374, device='cuda:0')
+#pred positives 3653
+#groundtruth positives 2378
+#total pred 113787
+#hit 1781
+f1 0.590615155032333
+12 0
+tensor(5.3722, device='cuda:0')
+#pred positives 3510
+#groundtruth positives 2378
+#total pred 113787
+#hit 1744
+f1 0.592391304347826
+12 250
+tensor(4.5690, device='cuda:0')
+#pred positives 3487
+#groundtruth positives 2378
+#total pred 113787
+#hit 1754
+f1 0.5981244671781756
+12 500
+tensor(4.8327, device='cuda:0')
+#pred positives 3162
+#groundtruth positives 2378
+#total pred 113787
+#hit 1684
+f1 0.607942238267148
+12 750
+tensor(4.6873, device='cuda:0')
+#pred positives 3431
+#groundtruth positives 2378
+#total pred 113787
+#hit 1732
+f1 0.5963160612842142
+12 1000
+tensor(4.8878, device='cuda:0')
+#pred positives 3316
+#groundtruth positives 2378
+#total pred 113787
+#hit 1724
+f1 0.6055497014401124
+12 1250
+tensor(5.1634, device='cuda:0')
+#pred positives 3821
+#groundtruth positives 2378
+#total pred 113787
+#hit 1821
+f1 0.5875141151798677
+12 1500
+tensor(4.6976, device='cuda:0')
+#pred positives 3296
+#groundtruth positives 2378
+#total pred 113787
+#hit 1730
+f1 0.6097990835389496
+12 1750
+tensor(4.9425, device='cuda:0')
+#pred positives 3566
+#groundtruth positives 2378
+#total pred 113787
+#hit 1782
+f1 0.5995962314939435
+12 2000
+tensor(4.7703, device='cuda:0')
+#pred positives 3478
+#groundtruth positives 2378
+#total pred 113787
+#hit 1761
+f1 0.6014344262295082
+13 0
+tensor(5.6216, device='cuda:0')
+#pred positives 3566
+#groundtruth positives 2378
+#total pred 113787
+#hit 1821
+f1 0.6127187079407806
+13 250
+tensor(4.1416, device='cuda:0')
+#pred positives 3142
+#groundtruth positives 2378
+#total pred 113787
+#hit 1691
+f1 0.6126811594202899
+13 500
+tensor(4.4677, device='cuda:0')
+#pred positives 3276
+#groundtruth positives 2378
+#total pred 113787
+#hit 1733
+f1 0.6130173328616909
+13 750
+tensor(4.3093, device='cuda:0')
+#pred positives 3526
+#groundtruth positives 2378
+#total pred 113787
+#hit 1756
+f1 0.5948509485094851
+13 1000
+tensor(4.6419, device='cuda:0')
+#pred positives 3487
+#groundtruth positives 2378
+#total pred 113787
+#hit 1759
+f1 0.5998294970161978
+13 1250
+tensor(4.7133, device='cuda:0')
+#pred positives 3341
+#groundtruth positives 2378
+#total pred 113787
+#hit 1747
+f1 0.6109459695751006
+13 1500
+tensor(4.4749, device='cuda:0')
+#pred positives 3384
+#groundtruth positives 2378
+#total pred 113787
+#hit 1738
+f1 0.6032627559875043
+13 1750
+tensor(4.7369, device='cuda:0')
+#pred positives 3375
+#groundtruth positives 2378
+#total pred 113787
+#hit 1756
+f1 0.6104641056839909
+13 2000
+tensor(4.1703, device='cuda:0')
+#pred positives 3243
+#groundtruth positives 2378
+#total pred 113787
+#hit 1731
+f1 0.6159046433019036
+14 0
+tensor(4.4774, device='cuda:0')
+#pred positives 3452
+#groundtruth positives 2378
+#total pred 113787
+#hit 1767
+f1 0.6061749571183533
+14 250
+tensor(3.9838, device='cuda:0')
+#pred positives 3196
+#groundtruth positives 2378
+#total pred 113787
+#hit 1662
+f1 0.596340150699677
+14 500
+tensor(3.8234, device='cuda:0')
+#pred positives 3253
+#groundtruth positives 2378
+#total pred 113787
+#hit 1733
+f1 0.6155212218078494
+14 750
+tensor(3.8855, device='cuda:0')
+#pred positives 3341
+#groundtruth positives 2378
+#total pred 113787
+#hit 1718
+f1 0.6008043364224515
+14 1000
+tensor(4.1979, device='cuda:0')
+#pred positives 3402
+#groundtruth positives 2378
+#total pred 113787
+#hit 1763
+f1 0.6100346020761246
+14 1250
+tensor(4.0399, device='cuda:0')
+#pred positives 3200
+#groundtruth positives 2378
+#total pred 113787
+#hit 1702
+f1 0.6102545715310147
+14 1500
+tensor(4.1553, device='cuda:0')
+#pred positives 3136
+#groundtruth positives 2378
+#total pred 113787
+#hit 1696
+f1 0.6151614073268045
+14 1750
+tensor(4.3633, device='cuda:0')
+#pred positives 3476
+#groundtruth positives 2378
+#total pred 113787
+#hit 1755
+f1 0.5995900239152716
+14 2000
+tensor(4.0884, device='cuda:0')
+#pred positives 3437
+#groundtruth positives 2378
+#total pred 113787
+#hit 1773
+f1 0.6098022355975924
+15 0
+tensor(4.1526, device='cuda:0')
+#pred positives 3154
+#groundtruth positives 2378
+#total pred 113787
+#hit 1692
+f1 0.6117136659436009
+15 250
+tensor(3.2209, device='cuda:0')
+#pred positives 3218
+#groundtruth positives 2378
+#total pred 113787
+#hit 1713
+f1 0.6122230164403144
+15 500
+tensor(3.6624, device='cuda:0')
+#pred positives 3362
+#groundtruth positives 2378
+#total pred 113787
+#hit 1750
+f1 0.6097560975609756
+15 750
+tensor(4.0132, device='cuda:0')
+#pred positives 3527
+#groundtruth positives 2378
+#total pred 113787
+#hit 1783
+f1 0.6038950042337003
+15 1000
+tensor(3.5268, device='cuda:0')
+#pred positives 3338
+#groundtruth positives 2378
+#total pred 113787
+#hit 1746
+f1 0.6109167249825053
+15 1250
+tensor(3.6764, device='cuda:0')
+#pred positives 3240
+#groundtruth positives 2378
+#total pred 113787
+#hit 1717
+f1 0.61124955500178
+15 1500
+tensor(3.8382, device='cuda:0')
+#pred positives 3250
+#groundtruth positives 2378
+#total pred 113787
+#hit 1707
+f1 0.6066098081023454
+15 1750
+tensor(3.9025, device='cuda:0')
+#pred positives 3480
+#groundtruth positives 2378
+#total pred 113787
+#hit 1794
+f1 0.612495732331854
+15 2000
+tensor(4.0062, device='cuda:0')
+#pred positives 3326
+#groundtruth positives 2378
+#total pred 113787
+#hit 1750
+f1 0.6136044880785414
+16 0
+tensor(4.1795, device='cuda:0')
+#pred positives 3333
+#groundtruth positives 2378
+#total pred 113787
+#hit 1767
+f1 0.618805813342672
+16 250
+tensor(3.4101, device='cuda:0')
+#pred positives 3198
+#groundtruth positives 2378
+#total pred 113787
+#hit 1718
+f1 0.6162123385939742
+16 500
+tensor(3.7243, device='cuda:0')
+#pred positives 3243
+#groundtruth positives 2378
+#total pred 113787
+#hit 1714
+f1 0.6098558975271303
+16 750
+tensor(3.3673, device='cuda:0')
+#pred positives 3270
+#groundtruth positives 2378
+#total pred 113787
+#hit 1739
+f1 0.6157932011331445
+16 1000
+tensor(2.8670, device='cuda:0')
+#pred positives 3209
+#groundtruth positives 2378
+#total pred 113787
+#hit 1704
+f1 0.6099874709146232
+16 1250
+tensor(3.4991, device='cuda:0')
+#pred positives 3336
+#groundtruth positives 2378
+#total pred 113787
+#hit 1763
+f1 0.6170808540427022
+16 1500
+tensor(3.4869, device='cuda:0')
+#pred positives 3040
+#groundtruth positives 2378
+#total pred 113787
+#hit 1681
+f1 0.6205241786637136
+16 1750
+tensor(3.4042, device='cuda:0')
+#pred positives 3427
+#groundtruth positives 2378
+#total pred 113787
+#hit 1785
+f1 0.6149870801033592
+16 2000
+tensor(3.2459, device='cuda:0')
+#pred positives 3287
+#groundtruth positives 2378
+#total pred 113787
+#hit 1752
+f1 0.6185348631950573
+17 0
+tensor(3.5634, device='cuda:0')
+#pred positives 3358
+#groundtruth positives 2378
+#total pred 113787
+#hit 1757
+f1 0.6126220362622036
+17 250
+tensor(3.0625, device='cuda:0')
+#pred positives 3323
+#groundtruth positives 2378
+#total pred 113787
+#hit 1755
+f1 0.6156814593930889
+17 500
+tensor(2.9979, device='cuda:0')
+#pred positives 3162
+#groundtruth positives 2378
+#total pred 113787
+#hit 1725
+f1 0.6227436823104693
+17 750
+tensor(3.0259, device='cuda:0')
+#pred positives 3216
+#groundtruth positives 2378
+#total pred 113787
+#hit 1741
+f1 0.6224526278155166
+17 1000
+tensor(3.2483, device='cuda:0')
+#pred positives 3031
+#groundtruth positives 2378
+#total pred 113787
+#hit 1673
+f1 0.61859863190978
+17 1250
+tensor(3.3655, device='cuda:0')
+#pred positives 3115
+#groundtruth positives 2378
+#total pred 113787
+#hit 1722
+f1 0.6269797924631348
+17 1500
+tensor(3.2284, device='cuda:0')
+#pred positives 3179
+#groundtruth positives 2378
+#total pred 113787
+#hit 1732
+f1 0.6233579269389958
+17 1750
+tensor(3.2180, device='cuda:0')
+#pred positives 3119
+#groundtruth positives 2378
+#total pred 113787
+#hit 1718
+f1 0.625068219028561
+17 2000
+tensor(3.2736, device='cuda:0')
+#pred positives 3168
+#groundtruth positives 2378
+#total pred 113787
+#hit 1716
+f1 0.6188243779300396
+18 0
+tensor(3.2509, device='cuda:0')
+#pred positives 3032
+#groundtruth positives 2378
+#total pred 113787
+#hit 1667
+f1 0.6162661737523105
+18 250
+tensor(2.9846, device='cuda:0')
+#pred positives 3247
+#groundtruth positives 2378
+#total pred 113787
+#hit 1735
+f1 0.6168888888888889
+18 500
+tensor(2.5625, device='cuda:0')
+#pred positives 2991
+#groundtruth positives 2378
+#total pred 113787
+#hit 1666
+f1 0.6205997392438071
+18 750
+tensor(2.6914, device='cuda:0')
+#pred positives 3126
+#groundtruth positives 2378
+#total pred 113787
+#hit 1711
+f1 0.6217296511627907
+18 1000
+tensor(2.8145, device='cuda:0')
+#pred positives 3014
+#groundtruth positives 2378
+#total pred 113787
+#hit 1691
+f1 0.6272255192878339
+18 1250
+tensor(3.0891, device='cuda:0')
+#pred positives 3333
+#groundtruth positives 2378
+#total pred 113787
+#hit 1747
+f1 0.6118017860269654
+18 1500
+tensor(3.2773, device='cuda:0')
+#pred positives 3260
+#groundtruth positives 2378
+#total pred 113787
+#hit 1726
+f1 0.6122738559772969
+18 1750
+tensor(2.7961, device='cuda:0')
+#pred positives 3110
+#groundtruth positives 2378
+#total pred 113787
+#hit 1710
+f1 0.6231778425655977
+18 2000
+tensor(2.9328, device='cuda:0')
+#pred positives 3151
+#groundtruth positives 2378
+#total pred 113787
+#hit 1709
+f1 0.6181949719659974
+19 0
+tensor(2.9330, device='cuda:0')
+#pred positives 3200
+#groundtruth positives 2378
+#total pred 113787
+#hit 1729
+f1 0.619935460738616
+19 250
+tensor(2.4093, device='cuda:0')
+#pred positives 2896
+#groundtruth positives 2378
+#total pred 113787
+#hit 1641
+f1 0.6222980659840728
+19 500
+tensor(2.5189, device='cuda:0')
+#pred positives 2995
+#groundtruth positives 2378
+#total pred 113787
+#hit 1654
+f1 0.6156709473292388
+19 750
+tensor(2.6494, device='cuda:0')
+#pred positives 3030
+#groundtruth positives 2378
+#total pred 113787
+#hit 1673
+f1 0.6187130177514794
+19 1000
+tensor(2.2976, device='cuda:0')
+#pred positives 3072
+#groundtruth positives 2378
+#total pred 113787
+#hit 1676
+f1 0.615045871559633
+19 1250
+tensor(2.7198, device='cuda:0')
+#pred positives 2992
+#groundtruth positives 2378
+#total pred 113787
+#hit 1660
+f1 0.6182495344506517
+19 1500
+tensor(2.8395, device='cuda:0')
+#pred positives 2968
+#groundtruth positives 2378
+#total pred 113787
+#hit 1659
+f1 0.6206509539842873
+19 1750
+tensor(2.6118, device='cuda:0')
+#pred positives 2994
+#groundtruth positives 2378
+#total pred 113787
+#hit 1654
+f1 0.6157855547282204
+19 2000
+tensor(2.8301, device='cuda:0')
+#pred positives 2935
+#groundtruth positives 2378
+#total pred 113787
+#hit 1660
+f1 0.6248823640127988
+20 0
+tensor(2.8816, device='cuda:0')
+#pred positives 3242
+#groundtruth positives 2378
+#total pred 113787
+#hit 1736
+f1 0.6177935943060499
+20 250
+tensor(2.4168, device='cuda:0')
+#pred positives 3036
+#groundtruth positives 2378
+#total pred 113787
+#hit 1676
+f1 0.6191355744366457
+20 500
+tensor(2.1535, device='cuda:0')
+#pred positives 2977
+#groundtruth positives 2378
+#total pred 113787
+#hit 1682
+f1 0.6281979458450047
+20 750
+tensor(2.3630, device='cuda:0')
+#pred positives 2952
+#groundtruth positives 2378
+#total pred 113787
+#hit 1670
+f1 0.626641651031895
+20 1000
+tensor(2.4252, device='cuda:0')
+#pred positives 3094
+#groundtruth positives 2378
+#total pred 113787
+#hit 1714
+f1 0.6264619883040935
+20 1250
+tensor(2.8390, device='cuda:0')
+#pred positives 3183
+#groundtruth positives 2378
+#total pred 113787
+#hit 1724
+f1 0.6200323682790865
+20 1500
+tensor(2.3813, device='cuda:0')
+#pred positives 3039
+#groundtruth positives 2378
+#total pred 113787
+#hit 1696
+f1 0.6261768506553442
+20 1750
+tensor(2.5332, device='cuda:0')
+#pred positives 2893
+#groundtruth positives 2378
+#total pred 113787
+#hit 1651
+f1 0.6264465945740846
+20 2000
+tensor(2.5170, device='cuda:0')
+#pred positives 3053
+#groundtruth positives 2378
+#total pred 113787
+#hit 1690
+f1 0.6223531577978273
+21 0
+tensor(2.4471, device='cuda:0')
+#pred positives 2973
+#groundtruth positives 2378
+#total pred 113787
+#hit 1672
+f1 0.6249299196411885
+21 250
+tensor(2.0999, device='cuda:0')
+#pred positives 3095
+#groundtruth positives 2378
+#total pred 113787
+#hit 1680
+f1 0.6139228942079298
+21 500
+tensor(2.1554, device='cuda:0')
+#pred positives 3072
+#groundtruth positives 2378
+#total pred 113787
+#hit 1705
+f1 0.6256880733944954
+21 750
+tensor(2.1774, device='cuda:0')
+#pred positives 3084
+#groundtruth positives 2378
+#total pred 113787
+#hit 1724
+f1 0.6312705968509703
+21 1000
+tensor(2.2407, device='cuda:0')
+#pred positives 3016
+#groundtruth positives 2378
+#total pred 113787
+#hit 1696
+f1 0.628846866889136
+21 1250
+tensor(2.0913, device='cuda:0')
+#pred positives 2897
+#groundtruth positives 2378
+#total pred 113787
+#hit 1662
+f1 0.6301421800947866
+21 1500
+tensor(2.5491, device='cuda:0')
+#pred positives 3074
+#groundtruth positives 2378
+#total pred 113787
+#hit 1719
+f1 0.6305942773294204
+21 1750
+tensor(2.4216, device='cuda:0')
+#pred positives 2907
+#groundtruth positives 2378
+#total pred 113787
+#hit 1648
+f1 0.6236518448438978
+21 2000
+tensor(2.3438, device='cuda:0')
+#pred positives 2980
+#groundtruth positives 2378
+#total pred 113787
+#hit 1680
+f1 0.6270996640537514
+22 0
+tensor(2.3203, device='cuda:0')
+#pred positives 2936
+#groundtruth positives 2378
+#total pred 113787
+#hit 1664
+f1 0.6262702295822355
+22 250
+tensor(2.1644, device='cuda:0')
+#pred positives 2951
+#groundtruth positives 2378
+#total pred 113787
+#hit 1679
+f1 0.6301369863013699
+22 500
+tensor(2.2373, device='cuda:0')
+#pred positives 2882
+#groundtruth positives 2378
+#total pred 113787
+#hit 1645
+f1 0.6254752851711026
+22 750
+tensor(1.9045, device='cuda:0')
+#pred positives 2936
+#groundtruth positives 2378
+#total pred 113787
+#hit 1668
+f1 0.6277756868648852
+22 1000
+tensor(1.9776, device='cuda:0')
+#pred positives 2892
+#groundtruth positives 2378
+#total pred 113787
+#hit 1666
+f1 0.632258064516129
+22 1250
+tensor(1.9618, device='cuda:0')
+#pred positives 2702
+#groundtruth positives 2378
+#total pred 113787
+#hit 1592
+f1 0.6267716535433071
+22 1500
+tensor(1.9873, device='cuda:0')
+#pred positives 3105
+#groundtruth positives 2378
+#total pred 113787
+#hit 1688
+f1 0.6157213204450118
+22 1750
+tensor(2.2012, device='cuda:0')
+#pred positives 3106
+#groundtruth positives 2378
+#total pred 113787
+#hit 1725
+f1 0.6291028446389496
+22 2000
+tensor(2.1837, device='cuda:0')
+#pred positives 3093
+#groundtruth positives 2378
+#total pred 113787
+#hit 1695
+f1 0.6196307804788886
+23 0
+tensor(2.3001, device='cuda:0')
+#pred positives 3026
+#groundtruth positives 2378
+#total pred 113787
+#hit 1691
+f1 0.6258327165062917
+23 250
+tensor(1.7429, device='cuda:0')
+#pred positives 2948
+#groundtruth positives 2378
+#total pred 113787
+#hit 1656
+f1 0.6218550506947053
+23 500
+tensor(1.6902, device='cuda:0')
+#pred positives 2978
+#groundtruth positives 2378
+#total pred 113787
+#hit 1696
+f1 0.6333084391336817
+23 750
+tensor(2.1933, device='cuda:0')
+#pred positives 3041
+#groundtruth positives 2378
+#total pred 113787
+#hit 1692
+f1 0.6244694593098357
+23 1000
+tensor(1.9257, device='cuda:0')
+#pred positives 2999
+#groundtruth positives 2378
+#total pred 113787
+#hit 1689
+f1 0.6282313557745954
+23 1250
+tensor(2.0089, device='cuda:0')
+#pred positives 2768
+#groundtruth positives 2378
+#total pred 113787
+#hit 1616
+f1 0.6280606296152351
+23 1500
+tensor(1.8344, device='cuda:0')
+#pred positives 2839
+#groundtruth positives 2378
+#total pred 113787
+#hit 1663
+f1 0.637531148169446
+23 1750
+tensor(1.9130, device='cuda:0')
+#pred positives 3032
+#groundtruth positives 2378
+#total pred 113787
+#hit 1710
+f1 0.6321626617375231
+23 2000
+tensor(2.0888, device='cuda:0')
+#pred positives 2850
+#groundtruth positives 2378
+#total pred 113787
+#hit 1643
+f1 0.6285386381025249
+24 0
+tensor(2.3806, device='cuda:0')
+#pred positives 3032
+#groundtruth positives 2378
+#total pred 113787
+#hit 1689
+f1 0.6243992606284657
+24 250
+tensor(1.6214, device='cuda:0')
+#pred positives 2867
+#groundtruth positives 2378
+#total pred 113787
+#hit 1656
+f1 0.6314585319351763
+24 500
+tensor(1.9199, device='cuda:0')
+#pred positives 2779
+#groundtruth positives 2378
+#total pred 113787
+#hit 1619
+f1 0.6278844289315494
+24 750
+tensor(1.9568, device='cuda:0')
+#pred positives 2901
+#groundtruth positives 2378
+#total pred 113787
+#hit 1643
+f1 0.6224663762076151
+24 1000
+tensor(1.8005, device='cuda:0')
+#pred positives 3000
+#groundtruth positives 2378
+#total pred 113787
+#hit 1691
+f1 0.6288583116400148
+24 1250
+tensor(1.7422, device='cuda:0')
+#pred positives 2977
+#groundtruth positives 2378
+#total pred 113787
+#hit 1673
+f1 0.6248366013071897
+24 1500
+tensor(1.6680, device='cuda:0')
+#pred positives 3014
+#groundtruth positives 2378
+#total pred 113787
+#hit 1681
+f1 0.6235163204747775
+24 1750
+tensor(1.7654, device='cuda:0')
+#pred positives 2976
+#groundtruth positives 2378
+#total pred 113787
+#hit 1684
+f1 0.6290623832648488
+24 2000
+tensor(1.7895, device='cuda:0')
+#pred positives 2817
+#groundtruth positives 2378
+#total pred 113787
+#hit 1644
+f1 0.6329162656400384
+25 0
+tensor(2.1655, device='cuda:0')
+#pred positives 3060
+#groundtruth positives 2378
+#total pred 113787
+#hit 1689
+f1 0.6211842589187201
+25 250
+tensor(1.5196, device='cuda:0')
+#pred positives 2810
+#groundtruth positives 2378
+#total pred 113787
+#hit 1619
+f1 0.6241326137239784
+25 500
+tensor(1.4266, device='cuda:0')
+#pred positives 2863
+#groundtruth positives 2378
+#total pred 113787
+#hit 1625
+f1 0.6201106659034535
+25 750
+tensor(1.6573, device='cuda:0')
+#pred positives 2884
+#groundtruth positives 2378
+#total pred 113787
+#hit 1633
+f1 0.620676548840745
+25 1000
+tensor(1.4316, device='cuda:0')
+#pred positives 2930
+#groundtruth positives 2378
+#total pred 113787
+#hit 1660
+f1 0.6254709871891485
+25 1250
+tensor(1.6148, device='cuda:0')
+#pred positives 2958
+#groundtruth positives 2378
+#total pred 113787
+#hit 1669
+f1 0.6255622188905547
+25 1500
+tensor(1.8710, device='cuda:0')
+#pred positives 2913
+#groundtruth positives 2378
+#total pred 113787
+#hit 1666
+f1 0.6297486297486298
+25 1750
+tensor(1.6246, device='cuda:0')
+#pred positives 2945
+#groundtruth positives 2378
+#total pred 113787
+#hit 1654
+f1 0.6214540672553072
+25 2000
+tensor(1.6887, device='cuda:0')
+#pred positives 2955
+#groundtruth positives 2378
+#total pred 113787
+#hit 1675
+f1 0.6281642602662666
+26 0
+tensor(2.0423, device='cuda:0')
+#pred positives 2943
+#groundtruth positives 2378
+#total pred 113787
+#hit 1660
+f1 0.6239428678819771
+26 250
+tensor(1.6220, device='cuda:0')
+#pred positives 2791
+#groundtruth positives 2378
+#total pred 113787
+#hit 1619
+f1 0.6264267750048365
+26 500
+tensor(1.8362, device='cuda:0')
+#pred positives 3154
+#groundtruth positives 2378
+#total pred 113787
+#hit 1714
+f1 0.6196673897324656
+26 750
+tensor(1.5293, device='cuda:0')
+#pred positives 2822
+#groundtruth positives 2378
+#total pred 113787
+#hit 1616
+f1 0.6215384615384615
+26 1000
+tensor(1.6471, device='cuda:0')
+#pred positives 2990
+#groundtruth positives 2378
+#total pred 113787
+#hit 1659
+f1 0.618107302533532
+26 1250
+tensor(1.5511, device='cuda:0')
+#pred positives 2798
+#groundtruth positives 2378
+#total pred 113787
+#hit 1614
+f1 0.6236476043276662
+26 1500
+tensor(1.6446, device='cuda:0')
+#pred positives 2850
+#groundtruth positives 2378
+#total pred 113787
+#hit 1654
+f1 0.6327467482785004
+26 1750
+tensor(1.3786, device='cuda:0')
+#pred positives 2797
+#groundtruth positives 2378
+#total pred 113787
+#hit 1620
+f1 0.6260869565217391
+26 2000
+tensor(1.7161, device='cuda:0')
+#pred positives 2942
+#groundtruth positives 2378
+#total pred 113787
+#hit 1669
+f1 0.6274436090225564
+27 0
+tensor(1.7860, device='cuda:0')
+#pred positives 3000
+#groundtruth positives 2378
+#total pred 113787
+#hit 1673
+f1 0.6221643733730011
+27 250
+tensor(1.4029, device='cuda:0')
+#pred positives 2879
+#groundtruth positives 2378
+#total pred 113787
+#hit 1646
+f1 0.6262126688225225
+27 500
+tensor(1.1559, device='cuda:0')
+#pred positives 2800
+#groundtruth positives 2378
+#total pred 113787
+#hit 1622
+f1 0.6264967168791039
+27 750
+tensor(1.2000, device='cuda:0')
+#pred positives 2737
+#groundtruth positives 2378
+#total pred 113787
+#hit 1584
+f1 0.6193548387096773
+27 1000
+tensor(1.4517, device='cuda:0')
+#pred positives 2682
+#groundtruth positives 2378
+#total pred 113787
+#hit 1585
+f1 0.6264822134387352
+27 1250
+tensor(1.2577, device='cuda:0')
+#pred positives 2816
+#groundtruth positives 2378
+#total pred 113787
+#hit 1590
+f1 0.6122448979591837
+27 1500
+tensor(1.6230, device='cuda:0')
+#pred positives 2717
+#groundtruth positives 2378
+#total pred 113787
+#hit 1590
+f1 0.6241413150147204
+27 1750
+tensor(1.5312, device='cuda:0')
+#pred positives 2916
+#groundtruth positives 2378
+#total pred 113787
+#hit 1666
+f1 0.6293917642614281
+27 2000
+tensor(1.4828, device='cuda:0')
+#pred positives 2892
+#groundtruth positives 2378
+#total pred 113787
+#hit 1648
+f1 0.625426944971537
+28 0
+tensor(1.3816, device='cuda:0')
+#pred positives 2825
+#groundtruth positives 2378
+#total pred 113787
+#hit 1612
+f1 0.6196425139342687
+28 250
+tensor(1.1792, device='cuda:0')
+#pred positives 2910
+#groundtruth positives 2378
+#total pred 113787
+#hit 1641
+f1 0.6206505295007564
+28 500
+tensor(1.3902, device='cuda:0')
+#pred positives 2751
+#groundtruth positives 2378
+#total pred 113787
+#hit 1613
+f1 0.6289725092610645
+28 750
+tensor(1.3572, device='cuda:0')
+#pred positives 2754
+#groundtruth positives 2378
+#total pred 113787
+#hit 1607
+f1 0.6262665627435697
+28 1000
+tensor(1.5694, device='cuda:0')
+#pred positives 2826
+#groundtruth positives 2378
+#total pred 113787
+#hit 1637
+f1 0.6291314373558801
+28 1250
+tensor(1.3514, device='cuda:0')
+#pred positives 2806
+#groundtruth positives 2378
+#total pred 113787
+#hit 1617
+f1 0.6238425925925926
+28 1500
+tensor(1.4063, device='cuda:0')
+#pred positives 2844
+#groundtruth positives 2378
+#total pred 113787
+#hit 1610
+f1 0.6166219839142091
+28 1750
+tensor(1.5656, device='cuda:0')
+#pred positives 2994
+#groundtruth positives 2378
+#total pred 113787
+#hit 1697
+f1 0.6317944899478778
+28 2000
+tensor(1.3233, device='cuda:0')
+#pred positives 2906
+#groundtruth positives 2378
+#total pred 113787
+#hit 1641
+f1 0.6211203633610902
+29 0
+tensor(1.2804, device='cuda:0')
+#pred positives 2758
+#groundtruth positives 2378
+#total pred 113787
+#hit 1599
+f1 0.6226635514018691
+29 250
+tensor(1.0446, device='cuda:0')
+#pred positives 2725
+#groundtruth positives 2378
+#total pred 113787
+#hit 1576
+f1 0.6176758769351361
+29 500
+tensor(0.8887, device='cuda:0')
+#pred positives 2674
+#groundtruth positives 2378
+#total pred 113787
+#hit 1559
+f1 0.617181314330958
+29 750
+tensor(1.2810, device='cuda:0')
+#pred positives 2853
+#groundtruth positives 2378
+#total pred 113787
+#hit 1625
+f1 0.621296119288855
+29 1000
+tensor(1.1359, device='cuda:0')
+#pred positives 2815
+#groundtruth positives 2378
+#total pred 113787
+#hit 1611
+f1 0.6204506065857887
+29 1250
+tensor(1.2572, device='cuda:0')
+#pred positives 2854
+#groundtruth positives 2378
+#total pred 113787
+#hit 1616
+f1 0.617737003058104
+29 1500
+tensor(1.2134, device='cuda:0')
+#pred positives 2743
+#groundtruth positives 2378
+#total pred 113787
+#hit 1602
+f1 0.625659050966608
+29 1750
+tensor(1.4659, device='cuda:0')
+#pred positives 2961
+#groundtruth positives 2378
+#total pred 113787
+#hit 1667
+f1 0.6244615096460011
+29 2000
+tensor(1.4180, device='cuda:0')
+#pred positives 2739
+#groundtruth positives 2378
+#total pred 113787
+#hit 1591
+f1 0.6218487394957983
+DONE !!!
+Best F1: 0.637531148169446
+***********************************
+Finished job: train.py --NAME UNITER_basic_both_objid_pos_sceneseg_bothBERT --obj_id True --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036119.1.GPU15-0:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Wed 18 May 19:46:23 GMT 2022
+***********************************
