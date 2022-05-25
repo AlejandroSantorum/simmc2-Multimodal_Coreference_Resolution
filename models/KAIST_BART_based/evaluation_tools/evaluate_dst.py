@@ -79,7 +79,7 @@ def reformat_turn(t):
     return [frame]
 
 
-def evaluate_from_flat_list(d_true, d_pred):
+def evaluate_from_flat_list(d_true, d_pred, only_coref=False):
     """
     <list>d_true and <list>d_pred are in the following format:
     (Each element represents a single turn, with (multiple) frames)
@@ -114,23 +114,24 @@ def evaluate_from_flat_list(d_true, d_pred):
         c = add_dicts(c, turn_evaluation)
 
     # Calculate metrics
-    joint_accuracy = c["n_correct_beliefs"] / c["n_frames"]
+    if not only_coref:
+        joint_accuracy = c["n_correct_beliefs"] / c["n_frames"]
 
-    act_rec, act_prec, act_f1 = rec_prec_f1(
-        n_correct=c["n_correct_acts"], n_true=c["n_true_acts"], n_pred=c["n_pred_acts"]
-    )
+        act_rec, act_prec, act_f1 = rec_prec_f1(
+            n_correct=c["n_correct_acts"], n_true=c["n_true_acts"], n_pred=c["n_pred_acts"]
+        )
 
-    slot_rec, slot_prec, slot_f1 = rec_prec_f1(
-        n_correct=c["n_correct_slots"],
-        n_true=c["n_true_slots"],
-        n_pred=c["n_pred_slots"],
-    )
+        slot_rec, slot_prec, slot_f1 = rec_prec_f1(
+            n_correct=c["n_correct_slots"],
+            n_true=c["n_true_slots"],
+            n_pred=c["n_pred_slots"],
+        )
 
-    request_slot_rec, request_slot_prec, request_slot_f1 = rec_prec_f1(
-        n_correct=c["n_correct_request_slots"],
-        n_true=c["n_true_request_slots"],
-        n_pred=c["n_pred_request_slots"],
-    )
+        request_slot_rec, request_slot_prec, request_slot_f1 = rec_prec_f1(
+            n_correct=c["n_correct_request_slots"],
+            n_true=c["n_true_request_slots"],
+            n_pred=c["n_pred_request_slots"],
+        )
 
     object_rec, object_prec, object_f1 = rec_prec_f1(
         n_correct=c["n_correct_objects"],
@@ -139,16 +140,25 @@ def evaluate_from_flat_list(d_true, d_pred):
     )
 
     # Calculate std err
-    act_f1_stderr = d_f1(c["n_true_acts"], c["n_pred_acts"], c["n_correct_acts"])
-    slot_f1_stderr = d_f1(c["n_true_slots"], c["n_pred_slots"], c["n_correct_slots"])
-    request_slot_f1_stderr = d_f1(
-        c["n_true_request_slots"],
-        c["n_pred_request_slots"],
-        c["n_correct_request_slots"],
-    )
+    if not only_coref:
+        act_f1_stderr = d_f1(c["n_true_acts"], c["n_pred_acts"], c["n_correct_acts"])
+        slot_f1_stderr = d_f1(c["n_true_slots"], c["n_pred_slots"], c["n_correct_slots"])
+        request_slot_f1_stderr = d_f1(
+            c["n_true_request_slots"],
+            c["n_pred_request_slots"],
+            c["n_correct_request_slots"],
+        )
     object_f1_stderr = d_f1(
         c["n_true_objects"], c["n_pred_objects"], c["n_correct_objects"]
     )
+
+    if only_coref:
+        return {
+            "object_rec": object_rec,
+            "object_prec": object_prec,
+            "object_f1": object_f1,
+            "object_f1_stderr": object_f1_stderr,
+        }
 
     return {
         "joint_accuracy": joint_accuracy,
