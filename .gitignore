@@ -6,8 +6,7 @@
 venv
 
 # data
-data/simmc2_*
-data/*_metadata_*
+data/*
 
 # GPT-2 baseline data and checkpoints
 models/gpt2_baseline/gpt2_dst/save/
