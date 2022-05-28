@@ -11,8 +11,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from sklearn.manifold import TSNE
-
 from torch import nn
 from torch.optim import AdamW as torch_AdamW
 from torch.nn.utils.rnn import pad_sequence
@@ -343,7 +341,7 @@ class FurnitureEncoderHead(nn.Module):
         customer_review = self.customer_review_linear(aggregated)
         return coref, brand, color, materials, type_, price, customer_review
 
-def train_embedding_clip_way(args, model, tokenizer, all_objects_meta, num_iter=50, do_tsne=False):
+def train_embedding_clip_way(args, model, tokenizer, all_objects_meta, num_iter=50):
     emb = model.model.encoder.embed_tokens
     emb.weight.requires_grad = True
     emb_weight_clone = emb.weight.detach().clone()
@@ -459,25 +457,8 @@ def train_embedding_clip_way(args, model, tokenizer, all_objects_meta, num_iter=
         (fashion_emb_loss + furniture_emb_loss).backward()
         emb_opt.step()
         emb.zero_grad()
-    
-    if do_tsne:
-        tsne = TSNE()
-        st_indices = []
-        st = []
-        for fashion_st in FASHION_SPECIAL_TOKENS:
-            st_indices.extend(get_input_id(tokenizer, fashion_st))
-            st.append(fashion_st)
-        for furniture_st in FURNITURE_SPECIAL_TOKENS:
-            st_indices.extend(get_input_id(tokenizer, furniture_st))
-            st.append(furniture_st)
 
-        tsne_logits = emb(torch.tensor(st_indices).to(args.device)).detach().cpu().numpy()  # (num_items (fashion and furniture), d_model)
-        tsne_fitted = tsne.fit_transform(tsne_logits)
-        plt.figure(figsize=(20, 20))
-        for i in range(len(tsne_fitted)):
-            # print(f"x: {tsne_fitted[i,0]}, y: {tsne_fitted[i,1]}")
-            plt.text(tsne_fitted[i,0], tsne_fitted[i,1], str(st[i]), color='black', fontdict={'weight': 'bold', 'size':9})
-        plt.savefig('fig1.png', dpi=300)
+
 
 def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head, all_objects_meta):
 
@@ -729,7 +710,7 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
             global_step += 1
             
             if global_step % args.embedding_train_steps == 0:
-                train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_ongoing, do_tsne=False)
+                train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_ongoing)
 
             if (global_step % args.eval_steps == 0) and (global_step > 15000):
                 results = evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head, all_objects_meta)
@@ -1110,7 +1091,7 @@ def main():
         'materials': meta.materials, 'price': meta.price, 'type': meta.type}
         all_objects_meta[object_special_id] = object_meta
 
-    train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_start, do_tsne=False)
+    train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_start)
     
     global_step, train_loss = train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head, all_objects_meta)
 
