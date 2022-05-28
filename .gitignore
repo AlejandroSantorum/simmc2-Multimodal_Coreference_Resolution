@@ -22,3 +22,6 @@ models/uniter_based/pretrained/*
 models/uniter_based/model/Transformers_VQA_master/models/pretrained/*
 models/uniter_based/result/
 models/uniter_based/trained
+
+# BART only Coreference Resolution data
+models/bart_coref/data
