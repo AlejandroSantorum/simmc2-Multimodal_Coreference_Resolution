@@ -25,3 +25,4 @@ models/uniter_based/trained
 
 # BART only Coreference Resolution data
 models/bart_coref/data
+models/bart_coref/coref_models
