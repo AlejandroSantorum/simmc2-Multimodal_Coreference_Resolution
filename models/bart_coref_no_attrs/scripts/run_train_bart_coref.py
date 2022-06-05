@@ -117,7 +117,6 @@ class LineByLineDataset(Dataset):
                     self.boxes.append(line_boxes)
                     line = re.sub(r"\[\([^\)]*\)\]", "", line)
                     lines.append("<DISAM> "+line)
-                    print(line)#######################################################################
         encode_text = tokenizer(lines, add_special_tokens=True)
         self.examples = encode_text.input_ids
         self.examples_attention_mask = encode_text.attention_mask
