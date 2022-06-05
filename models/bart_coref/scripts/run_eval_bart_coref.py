@@ -15,7 +15,7 @@ from torch.utils.data import DataLoader, Dataset, SequentialSampler
 from torch.nn.utils.rnn import pad_sequence
 from transformers import BartForConditionalGeneration, BartTokenizerFast
 
-from run_bart_multi_task import BoxEmbedding, NoCorefHead, FashionEncoderHead, FurnitureEncoderHead
+from run_train_bart_coref import BoxEmbedding, NoCorefHead, FashionEncoderHead, FurnitureEncoderHead
 
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -388,14 +388,19 @@ def main():
             coref_obj_list.append(coref_obj_each_batch)
             coref_check.append(True if len(coref_obj_each_batch) > 0 else False)
         
+        """
         check = torch.logical_and(is_nocoref.cpu(), torch.tensor(coref_check, dtype=torch.bool))
         if check.any():
             print("is_nocoref and object is both on!!! THIS SHOULD NOT HAPPEN!")
             idx = (check == True).nonzero(as_tuple=True)[0].tolist()
             for i in idx:
                 coref_obj_list[i] = []
+        """
 
-
+        for j in range(len(coref_obj_list)):
+            total_sequence_coref_replaced = insert_coref("", coref_obj_list[j])
+            results_coref_replaced.append(total_sequence_coref_replaced)
+        """                    
         output_sequences = model.generate(
             max_length=args.length + inputs_embeds.size()[1],
             temperature=args.temperature,
@@ -435,6 +440,7 @@ def main():
                 print('total_sequence_coref_replaced:', total_sequence_coref_replaced, '\n')
 
         results_coref_replaced.extend(generated_sequences_coref_replaced)
+        """
     with open(args.path_output, "w") as f_out:
         f_out.write("\n".join(results_coref_replaced))
     

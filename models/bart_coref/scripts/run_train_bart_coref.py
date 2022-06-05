@@ -7,7 +7,6 @@ import random
 import argparse
 import logging
 
-import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
@@ -97,26 +96,10 @@ def id_converter(tokenizer):
     return id2index, id2fashion_st, id2furniture_st
 
 class LineByLineDataset(Dataset):
-    def __init__(self, input_file, target_file, disambiguation_file, response_file, tokenizer: PreTrainedTokenizer, all_objects_meta, evaluation=False):
+    def __init__(self, input_file, target_file, tokenizer: PreTrainedTokenizer, all_objects_meta, evaluation=False):
 
         print(f"Data file : {input_file}")
         self.evaluation = evaluation
-
-        if not evaluation:
-            # Disambiguation File
-            self.disambiguation_labels = []
-            with open(disambiguation_file, encoding="utf-8") as f:
-                for line in f.read().splitlines():
-                    self.disambiguation_labels.append(int(line))
-            print("Done Load Disambiguation File....")
-            # Response File
-            response_list = []
-            response =  open(response_file, encoding="utf-8")
-            for line in response.read().splitlines():
-                if (len(line) > 0 and not line.isspace()):
-                    response_list.append(line)
-            self.response = response_list
-            print("Done Load Response File....")
         
         # Other tasks
         lines = []
@@ -148,7 +131,6 @@ class LineByLineDataset(Dataset):
             ]
         
         assert len(target_lines) == len(self.examples)
-
         
         corefs = []  # [ [corefobj1(index), corefobj2], [corefobj1], [...], ...]
         for line in target_lines:
@@ -223,27 +205,20 @@ class LineByLineDataset(Dataset):
                         line_labels.append(temp)
             self.misc.append(line_labels)
         print("Done Load Main File....")
-        if not evaluation:        
-            assert len(self.examples) == len(self.disambiguation_labels) == len(self.response)
     
     def __len__(self):
         return len(self.examples)
 
     def __getitem__(self, i):
-        if not self.evaluation:
-            return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
-                    self.generation[i], self.boxes[i], self.misc[i], self.nocoref[i], torch.tensor(self.disambiguation_labels[i], dtype=torch.long), \
-                    self.response[i]
-
         return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
             self.generation[i], self.boxes[i], self.misc[i], self.nocoref[i]
 
 
 def get_dataset(args, tokenizer, all_objects_meta, train=True):
     if train:
-        dataset = LineByLineDataset(args.train_input_file, args.train_target_file, args.disambiguation_file, args.response_file, tokenizer, all_objects_meta)
+        dataset = LineByLineDataset(args.train_input_file, args.train_target_file, tokenizer, all_objects_meta)
     else:
-        dataset = LineByLineDataset(args.eval_input_file, args.eval_target_file, None, None, tokenizer, all_objects_meta, evaluation=True)
+        dataset = LineByLineDataset(args.eval_input_file, args.eval_target_file, tokenizer, all_objects_meta, evaluation=True)
 
     # Unknown issues have been reported around not being able to handle incomplete batches (e.g. w/ older CUDA 9.2)
     # Below is a workaround in case you encounter this issue.
@@ -257,9 +232,6 @@ def get_dataset(args, tokenizer, all_objects_meta, train=True):
         dataset.boxes = dataset.boxes[:-n]
         dataset.misc = dataset.misc[:-n]
         dataset.nocoref = dataset.nocoref[:-n]
-        if train:
-            dataset.disambiguation_labels = dataset.disambiguation_labels[:-n]
-            dataset.response = dataset.response[:-n]
     return dataset
 
 class BoxEmbedding(nn.Module):
@@ -278,13 +250,6 @@ class NoCorefHead(nn.Module):
     def forward(self, no_coref_vector):
         coref_cls = self.no_coref_linear(no_coref_vector)
         return coref_cls
-
-class DisambiguationHead(nn.Module):
-    def __init__(self, hidden_dim):
-        super(DisambiguationHead, self).__init__()
-        self.linear = nn.Linear(hidden_dim, 2)  
-    def forward(self, x):
-        return self.linear(x)
 
 class FashionEncoderHead(nn.Module):
     def __init__(self, hidden_dim):
@@ -460,7 +425,7 @@ def train_embedding_clip_way(args, model, tokenizer, all_objects_meta, num_iter=
 
 
 
-def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head, all_objects_meta):
+def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, all_objects_meta):
 
     def collate_bart(examples):
         enc_input = list(map(lambda x: x[0], examples))
@@ -469,18 +434,15 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
         nocoref = list(map(lambda x: x[5], examples))
-        disambiguation_labels = list(map(lambda x: x[6], examples))
-        response = list(map(lambda x: x[7], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
             enc_input_pad = pad_sequence(enc_input, batch_first=True, padding_value=tokenizer.pad_token_id)
         enc_attention_pad = pad_sequence(enc_attention_mask, batch_first=True, padding_value=0)
         decoder_input_pad = tokenizer(decoder_input, padding="longest", truncation=True, return_tensors="pt")
-        response_pad = tokenizer(response, padding="longest", truncation=True, return_tensors="pt")
 
         return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                boxes, misc, nocoref, torch.vstack(disambiguation_labels), response_pad.input_ids, response_pad.attention_mask
+                boxes, misc, nocoref
     
     train_dataset = get_dataset(args, tokenizer, all_objects_meta, train=True)
     train_sampler = RandomSampler(train_dataset)
@@ -516,9 +478,6 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
         },
         {
             "params": nocoref_head.parameters()
-        },
-        {
-            "params": disambiguation_head.parameters()
         }
 
     ]
@@ -540,7 +499,7 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
     logger.info("  Train batch size = %d", args.train_batch_size)
     logger.info("  Total optimization steps = %d", t_total)
 
-    for net in [model, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head]:
+    for net in [model, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head]:
         net.train()
 
     global_step = 0
@@ -565,7 +524,7 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
         except ValueError:
             logger.info("  Starting fine-tuning.")
 
-    tr_loss, logging_loss = 0.0, 0.0
+    tr_loss = 0.0
 
     model.zero_grad()
     train_iterator = trange(
@@ -590,9 +549,6 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
             boxes = batch[4] # batch, num_obj_per_line, 6
             misc = batch[5]  # batch, num_obj_per_line, dict
             nocoref = batch[6]
-            disambiguation_labels = batch[7].to(args.device)
-            response = batch[8].to(args.device)
-            response_attention_mask = batch[9].to(args.device)
 
             # follow `class BartEncoder`. shape of (batch, seqlen, d_model)
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
@@ -616,16 +572,6 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
                 )
             model_loss = model_outputs.loss
             enc_last_state = model_outputs.encoder_last_hidden_state  # (bs, seqlen, d_model)
-            
-            # For Biencoder
-            response_vec = model.model.encoder(input_ids=response, attention_mask=response_attention_mask)[0][:, 0, :] # bs, dim
-            context_vec = enc_last_state[:, 0, :] # bs, dim
-            dot_product = torch.matmul(context_vec, response_vec.t())  # bs, bs
-            retrieval_loss = CELoss(dot_product, torch.arange(batch_size).to(context_vec.device))
-
-            # For Disambiguation
-            disambiguation_logits = disambiguation_head(enc_last_state[:, 1, :]) # bs, d_model --> bs, 2
-            disam_loss = CELoss(disambiguation_logits, disambiguation_labels.view(-1))
 
             nocoref_labels = torch.tensor([nocoref[b_idx][1] for b_idx in range(batch_size)]).to(args.device)
             nocoref_logits = torch.stack([nocoref_head(enc_last_state[b_idx][nocoref[b_idx][0]]) for b_idx in range(batch_size) ])
@@ -661,42 +607,42 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
                     else:
                         hidden_concat = torch.cat([hidden_concat, torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))], dim=0)
                     # hidden_concat = torch.reshape(enc_last_state[b_idx][pos:pos+2], (-1,))  # (2*d_model)  -> 
+                
+                attr = 0 # New: deactivate attribute classification heads? yes -> attr=0 , no -> attr=1
                 if is_fashion:
                     coref, size, available_sizes, brand, color, pattern, sleeve_length, \
                     asset_type, type_, price, customer_review = fashion_enc_head(hidden_concat)  # (num_obj, num_logits)
-                    loss_per_line = 8 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(size, torch.tensor(size_label, dtype=torch.long).to(args.device)) + \
-                                    BCELoss(available_sizes, torch.tensor(available_sizes_label, dtype=torch.float32).to(args.device)) + \
-                                    CELoss(brand, torch.tensor(brand_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(color, torch.tensor(color_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(pattern, torch.tensor(pattern_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(sleeve_length, torch.tensor(sleeve_length_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(asset_type, torch.tensor(asset_type_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(type_, torch.tensor(type_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(price, torch.tensor(price_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(customer_review, torch.tensor(customer_review_label, dtype=torch.long).to(args.device))
+                    loss_per_line = 10 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(size, torch.tensor(size_label, dtype=torch.long).to(args.device)) + \
+                                    attr*BCELoss(available_sizes, torch.tensor(available_sizes_label, dtype=torch.float32).to(args.device)) + \
+                                    attr*CELoss(brand, torch.tensor(brand_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(color, torch.tensor(color_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(pattern, torch.tensor(pattern_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(sleeve_length, torch.tensor(sleeve_length_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(asset_type, torch.tensor(asset_type_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(type_, torch.tensor(type_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(price, torch.tensor(price_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(customer_review, torch.tensor(customer_review_label, dtype=torch.long).to(args.device))
                 else: 
                     coref, brand, color, materials, type_, price, customer_review = furniture_enc_head(hidden_concat)  # (num_obj, num_logits)
-                    loss_per_line = 8 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(brand, torch.tensor(brand_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(color, torch.tensor(color_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(materials, torch.tensor(materials_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(type_, torch.tensor(type_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(price, torch.tensor(price_label, dtype=torch.long).to(args.device)) + \
-                                    CELoss(customer_review, torch.tensor(customer_review_label, dtype=torch.long).to(args.device))
+                    loss_per_line = 10 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(brand, torch.tensor(brand_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(color, torch.tensor(color_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(materials, torch.tensor(materials_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(type_, torch.tensor(type_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(price, torch.tensor(price_label, dtype=torch.long).to(args.device)) + \
+                                    attr*CELoss(customer_review, torch.tensor(customer_review_label, dtype=torch.long).to(args.device))
                 misc_loss += loss_per_line
             misc_loss /= batch_size
 
-            #(model_loss + 0.1*nocoref_loss + 0.1*misc_loss + 0.1*disam_loss + 0.4*retrieval_loss).backward()
-            (0*model_loss + 0.1*nocoref_loss + 0.1*misc_loss + 0*disam_loss + 0*retrieval_loss).backward()
+            (0*nocoref_loss + 0.3*misc_loss).backward()
 
             tr_loss += model_loss.item()
             parameters_to_clip = [p for p in model.parameters() if p.grad is not None] + \
                                  [p for p in box_embedding.parameters() if p.grad is not None] + \
                                  [p for p in nocoref_head.parameters() if p.grad is not None] + \
                                  [p for p in fashion_enc_head.parameters() if p.grad is not None] + \
-                                 [p for p in furniture_enc_head.parameters() if p.grad is not None] + \
-                                 [p for p in disambiguation_head.parameters() if p.grad is not None]
+                                 [p for p in furniture_enc_head.parameters() if p.grad is not None]
             
             torch.nn.utils.clip_grad_norm_(parameters_to_clip, args.max_grad_norm)
             optimizer.step()
@@ -706,15 +652,14 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
             nocoref_head.zero_grad()
             fashion_enc_head.zero_grad()
             furniture_enc_head.zero_grad()
-            disambiguation_head.zero_grad()
             global_step += 1
             
             if global_step % args.embedding_train_steps == 0:
                 train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_ongoing)
 
             if (global_step % args.eval_steps == 0) and (global_step > 15000):
-                results = evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head, all_objects_meta)
-                for net in [model, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head]:
+                results = evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, all_objects_meta)
+                for net in [model, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head]:
                     net.train()
 
             if args.save_steps > 0 and (global_step % args.save_steps == 0) and (global_step > 15000):
@@ -731,13 +676,12 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
                 torch.save({'box_embedding_dict': box_embedding.state_dict(),
                             'nocoref_head_dict': nocoref_head.state_dict(),
                             'fashion_enc_head': fashion_enc_head.state_dict(),
-                            'furniture_enc_head': furniture_enc_head.state_dict(),
-                            'disambiguation_head': disambiguation_head.state_dict()},
+                            'furniture_enc_head': furniture_enc_head.state_dict()},
                             os.path.join(output_dir, 'aux_nets.pt'))
 
     return global_step, tr_loss/global_step
 
-def evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head, all_objects_meta):
+def evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, all_objects_meta):
     
     def collate_eval_bart(examples):
         enc_input = list(map(lambda x: x[0], examples))
@@ -770,7 +714,7 @@ def evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_he
     eval_dataloader = DataLoader(eval_dataset, sampler=eval_sampler, batch_size=args.eval_batch_size, collate_fn=collate_eval_bart)
     
     # Eval!
-    for net in [model, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head]:
+    for net in [model, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head]:
         net.eval()
     logger.info("***** Running evaluation *****")
     logger.info("  Num examples = %d", len(eval_dataset))
@@ -889,8 +833,7 @@ def evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_he
                 batch_report['furniture_type'] += (type_.argmax(dim=1) == type_label).float().mean()  # accuracy at a line
                 batch_report['furniture_price'] += (price.argmax(dim=1) == price_label).float().mean()  # accuracy at a line
                 batch_report['furniture_customer_review'] += (customer_review.argmax(dim=1) == customer_review_label).float().mean()  # accuracy at a line
-            
-        eval_loss += model_loss.mean().item()       
+      
         total_report = add_dicts(total_report, batch_report)
         nb_eval_steps += 1
 
@@ -899,13 +842,12 @@ def evaluate(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_he
         if ('fashion' in k) and num_fashions:
             total_report[k] = v/num_fashions
         if ('furniture' in k) and num_furnitures:
-            total_report[k] = v/num_furnitures 
-    eval_loss /= nb_eval_steps
-    perplexity = torch.exp(torch.tensor(eval_loss))
+            total_report[k] = v/num_furnitures
+
     print('total coref result:', n_correct_objects, n_true_objects, n_pred_objects)
     coref_rec, coref_prec, coref_f1 = rec_prec_f1(n_correct_objects, n_true_objects, n_pred_objects)
 
-    total_report['generation_perplexity'] = perplexity
+    #total_report['generation_perplexity'] = perplexity
     total_report['coref_info'] = f'rec: {coref_rec}, prec: {coref_prec}, f1: {coref_f1}'
 
     if args.output_eval_file:
@@ -976,18 +918,6 @@ def main():
     )
     parser.add_argument(
         "--train_input_file",
-        required=True,
-        type=str,
-        help='preprocessed input file path'
-    )
-    parser.add_argument(
-        "--disambiguation_file",
-        required=True,
-        type=str,
-        help='preprocessed input file path'
-    )
-    parser.add_argument(
-        "--response_file",
         required=True,
         type=str,
         help='preprocessed input file path'
@@ -1069,7 +999,6 @@ def main():
     nocoref_head = NoCorefHead(model.config.d_model).to(args.device)
     fashion_enc_head = FashionEncoderHead(model.config.d_model).to(args.device)
     furniture_enc_head = FurnitureEncoderHead(model.config.d_model).to(args.device)
-    disambiguation_head = DisambiguationHead(model.config.d_model).to(args.device)
     
     with open(args.item2id, 'r') as f:
         item2id = json.load(f)
@@ -1093,7 +1022,7 @@ def main():
 
     train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_start)
     
-    global_step, train_loss = train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, disambiguation_head, all_objects_meta)
+    global_step, train_loss = train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head, furniture_enc_head, all_objects_meta)
 
 
 if __name__ == '__main__':
