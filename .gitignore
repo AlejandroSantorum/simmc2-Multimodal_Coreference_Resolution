@@ -11,10 +11,6 @@ data/*
 # GPT-2 baseline data and checkpoints
 models/gpt2_baseline/gpt2_dst/save/
 
-# KAIST data and checkpoints
-models/KAIST_BART_based/data
-models/KAIST_BART_based/multi_task/
-
 # UNITER-based data and checkpoints
 models/uniter_based/data
 models/uniter_based/processed/*
@@ -23,6 +19,14 @@ models/uniter_based/model/Transformers_VQA_master/models/pretrained/*
 models/uniter_based/result/
 models/uniter_based/trained
 
+# KAIST data and checkpoints
+models/KAIST_BART_based/data
+models/KAIST_BART_based/multi_task/
+
 # BART only Coreference Resolution data
 models/bart_coref/data
-models/bart_coref/coref_models
+models/bart_coref/coref_models/*
+
+# BART deleting explicitly all heads but Coref
+models/bart_coref_no_attrs/data
+models/bart_coref_no_attrs/coref_models/*
