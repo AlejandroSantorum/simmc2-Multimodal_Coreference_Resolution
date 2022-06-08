@@ -608,11 +608,12 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
                         hidden_concat = torch.cat([hidden_concat, torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))], dim=0)
                     # hidden_concat = torch.reshape(enc_last_state[b_idx][pos:pos+2], (-1,))  # (2*d_model)  -> 
                 
-                attr = 0 # New: deactivate attribute classification heads? yes -> attr=0 , no -> attr=1
+                attr = 1 # New: deactivate attribute classification heads? yes -> attr=0 , no -> attr=1
+                coref_const = 8
                 if is_fashion:
                     coref, size, available_sizes, brand, color, pattern, sleeve_length, \
                     asset_type, type_, price, customer_review = fashion_enc_head(hidden_concat)  # (num_obj, num_logits)
-                    loss_per_line = 10 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
+                    loss_per_line = coref_const * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
                                     attr*CELoss(size, torch.tensor(size_label, dtype=torch.long).to(args.device)) + \
                                     attr*BCELoss(available_sizes, torch.tensor(available_sizes_label, dtype=torch.float32).to(args.device)) + \
                                     attr*CELoss(brand, torch.tensor(brand_label, dtype=torch.long).to(args.device)) + \
@@ -625,7 +626,7 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
                                     attr*CELoss(customer_review, torch.tensor(customer_review_label, dtype=torch.long).to(args.device))
                 else: 
                     coref, brand, color, materials, type_, price, customer_review = furniture_enc_head(hidden_concat)  # (num_obj, num_logits)
-                    loss_per_line = 10 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
+                    loss_per_line = coref_const * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device)) + \
                                     attr*CELoss(brand, torch.tensor(brand_label, dtype=torch.long).to(args.device)) + \
                                     attr*CELoss(color, torch.tensor(color_label, dtype=torch.long).to(args.device)) + \
                                     attr*CELoss(materials, torch.tensor(materials_label, dtype=torch.long).to(args.device)) + \
@@ -635,7 +636,7 @@ def train(args, model, tokenizer, box_embedding, nocoref_head, fashion_enc_head,
                 misc_loss += loss_per_line
             misc_loss /= batch_size
 
-            (0*nocoref_loss + 0.3*misc_loss).backward()
+            (0.1*nocoref_loss + 0.1*misc_loss).backward()
 
             tr_loss += model_loss.item()
             parameters_to_clip = [p for p in model.parameters() if p.grad is not None] + \
