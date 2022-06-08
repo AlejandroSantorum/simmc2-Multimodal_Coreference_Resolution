@@ -28,5 +28,5 @@ models/bart_coref/data
 models/bart_coref/coref_models/*
 
 # BART deleting explicitly all heads but Coref
-models/bart_coref_no_attrs/data
-models/bart_coref_no_attrs/coref_models/*
+models/bart_only_coref/data
+models/bart_only_coref/coref_models/*

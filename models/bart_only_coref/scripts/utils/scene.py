@@ -8,7 +8,7 @@ from attr import converters, validators
 
 from .util import find_data_dir
 
-DATA_DIR = find_data_dir('bart_coref_no_attrs')  # give root folder name of simmc2 as argument. Ex) find_data_dir('DSTC10-SIMMC')
+DATA_DIR = find_data_dir('bart_only_coref')  # give root folder name of simmc2 as argument. Ex) find_data_dir('DSTC10-SIMMC')
 
 @attr.s
 class SceneObject:
