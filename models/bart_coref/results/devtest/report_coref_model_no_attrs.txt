@@ -1,0 +1,10 @@
+{
+    "object_rec": 0.7268428372739917,
+    "object_prec": 0.7903811252268602,
+    "object_f1": 0.7572815533980582,
+    "object_f1_stderr": 0.005149729737216952
+}
+
+# lambda_empty_coref = 0.1
+# lambda_attrs = 0
+# lambda_coref = 0.5
