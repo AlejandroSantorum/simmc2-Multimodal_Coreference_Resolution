@@ -47,6 +47,83 @@ def set_seed(args):
 def get_input_id(tokenizer, tokens):
     return tokenizer(tokens).input_ids[1:-1]
 
+
+###################################################################################
+FASHION_METAFILE="../data/fashion_prefab_metadata_all.json"
+FURNITURE_METAFILE="../data/furniture_prefab_metadata_all.json"
+
+with open(FASHION_METAFILE) as f:
+    fash_meta = json.load(f)
+
+with open(FURNITURE_METAFILE) as f:
+    fur_meta = json.load(f)
+
+name2id_fash = dict()
+for id, name in enumerate(fash_meta):
+    name2id_fash[name] = id
+
+name2id_fur = dict()
+for id, name in enumerate(fur_meta):
+    name2id_fur[name] = id
+
+id2name_fash = dict()
+for id, name in enumerate(fash_meta):
+    id2name_fash[id] = name
+
+id2name_fur = dict()
+for id, name in enumerate(fur_meta):
+    id2name_fur[id] = name
+
+def get_line_object_ids(line):
+    line_ids = []
+    pos = 0
+    idx = line.find("<@", pos)
+    while idx != -1:
+        # get absolute object ID
+        abs_id = line[idx+2:idx+6]
+        line_ids.append(abs_id)
+        # update pos and idx
+        pos = idx+4
+        idx = line.find("<@", pos)
+    return line_ids
+
+def insert_attributes(line):
+    pos = 0
+    idx = line.find("<@", pos)
+    while idx != -1:
+        # get absolute object ID
+        abs_id = line[idx+2:idx+6]
+        # get object type
+        meta = abs_id[0]
+        abs_id = int(abs_id[1:])
+        obj_brand = fash_meta[id2name_fash[abs_id]]['brand'] if meta=='1' else fur_meta[id2name_fur[abs_id]]['brand']
+        obj_price = fash_meta[id2name_fash[abs_id]]['price'] if meta=='1' else fur_meta[id2name_fur[abs_id]]['price']
+        # append object type to line
+        line = line[:idx+7] + obj_brand + str(obj_price) + line[idx+7:]
+        # update pos and idx
+        pos = idx+4
+        idx = line.find("<@", pos)
+    return line
+
+ATTR_NAME_LIST = ['color', 'type', 'brand', 'price']
+def get_attribute_embeddings(line_ids, tokenizer, model, device):
+    line_object_embeddings = []
+    for abs_id in line_ids:
+        # get object type
+        meta = abs_id[0]
+        abs_id = int(abs_id[1:])
+        object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) if meta=='1'
+                            else str(fur_meta[id2name_fur[abs_id]][attr_name])
+                            for attr_name in ATTR_NAME_LIST]
+        # get embedding
+        object_int_tokens = [torch.tensor(get_input_id(tokenizer, attr)).to(device) for attr in object_attrs]
+        object_embeddings = [torch.sum(model.model.encoder.embed_tokens(obj_tok), dim=0) # summing over columns handling multiple integer tokens
+                                for obj_tok in object_int_tokens]
+        line_object_embeddings.append(object_embeddings)
+    return line_object_embeddings
+
+####################################################################################
+
 def id_converter(tokenizer):
     id2index = {get_input_id(tokenizer, index)[0]: index for index in OBJECT_INDICES}
     id2fashion_st = {get_input_id(tokenizer, st)[0]: st for st in FASHION_SPECIAL_TOKENS}
@@ -128,6 +205,7 @@ class GenerationDataset(Dataset):
         lines = []
         self.original_lines = []
         self.boxes = []
+        self.obj_ids_per_line = []
 
         vocab2id = tokenizer.get_vocab()
         id2vocab = {v: k for k, v in vocab2id.items()}
@@ -142,6 +220,8 @@ class GenerationDataset(Dataset):
                     line_boxes = [ast.literal_eval(position.replace('(', '').replace(')', '')) for position in re.findall(r"\[\([^\)]+\)\]", line)]
                     self.boxes.append(line_boxes)
                     line = re.sub(r"\[\([^\)]*\)\]", "", line)
+                    line_ids = get_line_object_ids(line)
+                    self.obj_ids_per_line.append(line_ids)
                     original_line = copy.deepcopy(line)
                     original_line = re.sub(r" <SOO.*EOO>", "", original_line)
                     lines.append(line)
@@ -193,7 +273,7 @@ class GenerationDataset(Dataset):
         return len(self.examples)
 
     def __getitem__(self, i):
-        return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i]
+        return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i]
 
 def main():
     parser = argparse.ArgumentParser()
@@ -304,12 +384,13 @@ def main():
         original_lines = list(map(lambda x: x[2], examples))
         boxes = list(map(lambda x: x[3], examples))
         misc = list(map(lambda x: x[4], examples))
+        obj_ids_per_line = list(map(lambda x: x[5], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
             enc_input_pad = pad_sequence(enc_input, batch_first=True, padding_value=tokenizer.pad_token_id)
         enc_attention_pad = pad_sequence(enc_attention_mask, batch_first=True, padding_value=0)
-        return enc_input_pad, enc_attention_pad, original_lines, boxes, misc
+        return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line
     
     with open(args.item2id, 'r') as f:
         item2id = json.load(f)
@@ -334,8 +415,9 @@ def main():
         original_lines = batch[2]
         boxes = batch[3] # batch, num_obj_per_line, 6
         misc = batch[4]  # batch, num_obj_per_line, dict
+        obj_ids_per_line = batch[5] # batch, num_obj_per_line, num_attrs
         batch_size = len(misc)
-        # assert batch_size == 1, "batch_size is not 1 !!"
+
         with torch.no_grad():
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
             for b_idx in range(batch_size):  # in a batch
@@ -343,6 +425,13 @@ def main():
                 for obj_idx in range(len(misc[b_idx])):
                     pos = misc[b_idx][obj_idx]['pos']
                     inputs_embeds[b_idx][pos] += box_embedded[obj_idx]
+                
+                line_embeddings = get_attributes_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
+                for idx, abs_id_embs in enumerate(line_embeddings):
+                    pos = misc[b_idx][idx]['pos']
+                    for embs in abs_id_embs:
+                        inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
+
             encoder_outputs = model.model.encoder(inputs_embeds=inputs_embeds, attention_mask=enc_input_attention, return_dict=True)  # check this line
 
         coref_obj_list = []
@@ -359,7 +448,6 @@ def main():
             objs_pos = [misc[b_idx][obj_idx]['pos'] for obj_idx in range(len(misc[b_idx]))]
             obj_indices = [tokenizer_id2token[enc_input[b_idx][pos].item()] for pos in objs_pos]  # ex) [<11>, <41>, ...]
 
-            #is_fashion = misc[b_idx][0]['is_fashion']
             coref = coref_enc_head(hidden_concat)
 
             coref_predict = coref.argmax(dim=1).tolist()  # (num_objs)

@@ -78,6 +78,83 @@ END_OF_MULTIMODAL_CONTEXTS = "<EOM>"
 START_OF_OBJ_TOKEN = "<SOO>"
 END_OF_OBJ_TOKEN = "<EOO>"
 
+###################################################################################
+FASHION_METAFILE="../data/fashion_prefab_metadata_all.json"
+FURNITURE_METAFILE="../data/furniture_prefab_metadata_all.json"
+
+with open(FASHION_METAFILE) as f:
+    fash_meta = json.load(f)
+
+with open(FURNITURE_METAFILE) as f:
+    fur_meta = json.load(f)
+
+name2id_fash = dict()
+for id, name in enumerate(fash_meta):
+    name2id_fash[name] = id
+
+name2id_fur = dict()
+for id, name in enumerate(fur_meta):
+    name2id_fur[name] = id
+
+id2name_fash = dict()
+for id, name in enumerate(fash_meta):
+    id2name_fash[id] = name
+
+id2name_fur = dict()
+for id, name in enumerate(fur_meta):
+    id2name_fur[id] = name
+
+def get_line_object_ids(line):
+    line_ids = []
+    pos = 0
+    idx = line.find("<@", pos)
+    while idx != -1:
+        # get absolute object ID
+        abs_id = line[idx+2:idx+6]
+        line_ids.append(abs_id)
+        # update pos and idx
+        pos = idx+4
+        idx = line.find("<@", pos)
+    return line_ids
+
+def insert_attributes(line):
+    pos = 0
+    idx = line.find("<@", pos)
+    while idx != -1:
+        # get absolute object ID
+        abs_id = line[idx+2:idx+6]
+        # get object type
+        meta = abs_id[0]
+        abs_id = int(abs_id[1:])
+        obj_brand = fash_meta[id2name_fash[abs_id]]['brand'] if meta=='1' else fur_meta[id2name_fur[abs_id]]['brand']
+        obj_price = fash_meta[id2name_fash[abs_id]]['price'] if meta=='1' else fur_meta[id2name_fur[abs_id]]['price']
+        # append object type to line
+        line = line[:idx+7] + obj_brand + str(obj_price) + line[idx+7:]
+        # update pos and idx
+        pos = idx+4
+        idx = line.find("<@", pos)
+    return line
+
+
+ATTR_NAME_LIST = ['color', 'type', 'brand', 'price']
+def get_attribute_embeddings(line_ids, tokenizer, model, device):
+    line_object_embeddings = []
+    for abs_id in line_ids:
+        # get object type
+        meta = abs_id[0]
+        abs_id = int(abs_id[1:])
+        object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) if meta=='1'
+                            else str(fur_meta[id2name_fur[abs_id]][attr_name])
+                            for attr_name in ATTR_NAME_LIST]
+        # get embedding
+        object_int_tokens = [torch.tensor(get_input_id(tokenizer, attr)).to(device) for attr in object_attrs]
+        object_embeddings = [torch.sum(model.model.encoder.embed_tokens(obj_tok), dim=0) # summing over columns handling multiple integer tokens
+                                for obj_tok in object_int_tokens]
+        line_object_embeddings.append(object_embeddings)
+    return line_object_embeddings
+
+####################################################################################
+
 def set_seed(args):
     random.seed(args.seed)
     np.random.seed(args.seed)
@@ -103,6 +180,7 @@ class LineByLineDataset(Dataset):
         # Other tasks
         lines = []
         self.boxes = []
+        self.obj_ids_per_line = []
         vocab2id = tokenizer.get_vocab()
         id2vocab = {v: k for k, v in vocab2id.items()}
         SOM_id = vocab2id[START_OF_MULTIMODAL_CONTEXTS]
@@ -110,12 +188,15 @@ class LineByLineDataset(Dataset):
 
         # extract input sequence to BART, and bbox info to be embedded
         with open(input_file, encoding="utf-8") as f:
+            cont = 0
             for line in f.read().splitlines():
                 if (len(line) > 0 and not line.isspace()):
                     # [[0.2, 0.3, 0.1, 0.2, 0.43, 3.4], [0.2, 0.1, 0.1, 0.2, 0.43, 3.7], ...]
                     line_boxes = [ast.literal_eval(position.replace('(', '').replace(')', '')) for position in re.findall(r"\[\([^\)]+\)\]", line)]
                     self.boxes.append(line_boxes)
                     line = re.sub(r"\[\([^\)]*\)\]", "", line)
+                    line_ids = get_line_object_ids(line)
+                    self.obj_ids_per_line.append(line_ids)
                     lines.append("<DISAM> "+line)
         encode_text = tokenizer(lines, add_special_tokens=True)
         self.examples = encode_text.input_ids
@@ -196,7 +277,7 @@ class LineByLineDataset(Dataset):
 
     def __getitem__(self, i):
         return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
-            self.generation[i], self.boxes[i], self.misc[i]
+            self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i]
 
 
 def get_dataset(args, tokenizer, all_objects_meta, train=True):
@@ -216,6 +297,7 @@ def get_dataset(args, tokenizer, all_objects_meta, train=True):
         dataset.generation = dataset.generation[:-n]
         dataset.boxes = dataset.boxes[:-n]
         dataset.misc = dataset.misc[:-n]
+        dataset.obj_ids_per_line = dataset.obj_ids_per_line[:-n]
     return dataset
 
 class BoxEmbedding(nn.Module):
@@ -367,6 +449,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         decoder_input = list(map(lambda x: x[2], examples))
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
+        obj_ids_per_line = list(map(lambda x: x[5], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -375,7 +458,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         decoder_input_pad = tokenizer(decoder_input, padding="longest", truncation=True, return_tensors="pt")
 
         return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                boxes, misc
+                boxes, misc, obj_ids_per_line
     
     train_dataset = get_dataset(args, tokenizer, all_objects_meta, train=True)
     train_sampler = RandomSampler(train_dataset)
@@ -475,6 +558,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
             decoder_attention_mask = batch[3].to(args.device)
             boxes = batch[4] # batch, num_obj_per_line, 6
             misc = batch[5]  # batch, num_obj_per_line, dict
+            obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
 
             # follow `class BartEncoder`. shape of (batch, seqlen, d_model)
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
@@ -488,6 +572,13 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                 for obj_idx in range(len(misc[b_idx])):
                     pos = misc[b_idx][obj_idx]['pos']
                     inputs_embeds[b_idx][pos] += box_embedded[obj_idx]
+                
+                line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
+                for idx, abs_id_embs in enumerate(line_embeddings):
+                    pos = misc[b_idx][idx]['pos']
+                    for embs in abs_id_embs:
+                        inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
+
 
             model_outputs = model(
                 inputs_embeds=inputs_embeds, 
@@ -511,7 +602,6 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                         hidden_concat = torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))
                     else:
                         hidden_concat = torch.cat([hidden_concat, torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))], dim=0)
-                    # hidden_concat = torch.reshape(enc_last_state[b_idx][pos:pos+2], (-1,))  # (2*d_model)  -> 
 
                 coref = coref_enc_head(hidden_concat)  # (num_obj, num_logits)
                 loss_per_line = 10 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device))
@@ -542,7 +632,8 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                 for net in [model, box_embedding, coref_enc_head]:
                     net.train()
 
-            if args.save_steps > 0 and (global_step % args.save_steps == 0) and (global_step > 15000):
+            #if args.save_steps > 0 and (global_step % args.save_steps == 0) and (global_step > 15000):
+            if args.save_steps > 0 and (global_step % args.eval_steps == 0) and (global_step > 15000):
                 print('checkpoint saving!!')
                 checkpoint_prefix = "checkpoint"
                 output_dir = os.path.join(
@@ -567,6 +658,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         decoder_input = list(map(lambda x: x[2], examples))
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
+        obj_ids_per_line = list(map(lambda x: x[5], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -575,7 +667,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         decoder_input_pad = tokenizer(decoder_input, padding="longest", truncation=True, return_tensors="pt")
 
         return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                boxes, misc
+                boxes, misc, obj_ids_per_line
     
     def add_dicts(d1, d2):
         return {k: d1[k] + d2[k] for k in d1}
@@ -600,11 +692,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
     eval_loss = 0.0
     nb_eval_steps = 0
 
-    report_template = {'fashion_coref':0, 'fashion_size':0, 'fashion_available_sizes':0, 'fashion_brand':0, 
-                    'fashion_color':0, 'fashion_pattern':0, 'fashion_sleeve_length':0, 'fashion_asset_type':0, 
-                    'fashion_type':0, 'fashion_price':0, 'fashion_customer_review':0,
-                    'furniture_coref':0, 'furniture_brand':0, 'furniture_color':0, 'furniture_materials':0, 'furniture_type':0,
-                    'furniture_price':0, 'furniture_customer_review':0}
+    report_template = {'fashion_coref': 0, 'furniture_coref': 0}
     total_report = copy.deepcopy(report_template)
 
     n_pred_objects = 0
@@ -620,6 +708,8 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         decoder_attention_mask = batch[3].to(args.device)
         boxes = batch[4] # batch, num_obj_per_line, 6
         misc = batch[5]  # batch, num_obj_per_line, dict
+        obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
+
         with torch.no_grad():
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
             batch_size = len(misc)
@@ -628,6 +718,12 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
                 for obj_idx in range(len(misc[b_idx])):
                     pos = misc[b_idx][obj_idx]['pos']
                     inputs_embeds[b_idx][pos] += box_embedded[obj_idx]
+                
+                line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
+                for idx, abs_id_embs in enumerate(line_embeddings):
+                    pos = misc[b_idx][idx]['pos']
+                    for embs in abs_id_embs:
+                        inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
 
             model_outputs = model(
                 inputs_embeds=inputs_embeds, 
@@ -641,7 +737,6 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         enc_last_state = model_outputs.encoder_last_hidden_state  # (bs, seqlen, d_model)
 
         batch_report = copy.deepcopy(report_template)
-        
         
         for b_idx in range(batch_size):  # in a batch
             
@@ -662,7 +757,6 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
                 n_pred_objects += coref.argmax(dim=1).sum().item()
                 n_correct_objects += torch.logical_and(coref.argmax(dim=1), coref_label).int().sum().item()
                 batch_report['fashion_coref'] += torch.all(coref.argmax(dim=1) == coref_label, dim=0).float()  # 1. or 0.
-
             else:
                 num_furnitures += 1
                 n_pred_objects += coref.argmax(dim=1).sum().item()
@@ -680,8 +774,6 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
 
     print('total coref result:', n_correct_objects, n_true_objects, n_pred_objects)
     coref_rec, coref_prec, coref_f1 = rec_prec_f1(n_correct_objects, n_true_objects, n_pred_objects)
-
-    #total_report['generation_perplexity'] = perplexity
     total_report['coref_info'] = f'rec: {coref_rec}, prec: {coref_prec}, f1: {coref_f1}'
 
     if args.output_eval_file:
@@ -692,6 +784,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
 
     print('EVALUATION:', total_report)
     return total_report
+
 
 def main():
     parser = argparse.ArgumentParser()
