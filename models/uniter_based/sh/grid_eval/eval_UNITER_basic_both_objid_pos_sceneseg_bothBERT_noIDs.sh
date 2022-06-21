@@ -6,9 +6,9 @@ qsub -l h=stg-gpu15,virtual_gpu_free=8000M,gpu=1,gpu_queue=1,arch=*64*,test=*,ce
     -e /rmt/dialogue2/interns/alejandro/logs \
     -o /rmt/dialogue2/interns/alejandro/logs \
     ${SCRIPTS_PATH}run_on_grid.sh infer_eval.py \
-        --NAME eval_UNITER_basic_both_objid_pos_sceneseg_bothBERT \
-        --CHECKPOINT UNITER_basic_both_objid_pos_sceneseg_bothBERT \
-        --obj_id True \
+        --NAME eval_UNITER_basic_both_objid_pos_sceneseg_bothBERT_noIDs \
+        --CHECKPOINT UNITER_basic_both_objid_pos_sceneseg_bothBERT_noIDs \
+        --obj_id False \
         --vis_feats_clip True \
         --vis_feats_rcnn True \
         --pos True \
@@ -22,9 +22,9 @@ qsub -l h=stg-gpu15,virtual_gpu_free=8000M,gpu=1,gpu_queue=1,arch=*64*,test=*,ce
     -e /rmt/dialogue2/interns/alejandro/logs \
     -o /rmt/dialogue2/interns/alejandro/logs \
     ${SCRIPTS_PATH}run_on_grid.sh infer_eval.py \
-        --NAME eval_UNITER_basic_both_objid_pos_sceneseg_bothBERT \
-        --CHECKPOINT UNITER_basic_both_objid_pos_sceneseg_bothBERT \
-        --obj_id True \
+        --NAME eval_UNITER_basic_both_objid_pos_sceneseg_bothBERT_noIDs \
+        --CHECKPOINT UNITER_basic_both_objid_pos_sceneseg_bothBERT_noIDs \
+        --obj_id False \
         --vis_feats_clip True \
         --vis_feats_rcnn True \
         --pos True \
