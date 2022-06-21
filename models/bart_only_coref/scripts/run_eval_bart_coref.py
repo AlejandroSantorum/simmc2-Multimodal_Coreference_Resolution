@@ -426,7 +426,7 @@ def main():
                     pos = misc[b_idx][obj_idx]['pos']
                     inputs_embeds[b_idx][pos] += box_embedded[obj_idx]
                 
-                line_embeddings = get_attributes_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
+                line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
                 for idx, abs_id_embs in enumerate(line_embeddings):
                     pos = misc[b_idx][idx]['pos']
                     for embs in abs_id_embs:

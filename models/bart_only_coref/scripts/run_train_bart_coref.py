@@ -300,6 +300,7 @@ def get_dataset(args, tokenizer, all_objects_meta, train=True):
         dataset.obj_ids_per_line = dataset.obj_ids_per_line[:-n]
     return dataset
 
+
 class BoxEmbedding(nn.Module):
     def __init__(self, hidden_dim):
         super(BoxEmbedding, self).__init__()
@@ -632,8 +633,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                 for net in [model, box_embedding, coref_enc_head]:
                     net.train()
 
-            #if args.save_steps > 0 and (global_step % args.save_steps == 0) and (global_step > 15000):
-            if args.save_steps > 0 and (global_step % args.eval_steps == 0) and (global_step > 15000):
+            if args.save_steps > 0 and (global_step % args.save_steps == 0) and (global_step > 15000):
                 print('checkpoint saving!!')
                 checkpoint_prefix = "checkpoint"
                 output_dir = os.path.join(
