@@ -1,5 +1,6 @@
 import os
 import json
+from tqdm import tqdm
 import argparse
 import torch
 from torch.utils.tensorboard import SummaryWriter
@@ -52,7 +53,7 @@ def infer(args):
     logit_out = {}
     model.eval()
     with torch.no_grad():
-        for batch_idx, batch in enumerate(test_loader):
+        for batch_idx, batch in enumerate(tqdm(test_loader)):
             input_ids = batch['input_ids'].to(device)
             txt_seg_ids = batch['txt_seg_ids'].to(device)
             vis_feats_clip = batch['vis_feats'].to(device)
@@ -137,7 +138,7 @@ def infer(args):
     with open(f'./output/{NAME}_{SPLIT}.json', 'w', encoding='utf-8') as out_file:
         json.dump(data, out_file)
 
-    with open(f'./output/logit/{NAME}_{SPLIT}.json', 'w', encoding='utf-8') as out_file:
+    with open(f'./output/exp_logit/{NAME}_{SPLIT}.json', 'w', encoding='utf-8') as out_file:
         json.dump(logit_out, out_file)
 
     # Evaluate
