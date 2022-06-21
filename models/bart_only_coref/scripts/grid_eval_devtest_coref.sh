@@ -6,7 +6,7 @@ qsub -l h=stg-gpu25,virtual_gpu_free=8000M,gpu=1,gpu_queue=1,arch=*64*,test=*,ce
     -o /rmt/dialogue2/interns/alejandro/logs \
     ${SCRIPTS_PATH}run_on_grid.sh run_eval_bart_coref.py \
         --prompts_from_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt \
-        --path_output=../results/devtest/predictions_no_attrs_1head.txt \
+        --path_output=../results/devtest/predictions_4common_attrs_cp36.txt \
         --item2id=./item2id.json \
         --add_special_tokens=../data_object_special/simmc_special_tokens.json \
-        --model_dir=../coref_models/model_no_attrs_1head/checkpoint-38000
+        --model_dir=../coref_models/model_4common_attrs/checkpoint-36000

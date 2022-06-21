@@ -11,9 +11,9 @@ qsub -l h=stg-gpu25,virtual_gpu_free=12000M,gpu=1,gpu_queue=1,arch=*64*,test=*,c
         --train_target_file=../data_object_special/simmc2_dials_dstc10_train_target.txt  \
         --eval_input_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt \
         --eval_target_file=../data_object_special/simmc2_dials_dstc10_devtest_target.txt \
-        --output_dir=../coref_models/model_no_attrs_test \
+        --output_dir=../coref_models/model_4common_attrs \
         --train_batch_size=8 \
-        --output_eval_file=../coref_models/model_no_attrs_test/report.txt \
+        --output_eval_file=../coref_models/model_4common_attrs/report.txt \
         --num_train_epochs=8  \
         --eval_steps=3000  \
         --warmup_steps=8000
