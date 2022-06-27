@@ -115,9 +115,16 @@ def infer(args):
             except:
                 out[dial_idx] = {round_idx: line_out}
                 logit_out[dial_idx] = {round_idx: logit_line_out}
-        
-    with open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', 'r') as data_file:
-        data = json.load(data_file)
+
+    if SPLIT == 'furniture':
+        with open(f'./processed/test_furniture_target_dials.json', 'r') as data_file:
+            data = json.load(data_file)
+    elif SPLIT == 'special_woman_store_test':
+        with open(f'./processed/special_woman_store_target.json', 'r') as data_file:
+            data = json.load(data_file)
+    else: 
+        with open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', 'r') as data_file:
+            data = json.load(data_file)
 
     for dial in data['dialogue_data']:
         dial_mentions = []
@@ -142,7 +149,12 @@ def infer(args):
         json.dump(logit_out, out_file)
 
     # Evaluate
-    json_target = json.load(open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', "r"))
+    if SPLIT == 'furniture':
+        json_target = json.load(open(f'./processed/test_furniture_target_dials.json', 'r'))
+    elif SPLIT == 'special_woman_store_test':
+        json_target = json.load(open(f'./processed/special_woman_store_target.json', 'r'))
+    else:
+        json_target = json.load(open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', "r"))
     json_predicted = data
 
     # Evaluate

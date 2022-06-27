@@ -7,9 +7,27 @@ PROCESSED_ROOT = './processed'
 
 class UNITER_on_CLIP_BERT_Dataset(Dataset):
     def __init__(self, split, more_roi, max_n_obj=200):
-        self.file_path = f'{PROCESSED_ROOT}/{split}.json'
-        self.KB_emb_path = f'{PROCESSED_ROOT}/KB_{split}.pt'
-        self.KB_emb_SBERT_path = f'{PROCESSED_ROOT}/KB_SBERT_{split}.pt'
+        #self.file_path = f'{PROCESSED_ROOT}/{split}.json'
+        if split == 'fashion':
+            self.file_path = f'{PROCESSED_ROOT}/train_on_just_fashion.json'
+        elif split == 'furniture':
+            self.file_path = f'{PROCESSED_ROOT}/test_on_just_furniture.json'
+        elif split == 'special_woman_store_train':
+            self.file_path = f'{PROCESSED_ROOT}/special_woman_store_train.json'
+        elif split == 'special_woman_store_test':
+            self.file_path = f'{PROCESSED_ROOT}/special_woman_store_test.json'
+        else:
+            self.file_path = f'{PROCESSED_ROOT}/{split}.json'
+
+        #self.KB_emb_path = f'{PROCESSED_ROOT}/KB_{split}.pt'
+        #self.KB_emb_SBERT_path = f'{PROCESSED_ROOT}/KB_SBERT_{split}.pt'
+        if split=='fashion' or split=='furniture' or split=='special_woman_store_train' or split=='special_woman_store_test':
+            self.KB_emb_path = f'{PROCESSED_ROOT}/KB_all.pt'
+            self.KB_emb_SBERT_path = f'{PROCESSED_ROOT}/KB_SBERT_all.pt'
+        else:
+           self.KB_emb_path = f'{PROCESSED_ROOT}/KB_{split}.pt'
+           self.KB_emb_SBERT_path = f'{PROCESSED_ROOT}/KB_SBERT_{split}.pt'
+
         self.vis_feat_path = f'{PROCESSED_ROOT}/img_features.pt'
         self.vis_feat_rcnn_path = f'{PROCESSED_ROOT}/img_features_rcnn.json'
         self.KB_dict_path = f'{PROCESSED_ROOT}/KB_dict.json'

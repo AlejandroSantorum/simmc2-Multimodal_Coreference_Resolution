@@ -16,6 +16,7 @@ def train(args):
     # Constant setup
     NAME = args.NAME
     MODEL = args.MODEL
+    SPLIT = args.SPLIT
     BATCH_SIZE = args.BATCH_SIZE
     BATCH_SIZE_DEV = args.BATCH_SIZE_DEV
     LR = args.LR
@@ -43,7 +44,7 @@ def train(args):
     print(device)
 
     # Make loaders
-    train_loader = make_loader('train', BATCH_SIZE, more_roi=arg_dict['more_roi'])
+    train_loader = make_loader(SPLIT, BATCH_SIZE, more_roi=arg_dict['more_roi'])
     dev_loader = make_loader('dev', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'])
 
     # Setup Tensorboard
@@ -285,6 +286,8 @@ if __name__ == '__main__':
     parser.add_argument('--graph_attn', default=False)
     
     parser.add_argument('--more_roi', default=False)
+
+    parser.add_argument('--SPLIT', default='train')
 
     args = parser.parse_args()
 
