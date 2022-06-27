@@ -1,0 +1,71 @@
+***********************************
+Starting job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/simmc2_dials_dstc10_train_predict.txt --train_target_file=../data_object_special/simmc2_dials_dstc10_train_target.txt --eval_input_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --eval_target_file=../data_object_special/simmc2_dials_dstc10_devtest_target.txt --output_dir=../coref_models/model_no_attrs_test --train_batch_size=8 --output_eval_file=../coref_models/model_no_attrs_test/report.txt --num_train_epochs=8 --eval_steps=3000 --warmup_steps=8000  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036345.1.GPU25-2:/usr/local/bin:/bin:/usr/bin; TIME=Wed  8 Jun 20:53:23 GMT 2022
+***********************************
+
+Setting free GPU to number: 2
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/bart_only_coref/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+Data file : ../data_object_special/simmc2_dials_dstc10_train_predict.txt
+Done Load Main File....
+Truncating from 38127 examples to 38120
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4598 7190 5452
+EVALUATION: {'fashion_coref': tensor(0.6797, device='cuda:0'), 'fashion_size': 0.0, 'fashion_available_sizes': 0.0, 'fashion_brand': 0.0, 'fashion_color': 0.0, 'fashion_pattern': 0.0, 'fashion_sleeve_length': 0.0, 'fashion_asset_type': 0.0, 'fashion_type': 0.0, 'fashion_price': 0.0, 'fashion_customer_review': 0.0, 'furniture_coref': tensor(0.8350, device='cuda:0'), 'furniture_brand': 0.0, 'furniture_color': 0.0, 'furniture_materials': 0.0, 'furniture_type': 0.0, 'furniture_price': 0.0, 'furniture_customer_review': 0.0, 'coref_info': 'rec: 0.6394993045897079, prec: 0.8433602347762289, f1: 0.7274165480145547'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5264 7190 6736
+EVALUATION: {'fashion_coref': tensor(0.6917, device='cuda:0'), 'fashion_size': 0.0, 'fashion_available_sizes': 0.0, 'fashion_brand': 0.0, 'fashion_color': 0.0, 'fashion_pattern': 0.0, 'fashion_sleeve_length': 0.0, 'fashion_asset_type': 0.0, 'fashion_type': 0.0, 'fashion_price': 0.0, 'fashion_customer_review': 0.0, 'furniture_coref': tensor(0.8510, device='cuda:0'), 'furniture_brand': 0.0, 'furniture_color': 0.0, 'furniture_materials': 0.0, 'furniture_type': 0.0, 'furniture_price': 0.0, 'furniture_customer_review': 0.0, 'coref_info': 'rec: 0.7321279554937413, prec: 0.7814726840855107, f1: 0.755995978744794'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4876 7190 5965
+EVALUATION: {'fashion_coref': tensor(0.6946, device='cuda:0'), 'fashion_size': 0.0, 'fashion_available_sizes': 0.0, 'fashion_brand': 0.0, 'fashion_color': 0.0, 'fashion_pattern': 0.0, 'fashion_sleeve_length': 0.0, 'fashion_asset_type': 0.0, 'fashion_type': 0.0, 'fashion_price': 0.0, 'fashion_customer_review': 0.0, 'furniture_coref': tensor(0.8549, device='cuda:0'), 'furniture_brand': 0.0, 'furniture_color': 0.0, 'furniture_materials': 0.0, 'furniture_type': 0.0, 'furniture_price': 0.0, 'furniture_customer_review': 0.0, 'coref_info': 'rec: 0.6781641168289291, prec: 0.8174350377200336, f1: 0.7413150893196503'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5387 7190 7015
+EVALUATION: {'fashion_coref': tensor(0.6956, device='cuda:0'), 'fashion_size': 0.0, 'fashion_available_sizes': 0.0, 'fashion_brand': 0.0, 'fashion_color': 0.0, 'fashion_pattern': 0.0, 'fashion_sleeve_length': 0.0, 'fashion_asset_type': 0.0, 'fashion_type': 0.0, 'fashion_price': 0.0, 'fashion_customer_review': 0.0, 'furniture_coref': tensor(0.8655, device='cuda:0'), 'furniture_brand': 0.0, 'furniture_color': 0.0, 'furniture_materials': 0.0, 'furniture_type': 0.0, 'furniture_price': 0.0, 'furniture_customer_review': 0.0, 'coref_info': 'rec: 0.7492350486787205, prec: 0.7679258731290093, f1: 0.7584653291094685'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5113 7190 6353
+EVALUATION: {'fashion_coref': tensor(0.7046, device='cuda:0'), 'fashion_size': 0.0, 'fashion_available_sizes': 0.0, 'fashion_brand': 0.0, 'fashion_color': 0.0, 'fashion_pattern': 0.0, 'fashion_sleeve_length': 0.0, 'fashion_asset_type': 0.0, 'fashion_type': 0.0, 'fashion_price': 0.0, 'fashion_customer_review': 0.0, 'furniture_coref': tensor(0.8680, device='cuda:0'), 'furniture_brand': 0.0, 'furniture_color': 0.0, 'furniture_materials': 0.0, 'furniture_type': 0.0, 'furniture_price': 0.0, 'furniture_customer_review': 0.0, 'coref_info': 'rec: 0.7111265646731572, prec: 0.8048166220683142, f1: 0.7550764232444805'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4876 7190 5897
+EVALUATION: {'fashion_coref': tensor(0.7027, device='cuda:0'), 'fashion_size': 0.0, 'fashion_available_sizes': 0.0, 'fashion_brand': 0.0, 'fashion_color': 0.0, 'fashion_pattern': 0.0, 'fashion_sleeve_length': 0.0, 'fashion_asset_type': 0.0, 'fashion_type': 0.0, 'fashion_price': 0.0, 'fashion_customer_review': 0.0, 'furniture_coref': tensor(0.8723, device='cuda:0'), 'furniture_brand': 0.0, 'furniture_color': 0.0, 'furniture_materials': 0.0, 'furniture_type': 0.0, 'furniture_price': 0.0, 'furniture_customer_review': 0.0, 'coref_info': 'rec: 0.6781641168289291, prec: 0.8268611158216042, f1: 0.7451669595782073'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5102 7190 6390
+EVALUATION: {'fashion_coref': tensor(0.7111, device='cuda:0'), 'fashion_size': 0.0, 'fashion_available_sizes': 0.0, 'fashion_brand': 0.0, 'fashion_color': 0.0, 'fashion_pattern': 0.0, 'fashion_sleeve_length': 0.0, 'fashion_asset_type': 0.0, 'fashion_type': 0.0, 'fashion_price': 0.0, 'fashion_customer_review': 0.0, 'furniture_coref': tensor(0.8762, device='cuda:0'), 'furniture_brand': 0.0, 'furniture_color': 0.0, 'furniture_materials': 0.0, 'furniture_type': 0.0, 'furniture_price': 0.0, 'furniture_customer_review': 0.0, 'coref_info': 'rec: 0.709596662030598, prec: 0.798435054773083, f1: 0.75139911634757'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+***********************************
+Finished job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/simmc2_dials_dstc10_train_predict.txt --train_target_file=../data_object_special/simmc2_dials_dstc10_train_target.txt --eval_input_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --eval_target_file=../data_object_special/simmc2_dials_dstc10_devtest_target.txt --output_dir=../coref_models/model_no_attrs_test --train_batch_size=8 --output_eval_file=../coref_models/model_no_attrs_test/report.txt --num_train_epochs=8 --eval_steps=3000 --warmup_steps=8000  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036345.1.GPU25-2:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Thu  9 Jun 08:58:21 GMT 2022
+***********************************

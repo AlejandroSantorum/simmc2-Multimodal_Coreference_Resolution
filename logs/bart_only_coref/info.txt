@@ -1,0 +1,5 @@
+6345 - train only coref adding brand and price attributes at input
+6413 - eval only coref adding brand and price attributes at input -> in 75.5% F1 score.
+
+6435 - train only coref adding brand, price, color and type (4 common) attributes
+6443 - eval only coref adding brand, price, color and type (4 common) attributes -> 76.15% F1 score.

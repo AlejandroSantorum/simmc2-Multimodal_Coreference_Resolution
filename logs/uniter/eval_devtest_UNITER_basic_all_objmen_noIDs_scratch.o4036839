@@ -1,0 +1,66 @@
+***********************************
+Starting job: infer_eval.py --NAME eval_UNITER_basic_all_objmen_noIDs_scratch --CHECKPOINT UNITER_basic_all_objmen_noIDs_scratch --obj_id False --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False --obj_men True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036839.1.GPU15-0:/usr/local/bin:/bin:/usr/bin; TIME=Fri 24 Jun 17:36:38 GMT 2022
+***********************************
+
+Setting free GPU to number: 0
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/uniter_based
+Linux stg-gpu15 3.10.0-1160.66.1.el7.x86_64 #1 SMP Wed May 18 16:02:34 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+eval_UNITER_basic_all_objmen_noIDs_scratch, split: devtest
+
+obj_id
+False
+vis_feats_clip
+True
+vis_feats_rcnn
+True
+pos
+True
+scene_seg
+True
+obj_embs_bert
+True
+obj_embs_sbert
+True
+kb_id_bert
+False
+kb_id_sbert
+False
+attn_bias
+False
+graph_attn
+False
+pred_men
+False
+cuda
+initializing all the weights
+Load UNITER PreTrained Model from ./model/Transformers_VQA_master/models/pretrained/uniter-base.pt
+
+Weights in loaded but not in model:
+cls.predictions.bias
+cls.predictions.decoder.weight
+cls.predictions.transform.LayerNorm.bias
+cls.predictions.transform.LayerNorm.weight
+cls.predictions.transform.dense.bias
+cls.predictions.transform.dense.weight
+feat_regress.bias
+feat_regress.net.0.bias
+feat_regress.net.0.weight
+feat_regress.net.2.bias
+feat_regress.net.2.weight
+feat_regress.weight
+itm_output.bias
+itm_output.weight
+region_classifier.net.0.bias
+region_classifier.net.0.weight
+region_classifier.net.2.bias
+region_classifier.net.2.weight
+region_classifier.net.3.bias
+region_classifier.net.3.weight
+uniter.img_embeddings.mask_embedding.weight
+
+Weights in model but not in loaded:
+
+{'object_rec': 0.7998294970161978, 'object_prec': 0.6892447840141052, 'object_f1': 0.7404309052166363, 'object_f1_stderr': 0.005475762912524499}
+***********************************
+Finished job: infer_eval.py --NAME eval_UNITER_basic_all_objmen_noIDs_scratch --CHECKPOINT UNITER_basic_all_objmen_noIDs_scratch --obj_id False --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False --obj_men True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036839.1.GPU15-0:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Fri 24 Jun 17:42:37 GMT 2022
+***********************************
