@@ -1,0 +1,71 @@
+***********************************
+Starting job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/simmc2_dials_dstc10_train_predict.txt --train_target_file=../data_object_special/simmc2_dials_dstc10_train_target.txt --eval_input_file=../data_object_special/simmc2_dials_dstc10_dev_predict.txt --eval_target_file=../data_object_special/simmc2_dials_dstc10_dev_target.txt --output_dir=../coref_models/model_coref --train_batch_size=8 --output_eval_file=../coref_models/model_coref/report.txt --num_train_epochs=8 --eval_steps=3000 --warmup_steps=8000  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036272.1.GPU25-1:/usr/local/bin:/bin:/usr/bin; TIME=Tue  7 Jun 11:24:08 GMT 2022
+***********************************
+
+Setting free GPU to number: 1
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/bart_coref/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+Data file : ../data_object_special/simmc2_dials_dstc10_train_predict.txt
+Done Load Main File....
+Truncating from 38127 examples to 38120
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_dev_predict.txt
+Done Load Main File....
+Truncating from 3494 examples to 3492
+total coref result: 1765 2971 2206
+EVALUATION: {'nocoref': tensor(0.9937, device='cuda:0'), 'fashion_coref': tensor(0.6707, device='cuda:0'), 'fashion_size': tensor(1., device='cuda:0'), 'fashion_available_sizes': tensor(0.9994, device='cuda:0'), 'fashion_brand': tensor(1., device='cuda:0'), 'fashion_color': tensor(1., device='cuda:0'), 'fashion_pattern': tensor(1., device='cuda:0'), 'fashion_sleeve_length': tensor(1., device='cuda:0'), 'fashion_asset_type': tensor(1., device='cuda:0'), 'fashion_type': tensor(1., device='cuda:0'), 'fashion_price': tensor(1., device='cuda:0'), 'fashion_customer_review': tensor(1., device='cuda:0'), 'furniture_coref': 0, 'furniture_brand': 0, 'furniture_color': 0, 'furniture_materials': 0, 'furniture_type': 0, 'furniture_price': 0, 'furniture_customer_review': 0, 'coref_info': 'rec: 0.5940760686637496, prec: 0.800090661831369, f1: 0.6818620822870389'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_dev_predict.txt
+Done Load Main File....
+Truncating from 3494 examples to 3492
+total coref result: 1588 2971 2265
+EVALUATION: {'nocoref': tensor(0.9802, device='cuda:0'), 'fashion_coref': tensor(0.6226, device='cuda:0'), 'fashion_size': tensor(0.9378, device='cuda:0'), 'fashion_available_sizes': tensor(0.9176, device='cuda:0'), 'fashion_brand': tensor(0.9276, device='cuda:0'), 'fashion_color': tensor(0.9325, device='cuda:0'), 'fashion_pattern': tensor(0.9741, device='cuda:0'), 'fashion_sleeve_length': tensor(0.9513, device='cuda:0'), 'fashion_asset_type': tensor(0.9542, device='cuda:0'), 'fashion_type': tensor(0.9455, device='cuda:0'), 'fashion_price': tensor(0.9263, device='cuda:0'), 'fashion_customer_review': tensor(0.9272, device='cuda:0'), 'furniture_coref': 0, 'furniture_brand': 0, 'furniture_color': 0, 'furniture_materials': 0, 'furniture_type': 0, 'furniture_price': 0, 'furniture_customer_review': 0, 'coref_info': 'rec: 0.5345001682935039, prec: 0.7011037527593819, f1: 0.6065699006875478'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_dev_predict.txt
+Done Load Main File....
+Truncating from 3494 examples to 3492
+total coref result: 1939 2971 2505
+EVALUATION: {'nocoref': tensor(0.9948, device='cuda:0'), 'fashion_coref': tensor(0.6884, device='cuda:0'), 'fashion_size': tensor(1., device='cuda:0'), 'fashion_available_sizes': tensor(1.0000, device='cuda:0'), 'fashion_brand': tensor(1., device='cuda:0'), 'fashion_color': tensor(1., device='cuda:0'), 'fashion_pattern': tensor(1., device='cuda:0'), 'fashion_sleeve_length': tensor(1., device='cuda:0'), 'fashion_asset_type': tensor(1., device='cuda:0'), 'fashion_type': tensor(1., device='cuda:0'), 'fashion_price': tensor(1., device='cuda:0'), 'fashion_customer_review': tensor(1., device='cuda:0'), 'furniture_coref': 0, 'furniture_brand': 0, 'furniture_color': 0, 'furniture_materials': 0, 'furniture_type': 0, 'furniture_price': 0, 'furniture_customer_review': 0, 'coref_info': 'rec: 0.6526422080107708, prec: 0.7740518962075849, f1: 0.7081811541271001'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_dev_predict.txt
+Done Load Main File....
+Truncating from 3494 examples to 3492
+total coref result: 1992 2971 2592
+EVALUATION: {'nocoref': tensor(0.9948, device='cuda:0'), 'fashion_coref': tensor(0.6913, device='cuda:0'), 'fashion_size': tensor(1.0000, device='cuda:0'), 'fashion_available_sizes': tensor(0.9999, device='cuda:0'), 'fashion_brand': tensor(1.0000, device='cuda:0'), 'fashion_color': tensor(1.0000, device='cuda:0'), 'fashion_pattern': tensor(1.0000, device='cuda:0'), 'fashion_sleeve_length': tensor(1.0000, device='cuda:0'), 'fashion_asset_type': tensor(0.9999, device='cuda:0'), 'fashion_type': tensor(0.9999, device='cuda:0'), 'fashion_price': tensor(1.0000, device='cuda:0'), 'fashion_customer_review': tensor(1.0000, device='cuda:0'), 'furniture_coref': 0, 'furniture_brand': 0, 'furniture_color': 0, 'furniture_materials': 0, 'furniture_type': 0, 'furniture_price': 0, 'furniture_customer_review': 0, 'coref_info': 'rec: 0.6704813194210704, prec: 0.7685185185185185, f1: 0.7161603451375158'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_dev_predict.txt
+Done Load Main File....
+Truncating from 3494 examples to 3492
+total coref result: 1895 2971 2400
+EVALUATION: {'nocoref': tensor(0.9951, device='cuda:0'), 'fashion_coref': tensor(0.6933, device='cuda:0'), 'fashion_size': tensor(1., device='cuda:0'), 'fashion_available_sizes': tensor(1., device='cuda:0'), 'fashion_brand': tensor(1., device='cuda:0'), 'fashion_color': tensor(1., device='cuda:0'), 'fashion_pattern': tensor(1., device='cuda:0'), 'fashion_sleeve_length': tensor(1., device='cuda:0'), 'fashion_asset_type': tensor(1., device='cuda:0'), 'fashion_type': tensor(1., device='cuda:0'), 'fashion_price': tensor(1., device='cuda:0'), 'fashion_customer_review': tensor(1., device='cuda:0'), 'furniture_coref': 0, 'furniture_brand': 0, 'furniture_color': 0, 'furniture_materials': 0, 'furniture_type': 0, 'furniture_price': 0, 'furniture_customer_review': 0, 'coref_info': 'rec: 0.6378323796701447, prec: 0.7895833333333333, f1: 0.7056414075591138'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_dev_predict.txt
+Done Load Main File....
+Truncating from 3494 examples to 3492
+total coref result: 1991 2971 2571
+EVALUATION: {'nocoref': tensor(0.9951, device='cuda:0'), 'fashion_coref': tensor(0.7005, device='cuda:0'), 'fashion_size': tensor(1., device='cuda:0'), 'fashion_available_sizes': tensor(1., device='cuda:0'), 'fashion_brand': tensor(1., device='cuda:0'), 'fashion_color': tensor(1., device='cuda:0'), 'fashion_pattern': tensor(1., device='cuda:0'), 'fashion_sleeve_length': tensor(1., device='cuda:0'), 'fashion_asset_type': tensor(1., device='cuda:0'), 'fashion_type': tensor(1., device='cuda:0'), 'fashion_price': tensor(1., device='cuda:0'), 'fashion_customer_review': tensor(1., device='cuda:0'), 'furniture_coref': 0, 'furniture_brand': 0, 'furniture_color': 0, 'furniture_materials': 0, 'furniture_type': 0, 'furniture_price': 0, 'furniture_customer_review': 0, 'coref_info': 'rec: 0.6701447324133288, prec: 0.7744068455853753, f1: 0.7185131721400217'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_dev_predict.txt
+Done Load Main File....
+Truncating from 3494 examples to 3492
+total coref result: 1966 2971 2507
+EVALUATION: {'nocoref': tensor(0.9957, device='cuda:0'), 'fashion_coref': tensor(0.7048, device='cuda:0'), 'fashion_size': tensor(1., device='cuda:0'), 'fashion_available_sizes': tensor(1., device='cuda:0'), 'fashion_brand': tensor(1., device='cuda:0'), 'fashion_color': tensor(1., device='cuda:0'), 'fashion_pattern': tensor(1., device='cuda:0'), 'fashion_sleeve_length': tensor(1., device='cuda:0'), 'fashion_asset_type': tensor(1., device='cuda:0'), 'fashion_type': tensor(1., device='cuda:0'), 'fashion_price': tensor(1., device='cuda:0'), 'fashion_customer_review': tensor(1., device='cuda:0'), 'furniture_coref': 0, 'furniture_brand': 0, 'furniture_color': 0, 'furniture_materials': 0, 'furniture_type': 0, 'furniture_price': 0, 'furniture_customer_review': 0, 'coref_info': 'rec: 0.6617300572197913, prec: 0.7842042281611488, f1: 0.7177802117561154'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+***********************************
+Finished job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/simmc2_dials_dstc10_train_predict.txt --train_target_file=../data_object_special/simmc2_dials_dstc10_train_target.txt --eval_input_file=../data_object_special/simmc2_dials_dstc10_dev_predict.txt --eval_target_file=../data_object_special/simmc2_dials_dstc10_dev_target.txt --output_dir=../coref_models/model_coref --train_batch_size=8 --output_eval_file=../coref_models/model_coref/report.txt --num_train_epochs=8 --eval_steps=3000 --warmup_steps=8000  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4036272.1.GPU25-1:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Tue  7 Jun 16:25:24 GMT 2022
+***********************************
