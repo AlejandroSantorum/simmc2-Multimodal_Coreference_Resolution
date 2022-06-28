@@ -119,8 +119,8 @@ def infer(args):
     if SPLIT == 'furniture':
         with open(f'./processed/test_furniture_target_dials.json', 'r') as data_file:
             data = json.load(data_file)
-    elif SPLIT == 'special_woman_store_test':
-        with open(f'./processed/special_woman_store_target.json', 'r') as data_file:
+    elif SPLIT == 'woman49_store_test':
+        with open(f'./processed/new_datasets/special_woman_store_target.json', 'r') as data_file:
             data = json.load(data_file)
     else: 
         with open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', 'r') as data_file:
@@ -151,8 +151,8 @@ def infer(args):
     # Evaluate
     if SPLIT == 'furniture':
         json_target = json.load(open(f'./processed/test_furniture_target_dials.json', 'r'))
-    elif SPLIT == 'special_woman_store_test':
-        json_target = json.load(open(f'./processed/special_woman_store_target.json', 'r'))
+    elif SPLIT == 'woman49_store_test':
+        json_target = json.load(open(f'./processed/new_datasets/special_woman_store_target.json', 'r'))
     else:
         json_target = json.load(open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', "r"))
     json_predicted = data

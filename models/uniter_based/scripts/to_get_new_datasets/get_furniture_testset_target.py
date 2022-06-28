@@ -1,4 +1,5 @@
 import json
+from params import TRAIN_DSTC10_DATAPATH, DEVTEST_DSTC10_DATAPATH
 
 
 def collect_furniture_dials(dataset_path, furn_dials_list):
@@ -13,13 +14,11 @@ def collect_furniture_dials(dataset_path, furn_dials_list):
 
 
 def main():
-    train_data_path = "../data/simmc2_dials_dstc10_train.json"
-    devtest_data_path = "../data/simmc2_dials_dstc10_devtest.json"
-    store_path = "../processed/test_furniture_target_dials.json"
+    store_path = "../../processed/new_datasets/test_furniture_target_dials.json"
 
     furn_dials_list = []
-    furn_dials_list = collect_furniture_dials(train_data_path, furn_dials_list)
-    furn_dials_list = collect_furniture_dials(devtest_data_path, furn_dials_list)
+    furn_dials_list = collect_furniture_dials(TRAIN_DSTC10_DATAPATH, furn_dials_list)
+    furn_dials_list = collect_furniture_dials(DEVTEST_DSTC10_DATAPATH, furn_dials_list)
 
     furn_dials_dict = {'dialogue_data': furn_dials_list}
     with open(store_path, 'w') as f:

@@ -18,6 +18,6 @@ qsub -l h=stg-gpu15,virtual_gpu_free=8000M,gpu=1,gpu_queue=1,arch=*64*,test=*,ce
         --kb_id_bert False \
         --kb_id_sbert False \
         --obj_men True \
-        --SPLIT special_woman_store_test
+        --SPLIT woman49_store_test
 
 cd ./sh/grid_eval/

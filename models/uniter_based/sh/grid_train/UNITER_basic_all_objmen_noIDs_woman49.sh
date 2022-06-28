@@ -17,6 +17,6 @@ qsub -l h=stg-gpu15,virtual_gpu_free=12000M,gpu=1,gpu_queue=1,arch=*64*,test=*,c
         --kb_id_bert False \
         --kb_id_sbert False \
         --obj_men True \
-        --SPLIT special_woman_store_train
+        --SPLIT woman49_store_train
 
 cd ./sh/grid_train/
