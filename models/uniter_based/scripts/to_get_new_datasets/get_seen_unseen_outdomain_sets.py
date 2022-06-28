@@ -4,7 +4,6 @@ from params import TRAIN_DSTC10_DATAPATH, DEV_DSTC10_DATAPATH, DEVTEST_DSTC10_DA
 from params import TRAIN_PROCESSED_DATAPATH, DEV_PROCESSED_DATAPATH, DEVTEST_PROCESSED_DATAPATH
 
 
-
 def get_out_domain_sets(train_processed_path, train_dstc10_path):
     # Getting examples of Out-Of-Domain test set
     with open(train_processed_path, 'r', encoding='utf-8') as f:
@@ -167,4 +166,5 @@ def main():
 
 
 if __name__ == '__main__':
+    random.seed(12)
     main()
