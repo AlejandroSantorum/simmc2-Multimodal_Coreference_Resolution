@@ -1,0 +1,10 @@
+***********************************
+Starting job: run_eval_bart_coref.py --prompts_from_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --path_output=../results/devtest/predictions_scene_embeds_cp38.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../coref_models/model_scene_embeds_checking/checkpoint-38000 --scene_embeddings True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037117.1.GPU25-1:/usr/local/bin:/bin:/usr/bin; TIME=Sat  2 Jul 17:47:53 GMT 2022
+***********************************
+
+Setting free GPU to number: 1
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/bart_only_coref/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+***********************************
+Finished job: run_eval_bart_coref.py --prompts_from_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --path_output=../results/devtest/predictions_scene_embeds_cp38.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../coref_models/model_scene_embeds_checking/checkpoint-38000 --scene_embeddings True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037117.1.GPU25-1:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Sat  2 Jul 17:49:55 GMT 2022
+***********************************

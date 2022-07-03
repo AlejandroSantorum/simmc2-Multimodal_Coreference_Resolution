@@ -1,0 +1,131 @@
+***********************************
+Starting job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/simmc2_dials_dstc10_train_predict.txt --train_target_file=../data_object_special/simmc2_dials_dstc10_train_target.txt --eval_input_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --eval_target_file=../data_object_special/simmc2_dials_dstc10_devtest_target.txt --output_dir=../coref_models/model_obj_img_embeds_checking --train_batch_size=8 --output_eval_file=../coref_models/model_obj_img_embeds_checking/report.txt --num_train_epochs=12 --eval_steps=3000 --warmup_steps=8000 --obj_img_embeddings True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037107.1.GPU25-3:/usr/local/bin:/bin:/usr/bin; TIME=Sat  2 Jul 10:41:23 GMT 2022
+***********************************
+
+Setting free GPU to number: 3
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/bart_only_coref/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 1199 7190 35539
+EVALUATION: {'fashion_coref': tensor(0.1448, device='cuda:0'), 'furniture_coref': tensor(0.0947, device='cuda:0'), 'coref_info': 'rec: 0.16675938803894297, prec: 0.03373758406257914, f1: 0.05612113552856373'}
+Data file : ../data_object_special/simmc2_dials_dstc10_train_predict.txt
+Done Load Main File....
+Truncating from 38127 examples to 38120
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4942 7190 6243
+EVALUATION: {'fashion_coref': tensor(0.6822, device='cuda:0'), 'furniture_coref': tensor(0.8437, device='cuda:0'), 'coref_info': 'rec: 0.6873435326842837, prec: 0.7916065993913183, f1: 0.7357998957790516'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4700 7190 5714
+EVALUATION: {'fashion_coref': tensor(0.6865, device='cuda:0'), 'furniture_coref': tensor(0.8442, device='cuda:0'), 'coref_info': 'rec: 0.6536856745479833, prec: 0.8225411270563528, f1: 0.7284562926224426'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4797 7190 5956
+EVALUATION: {'fashion_coref': tensor(0.6904, device='cuda:0'), 'furniture_coref': tensor(0.8524, device='cuda:0'), 'coref_info': 'rec: 0.6671766342141864, prec: 0.8054063129617193, f1: 0.7298037425832952'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4997 7190 6326
+EVALUATION: {'fashion_coref': tensor(0.6912, device='cuda:0'), 'furniture_coref': tensor(0.8519, device='cuda:0'), 'coref_info': 'rec: 0.6949930458970793, prec: 0.789914638001897, f1: 0.7394199467298017'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5018 7190 6345
+EVALUATION: {'fashion_coref': tensor(0.6972, device='cuda:0'), 'furniture_coref': tensor(0.8641, device='cuda:0'), 'coref_info': 'rec: 0.697913769123783, prec: 0.7908589440504334, f1: 0.7414850387883265'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4823 7190 5860
+EVALUATION: {'fashion_coref': tensor(0.7002, device='cuda:0'), 'furniture_coref': tensor(0.8578, device='cuda:0'), 'coref_info': 'rec: 0.6707927677329625, prec: 0.823037542662116, f1: 0.7391570881226054'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4874 7190 6022
+EVALUATION: {'fashion_coref': tensor(0.7042, device='cuda:0'), 'furniture_coref': tensor(0.8646, device='cuda:0'), 'coref_info': 'rec: 0.6778859527121002, prec: 0.8093656592494188, f1: 0.7378141083863156'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4791 7190 5867
+EVALUATION: {'fashion_coref': tensor(0.7011, device='cuda:0'), 'furniture_coref': tensor(0.8583, device='cuda:0'), 'coref_info': 'rec: 0.6663421418636996, prec: 0.8166013294699165, f1: 0.7338592325955426'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4607 7190 5418
+EVALUATION: {'fashion_coref': tensor(0.6949, device='cuda:0'), 'furniture_coref': tensor(0.8592, device='cuda:0'), 'coref_info': 'rec: 0.6407510431154381, prec: 0.85031376891842, f1: 0.7308058375634517'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4752 7190 5799
+EVALUATION: {'fashion_coref': tensor(0.7063, device='cuda:0'), 'furniture_coref': tensor(0.8660, device='cuda:0'), 'coref_info': 'rec: 0.6609179415855355, prec: 0.8194516295913088, f1: 0.7316960505042729'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 4826 7190 5893
+EVALUATION: {'fashion_coref': tensor(0.7095, device='cuda:0'), 'furniture_coref': tensor(0.8675, device='cuda:0'), 'coref_info': 'rec: 0.6712100139082059, prec: 0.8189377227218734, f1: 0.7377512802873959'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5076 7190 6445
+EVALUATION: {'fashion_coref': tensor(0.7173, device='cuda:0'), 'furniture_coref': tensor(0.8631, device='cuda:0'), 'coref_info': 'rec: 0.705980528511822, prec: 0.7875872769588829, f1: 0.7445544554455445'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5120 7190 6540
+EVALUATION: {'fashion_coref': tensor(0.7179, device='cuda:0'), 'furniture_coref': tensor(0.8748, device='cuda:0'), 'coref_info': 'rec: 0.7121001390820584, prec: 0.7828746177370031, f1: 0.7458120903131827'}
+checkpoint saving!!
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/simmc2_dials_dstc10_devtest_predict.txt
+Done Load Main File....
+Truncating from 8609 examples to 8608
+total coref result: 5135 7190 6581
+EVALUATION: {'fashion_coref': tensor(0.7173, device='cuda:0'), 'furniture_coref': tensor(0.8694, device='cuda:0'), 'coref_info': 'rec: 0.7141863699582753, prec: 0.7802765537152409, f1: 0.7457700965797691'}
+checkpoint saving!!
+checkpoint saving!!
+***********************************
+Finished job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/simmc2_dials_dstc10_train_predict.txt --train_target_file=../data_object_special/simmc2_dials_dstc10_train_target.txt --eval_input_file=../data_object_special/simmc2_dials_dstc10_devtest_predict.txt --eval_target_file=../data_object_special/simmc2_dials_dstc10_devtest_target.txt --output_dir=../coref_models/model_obj_img_embeds_checking --train_batch_size=8 --output_eval_file=../coref_models/model_obj_img_embeds_checking/report.txt --num_train_epochs=12 --eval_steps=3000 --warmup_steps=8000 --obj_img_embeddings True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037107.1.GPU25-3:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Sat  2 Jul 18:27:31 GMT 2022
+***********************************
