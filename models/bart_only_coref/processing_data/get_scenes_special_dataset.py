@@ -1,4 +1,5 @@
 import json
+from tqdm import tqdm
 
 
 
@@ -25,11 +26,21 @@ def _get_scene_given_turn_idx(scene_ids, idx):
     return scene_ids[prev_key]
 
 
-def find_corresponding_scene(last_user_turn, raw_data):
+def find_corresponding_scene(last_user_turn, raw_data, lut_dict):
+    n_found = 0
     for dialogue in raw_data['dialogue_data']:
         for idx, turn in enumerate(dialogue['dialogue']):
             if turn['transcript'] == last_user_turn:
-                return _get_scene_given_turn_idx(dialogue['scene_ids'], idx)
+                n_found += 1
+                if last_user_turn in lut_dict:
+                    if n_found <= lut_dict[last_user_turn]:
+                        continue
+                    else:
+                        lut_dict[last_user_turn] += 1
+                else:
+                    lut_dict[last_user_turn] = 1
+
+                return _get_scene_given_turn_idx(dialogue['scene_ids'], idx), lut_dict
 
 
 
@@ -40,8 +51,9 @@ def get_scenes_files(processed_path, raw_path, store_scenes_path):
     last_user_turns = get_last_user_turns(processed_path)
 
     scenes = []
-    for lut in last_user_turns:
-        scene_name = find_corresponding_scene(lut, raw_data)
+    lut_dict = {}
+    for lut in tqdm(last_user_turns):
+        scene_name, lut_dict = find_corresponding_scene(lut, raw_data, lut_dict)
         scenes.append(scene_name)
     
     with open(store_scenes_path, 'w') as f:
