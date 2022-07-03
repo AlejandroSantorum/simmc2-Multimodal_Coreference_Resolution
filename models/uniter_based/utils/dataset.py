@@ -8,14 +8,28 @@ PROCESSED_ROOT = './processed'
 class UNITER_on_CLIP_BERT_Dataset(Dataset):
     def __init__(self, split, more_roi, max_n_obj=200):
         #self.file_path = f'{PROCESSED_ROOT}/{split}.json'
-        if split == 'fashion':
+        if split == 'fashion_first_exp':
             self.file_path = f'{PROCESSED_ROOT}/new_datasets/train_on_just_fashion.json'
-        elif split == 'furniture':
+        elif split == 'furniture_first_exp':
             self.file_path = f'{PROCESSED_ROOT}/new_datasets/test_on_just_furniture.json'
         elif split == 'woman49_store_train':
             self.file_path = f'{PROCESSED_ROOT}/new_datasets/woman49_store_train.json'
         elif split == 'woman49_store_test':
             self.file_path = f'{PROCESSED_ROOT}/new_datasets/woman49_store_test.json'
+        elif split == 'devtest_only_furniture':
+            self.file_path = f'{PROCESSED_ROOT}/new_datasets/devtest_only_furniture_test.json'
+        elif split == 'devtest_only_fashion':
+            self.file_path = f'{PROCESSED_ROOT}/new_datasets/devtest_only_fashion_test.json'
+        elif split == 'all_furniture':
+            self.file_path = f'{PROCESSED_ROOT}/new_datasets/all_furniture_test.json'
+        elif split == 'seen_unseen_OOD_train':
+            self.file_path = f'{PROCESSED_ROOT}/new_datasets/seen_unseen_OOD_train.json'
+        elif split == 'in_domain':
+            self.file_path = f'{PROCESSED_ROOT}/new_datasets/in_domain_test.json'
+        elif split == 'in_domain_held_out':
+            self.file_path = f'{PROCESSED_ROOT}/new_datasets/in_domain_held_out_test.json'
+        elif split == 'out_of_domain':
+            self.file_path = f'{PROCESSED_ROOT}/new_datasets/out_of_domain_test.json'
         else:
             self.file_path = f'{PROCESSED_ROOT}/{split}.json'
 

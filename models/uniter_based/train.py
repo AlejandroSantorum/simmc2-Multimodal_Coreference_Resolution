@@ -45,7 +45,10 @@ def train(args):
 
     # Make loaders
     train_loader = make_loader(SPLIT, BATCH_SIZE, more_roi=arg_dict['more_roi'])
-    dev_loader = make_loader('dev', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'])
+    if SPLIT == 'seen_unseen_OOD_train':
+        dev_loader = make_loader('in_domain', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'])
+    else:
+        dev_loader = make_loader('dev', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'])
 
     # Setup Tensorboard
     writer = SummaryWriter(log_dir='./result/runs' ,comment=f'{NAME} batch_size={BATCH_SIZE}, Adam_lr={LR}, FocalAlpha={ALPHA}, GAMMA={GAMMA}')

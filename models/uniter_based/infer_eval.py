@@ -116,11 +116,27 @@ def infer(args):
                 out[dial_idx] = {round_idx: line_out}
                 logit_out[dial_idx] = {round_idx: logit_line_out}
 
-    if SPLIT == 'furniture':
+    # GETTING TARGET FILES
+    if SPLIT == 'furniture_first_exp':
         with open(f'./processed/test_furniture_target_dials.json', 'r') as data_file:
             data = json.load(data_file)
     elif SPLIT == 'woman49_store_test':
         with open(f'./processed/new_datasets/special_woman_store_target.json', 'r') as data_file:
+            data = json.load(data_file)
+    elif SPLIT == 'devtest_only_furniture':
+        with open(f'./processed/new_datasets/devtest_only_furniture_target.json', 'r') as data_file:
+            data = json.load(data_file)
+    elif SPLIT == 'devtest_only_fashion':
+        with open(f'./processed/new_datasets/devtest_only_fashion_target.json', 'r') as data_file:
+            data = json.load(data_file)
+    elif SPLIT == 'in_domain':
+        with open(f'./processed/new_datasets/in_domain_target.json', 'r') as data_file:
+            data = json.load(data_file)
+    elif SPLIT == 'in_domain_held_out':
+        with open(f'./processed/new_datasets/in_domain_held_out_target.json', 'r') as data_file:
+            data = json.load(data_file)
+    elif SPLIT == 'out_of_domain':
+        with open(f'./processed/new_datasets/out_of_domain_target.json', 'r') as data_file:
             data = json.load(data_file)
     else: 
         with open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', 'r') as data_file:
@@ -148,11 +164,21 @@ def infer(args):
     with open(f'./output/exp_logit/{NAME}_{SPLIT}.json', 'w', encoding='utf-8') as out_file:
         json.dump(logit_out, out_file)
 
-    # Evaluate
-    if SPLIT == 'furniture':
+    # Evaluate -> TARGET FILES
+    if SPLIT == 'furniture_first_exp':
         json_target = json.load(open(f'./processed/test_furniture_target_dials.json', 'r'))
     elif SPLIT == 'woman49_store_test':
         json_target = json.load(open(f'./processed/new_datasets/special_woman_store_target.json', 'r'))
+    elif SPLIT == 'devtest_only_furniture':
+        json_target = json.load(open(f'./processed/new_datasets/devtest_only_furniture_target.json', 'r'))
+    elif SPLIT == 'devtest_only_fashion':
+        json_target = json.load(open(f'./processed/new_datasets/devtest_only_fashion_target.json', 'r'))
+    elif SPLIT == 'in_domain':
+        json_target = json.load(open(f'./processed/new_datasets/in_domain_target.json', 'r'))       
+    elif SPLIT == 'in_domain_held_out':
+        json_target = json.load(open(f'./processed/new_datasets/in_domain_held_out_target.json', 'r'))               
+    elif SPLIT == 'out_of_domain':
+        json_target = json.load(open(f'./processed/new_datasets/out_of_domain_target.json', 'r'))
     else:
         json_target = json.load(open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', "r"))
     json_predicted = data
