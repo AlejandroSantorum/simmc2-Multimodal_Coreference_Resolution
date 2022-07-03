@@ -79,6 +79,14 @@ START_OF_OBJ_TOKEN = "<SOO>"
 END_OF_OBJ_TOKEN = "<EOO>"
 
 ###################################################################################
+TRAIN_SCENES_FILE="../data_object_special/simmc2_scenes_train.txt"
+DEV_SCENES_FILE="../data_object_special/simmc2_scenes_dev.txt"
+DEVTEST_SCENES_FILE="../data_object_special/simmc2_scenes_devtest.txt"
+
+SCENE_EMBEDDING_SIZE = 512
+CORRUPTED_SCENE_IMGS = ['cloth_store_1416238_woman_4_8', 'm_cloth_store_1416238_woman_20_6', 'cloth_store_1416238_woman_20_6', 'cloth_store_1416238_woman_19_0']
+
+
 FASHION_METAFILE="../data/fashion_prefab_metadata_all.json"
 FURNITURE_METAFILE="../data/furniture_prefab_metadata_all.json"
 
@@ -176,6 +184,13 @@ class LineByLineDataset(Dataset):
 
         print(f"Data file : {input_file}")
         self.evaluation = evaluation
+
+        # WARNING!!! WE ARE ASSUMING THAT SCENE EMBEDDINGS ARE ONLY USED WITH STANDARD PREPROCESSED DATASETS:
+        #       e.g. data_object_special/simmc2_dials_dstc10_train_predict.txt
+        if evaluation:
+            self.scene_names = json.load(open(DEVTEST_SCENES_FILE, 'r'))
+        else:
+            self.scene_names = json.load(open(TRAIN_SCENES_FILE, 'r'))
         
         # Other tasks
         lines = []
@@ -256,6 +271,7 @@ class LineByLineDataset(Dataset):
                     if token_id in id2index and i > EOM_last_idx:  # this token is for item index
                         temp = dict()
                         pos = i; item_index = id2index[token_id]; fashion_st = id2fashion_st[tl[i+1]]
+                        temp['canonical_id'] = int(item_index[1:-1])
                         temp['is_fashion'] = True
                         temp['pos'] = pos
                         temp['coref_label'] = 1 if item_index in corefs[idx] else 0
@@ -265,6 +281,7 @@ class LineByLineDataset(Dataset):
                     if token_id in id2index and i > EOM_last_idx:  # this token is for item index
                         temp = dict()
                         pos = i; item_index = id2index[token_id]; furniture_st = id2furniture_st[tl[i+1]]
+                        temp['canonical_id'] = int(item_index[1:-1])
                         temp['is_fashion'] = False
                         temp['pos'] = pos
                         temp['coref_label'] = 1 if item_index in corefs[idx] else 0
@@ -277,7 +294,7 @@ class LineByLineDataset(Dataset):
 
     def __getitem__(self, i):
         return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
-            self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i]
+            self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.scene_names[i]
 
 
 def get_dataset(args, tokenizer, all_objects_meta, train=True):
@@ -298,6 +315,7 @@ def get_dataset(args, tokenizer, all_objects_meta, train=True):
         dataset.boxes = dataset.boxes[:-n]
         dataset.misc = dataset.misc[:-n]
         dataset.obj_ids_per_line = dataset.obj_ids_per_line[:-n]
+        dataset.scene_names = dataset.scene_names[:-n]
     return dataset
 
 
@@ -311,10 +329,11 @@ class BoxEmbedding(nn.Module):
         return transformed_box
 
 class CorefEncoderHead(nn.Module):
-    def __init__(self, hidden_dim):
+    def __init__(self, hidden_dim, scene_embed_size=0):
         super(CorefEncoderHead, self).__init__()
-        self.aggregator = nn.Linear(2*hidden_dim, 2*hidden_dim)
-        self.coref_linear = nn.Linear(2*hidden_dim, 2)
+        total_size = 2*hidden_dim + scene_embed_size
+        self.aggregator = nn.Linear(total_size, total_size)
+        self.coref_linear = nn.Linear(total_size, 2)
 
     def forward(self, concat_vector):
         ''' concat_vector: concat of obj_index_vector and st_vector '''
@@ -451,6 +470,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
+        scene_names = list(map(lambda x: x[6], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -459,7 +479,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         decoder_input_pad = tokenizer(decoder_input, padding="longest", truncation=True, return_tensors="pt")
 
         return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                boxes, misc, obj_ids_per_line
+                boxes, misc, obj_ids_per_line, scene_names
     
     train_dataset = get_dataset(args, tokenizer, all_objects_meta, train=True)
     train_sampler = RandomSampler(train_dataset)
@@ -560,6 +580,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
             boxes = batch[4] # batch, num_obj_per_line, 6
             misc = batch[5]  # batch, num_obj_per_line, dict
             obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
+            scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
 
             # follow `class BartEncoder`. shape of (batch, seqlen, d_model)
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
@@ -574,11 +595,12 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                     pos = misc[b_idx][obj_idx]['pos']
                     inputs_embeds[b_idx][pos] += box_embedded[obj_idx]
                 
-                line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
-                for idx, abs_id_embs in enumerate(line_embeddings):
-                    pos = misc[b_idx][idx]['pos']
-                    for embs in abs_id_embs:
-                        inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
+                if args.input_attrs:
+                    line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
+                    for idx, abs_id_embs in enumerate(line_embeddings):
+                        pos = misc[b_idx][idx]['pos']
+                        for embs in abs_id_embs:
+                            inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
 
 
             model_outputs = model(
@@ -603,6 +625,32 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                         hidden_concat = torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))
                     else:
                         hidden_concat = torch.cat([hidden_concat, torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))], dim=0)
+
+                ## OBJECT IMAGE EMBEDDING STUFF!
+                if args.obj_img_embeddings and not args.scene_embeddings:
+                    obj_img_embeds = torch.zeros(hidden_concat.shape[0], SCENE_EMBEDDING_SIZE).to(args.device)
+                    if scene_names[b_idx] not in CORRUPTED_SCENE_IMGS:
+                        for obj_idx in range(len(misc[b_idx])):
+                            canonical_id = misc[b_idx][obj_idx]['canonical_id']
+                            scene_name = scene_names[b_idx]+'_scene'
+                            if canonical_id in args.scene_embeddings_dict[scene_name]: # <OBJ>
+                                obj_img_embeds_aux = args.scene_embeddings_dict[scene_name][canonical_id]
+                            else: # <PREVOBJ>
+                                obj_img_embeds_aux = torch.zeros(1, SCENE_EMBEDDING_SIZE).to(args.device)
+                            if obj_idx == 0:
+                                obj_img_embeds = obj_img_embeds_aux
+                            else:
+                                obj_img_embeds = torch.cat([obj_img_embeds, obj_img_embeds_aux], dim=0)
+                    hidden_concat = torch.cat([hidden_concat, obj_img_embeds], dim=1)
+
+                ## SCENE EMBEDDING STUFF!
+                if args.scene_embeddings and not args.obj_img_embeddings:
+                    scene_embedding = torch.zeros(hidden_concat.shape[0], SCENE_EMBEDDING_SIZE).to(args.device)
+                    if scene_names[b_idx] not in CORRUPTED_SCENE_IMGS:
+                        scene_name = scene_names[b_idx]+'_scene'
+                        scene_embedding = args.scene_embeddings_dict[scene_name]['scene']
+                        scene_embedding = scene_embedding.repeat(hidden_concat.shape[0], 1)
+                    hidden_concat = torch.cat([hidden_concat, scene_embedding], dim=1)
 
                 coref = coref_enc_head(hidden_concat)  # (num_obj, num_logits)
                 loss_per_line = 10 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device))
@@ -647,8 +695,23 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                 torch.save({'box_embedding_dict': box_embedding.state_dict(),
                             'coref_enc_head': coref_enc_head.state_dict()},
                             os.path.join(output_dir, 'aux_nets.pt'))
+    
+    print('checkpoint saving!!')
+    checkpoint_prefix = "checkpoint"
+    output_dir = os.path.join(
+        args.output_dir, "{}-{}".format(checkpoint_prefix, global_step)
+    )
+    os.makedirs(output_dir, exist_ok=True)
+    model.save_pretrained(output_dir)
+    tokenizer.save_pretrained(output_dir)
+    torch.save(args, os.path.join(output_dir, "training_args.bin"))
+    logger.info("Saving model checkpoint to %s", output_dir)
+    torch.save({'box_embedding_dict': box_embedding.state_dict(),
+                'coref_enc_head': coref_enc_head.state_dict()},
+                os.path.join(output_dir, 'aux_nets.pt'))
 
     return global_step, tr_loss/global_step
+
 
 def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta):
     
@@ -659,6 +722,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
+        scene_names = list(map(lambda x: x[6], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -667,7 +731,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         decoder_input_pad = tokenizer(decoder_input, padding="longest", truncation=True, return_tensors="pt")
 
         return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                boxes, misc, obj_ids_per_line
+                boxes, misc, obj_ids_per_line, scene_names
     
     def add_dicts(d1, d2):
         return {k: d1[k] + d2[k] for k in d1}
@@ -709,6 +773,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         boxes = batch[4] # batch, num_obj_per_line, 6
         misc = batch[5]  # batch, num_obj_per_line, dict
         obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
+        scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
 
         with torch.no_grad():
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
@@ -719,11 +784,12 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
                     pos = misc[b_idx][obj_idx]['pos']
                     inputs_embeds[b_idx][pos] += box_embedded[obj_idx]
                 
-                line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
-                for idx, abs_id_embs in enumerate(line_embeddings):
-                    pos = misc[b_idx][idx]['pos']
-                    for embs in abs_id_embs:
-                        inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
+                if args.input_attrs:
+                    line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
+                    for idx, abs_id_embs in enumerate(line_embeddings):
+                        pos = misc[b_idx][idx]['pos']
+                        for embs in abs_id_embs:
+                            inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
 
             model_outputs = model(
                 inputs_embeds=inputs_embeds, 
@@ -747,6 +813,32 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
                     hidden_concat = torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))
                 else:
                     hidden_concat = torch.cat([hidden_concat, torch.reshape(enc_last_state[b_idx][pos:pos+2], (1,-1))], dim=0)
+
+            ## OBJECT IMAGE EMBEDDING STUFF!
+            if args.obj_img_embeddings and not args.scene_embeddings:
+                obj_img_embeds = torch.zeros(hidden_concat.shape[0], SCENE_EMBEDDING_SIZE).to(args.device)
+                if scene_names[b_idx] not in CORRUPTED_SCENE_IMGS:
+                    for obj_idx in range(len(misc[b_idx])):
+                        canonical_id = misc[b_idx][obj_idx]['canonical_id']
+                        scene_name = scene_names[b_idx]+'_scene'
+                        if canonical_id in args.scene_embeddings_dict[scene_name]: # <OBJ>
+                            obj_img_embeds_aux = args.scene_embeddings_dict[scene_name][canonical_id]
+                        else: # <PREVOBJ>
+                            obj_img_embeds_aux = torch.zeros(1, SCENE_EMBEDDING_SIZE).to(args.device)
+                        if obj_idx == 0:
+                            obj_img_embeds = obj_img_embeds_aux
+                        else:
+                            obj_img_embeds = torch.cat([obj_img_embeds, obj_img_embeds_aux], dim=0)
+                hidden_concat = torch.cat([hidden_concat, obj_img_embeds], dim=1)
+                
+            ## SCENE EMBEDDING STUFF!
+            if args.scene_embeddings and not args.obj_img_embeddings:
+                scene_embedding = torch.zeros(hidden_concat.shape[0], SCENE_EMBEDDING_SIZE).to(args.device)
+                if scene_names[b_idx] not in CORRUPTED_SCENE_IMGS:
+                    scene_name = scene_names[b_idx]+'_scene'
+                    scene_embedding = args.scene_embeddings_dict[scene_name]['scene']
+                    scene_embedding = scene_embedding.repeat(hidden_concat.shape[0], 1)
+                hidden_concat = torch.cat([hidden_concat, scene_embedding], dim=1)
             
             is_fashion = misc[b_idx][0]['is_fashion']
             coref_label = torch.tensor([misc[b_idx][obj_idx]['coref_label'] for obj_idx in range(len(misc[b_idx]))]).to(args.device)  # (num_obj)  0 or 1
@@ -894,8 +986,21 @@ def main():
     )
     parser.add_argument(
         "--seed",
-        default=42,
+        default=42, # usually 42
         type=int,
+    )
+    ### New:
+    parser.add_argument(
+        "--input_attrs",
+        default=False
+    )
+    parser.add_argument(
+        "--scene_embeddings",
+        default=False
+    )
+    parser.add_argument(
+        "--obj_img_embeddings",
+        default=False
     )
     args = parser.parse_args()
     args.n_gpu = torch.cuda.device_count() if torch.cuda.is_available() else 0
@@ -923,7 +1028,11 @@ def main():
     model.to(args.device)
 
     box_embedding = BoxEmbedding(model.config.d_model).to(args.device)
-    coref_enc_head = CorefEncoderHead(model.config.d_model).to(args.device)
+    if args.scene_embeddings or args.obj_img_embeddings:
+        args.scene_embeddings_dict = torch.load("../data_object_special/img_features.pt", map_location=args.device)
+        coref_enc_head = CorefEncoderHead(model.config.d_model, scene_embed_size=SCENE_EMBEDDING_SIZE).to(args.device)
+    else:
+        coref_enc_head = CorefEncoderHead(model.config.d_model).to(args.device)
     
     with open(args.item2id, 'r') as f:
         item2id = json.load(f)
@@ -946,6 +1055,9 @@ def main():
         all_objects_meta[object_special_id] = object_meta
 
     train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_start)
+
+    # For debuging: temporal
+    evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta)
     
     global_step, train_loss = train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta)
 
