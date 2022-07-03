@@ -4,14 +4,14 @@ from params import TRAIN_DSTC10_DATAPATH, DEV_DSTC10_DATAPATH, DEVTEST_DSTC10_DA
 from params import TRAIN_PROCESSED_DATAPATH, DEV_PROCESSED_DATAPATH, DEVTEST_PROCESSED_DATAPATH
 
 
-def get_out_domain_sets(train_processed_path, train_dstc10_path):
+def get_out_domain_sets(train_processed_path, train_dstc10_path, keyword='furniture'):
     # Getting examples of Out-Of-Domain test set
     with open(train_processed_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
     
     test_set = []
     for line in data:
-        if line['domain'] == 'furniture':
+        if line['domain'] == keyword: # keyword is usually 'furniture'
             test_set.append(line)
     
     # Getting examples of Out-Of-Domain target set
@@ -20,32 +20,32 @@ def get_out_domain_sets(train_processed_path, train_dstc10_path):
     
     target_set = []
     for dial in data['dialogue_data']:
-        if dial['domain'] == 'furniture':
+        if dial['domain'] == keyword: # keyword is usually 'furniture'
             target_set.append(dial)
     
     return test_set, target_set
     
 
 
-def get_all_fashion_examples(processed_sets_path_list, dstc10_sets_path_list):
-    all_processed_fashion_examples = []
-    all_target_fashion_examples = []
+def get_all_domain_examples(processed_sets_path_list, dstc10_sets_path_list, keyword='fashion'):
+    all_processed_domain_examples = []
+    all_target_domain_examples = []
 
     for set_path in processed_sets_path_list:
         with open(set_path, 'r') as f:
             data = json.load(f)
         for line in data:
-            if line['domain'] == 'fashion':
-                all_processed_fashion_examples.append(line)
+            if line['domain'] == keyword: # keyword is usually 'fashion'
+                all_processed_domain_examples.append(line)
     
     for set_path in dstc10_sets_path_list:
         with open(set_path, 'r') as f:
             data = json.load(f)
         for dial in data['dialogue_data']:
-            if dial['domain'] == 'fashion':
-                all_target_fashion_examples.append(dial)
+            if dial['domain'] == keyword: #keyword is usually 'fashion'
+                all_target_domain_examples.append(dial)
     
-    return all_processed_fashion_examples, all_target_fashion_examples
+    return all_processed_domain_examples, all_target_domain_examples
 
 
         
@@ -89,13 +89,16 @@ def extract_in_domain_examples(remaining_processed, remaining_target, size):
         dial_idx = random.sample(remaining_dials_indices,1)[0]
         remaining_dials_indices.remove(dial_idx)
 
+        corrupted_scene_flag = True
         for line in remaining_processed:
             if line['dial_idx'] == dial_idx:
+                corrupted_scene_flag = False
                 in_domain_test.append(line)
         
         for dial in remaining_target:
             if dial['dialogue_idx'] == dial_idx:
-                in_domain_target.append(dial)
+                if not corrupted_scene_flag:
+                    in_domain_target.append(dial)
         
         used_dials_ids.append(dial_idx)
     
@@ -134,7 +137,7 @@ def main():
     print("Getting all fashion examples in original train, dev and devtest sets...")
     processed_sets_path_list = [TRAIN_PROCESSED_DATAPATH, DEV_PROCESSED_DATAPATH, DEVTEST_PROCESSED_DATAPATH]
     dstc10_sets_path_list = [TRAIN_DSTC10_DATAPATH, DEV_DSTC10_DATAPATH, DEVTEST_DSTC10_DATAPATH]
-    all_processed_fashion_examples, all_target_fashion_examples = get_all_fashion_examples(processed_sets_path_list, dstc10_sets_path_list)
+    all_processed_fashion_examples, all_target_fashion_examples = get_all_domain_examples(processed_sets_path_list, dstc10_sets_path_list, keyword='fashion')
 
     ###
     print("Building test and target sets for IN-DOMAIN-HELD-OUT experiment...")
@@ -163,6 +166,47 @@ def main():
     # Storing training set (remaining examples)
     with open(train_set_save_path, 'w') as f:
         json.dump(train, f)
+    
+    #########
+    devtest_furn_test_save_path = '../../processed/new_datasets/devtest_only_furniture_test.json'
+    devtest_furn_target_save_path = '../../processed/new_datasets/devtest_only_furniture_target.json'
+    print("Getting furniture subset of devtest set...")
+    devtest_furn_test, devtest_furn_target = get_out_domain_sets(DEVTEST_PROCESSED_DATAPATH, DEVTEST_DSTC10_DATAPATH)
+    # Storing furniture subset of devtest (test set)
+    with open(devtest_furn_test_save_path, 'w') as f:
+        json.dump(devtest_furn_test, f)
+    # Storing furniture subset of devtest (target set)
+    devtest_furn_target_dict = {'dialogue_data': devtest_furn_target}
+    with open(devtest_furn_target_save_path, 'w') as f:
+        json.dump(devtest_furn_target_dict, f)
+    
+    #########
+    devtest_fash_test_save_path = '../../processed/new_datasets/devtest_only_fashion_test.json'
+    devtest_fash_target_save_path = '../../processed/new_datasets/devtest_only_fashion_target.json'
+    print("Getting fashion subset of devtest set...")
+    devtest_fash_test, devtest_fash_target = get_out_domain_sets(DEVTEST_PROCESSED_DATAPATH, DEVTEST_DSTC10_DATAPATH, keyword='fashion')
+    # Storing fashion subset of devtest (test set)
+    with open(devtest_fash_test_save_path, 'w') as f:
+        json.dump(devtest_fash_test, f)
+    # Storing fashion subset of devtest (target set)
+    devtest_fash_target_dict = {'dialogue_data': devtest_fash_target}
+    with open(devtest_fash_target_save_path, 'w') as f:
+        json.dump(devtest_fash_target_dict, f)
+    
+    #########
+    all_furn_test_save_path = '../../processed/new_datasets/all_furniture_test.json'
+    all_furn_target_save_path = '../../processed/new_datasets/all_furniture_target.json'
+    print("Getting all furniture examples in original train, dev and devtest sets...")
+    processed_sets_path_list = [TRAIN_PROCESSED_DATAPATH, DEV_PROCESSED_DATAPATH, DEVTEST_PROCESSED_DATAPATH]
+    dstc10_sets_path_list = [TRAIN_DSTC10_DATAPATH, DEV_DSTC10_DATAPATH, DEVTEST_DSTC10_DATAPATH]
+    all_processed_furniture_examples, all_target_furniture_examples = get_all_domain_examples(processed_sets_path_list, dstc10_sets_path_list, keyword='furniture')
+    # Storing all examples of furniture together (pred)
+    with open(all_furn_test_save_path, 'w') as f:
+        json.dump(all_processed_furniture_examples, f)
+    # Storing all examples of furniture together (target)
+    all_target_furniture_ex_dict = {'dialogue_data': all_target_furniture_examples}
+    with open(all_furn_target_save_path, 'w') as f:
+        json.dump(all_target_furniture_ex_dict, f)
 
 
 if __name__ == '__main__':
