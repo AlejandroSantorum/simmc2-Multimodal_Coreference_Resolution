@@ -145,16 +145,25 @@ def insert_attributes(line):
 
 
 ATTR_NAME_LIST = ['color', 'type', 'brand', 'price']
+#FASH_ATTR_NAME_LIST = ['assetType', 'customerReview', 'color', 'pattern', 'sleeveLength', 'type', 'price', 'size']
+#FURN_ATTR_NAME_LIST = ['brand', 'color', 'customerRating', 'materials', 'price', 'type']
+FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
+FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
 def get_attribute_embeddings(line_ids, tokenizer, model, device):
     line_object_embeddings = []
     for abs_id in line_ids:
         # get object type
         meta = abs_id[0]
         abs_id = int(abs_id[1:])
-        object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) if meta=='1'
-                            else str(fur_meta[id2name_fur[abs_id]][attr_name])
-                            for attr_name in ATTR_NAME_LIST]
-        # get embedding
+        # get object attributes
+        if meta == '1': # fashion
+            object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) for attr_name in FASH_ATTR_NAME_LIST]
+        elif meta == '2': # furniture
+            object_attrs = [str(fur_meta[id2name_fur[abs_id]][attr_name]) for attr_name in FURN_ATTR_NAME_LIST]
+        else:
+            print("Error: unknown domain:", meta)
+            exit()
+        # get attributes embeddings of the object
         object_int_tokens = [torch.tensor(get_input_id(tokenizer, attr)).to(device) for attr in object_attrs]
         object_embeddings = [torch.sum(model.model.encoder.embed_tokens(obj_tok), dim=0) # summing over columns handling multiple integer tokens
                                 for obj_tok in object_int_tokens]
@@ -1025,6 +1034,13 @@ def main():
         model.resize_token_embeddings(len(tokenizer))
         model.vocab_size = len(tokenizer)
     model.config.decoder_start_token_id = 0
+    # Data parallelism!
+    if torch.cuda.device_count() > 1:
+        from torch.nn.parallel import DataParallel
+        model = DataParallel(model, device_ids=[0,1])
+        print("Multiple GPUs available...")
+    else:
+        print("No multiple free GPUs...")
     model.to(args.device)
 
     box_embedding = BoxEmbedding(model.config.d_model).to(args.device)
