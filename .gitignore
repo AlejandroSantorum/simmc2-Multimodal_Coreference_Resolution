@@ -31,3 +31,7 @@ models/bart_coref/coref_models/*
 models/bart_only_coref/data
 models/bart_only_coref/data_object_special/new_datasets
 models/bart_only_coref/coref_models/*
+
+# error analysis files
+error_images
+pdf_error_analysis
