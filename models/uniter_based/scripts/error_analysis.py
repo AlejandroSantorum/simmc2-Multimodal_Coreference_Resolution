@@ -5,17 +5,17 @@ import argparse
 from tqdm import tqdm
 import random
 from datetime import datetime
-from convert_baseline import parse_flattened_results_from_file
-from evaluate_only_coref import parse_for_only_coref
 
 from PIL import Image, ImageDraw, ImageFont
 from fpdf import FPDF
 
 
-def set_up_pdf():
+def set_up_pdf(title=""):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", 'B', size=14)
+    pdf.cell(185, 5, txt=title, ln=1, align='C')
+    pdf.cell(185, 5, txt="", ln=1, align='C') # linebreak
     # Addint color legend
     pdf.set_text_color(255, 255, 255) # sort of light green
     pdf.cell(185, 5, txt="· MENTIONED OBJECT IDs", ln=1, align='C', fill=True)
@@ -29,42 +29,24 @@ def set_up_pdf():
     return pdf
 
 
-def get_dialogue_history(example_idx, test_data):
-    example = test_data[example_idx]
-    dial = example[:example.find(' <SOO>')]
+def parse_objects_from_simmc2_format(data):
+    objects_list = []
+    for dial in data['dialogue_data']:
+        for turn in dial['dialogue']:
+            try:
+                if turn['disambiguation_label'] == 1:
+                    continue
+            except:
+                pass
+            objs = turn['transcript_annotated']['act_attributes']['objects']
+            objects_list.append(objs)
+    return objects_list
 
-    som_idx = dial.find('<SOM>')
-    while som_idx != -1:
-        eom_idx = dial.find('<EOM>', som_idx)
-        dial = dial[:som_idx] + dial[eom_idx+len('<EOM>'):]
-        som_idx = dial.find('<SOM>', som_idx+1)
-    return dial
 
-
-def get_mentioned_objs(example_idx, test_data):
-    assert example_idx < len(test_data)
-
-    def _get_mm_context_ids(mm_context):
-        ids = []
-        start = mm_context.find('<')
-        while start != -1:
-            end = mm_context.find('>', start)
-            id = mm_context[start+1:end]
-            ids.append(int(id))
-            start = mm_context.find('<', start+1)
-        return ids
-
-    example = test_data[example_idx]
-    dialogue_part = example[:example.find(' <SOO>')]
-
-    mentioned_ids = []
-    som_idx = dialogue_part.find('<SOM>')
-    while som_idx != -1:
-        eom_idx = dialogue_part.find('<EOM>', som_idx)
-        mm_context = dialogue_part[som_idx+len('<SOM>'):eom_idx]
-        mentioned_ids += _get_mm_context_ids(mm_context)
-        som_idx = dialogue_part.find('<SOM>', som_idx+1)
-    return set(mentioned_ids)
+def get_mentioned_objs(test_data_entry):
+    candidate_ids = test_data_entry['candidate_ids']
+    mentioned = test_data_entry['candidate_mentioned']
+    return [id for k,id in enumerate(candidate_ids) if mentioned[k]==1]
 
 
 def print_bboxes(objects, scene_data, draw, outline='red', width=3, offset=0):
@@ -112,20 +94,29 @@ def add_error_case_pdf(pdf, dialogue, image, ex_num):
     pdf.image(error_img_path, type='png', w=195, h=100)
 
 
-def main(args):
-    predictions_file_path = "../results/devtest/predictions_vanilla_no_heads_cp38.txt"
-    target_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_target.txt"
-    test_examples_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_predict.txt"
-    test_scenes_file_path = "../data_object_special/simmc2_scenes_devtest.txt"
 
-    # Convert the data from the GPT-2 friendly format to JSON
-    list_target = parse_flattened_results_from_file(target_file_path)
-    list_predicted = parse_for_only_coref(predictions_file_path)
+def main(args):
+    model_name = "UNITER_objmen_devtest"
+    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_devtest.json"
+    target_file_path = "../data/simmc2_dials_dstc10_devtest.json"
+    test_examples_file_path = "../processed/devtest.json"
+    test_scenes_file_path = "../processed/simmc2_scenes_devtest.txt"
+
+    # Reading predictions file and parsing it
+    with open(predictions_file_path, 'r') as f:
+        pred_data = json.load(f)
+    list_predicted = parse_objects_from_simmc2_format(pred_data)
+    
+    # Reading target file and parsing it
+    with open(target_file_path, 'r') as f:
+        target_data = json.load(f)
+    list_target = parse_objects_from_simmc2_format(target_data)
+
     assert len(list_predicted) == len(list_target)
 
     # Reading test examples file
     with open(test_examples_file_path, 'r') as f:
-        test_data = f.readlines()
+        test_data = json.load(f)
     assert len(test_data) == len(list_predicted)
 
     # Reading scene names files
@@ -134,7 +125,7 @@ def main(args):
     assert len(scenes_names) == len(list_predicted)
 
     # Setting up FPDF to store error cases
-    pdf = set_up_pdf()
+    pdf = set_up_pdf(model_name)
 
     checked_examples = set()
     n_errors = 0
@@ -144,8 +135,8 @@ def main(args):
             i = random.randint(0, len(list_predicted)-1)
         checked_examples.add(i)
 
-        pred = list_predicted[i][0]['objects']
-        target = list_target[i][0]['objects']
+        pred = list_predicted[i]
+        target = list_target[i]
 
         if (len(pred) != len(target)) or (len(pred) != len(set(pred).intersection(target))):
             n_errors += 1
@@ -163,16 +154,16 @@ def main(args):
             image = Image.open(img_path)
             draw = ImageDraw.Draw(image)
             # Getting dialogue history
-            dialogue_history = get_dialogue_history(i, test_data).encode(encoding="latin-1", errors='replace').decode('latin-1')
-            # Getting mentioned items (<SOM> ... <EOM>)
-            mentioned = get_mentioned_objs(i, test_data)
+            dialogue_history = test_data[i]['dial'].encode(encoding="latin-1", errors='replace').decode('latin-1')
+            # Getting mentioned items (multimodal context)
+            mentioned = get_mentioned_objs(test_data[i])
             # Printing predicted items, target items and mentioned items in the dialogue
             print_bboxes(pred, scene_data, draw, outline='#29ff45', width=4, offset=0)
             print_bboxes(target, scene_data, draw, outline='#ff3300', width=4, offset=4)
             print_bboxes(mentioned, scene_data, draw, outline='white', width=3, offset=7)
             # Adding error case: dialogue + image with boxed items
             add_error_case_pdf(pdf, dialogue_history, image, ex_num=i+1)
-
+    
     # Storing error analysis PDF
     now = datetime.now()
     now_str = now.strftime("%d-%m-%Y_%H:%M:%S")
@@ -185,7 +176,8 @@ def main(args):
         os.remove(f)
 
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--n_errors', default=50, type=int)
