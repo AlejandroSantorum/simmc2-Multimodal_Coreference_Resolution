@@ -12,10 +12,12 @@ from PIL import Image, ImageDraw, ImageFont
 from fpdf import FPDF
 
 
-def set_up_pdf():
+def set_up_pdf(title=""):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", 'B', size=14)
+    pdf.cell(185, 5, txt=title, ln=1, align='C')
+    pdf.cell(185, 5, txt="", ln=1, align='C') # linebreak
     # Addint color legend
     pdf.set_text_color(255, 255, 255) # sort of light green
     pdf.cell(185, 5, txt="· MENTIONED OBJECT IDs", ln=1, align='C', fill=True)
@@ -79,7 +81,10 @@ def print_bboxes(objects, scene_data, draw, outline='red', width=3, offset=0):
                     width=width
                 )
                 # Draw IDs with black background
-                font = ImageFont.truetype("Arial.ttf", size=25)
+                try:
+                    font = ImageFont.truetype("Arial.ttf", size=25)
+                except:
+                    font = ImageFont.load_default()
                 text = str(idx)
                 text_width, text_height = font.getsize(text)
                 # drawing black rectangle (background) 
@@ -113,7 +118,8 @@ def add_error_case_pdf(pdf, dialogue, image, ex_num):
 
 
 def main(args):
-    predictions_file_path = "../results/devtest/predictions_vanilla_no_heads_cp38.txt"
+    model_name = "BART_input_all_attrs"
+    predictions_file_path = "../results/devtest/predictions_input_all_attrs_cp381.txt"
     target_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_target.txt"
     test_examples_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_predict.txt"
     test_scenes_file_path = "../data_object_special/simmc2_scenes_devtest.txt"
@@ -176,7 +182,7 @@ def main(args):
     # Storing error analysis PDF
     now = datetime.now()
     now_str = now.strftime("%d-%m-%Y_%H:%M:%S")
-    pdf_store_path = "./pdf_error_analysis/devtest_error_analysis_"+now_str+".pdf"
+    pdf_store_path = "./pdf_error_analysis/"+model_name+"_"+now_str+".pdf"
     pdf.output(pdf_store_path)
 
     # deleting auxiliary images
