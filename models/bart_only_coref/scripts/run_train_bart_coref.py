@@ -145,10 +145,12 @@ def insert_attributes(line):
 
 
 ATTR_NAME_LIST = ['color', 'type', 'brand', 'price']
-#FASH_ATTR_NAME_LIST = ['assetType', 'customerReview', 'color', 'pattern', 'sleeveLength', 'type', 'price', 'size']
-#FURN_ATTR_NAME_LIST = ['brand', 'color', 'customerRating', 'materials', 'price', 'type']
-FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
-FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
+#ALL_FASH_ATTR_NAME_LIST = ['assetType', 'customerReview', 'color', 'pattern', 'sleeveLength', 'type', 'price', 'size']
+#ALL_FURN_ATTR_NAME_LIST = ['brand', 'color', 'customerRating', 'materials', 'price', 'type']
+#FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
+#FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
+FASH_ATTR_NAME_LIST = ['brand', 'price',  'customerReview', 'size']
+FURN_ATTR_NAME_LIST = ['brand', 'price', 'customerRating', 'materials']
 def get_attribute_embeddings(line_ids, tokenizer, model, device):
     line_object_embeddings = []
     for abs_id in line_ids:
@@ -189,17 +191,19 @@ def id_converter(tokenizer):
     return id2index, id2fashion_st, id2furniture_st
 
 class LineByLineDataset(Dataset):
-    def __init__(self, input_file, target_file, tokenizer: PreTrainedTokenizer, all_objects_meta, evaluation=False):
+    def __init__(self, input_file, target_file, tokenizer: PreTrainedTokenizer, all_objects_meta, evaluation=False, img_embeds=False):
 
         print(f"Data file : {input_file}")
         self.evaluation = evaluation
+        self.img_embeds = img_embeds
 
         # WARNING!!! WE ARE ASSUMING THAT SCENE EMBEDDINGS ARE ONLY USED WITH STANDARD PREPROCESSED DATASETS:
         #       e.g. data_object_special/simmc2_dials_dstc10_train_predict.txt
-        if evaluation:
-            self.scene_names = json.load(open(DEVTEST_SCENES_FILE, 'r'))
-        else:
-            self.scene_names = json.load(open(TRAIN_SCENES_FILE, 'r'))
+        if img_embeds:
+            if evaluation:
+                self.scene_names = json.load(open(DEVTEST_SCENES_FILE, 'r'))
+            else:
+                self.scene_names = json.load(open(TRAIN_SCENES_FILE, 'r'))
         
         # Other tasks
         lines = []
@@ -302,15 +306,20 @@ class LineByLineDataset(Dataset):
         return len(self.examples)
 
     def __getitem__(self, i):
-        return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
-            self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.scene_names[i]
+        if self.img_embeds:
+            return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
+                self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.scene_names[i]
+        else:
+            return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
+                self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i]
 
 
 def get_dataset(args, tokenizer, all_objects_meta, train=True):
+    img_embeds = args.obj_img_embeddings or args.scene_embeddings
     if train:
-        dataset = LineByLineDataset(args.train_input_file, args.train_target_file, tokenizer, all_objects_meta)
+        dataset = LineByLineDataset(args.train_input_file, args.train_target_file, tokenizer, all_objects_meta, img_embeds=img_embeds)
     else:
-        dataset = LineByLineDataset(args.eval_input_file, args.eval_target_file, tokenizer, all_objects_meta, evaluation=True)
+        dataset = LineByLineDataset(args.eval_input_file, args.eval_target_file, tokenizer, all_objects_meta, evaluation=True, img_embeds=img_embeds)
 
     # Unknown issues have been reported around not being able to handle incomplete batches (e.g. w/ older CUDA 9.2)
     # Below is a workaround in case you encounter this issue.
@@ -324,7 +333,8 @@ def get_dataset(args, tokenizer, all_objects_meta, train=True):
         dataset.boxes = dataset.boxes[:-n]
         dataset.misc = dataset.misc[:-n]
         dataset.obj_ids_per_line = dataset.obj_ids_per_line[:-n]
-        dataset.scene_names = dataset.scene_names[:-n]
+        if img_embeds:
+            dataset.scene_names = dataset.scene_names[:-n]
     return dataset
 
 
@@ -471,6 +481,7 @@ def train_embedding_clip_way(args, model, tokenizer, all_objects_meta, num_iter=
 
 
 def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta):
+    img_embeds = args.obj_img_embeddings or args.scene_embeddings
 
     def collate_bart(examples):
         enc_input = list(map(lambda x: x[0], examples))
@@ -479,7 +490,8 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
-        scene_names = list(map(lambda x: x[6], examples))
+        if img_embeds:
+            scene_names = list(map(lambda x: x[6], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -487,8 +499,12 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         enc_attention_pad = pad_sequence(enc_attention_mask, batch_first=True, padding_value=0)
         decoder_input_pad = tokenizer(decoder_input, padding="longest", truncation=True, return_tensors="pt")
 
-        return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                boxes, misc, obj_ids_per_line, scene_names
+        if img_embeds:
+            return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
+                   boxes, misc, obj_ids_per_line, scene_names
+        else:
+            return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
+                   boxes, misc, obj_ids_per_line
     
     train_dataset = get_dataset(args, tokenizer, all_objects_meta, train=True)
     train_sampler = RandomSampler(train_dataset)
@@ -589,7 +605,8 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
             boxes = batch[4] # batch, num_obj_per_line, 6
             misc = batch[5]  # batch, num_obj_per_line, dict
             obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
-            scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
+            if img_embeds:
+                scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
 
             # follow `class BartEncoder`. shape of (batch, seqlen, d_model)
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
@@ -610,7 +627,6 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                         pos = misc[b_idx][idx]['pos']
                         for embs in abs_id_embs:
                             inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
-
 
             model_outputs = model(
                 inputs_embeds=inputs_embeds, 
@@ -723,6 +739,7 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
 
 
 def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta):
+    img_embeds = args.obj_img_embeddings or args.scene_embeddings
     
     def collate_eval_bart(examples):
         enc_input = list(map(lambda x: x[0], examples))
@@ -731,7 +748,8 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
-        scene_names = list(map(lambda x: x[6], examples))
+        if img_embeds:
+            scene_names = list(map(lambda x: x[6], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -739,8 +757,12 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         enc_attention_pad = pad_sequence(enc_attention_mask, batch_first=True, padding_value=0)
         decoder_input_pad = tokenizer(decoder_input, padding="longest", truncation=True, return_tensors="pt")
 
-        return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                boxes, misc, obj_ids_per_line, scene_names
+        if img_embeds:
+            return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
+                   boxes, misc, obj_ids_per_line, scene_names
+        else:
+            return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
+                   boxes, misc, obj_ids_per_line
     
     def add_dicts(d1, d2):
         return {k: d1[k] + d2[k] for k in d1}
@@ -782,7 +804,8 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         boxes = batch[4] # batch, num_obj_per_line, 6
         misc = batch[5]  # batch, num_obj_per_line, dict
         obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
-        scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
+        if img_embeds:
+            scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
 
         with torch.no_grad():
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale

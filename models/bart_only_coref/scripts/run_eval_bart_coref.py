@@ -114,15 +114,26 @@ def insert_attributes(line):
     return line
 
 ATTR_NAME_LIST = ['color', 'type', 'brand', 'price']
+#ALL_FASH_ATTR_NAME_LIST = ['assetType', 'customerReview', 'color', 'pattern', 'sleeveLength', 'type', 'price', 'size']
+#ALL_FURN_ATTR_NAME_LIST = ['brand', 'color', 'customerRating', 'materials', 'price', 'type']
+FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
+FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
+#FASH_ATTR_NAME_LIST = ['brand', 'price',  'customerReview', 'size']
+#FURN_ATTR_NAME_LIST = ['brand', 'price', 'customerRating', 'materials']
 def get_attribute_embeddings(line_ids, tokenizer, model, device):
     line_object_embeddings = []
     for abs_id in line_ids:
         # get object type
         meta = abs_id[0]
         abs_id = int(abs_id[1:])
-        object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) if meta=='1'
-                            else str(fur_meta[id2name_fur[abs_id]][attr_name])
-                            for attr_name in ATTR_NAME_LIST]
+        # get object attributes
+        if meta == '1': # fashion
+            object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) for attr_name in FASH_ATTR_NAME_LIST]
+        elif meta == '2': # furniture
+            object_attrs = [str(fur_meta[id2name_fur[abs_id]][attr_name]) for attr_name in FURN_ATTR_NAME_LIST]
+        else:
+            print("Error: unknown domain:", meta)
+            exit()
         # get embedding
         object_int_tokens = [torch.tensor(get_input_id(tokenizer, attr)).to(device) for attr in object_attrs]
         object_embeddings = [torch.sum(model.model.encoder.embed_tokens(obj_tok), dim=0) # summing over columns handling multiple integer tokens
@@ -208,8 +219,8 @@ def adjust_length_to_model(length, max_sequence_length):
     return length
 
 class GenerationDataset(Dataset):
-    def __init__(self, prompts_from_file, tokenizer):
-
+    def __init__(self, prompts_from_file, tokenizer, img_embeds=False):
+        self.img_embeds = img_embeds
         lines = []
         self.original_lines = []
         self.boxes = []
@@ -217,7 +228,8 @@ class GenerationDataset(Dataset):
 
         # WARNING!!! WE ARE ASSUMING THAT SCENE EMBEDDINGS ARE ONLY USED WITH STANDARD PREPROCESSED DATASETS:
         #       e.g. data_object_special/simmc2_dials_dstc10_devtest_predict.txt
-        self.scene_names = json.load(open(DEVTEST_SCENES_FILE, 'r'))
+        if img_embeds:
+            self.scene_names = json.load(open(DEVTEST_SCENES_FILE, 'r'))
 
         vocab2id = tokenizer.get_vocab()
         id2vocab = {v: k for k, v in vocab2id.items()}
@@ -287,7 +299,9 @@ class GenerationDataset(Dataset):
         return len(self.examples)
 
     def __getitem__(self, i):
-        return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.scene_names[i]
+        if self.img_embeds:
+            return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.scene_names[i]
+        return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i]
 
 def main():
     parser = argparse.ArgumentParser()
@@ -396,9 +410,11 @@ def main():
     checkpoint = torch.load(os.path.join(args.model_dir, 'aux_nets.pt'), map_location=torch.device(args.device))
     box_embedding = BoxEmbedding(model.config.d_model).to(args.device)
     if args.scene_embeddings or args.obj_img_embeddings:
+        img_embeds = True
         args.scene_embeddings_dict = torch.load("../data_object_special/img_features.pt", map_location=args.device)
         coref_enc_head = CorefEncoderHead(model.config.d_model, scene_embed_size=SCENE_EMBEDDING_SIZE).to(args.device)
     else:
+        img_embeds = False
         coref_enc_head = CorefEncoderHead(model.config.d_model).to(args.device)
 
     box_embedding.load_state_dict(checkpoint['box_embedding_dict'])
@@ -416,18 +432,21 @@ def main():
         boxes = list(map(lambda x: x[3], examples))
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
-        scene_names = list(map(lambda x: x[6], examples))
+        if img_embeds:
+            scene_names = list(map(lambda x: x[6], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
             enc_input_pad = pad_sequence(enc_input, batch_first=True, padding_value=tokenizer.pad_token_id)
         enc_attention_pad = pad_sequence(enc_attention_mask, batch_first=True, padding_value=0)
-        return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line, scene_names
-    
+        if img_embeds:
+            return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line, scene_names
+        return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line
+
     with open(args.item2id, 'r') as f:
         item2id = json.load(f)
     
-    decode_dataset = GenerationDataset(args.prompts_from_file, tokenizer)
+    decode_dataset = GenerationDataset(args.prompts_from_file, tokenizer, img_embeds=img_embeds)
     decode_sampler = SequentialSampler(decode_dataset)
     decode_dataloader = DataLoader(
         decode_dataset,
@@ -448,7 +467,8 @@ def main():
         boxes = batch[3] # batch, num_obj_per_line, 6
         misc = batch[4]  # batch, num_obj_per_line, dict
         obj_ids_per_line = batch[5] # batch, num_obj_per_line, num_attrs
-        scene_names = batch[6] # batch, SCENE_EMBEDDING_SIZE
+        if img_embeds:
+            scene_names = batch[6] # batch, SCENE_EMBEDDING_SIZE
         batch_size = len(misc)
 
         with torch.no_grad():
