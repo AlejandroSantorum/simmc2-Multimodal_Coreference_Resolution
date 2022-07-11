@@ -44,11 +44,11 @@ def train(args):
     print(device)
 
     # Make loaders
-    train_loader = make_loader(SPLIT, BATCH_SIZE, more_roi=arg_dict['more_roi'])
+    train_loader = make_loader(SPLIT, BATCH_SIZE, more_roi=arg_dict['more_roi'], add_visual_attrs=arg_dict['visual_attrs'])
     if SPLIT == 'seen_unseen_OOD_train':
-        dev_loader = make_loader('in_domain', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'])
+        dev_loader = make_loader('in_domain', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'], add_visual_attrs=arg_dict['visual_attrs'])
     else:
-        dev_loader = make_loader('dev', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'])
+        dev_loader = make_loader('dev', BATCH_SIZE_DEV, more_roi=arg_dict['more_roi'], add_visual_attrs=arg_dict['visual_attrs'])
 
     # Setup Tensorboard
     writer = SummaryWriter(log_dir='./result/runs' ,comment=f'{NAME} batch_size={BATCH_SIZE}, Adam_lr={LR}, FocalAlpha={ALPHA}, GAMMA={GAMMA}')
@@ -291,6 +291,7 @@ if __name__ == '__main__':
     parser.add_argument('--more_roi', default=False)
 
     parser.add_argument('--SPLIT', default='train')
+    parser.add_argument('--visual_attrs', default=False)
 
     args = parser.parse_args()
 

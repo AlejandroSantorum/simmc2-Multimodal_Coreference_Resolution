@@ -34,4 +34,5 @@ models/bart_only_coref/coref_models/*
 
 # error analysis files
 error_images
+tmp_error_images
 pdf_error_analysis

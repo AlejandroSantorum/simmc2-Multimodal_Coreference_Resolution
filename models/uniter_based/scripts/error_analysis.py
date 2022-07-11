@@ -61,7 +61,10 @@ def print_bboxes(objects, scene_data, draw, outline='red', width=3, offset=0):
                     width=width
                 )
                 # Draw IDs with black background
-                font = ImageFont.truetype("Arial.ttf", size=25)
+                try:
+                    font = ImageFont.truetype("Arial.ttf", size=25)
+                except:
+                    font = ImageFont.load_default()
                 text = str(idx)
                 text_width, text_height = font.getsize(text)
                 # drawing black rectangle (background) 
@@ -96,8 +99,8 @@ def add_error_case_pdf(pdf, dialogue, image, ex_num):
 
 
 def main(args):
-    model_name = "UNITER_objmen_devtest"
-    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_devtest.json"
+    model_name = "UNITER_objmen_noIDs_devtest"
+    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_noIDs_devtest.json"
     target_file_path = "../data/simmc2_dials_dstc10_devtest.json"
     test_examples_file_path = "../processed/devtest.json"
     test_scenes_file_path = "../processed/simmc2_scenes_devtest.txt"
@@ -167,7 +170,7 @@ def main(args):
     # Storing error analysis PDF
     now = datetime.now()
     now_str = now.strftime("%d-%m-%Y_%H:%M:%S")
-    pdf_store_path = "./pdf_error_analysis/devtest_error_analysis_"+now_str+".pdf"
+    pdf_store_path = "./pdf_error_analysis/"+model_name+"_"+now_str+".pdf"
     pdf.output(pdf_store_path)
 
     # deleting auxiliary images

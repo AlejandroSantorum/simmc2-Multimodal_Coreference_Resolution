@@ -6,7 +6,7 @@ from model.Transformers_VQA_master.src.tokenization import BertTokenizer
 PROCESSED_ROOT = './processed'
 
 class UNITER_on_CLIP_BERT_Dataset(Dataset):
-    def __init__(self, split, more_roi, max_n_obj=200):
+    def __init__(self, split, more_roi, max_n_obj=200, add_visual_attrs=False):
         #self.file_path = f'{PROCESSED_ROOT}/{split}.json'
         if split == 'fashion_first_exp':
             self.file_path = f'{PROCESSED_ROOT}/new_datasets/train_on_just_fashion.json'
@@ -55,6 +55,8 @@ class UNITER_on_CLIP_BERT_Dataset(Dataset):
 
         with open(self.file_path, 'r', encoding='utf-8') as f:
             self.data = json.load(f)
+            if add_visual_attrs:
+                self.data = add_extra_visual_attributes(self.data)
 
         with open(self.KB_dict_path, 'r', encoding='utf-8') as f:
             self.KB_dict = json.load(f)
@@ -378,6 +380,46 @@ def mr_collate(data):
         'rel_mask_up': rel_mask_up,
         'rel_mask_down': rel_mask_down
     }
+
+
+def _get_id_from_attr_str(attr_str):
+    start = attr_str.find('Item ')
+    end = attr_str.find(' is located at')
+    id = attr_str[start+len('Item '):end]
+    return int(id)
+
+def add_extra_visual_attributes(data):
+    KB_fash_path = './data/fashion_prefab_metadata_all.json'
+    KB_furn_path = './data/furniture_prefab_metadata_all.json'
+
+    with open(KB_fash_path, 'r', encoding='utf-8') as f:
+        KB_fash = json.load(f)
+
+    with open(KB_furn_path, 'r', encoding='utf-8') as f:
+        KB_furn = json.load(f)
+
+    for line in data:
+        for i in range(len(line['objects'])):
+            cand_id = _get_id_from_attr_str(line['objects'][i])
+            idx = line['candidate_ids'].index(cand_id)
+            abs_id = line['KB_ids'][idx]-1
+            if line['domain'] == 'fashion':
+                key = list(KB_fash.keys())[abs_id]
+                entry = KB_fash[key]
+                line['objects'][i] += " Its color is "+entry['color']+\
+                                    ". Its type is "+entry['type']+\
+                                    ". Its asset type is "+entry['assetType']+\
+                                    ". Its pattern is "+entry['pattern']+\
+                                    ". Its sleeve length is "+entry['sleeveLength']+"."
+            else:
+                abs_id -= 288 # There are 288 entries in fashion KB prefab
+                key = list(KB_furn.keys())[abs_id]
+                entry = KB_furn[key]
+                line['objects'][i] += " Its color is "+entry['color']+\
+                                    ". Its type is "+entry['type']+"."
+    
+    return data
+
     
 
 def get_extra_roi_feats(scene_paths, bboxes, roi_dict, IOU_thresh=0.8):
@@ -441,8 +483,8 @@ def get_extra_roi_feats(scene_paths, bboxes, roi_dict, IOU_thresh=0.8):
 
         
 
-def make_loader(split, batch_size, more_roi=True):
-    dataset = UNITER_on_CLIP_BERT_Dataset(split, more_roi)
+def make_loader(split, batch_size, more_roi=True, add_visual_attrs=False):
+    dataset = UNITER_on_CLIP_BERT_Dataset(split, more_roi, add_visual_attrs=add_visual_attrs)
     loader = DataLoader(dataset, batch_size=batch_size ,shuffle=True, collate_fn=mr_collate)
     return loader
 
