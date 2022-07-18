@@ -1,0 +1,2231 @@
+***********************************
+Starting job: train.py --NAME UNITER_basic_all_objmen_numTargetObjs --obj_id True --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False --obj_men True --num_target_objs_head True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037483.1.GPU25-3:/usr/local/bin:/bin:/usr/bin; TIME=Wed 13 Jul 17:48:08 GMT 2022
+***********************************
+
+Setting free GPU to number: 0
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/uniter_based
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+About to train
+UNITER_basic_all_objmen_numTargetObjs batch_size=16, Adam_lr=5e-06, FocalAlpha=5, GAMMA=2, scheduler=False
+
+obj_id
+True
+vis_feats_clip
+True
+vis_feats_rcnn
+True
+pos
+True
+scene_seg
+True
+obj_embs_bert
+True
+obj_embs_sbert
+True
+kb_id_bert
+False
+kb_id_sbert
+False
+attn_bias
+False
+graph_attn
+False
+obj_men
+True
+pred_men
+False
+more_roi
+False
+cuda
+Load UNITER PreTrained Model from ./model/Transformers_VQA_master/models/pretrained/uniter-base.pt
+
+Weights in loaded but not in model:
+cls.predictions.bias
+cls.predictions.decoder.weight
+cls.predictions.transform.LayerNorm.bias
+cls.predictions.transform.LayerNorm.weight
+cls.predictions.transform.dense.bias
+cls.predictions.transform.dense.weight
+feat_regress.bias
+feat_regress.net.0.bias
+feat_regress.net.0.weight
+feat_regress.net.2.bias
+feat_regress.net.2.weight
+feat_regress.weight
+itm_output.bias
+itm_output.weight
+region_classifier.net.0.bias
+region_classifier.net.0.weight
+region_classifier.net.2.bias
+region_classifier.net.2.weight
+region_classifier.net.3.bias
+region_classifier.net.3.weight
+uniter.img_embeddings.mask_embedding.weight
+
+Weights in model but not in loaded:
+
+0 0
+tensor(39.7996, device='cuda:0')
+#pred positives 719
+#groundtruth positives 2378
+#total pred 113787
+#hit 0
+Num target obj head accuracy: 0.28279221057891846
+f1 0
+0 250
+tensor(30.5383, device='cuda:0')
+#pred positives 4191
+#groundtruth positives 2378
+#total pred 113787
+#hit 1020
+Num target obj head accuracy: 0.5551947951316833
+f1 0.3105495509209925
+0 500
+tensor(26.0766, device='cuda:0')
+#pred positives 5469
+#groundtruth positives 2378
+#total pred 113787
+#hit 1283
+Num target obj head accuracy: 0.5779221057891846
+f1 0.327003950554352
+0 750
+tensor(24.4219, device='cuda:0')
+#pred positives 5994
+#groundtruth positives 2378
+#total pred 113787
+#hit 1372
+Num target obj head accuracy: 0.6376623511314392
+f1 0.3277591973244147
+0 1000
+tensor(23.4814, device='cuda:0')
+#pred positives 4765
+#groundtruth positives 2378
+#total pred 113787
+#hit 1324
+Num target obj head accuracy: 0.7889610528945923
+f1 0.370712585748285
+0 1250
+tensor(20.5817, device='cuda:0')
+#pred positives 4124
+#groundtruth positives 2378
+#total pred 113787
+#hit 1369
+Num target obj head accuracy: 0.9042207598686218
+f1 0.42110119963088277
+0 1500
+tensor(17.4735, device='cuda:0')
+#pred positives 4160
+#groundtruth positives 2378
+#total pred 113787
+#hit 1415
+Num target obj head accuracy: 0.9392856955528259
+f1 0.4328540838176812
+0 1750
+tensor(16.3350, device='cuda:0')
+#pred positives 3926
+#groundtruth positives 2378
+#total pred 113787
+#hit 1409
+Num target obj head accuracy: 0.9525973796844482
+f1 0.4470177664974619
+0 2000
+tensor(16.4484, device='cuda:0')
+#pred positives 3408
+#groundtruth positives 2378
+#total pred 113787
+#hit 1363
+Num target obj head accuracy: 0.9633116722106934
+f1 0.47113722779122014
+1 0
+tensor(14.5141, device='cuda:0')
+#pred positives 3588
+#groundtruth positives 2378
+#total pred 113787
+#hit 1406
+Num target obj head accuracy: 0.9564934968948364
+f1 0.4713375796178344
+1 250
+tensor(14.8255, device='cuda:0')
+#pred positives 3700
+#groundtruth positives 2378
+#total pred 113787
+#hit 1450
+Num target obj head accuracy: 0.9675324559211731
+f1 0.47713063507732806
+1 500
+tensor(14.4589, device='cuda:0')
+#pred positives 3442
+#groundtruth positives 2378
+#total pred 113787
+#hit 1430
+Num target obj head accuracy: 0.9737012982368469
+f1 0.49140893470790376
+1 750
+tensor(13.4452, device='cuda:0')
+#pred positives 3470
+#groundtruth positives 2378
+#total pred 113787
+#hit 1438
+Num target obj head accuracy: 0.9737012982368469
+f1 0.4917920656634746
+1 1000
+tensor(14.6265, device='cuda:0')
+#pred positives 3646
+#groundtruth positives 2378
+#total pred 113787
+#hit 1509
+Num target obj head accuracy: 0.9746752977371216
+f1 0.500996015936255
+1 1250
+tensor(13.9009, device='cuda:0')
+#pred positives 4099
+#groundtruth positives 2378
+#total pred 113787
+#hit 1578
+Num target obj head accuracy: 0.9737012982368469
+f1 0.4872626215840668
+1 1500
+tensor(13.9325, device='cuda:0')
+#pred positives 4304
+#groundtruth positives 2378
+#total pred 113787
+#hit 1631
+Num target obj head accuracy: 0.9785714149475098
+f1 0.48817719245734814
+1 1750
+tensor(13.3191, device='cuda:0')
+#pred positives 3823
+#groundtruth positives 2378
+#total pred 113787
+#hit 1590
+Num target obj head accuracy: 0.9785714149475098
+f1 0.5128205128205128
+1 2000
+tensor(12.7804, device='cuda:0')
+#pred positives 4460
+#groundtruth positives 2378
+#total pred 113787
+#hit 1710
+Num target obj head accuracy: 0.9795454740524292
+f1 0.5001462415911085
+2 0
+tensor(12.4655, device='cuda:0')
+#pred positives 4133
+#groundtruth positives 2378
+#total pred 113787
+#hit 1668
+Num target obj head accuracy: 0.9792208075523376
+f1 0.5123636922131777
+2 250
+tensor(11.7959, device='cuda:0')
+#pred positives 4215
+#groundtruth positives 2378
+#total pred 113787
+#hit 1732
+Num target obj head accuracy: 0.9762986898422241
+f1 0.5254057333535569
+2 500
+tensor(11.2100, device='cuda:0')
+#pred positives 4085
+#groundtruth positives 2378
+#total pred 113787
+#hit 1710
+Num target obj head accuracy: 0.981168806552887
+f1 0.5291660219712208
+2 750
+tensor(10.8576, device='cuda:0')
+#pred positives 3788
+#groundtruth positives 2378
+#total pred 113787
+#hit 1697
+Num target obj head accuracy: 0.9779220819473267
+f1 0.5504378851767758
+2 1000
+tensor(11.1334, device='cuda:0')
+#pred positives 3787
+#groundtruth positives 2378
+#total pred 113787
+#hit 1695
+Num target obj head accuracy: 0.9840909242630005
+f1 0.5498783454987834
+2 1250
+tensor(10.8950, device='cuda:0')
+#pred positives 4361
+#groundtruth positives 2378
+#total pred 113787
+#hit 1821
+Num target obj head accuracy: 0.981168806552887
+f1 0.5404362665083841
+2 1500
+tensor(10.3497, device='cuda:0')
+#pred positives 4318
+#groundtruth positives 2378
+#total pred 113787
+#hit 1812
+Num target obj head accuracy: 0.9801948070526123
+f1 0.5412186379928315
+2 1750
+tensor(10.6165, device='cuda:0')
+#pred positives 3974
+#groundtruth positives 2378
+#total pred 113787
+#hit 1759
+Num target obj head accuracy: 0.984415590763092
+f1 0.5538413098236775
+2 2000
+tensor(10.2601, device='cuda:0')
+#pred positives 3879
+#groundtruth positives 2378
+#total pred 113787
+#hit 1774
+Num target obj head accuracy: 0.983116865158081
+f1 0.5670449097011346
+3 0
+tensor(10.8600, device='cuda:0')
+#pred positives 4240
+#groundtruth positives 2378
+#total pred 113787
+#hit 1833
+Num target obj head accuracy: 0.9821428656578064
+f1 0.5539437896645513
+3 250
+tensor(8.7815, device='cuda:0')
+#pred positives 4175
+#groundtruth positives 2378
+#total pred 113787
+#hit 1843
+Num target obj head accuracy: 0.9853895902633667
+f1 0.5624904623836411
+3 500
+tensor(8.9449, device='cuda:0')
+#pred positives 4181
+#groundtruth positives 2378
+#total pred 113787
+#hit 1842
+Num target obj head accuracy: 0.984415590763092
+f1 0.5616709864308583
+3 750
+tensor(8.9757, device='cuda:0')
+#pred positives 4084
+#groundtruth positives 2378
+#total pred 113787
+#hit 1823
+Num target obj head accuracy: 0.984415590763092
+f1 0.5642216032188178
+3 1000
+tensor(8.9052, device='cuda:0')
+#pred positives 3807
+#groundtruth positives 2378
+#total pred 113787
+#hit 1804
+Num target obj head accuracy: 0.9870129823684692
+f1 0.5833468067906225
+3 1250
+tensor(8.4652, device='cuda:0')
+#pred positives 4464
+#groundtruth positives 2378
+#total pred 113787
+#hit 1939
+Num target obj head accuracy: 0.9840909242630005
+f1 0.5667933352820812
+3 1500
+tensor(8.9739, device='cuda:0')
+#pred positives 4033
+#groundtruth positives 2378
+#total pred 113787
+#hit 1876
+Num target obj head accuracy: 0.9863636493682861
+f1 0.5852441116830448
+3 1750
+tensor(8.7709, device='cuda:0')
+#pred positives 4090
+#groundtruth positives 2378
+#total pred 113787
+#hit 1847
+Num target obj head accuracy: 0.9853895902633667
+f1 0.5711193568336426
+3 2000
+tensor(8.5431, device='cuda:0')
+#pred positives 3886
+#groundtruth positives 2378
+#total pred 113787
+#hit 1864
+Num target obj head accuracy: 0.9879870414733887
+f1 0.5951468710089399
+4 0
+tensor(8.3996, device='cuda:0')
+#pred positives 3943
+#groundtruth positives 2378
+#total pred 113787
+#hit 1870
+Num target obj head accuracy: 0.9853895902633667
+f1 0.5916785318778675
+4 250
+tensor(7.4003, device='cuda:0')
+#pred positives 3898
+#groundtruth positives 2378
+#total pred 113787
+#hit 1852
+Num target obj head accuracy: 0.9834415316581726
+f1 0.5901848311026131
+4 500
+tensor(7.3550, device='cuda:0')
+#pred positives 3873
+#groundtruth positives 2378
+#total pred 113787
+#hit 1873
+Num target obj head accuracy: 0.9847402572631836
+f1 0.5992641177411615
+4 750
+tensor(7.4708, device='cuda:0')
+#pred positives 3503
+#groundtruth positives 2378
+#total pred 113787
+#hit 1791
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6090800884203366
+4 1000
+tensor(7.0941, device='cuda:0')
+#pred positives 3337
+#groundtruth positives 2378
+#total pred 113787
+#hit 1761
+Num target obj head accuracy: 0.9863636493682861
+f1 0.6162729658792651
+4 1250
+tensor(7.4920, device='cuda:0')
+#pred positives 3967
+#groundtruth positives 2378
+#total pred 113787
+#hit 1896
+Num target obj head accuracy: 0.9870129823684692
+f1 0.5976359338061465
+4 1500
+tensor(7.4883, device='cuda:0')
+#pred positives 3856
+#groundtruth positives 2378
+#total pred 113787
+#hit 1896
+Num target obj head accuracy: 0.9857142567634583
+f1 0.6082771896053898
+4 1750
+tensor(7.1311, device='cuda:0')
+#pred positives 3886
+#groundtruth positives 2378
+#total pred 113787
+#hit 1898
+Num target obj head accuracy: 0.9873376488685608
+f1 0.6060025542784163
+4 2000
+tensor(7.6318, device='cuda:0')
+#pred positives 3842
+#groundtruth positives 2378
+#total pred 113787
+#hit 1899
+Num target obj head accuracy: 0.9840909242630005
+f1 0.6106109324758843
+5 0
+tensor(7.2261, device='cuda:0')
+#pred positives 3757
+#groundtruth positives 2378
+#total pred 113787
+#hit 1888
+Num target obj head accuracy: 0.9870129823684692
+f1 0.6154849225753871
+5 250
+tensor(6.3632, device='cuda:0')
+#pred positives 4007
+#groundtruth positives 2378
+#total pred 113787
+#hit 1926
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6032889584964761
+5 500
+tensor(6.3710, device='cuda:0')
+#pred positives 3955
+#groundtruth positives 2378
+#total pred 113787
+#hit 1937
+Num target obj head accuracy: 0.9870129823684692
+f1 0.6117164061266382
+5 750
+tensor(6.4835, device='cuda:0')
+#pred positives 3624
+#groundtruth positives 2378
+#total pred 113787
+#hit 1863
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6207930689770077
+5 1000
+tensor(6.4647, device='cuda:0')
+#pred positives 3707
+#groundtruth positives 2378
+#total pred 113787
+#hit 1874
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6159408381265408
+5 1250
+tensor(6.6654, device='cuda:0')
+#pred positives 3966
+#groundtruth positives 2378
+#total pred 113787
+#hit 1940
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6116015132408575
+5 1500
+tensor(6.0590, device='cuda:0')
+#pred positives 4063
+#groundtruth positives 2378
+#total pred 113787
+#hit 1953
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6064275733581742
+5 1750
+tensor(6.1753, device='cuda:0')
+#pred positives 3904
+#groundtruth positives 2378
+#total pred 113787
+#hit 1932
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6150907354345749
+5 2000
+tensor(6.0068, device='cuda:0')
+#pred positives 3857
+#groundtruth positives 2378
+#total pred 113787
+#hit 1933
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6200481154771452
+6 0
+tensor(6.2206, device='cuda:0')
+#pred positives 4018
+#groundtruth positives 2378
+#total pred 113787
+#hit 1952
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6103814884302688
+6 250
+tensor(5.6742, device='cuda:0')
+#pred positives 3784
+#groundtruth positives 2378
+#total pred 113787
+#hit 1915
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6215514443362545
+6 500
+tensor(5.4194, device='cuda:0')
+#pred positives 3333
+#groundtruth positives 2378
+#total pred 113787
+#hit 1842
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6450709157765716
+6 750
+tensor(5.6231, device='cuda:0')
+#pred positives 3622
+#groundtruth positives 2378
+#total pred 113787
+#hit 1902
+Num target obj head accuracy: 0.9896103739738464
+f1 0.634
+6 1000
+tensor(5.2719, device='cuda:0')
+#pred positives 3610
+#groundtruth positives 2378
+#total pred 113787
+#hit 1918
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6406145624582499
+6 1250
+tensor(5.4028, device='cuda:0')
+#pred positives 3554
+#groundtruth positives 2378
+#total pred 113787
+#hit 1883
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6348617666891436
+6 1500
+tensor(5.6421, device='cuda:0')
+#pred positives 3897
+#groundtruth positives 2378
+#total pred 113787
+#hit 1952
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6221513944223107
+6 1750
+tensor(5.4137, device='cuda:0')
+#pred positives 3673
+#groundtruth positives 2378
+#total pred 113787
+#hit 1906
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6299785159477772
+6 2000
+tensor(5.8513, device='cuda:0')
+#pred positives 3780
+#groundtruth positives 2378
+#total pred 113787
+#hit 1963
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6375446573562845
+7 0
+tensor(5.3666, device='cuda:0')
+#pred positives 3660
+#groundtruth positives 2378
+#total pred 113787
+#hit 1926
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6379595892679695
+7 250
+tensor(4.7122, device='cuda:0')
+#pred positives 3408
+#groundtruth positives 2378
+#total pred 113787
+#hit 1861
+Num target obj head accuracy: 0.989935040473938
+f1 0.6432768752160387
+7 500
+tensor(4.6647, device='cuda:0')
+#pred positives 3642
+#groundtruth positives 2378
+#total pred 113787
+#hit 1921
+Num target obj head accuracy: 0.989935040473938
+f1 0.6382059800664451
+7 750
+tensor(4.8534, device='cuda:0')
+#pred positives 3498
+#groundtruth positives 2378
+#total pred 113787
+#hit 1900
+Num target obj head accuracy: 0.989935040473938
+f1 0.6466984343090538
+7 1000
+tensor(4.7689, device='cuda:0')
+#pred positives 3686
+#groundtruth positives 2378
+#total pred 113787
+#hit 1937
+Num target obj head accuracy: 0.989935040473938
+f1 0.6388522427440634
+7 1250
+tensor(4.8496, device='cuda:0')
+#pred positives 3652
+#groundtruth positives 2378
+#total pred 113787
+#hit 1929
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6398009950248756
+7 1500
+tensor(4.9606, device='cuda:0')
+#pred positives 3504
+#groundtruth positives 2378
+#total pred 113787
+#hit 1898
+Num target obj head accuracy: 0.9840909242630005
+f1 0.6453587215232913
+7 1750
+tensor(4.8560, device='cuda:0')
+#pred positives 3695
+#groundtruth positives 2378
+#total pred 113787
+#hit 1937
+Num target obj head accuracy: 0.989935040473938
+f1 0.6379054832866787
+7 2000
+tensor(4.7945, device='cuda:0')
+#pred positives 3358
+#groundtruth positives 2378
+#total pred 113787
+#hit 1891
+Num target obj head accuracy: 0.9892857074737549
+f1 0.659344490934449
+8 0
+tensor(5.3372, device='cuda:0')
+#pred positives 3914
+#groundtruth positives 2378
+#total pred 113787
+#hit 1993
+Num target obj head accuracy: 0.989935040473938
+f1 0.633502860775588
+8 250
+tensor(4.4344, device='cuda:0')
+#pred positives 3473
+#groundtruth positives 2378
+#total pred 113787
+#hit 1914
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6542471372414972
+8 500
+tensor(4.2783, device='cuda:0')
+#pred positives 3458
+#groundtruth positives 2378
+#total pred 113787
+#hit 1867
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6398217957505141
+8 750
+tensor(4.2162, device='cuda:0')
+#pred positives 3426
+#groundtruth positives 2378
+#total pred 113787
+#hit 1881
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6481736733287389
+8 1000
+tensor(4.7504, device='cuda:0')
+#pred positives 3496
+#groundtruth positives 2378
+#total pred 113787
+#hit 1922
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6544092611508343
+8 1250
+tensor(4.3859, device='cuda:0')
+#pred positives 3611
+#groundtruth positives 2378
+#total pred 113787
+#hit 1938
+Num target obj head accuracy: 0.9857142567634583
+f1 0.6471865085990983
+8 1500
+tensor(4.2405, device='cuda:0')
+#pred positives 3452
+#groundtruth positives 2378
+#total pred 113787
+#hit 1903
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6528301886792452
+8 1750
+tensor(4.1614, device='cuda:0')
+#pred positives 3376
+#groundtruth positives 2378
+#total pred 113787
+#hit 1901
+Num target obj head accuracy: 0.9870129823684692
+f1 0.6607577337504345
+8 2000
+tensor(4.3404, device='cuda:0')
+#pred positives 3594
+#groundtruth positives 2378
+#total pred 113787
+#hit 1943
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6507032819825854
+9 0
+tensor(4.4156, device='cuda:0')
+#pred positives 3347
+#groundtruth positives 2378
+#total pred 113787
+#hit 1893
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6613100436681224
+9 250
+tensor(3.8786, device='cuda:0')
+#pred positives 3442
+#groundtruth positives 2378
+#total pred 113787
+#hit 1894
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6508591065292095
+9 500
+tensor(4.1188, device='cuda:0')
+#pred positives 3435
+#groundtruth positives 2378
+#total pred 113787
+#hit 1907
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6561156029588853
+9 750
+tensor(3.6771, device='cuda:0')
+#pred positives 3306
+#groundtruth positives 2378
+#total pred 113787
+#hit 1879
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6611541168191415
+9 1000
+tensor(3.9641, device='cuda:0')
+#pred positives 3522
+#groundtruth positives 2378
+#total pred 113787
+#hit 1948
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6603389830508475
+9 1250
+tensor(3.7654, device='cuda:0')
+#pred positives 3310
+#groundtruth positives 2378
+#total pred 113787
+#hit 1905
+Num target obj head accuracy: 0.9889610409736633
+f1 0.669831223628692
+9 1500
+tensor(3.9275, device='cuda:0')
+#pred positives 3269
+#groundtruth positives 2378
+#total pred 113787
+#hit 1896
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6715069948645298
+9 1750
+tensor(4.0381, device='cuda:0')
+#pred positives 3516
+#groundtruth positives 2378
+#total pred 113787
+#hit 1935
+Num target obj head accuracy: 0.9889610409736633
+f1 0.656599932134374
+9 2000
+tensor(3.9372, device='cuda:0')
+#pred positives 3639
+#groundtruth positives 2378
+#total pred 113787
+#hit 1971
+Num target obj head accuracy: 0.989935040473938
+f1 0.6551437593485125
+10 0
+tensor(4.1619, device='cuda:0')
+#pred positives 3433
+#groundtruth positives 2378
+#total pred 113787
+#hit 1915
+Num target obj head accuracy: 0.9850649237632751
+f1 0.6590948201686457
+10 250
+tensor(3.4999, device='cuda:0')
+#pred positives 3383
+#groundtruth positives 2378
+#total pred 113787
+#hit 1920
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6665509460163166
+10 500
+tensor(3.4848, device='cuda:0')
+#pred positives 3370
+#groundtruth positives 2378
+#total pred 113787
+#hit 1889
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6572720946416145
+10 750
+tensor(3.3654, device='cuda:0')
+#pred positives 3504
+#groundtruth positives 2378
+#total pred 113787
+#hit 1925
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6545392723563414
+10 1000
+tensor(3.5334, device='cuda:0')
+#pred positives 3284
+#groundtruth positives 2378
+#total pred 113787
+#hit 1893
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6686683150830096
+10 1250
+tensor(3.5716, device='cuda:0')
+#pred positives 3245
+#groundtruth positives 2378
+#total pred 113787
+#hit 1881
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6690378801351592
+10 1500
+tensor(3.2326, device='cuda:0')
+#pred positives 3507
+#groundtruth positives 2378
+#total pred 113787
+#hit 1920
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6525063721325403
+10 1750
+tensor(3.6205, device='cuda:0')
+#pred positives 3282
+#groundtruth positives 2378
+#total pred 113787
+#hit 1879
+Num target obj head accuracy: 0.9883117079734802
+f1 0.663957597173145
+10 2000
+tensor(3.5857, device='cuda:0')
+#pred positives 3380
+#groundtruth positives 2378
+#total pred 113787
+#hit 1897
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6589093435220563
+11 0
+tensor(3.7463, device='cuda:0')
+#pred positives 3381
+#groundtruth positives 2378
+#total pred 113787
+#hit 1907
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6622677548185448
+11 250
+tensor(2.9609, device='cuda:0')
+#pred positives 2947
+#groundtruth positives 2378
+#total pred 113787
+#hit 1794
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6738028169014085
+11 500
+tensor(2.9210, device='cuda:0')
+#pred positives 3058
+#groundtruth positives 2378
+#total pred 113787
+#hit 1811
+Num target obj head accuracy: 0.9902597665786743
+f1 0.666298749080206
+11 750
+tensor(3.0957, device='cuda:0')
+#pred positives 3248
+#groundtruth positives 2378
+#total pred 113787
+#hit 1862
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6619267685744757
+11 1000
+tensor(3.2931, device='cuda:0')
+#pred positives 3100
+#groundtruth positives 2378
+#total pred 113787
+#hit 1829
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6677619569185834
+11 1250
+tensor(3.3806, device='cuda:0')
+#pred positives 3191
+#groundtruth positives 2378
+#total pred 113787
+#hit 1852
+Num target obj head accuracy: 0.9873376488685608
+f1 0.6651104327527384
+11 1500
+tensor(3.1604, device='cuda:0')
+#pred positives 3249
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6664297138795096
+11 1750
+tensor(3.2920, device='cuda:0')
+#pred positives 3340
+#groundtruth positives 2378
+#total pred 113787
+#hit 1870
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6540748513466247
+11 2000
+tensor(3.4063, device='cuda:0')
+#pred positives 3245
+#groundtruth positives 2378
+#total pred 113787
+#hit 1866
+Num target obj head accuracy: 0.9870129823684692
+f1 0.663702649831051
+12 0
+tensor(3.1767, device='cuda:0')
+#pred positives 3284
+#groundtruth positives 2378
+#total pred 113787
+#hit 1889
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6672553867891203
+12 250
+tensor(2.8453, device='cuda:0')
+#pred positives 3253
+#groundtruth positives 2378
+#total pred 113787
+#hit 1858
+Num target obj head accuracy: 0.9876623153686523
+f1 0.659918309358906
+12 500
+tensor(2.6005, device='cuda:0')
+#pred positives 3147
+#groundtruth positives 2378
+#total pred 113787
+#hit 1841
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6664253393665158
+12 750
+tensor(2.9034, device='cuda:0')
+#pred positives 3228
+#groundtruth positives 2378
+#total pred 113787
+#hit 1870
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6671423474848376
+12 1000
+tensor(3.0896, device='cuda:0')
+#pred positives 3351
+#groundtruth positives 2378
+#total pred 113787
+#hit 1895
+Num target obj head accuracy: 0.9896103739738464
+f1 0.661546517716879
+12 1250
+tensor(2.6690, device='cuda:0')
+#pred positives 3066
+#groundtruth positives 2378
+#total pred 113787
+#hit 1825
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6704628949301985
+12 1500
+tensor(2.9785, device='cuda:0')
+#pred positives 3142
+#groundtruth positives 2378
+#total pred 113787
+#hit 1857
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6728260869565218
+12 1750
+tensor(2.9316, device='cuda:0')
+#pred positives 3136
+#groundtruth positives 2378
+#total pred 113787
+#hit 1844
+Num target obj head accuracy: 0.9870129823684692
+f1 0.6688429452303227
+12 2000
+tensor(3.1647, device='cuda:0')
+#pred positives 3218
+#groundtruth positives 2378
+#total pred 113787
+#hit 1869
+Num target obj head accuracy: 0.9886363744735718
+f1 0.667977126518942
+13 0
+tensor(2.7877, device='cuda:0')
+#pred positives 3124
+#groundtruth positives 2378
+#total pred 113787
+#hit 1837
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6677571792075608
+13 250
+tensor(2.2974, device='cuda:0')
+#pred positives 3145
+#groundtruth positives 2378
+#total pred 113787
+#hit 1846
+Num target obj head accuracy: 0.989935040473938
+f1 0.6684772768422959
+13 500
+tensor(2.5827, device='cuda:0')
+#pred positives 3110
+#groundtruth positives 2378
+#total pred 113787
+#hit 1847
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6731049562682216
+13 750
+tensor(2.8235, device='cuda:0')
+#pred positives 3159
+#groundtruth positives 2378
+#total pred 113787
+#hit 1858
+Num target obj head accuracy: 0.989935040473938
+f1 0.6711215459635181
+13 1000
+tensor(2.4935, device='cuda:0')
+#pred positives 3066
+#groundtruth positives 2378
+#total pred 113787
+#hit 1831
+Num target obj head accuracy: 0.989935040473938
+f1 0.6726671565025717
+13 1250
+tensor(2.6722, device='cuda:0')
+#pred positives 3227
+#groundtruth positives 2378
+#total pred 113787
+#hit 1882
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6715432649420161
+13 1500
+tensor(2.5960, device='cuda:0')
+#pred positives 3067
+#groundtruth positives 2378
+#total pred 113787
+#hit 1852
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6802571166207529
+13 1750
+tensor(2.5697, device='cuda:0')
+#pred positives 3039
+#groundtruth positives 2378
+#total pred 113787
+#hit 1841
+Num target obj head accuracy: 0.989935040473938
+f1 0.6797120177219864
+13 2000
+tensor(2.7014, device='cuda:0')
+#pred positives 3080
+#groundtruth positives 2378
+#total pred 113787
+#hit 1845
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6760718211799194
+14 0
+tensor(2.5697, device='cuda:0')
+#pred positives 3148
+#groundtruth positives 2378
+#total pred 113787
+#hit 1870
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6768005790807093
+14 250
+tensor(2.2696, device='cuda:0')
+#pred positives 2926
+#groundtruth positives 2378
+#total pred 113787
+#hit 1799
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6783559577677225
+14 500
+tensor(2.1941, device='cuda:0')
+#pred positives 3103
+#groundtruth positives 2378
+#total pred 113787
+#hit 1864
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6801678525816457
+14 750
+tensor(2.3525, device='cuda:0')
+#pred positives 3110
+#groundtruth positives 2378
+#total pred 113787
+#hit 1859
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6774781341107872
+14 1000
+tensor(2.7038, device='cuda:0')
+#pred positives 3101
+#groundtruth positives 2378
+#total pred 113787
+#hit 1870
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6826063150209893
+14 1250
+tensor(2.4446, device='cuda:0')
+#pred positives 2974
+#groundtruth positives 2378
+#total pred 113787
+#hit 1836
+Num target obj head accuracy: 0.989935040473938
+f1 0.6860986547085202
+14 1500
+tensor(2.3308, device='cuda:0')
+#pred positives 3108
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6835581480131243
+14 1750
+tensor(2.3958, device='cuda:0')
+#pred positives 3085
+#groundtruth positives 2378
+#total pred 113787
+#hit 1866
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6831411312465678
+14 2000
+tensor(2.5006, device='cuda:0')
+#pred positives 3047
+#groundtruth positives 2378
+#total pred 113787
+#hit 1840
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6783410138248848
+15 0
+tensor(2.3944, device='cuda:0')
+#pred positives 3157
+#groundtruth positives 2378
+#total pred 113787
+#hit 1887
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6818428184281843
+15 250
+tensor(2.0339, device='cuda:0')
+#pred positives 2925
+#groundtruth positives 2378
+#total pred 113787
+#hit 1820
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6864039223081274
+15 500
+tensor(2.0766, device='cuda:0')
+#pred positives 2988
+#groundtruth positives 2378
+#total pred 113787
+#hit 1839
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6854267610883339
+15 750
+tensor(2.0210, device='cuda:0')
+#pred positives 3006
+#groundtruth positives 2378
+#total pred 113787
+#hit 1841
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6838781575037147
+15 1000
+tensor(2.1247, device='cuda:0')
+#pred positives 3006
+#groundtruth positives 2378
+#total pred 113787
+#hit 1823
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6771916790490342
+15 1250
+tensor(2.0471, device='cuda:0')
+#pred positives 2934
+#groundtruth positives 2378
+#total pred 113787
+#hit 1827
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6878765060240963
+15 1500
+tensor(2.2894, device='cuda:0')
+#pred positives 3017
+#groundtruth positives 2378
+#total pred 113787
+#hit 1823
+Num target obj head accuracy: 0.9857142567634583
+f1 0.6758109360518999
+15 1750
+tensor(2.2330, device='cuda:0')
+#pred positives 2897
+#groundtruth positives 2378
+#total pred 113787
+#hit 1793
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6798104265402843
+15 2000
+tensor(2.4583, device='cuda:0')
+#pred positives 3063
+#groundtruth positives 2378
+#total pred 113787
+#hit 1856
+Num target obj head accuracy: 0.9886363744735718
+f1 0.682227531703731
+16 0
+tensor(2.2865, device='cuda:0')
+#pred positives 3063
+#groundtruth positives 2378
+#total pred 113787
+#hit 1845
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6781841573240214
+16 250
+tensor(1.6887, device='cuda:0')
+#pred positives 2787
+#groundtruth positives 2378
+#total pred 113787
+#hit 1754
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6791868344627299
+16 500
+tensor(1.7837, device='cuda:0')
+#pred positives 2796
+#groundtruth positives 2378
+#total pred 113787
+#hit 1734
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6702744491689215
+16 750
+tensor(2.0163, device='cuda:0')
+#pred positives 3048
+#groundtruth positives 2378
+#total pred 113787
+#hit 1849
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6815333579063767
+16 1000
+tensor(1.9886, device='cuda:0')
+#pred positives 2889
+#groundtruth positives 2378
+#total pred 113787
+#hit 1788
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6789443706094551
+16 1250
+tensor(1.9865, device='cuda:0')
+#pred positives 2957
+#groundtruth positives 2378
+#total pred 113787
+#hit 1835
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6879100281162136
+16 1500
+tensor(2.0439, device='cuda:0')
+#pred positives 2877
+#groundtruth positives 2378
+#total pred 113787
+#hit 1802
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6858230256898191
+16 1750
+tensor(2.0356, device='cuda:0')
+#pred positives 3005
+#groundtruth positives 2378
+#total pred 113787
+#hit 1839
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6832621214935909
+16 2000
+tensor(2.1774, device='cuda:0')
+#pred positives 2940
+#groundtruth positives 2378
+#total pred 113787
+#hit 1826
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6867243324558104
+17 0
+tensor(2.0897, device='cuda:0')
+#pred positives 2769
+#groundtruth positives 2378
+#total pred 113787
+#hit 1784
+Num target obj head accuracy: 0.9892857074737549
+f1 0.693219351078298
+17 250
+tensor(1.7317, device='cuda:0')
+#pred positives 2886
+#groundtruth positives 2378
+#total pred 113787
+#hit 1810
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6876899696048633
+17 500
+tensor(1.6227, device='cuda:0')
+#pred positives 2965
+#groundtruth positives 2378
+#total pred 113787
+#hit 1829
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6846341006924948
+17 750
+tensor(1.7915, device='cuda:0')
+#pred positives 2972
+#groundtruth positives 2378
+#total pred 113787
+#hit 1838
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6871028037383178
+17 1000
+tensor(1.7627, device='cuda:0')
+#pred positives 2732
+#groundtruth positives 2378
+#total pred 113787
+#hit 1750
+Num target obj head accuracy: 0.989935040473938
+f1 0.684931506849315
+17 1250
+tensor(1.9002, device='cuda:0')
+#pred positives 3115
+#groundtruth positives 2378
+#total pred 113787
+#hit 1865
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6790460586200618
+17 1500
+tensor(1.9396, device='cuda:0')
+#pred positives 3021
+#groundtruth positives 2378
+#total pred 113787
+#hit 1844
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6830894610112984
+17 1750
+tensor(1.8936, device='cuda:0')
+#pred positives 2969
+#groundtruth positives 2378
+#total pred 113787
+#hit 1825
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6826257714606322
+17 2000
+tensor(1.8498, device='cuda:0')
+#pred positives 2907
+#groundtruth positives 2378
+#total pred 113787
+#hit 1795
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6792809839167455
+18 0
+tensor(1.9061, device='cuda:0')
+#pred positives 3066
+#groundtruth positives 2378
+#total pred 113787
+#hit 1852
+Num target obj head accuracy: 0.9902597665786743
+f1 0.680382072005878
+18 250
+tensor(1.4165, device='cuda:0')
+#pred positives 2968
+#groundtruth positives 2378
+#total pred 113787
+#hit 1810
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6771417882528995
+18 500
+tensor(1.4199, device='cuda:0')
+#pred positives 2811
+#groundtruth positives 2378
+#total pred 113787
+#hit 1785
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6879938331084988
+18 750
+tensor(1.6759, device='cuda:0')
+#pred positives 2763
+#groundtruth positives 2378
+#total pred 113787
+#hit 1763
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6858587823380665
+18 1000
+tensor(1.6470, device='cuda:0')
+#pred positives 2868
+#groundtruth positives 2378
+#total pred 113787
+#hit 1815
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6919557758292033
+18 1250
+tensor(1.6533, device='cuda:0')
+#pred positives 2971
+#groundtruth positives 2378
+#total pred 113787
+#hit 1823
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6816227332211628
+18 1500
+tensor(1.6933, device='cuda:0')
+#pred positives 2883
+#groundtruth positives 2378
+#total pred 113787
+#hit 1807
+Num target obj head accuracy: 0.989935040473938
+f1 0.6869416460748907
+18 1750
+tensor(1.7402, device='cuda:0')
+#pred positives 2971
+#groundtruth positives 2378
+#total pred 113787
+#hit 1837
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6868573565152365
+18 2000
+tensor(1.7368, device='cuda:0')
+#pred positives 3022
+#groundtruth positives 2378
+#total pred 113787
+#hit 1828
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6770370370370371
+19 0
+tensor(1.6425, device='cuda:0')
+#pred positives 2923
+#groundtruth positives 2378
+#total pred 113787
+#hit 1809
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6825127334465195
+19 250
+tensor(1.5007, device='cuda:0')
+#pred positives 2914
+#groundtruth positives 2378
+#total pred 113787
+#hit 1821
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6882086167800453
+19 500
+tensor(1.4319, device='cuda:0')
+#pred positives 2888
+#groundtruth positives 2378
+#total pred 113787
+#hit 1802
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6843904291682491
+19 750
+tensor(1.4854, device='cuda:0')
+#pred positives 2961
+#groundtruth positives 2378
+#total pred 113787
+#hit 1837
+Num target obj head accuracy: 0.9886363744735718
+f1 0.68814384716239
+19 1000
+tensor(1.4061, device='cuda:0')
+#pred positives 2974
+#groundtruth positives 2378
+#total pred 113787
+#hit 1834
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6853512705530643
+19 1250
+tensor(1.5480, device='cuda:0')
+#pred positives 2907
+#groundtruth positives 2378
+#total pred 113787
+#hit 1821
+Num target obj head accuracy: 0.9892857074737549
+f1 0.689120151371807
+19 1500
+tensor(1.6725, device='cuda:0')
+#pred positives 2842
+#groundtruth positives 2378
+#total pred 113787
+#hit 1802
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6904214559386973
+19 1750
+tensor(1.4908, device='cuda:0')
+#pred positives 2784
+#groundtruth positives 2378
+#total pred 113787
+#hit 1778
+Num target obj head accuracy: 0.989935040473938
+f1 0.6888802789616428
+19 2000
+tensor(1.5304, device='cuda:0')
+#pred positives 2901
+#groundtruth positives 2378
+#total pred 113787
+#hit 1806
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6842204963061187
+20 0
+tensor(1.5267, device='cuda:0')
+#pred positives 3034
+#groundtruth positives 2378
+#total pred 113787
+#hit 1840
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6799704360679971
+20 250
+tensor(1.3836, device='cuda:0')
+#pred positives 2823
+#groundtruth positives 2378
+#total pred 113787
+#hit 1780
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6844837531243991
+20 500
+tensor(1.3162, device='cuda:0')
+#pred positives 2810
+#groundtruth positives 2378
+#total pred 113787
+#hit 1788
+Num target obj head accuracy: 0.9870129823684692
+f1 0.6892829606784887
+20 750
+tensor(1.4039, device='cuda:0')
+#pred positives 2841
+#groundtruth positives 2378
+#total pred 113787
+#hit 1789
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6855719486491666
+20 1000
+tensor(1.5113, device='cuda:0')
+#pred positives 2782
+#groundtruth positives 2378
+#total pred 113787
+#hit 1777
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6887596899224807
+20 1250
+tensor(1.3486, device='cuda:0')
+#pred positives 2746
+#groundtruth positives 2378
+#total pred 113787
+#hit 1764
+Num target obj head accuracy: 0.9909090995788574
+f1 0.6885245901639344
+20 1500
+tensor(1.4557, device='cuda:0')
+#pred positives 2894
+#groundtruth positives 2378
+#total pred 113787
+#hit 1792
+Num target obj head accuracy: 0.9909090995788574
+f1 0.6798179059180577
+20 1750
+tensor(1.4471, device='cuda:0')
+#pred positives 2945
+#groundtruth positives 2378
+#total pred 113787
+#hit 1829
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6872064625211347
+20 2000
+tensor(1.4776, device='cuda:0')
+#pred positives 2979
+#groundtruth positives 2378
+#total pred 113787
+#hit 1865
+Num target obj head accuracy: 0.9886363744735718
+f1 0.696285234272914
+21 0
+tensor(1.2486, device='cuda:0')
+#pred positives 2808
+#groundtruth positives 2378
+#total pred 113787
+#hit 1797
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6930196683378326
+21 250
+tensor(1.2158, device='cuda:0')
+#pred positives 2770
+#groundtruth positives 2378
+#total pred 113787
+#hit 1770
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6876456876456877
+21 500
+tensor(1.2502, device='cuda:0')
+#pred positives 2836
+#groundtruth positives 2378
+#total pred 113787
+#hit 1782
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6835443037974684
+21 750
+tensor(1.2348, device='cuda:0')
+#pred positives 2842
+#groundtruth positives 2378
+#total pred 113787
+#hit 1803
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6908045977011494
+21 1000
+tensor(1.3279, device='cuda:0')
+#pred positives 2743
+#groundtruth positives 2378
+#total pred 113787
+#hit 1771
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6916617848076547
+21 1250
+tensor(1.2098, device='cuda:0')
+#pred positives 2807
+#groundtruth positives 2378
+#total pred 113787
+#hit 1817
+Num target obj head accuracy: 0.9918830990791321
+f1 0.7008678881388621
+21 1500
+tensor(1.1222, device='cuda:0')
+#pred positives 2760
+#groundtruth positives 2378
+#total pred 113787
+#hit 1775
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6909303230829116
+21 1750
+tensor(1.1506, device='cuda:0')
+#pred positives 2852
+#groundtruth positives 2378
+#total pred 113787
+#hit 1806
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6906309751434034
+21 2000
+tensor(1.4381, device='cuda:0')
+#pred positives 2922
+#groundtruth positives 2378
+#total pred 113787
+#hit 1827
+Num target obj head accuracy: 0.9886363744735718
+f1 0.689433962264151
+22 0
+tensor(1.4183, device='cuda:0')
+#pred positives 2754
+#groundtruth positives 2378
+#total pred 113787
+#hit 1776
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6921278254091972
+22 250
+tensor(1.0386, device='cuda:0')
+#pred positives 2757
+#groundtruth positives 2378
+#total pred 113787
+#hit 1776
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6917234664070108
+22 500
+tensor(1.1524, device='cuda:0')
+#pred positives 2720
+#groundtruth positives 2378
+#total pred 113787
+#hit 1764
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6920360925853275
+22 750
+tensor(1.1388, device='cuda:0')
+#pred positives 2907
+#groundtruth positives 2378
+#total pred 113787
+#hit 1814
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6864711447492905
+22 1000
+tensor(1.1398, device='cuda:0')
+#pred positives 2752
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+Num target obj head accuracy: 0.9896103739738464
+f1 0.689278752436647
+22 1250
+tensor(1.2562, device='cuda:0')
+#pred positives 2661
+#groundtruth positives 2378
+#total pred 113787
+#hit 1747
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6933915459416551
+22 1500
+tensor(1.1385, device='cuda:0')
+#pred positives 2787
+#groundtruth positives 2378
+#total pred 113787
+#hit 1799
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6966118102613746
+22 1750
+tensor(1.2885, device='cuda:0')
+#pred positives 2750
+#groundtruth positives 2378
+#total pred 113787
+#hit 1785
+Num target obj head accuracy: 0.989935040473938
+f1 0.6961778471138845
+22 2000
+tensor(1.1997, device='cuda:0')
+#pred positives 2708
+#groundtruth positives 2378
+#total pred 113787
+#hit 1764
+Num target obj head accuracy: 0.989935040473938
+f1 0.6936688950058986
+23 0
+tensor(1.1608, device='cuda:0')
+#pred positives 2689
+#groundtruth positives 2378
+#total pred 113787
+#hit 1764
+Num target obj head accuracy: 0.991233766078949
+f1 0.6962699822380107
+23 250
+tensor(1.0490, device='cuda:0')
+#pred positives 2739
+#groundtruth positives 2378
+#total pred 113787
+#hit 1800
+Num target obj head accuracy: 0.989935040473938
+f1 0.7035372288450263
+23 500
+tensor(0.8940, device='cuda:0')
+#pred positives 2866
+#groundtruth positives 2378
+#total pred 113787
+#hit 1822
+Num target obj head accuracy: 0.9909090995788574
+f1 0.6948893974065599
+23 750
+tensor(1.1106, device='cuda:0')
+#pred positives 2822
+#groundtruth positives 2378
+#total pred 113787
+#hit 1781
+Num target obj head accuracy: 0.9889610409736633
+f1 0.685
+23 1000
+tensor(1.1619, device='cuda:0')
+#pred positives 2730
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+Num target obj head accuracy: 0.9883117079734802
+f1 0.692247454972592
+23 1250
+tensor(1.0369, device='cuda:0')
+#pred positives 2784
+#groundtruth positives 2378
+#total pred 113787
+#hit 1785
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6915924060441689
+23 1500
+tensor(1.2215, device='cuda:0')
+#pred positives 2890
+#groundtruth positives 2378
+#total pred 113787
+#hit 1808
+Num target obj head accuracy: 0.9902597665786743
+f1 0.686408504176158
+23 1750
+tensor(0.9978, device='cuda:0')
+#pred positives 2823
+#groundtruth positives 2378
+#total pred 113787
+#hit 1791
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6887137089021341
+23 2000
+tensor(1.2122, device='cuda:0')
+#pred positives 2793
+#groundtruth positives 2378
+#total pred 113787
+#hit 1767
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6834268033262425
+24 0
+tensor(1.0437, device='cuda:0')
+#pred positives 2706
+#groundtruth positives 2378
+#total pred 113787
+#hit 1762
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6931549960660898
+24 250
+tensor(0.9098, device='cuda:0')
+#pred positives 2645
+#groundtruth positives 2378
+#total pred 113787
+#hit 1738
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6920167230738602
+24 500
+tensor(0.9611, device='cuda:0')
+#pred positives 2786
+#groundtruth positives 2378
+#total pred 113787
+#hit 1766
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6839659178931062
+24 750
+tensor(1.0204, device='cuda:0')
+#pred positives 2736
+#groundtruth positives 2378
+#total pred 113787
+#hit 1757
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6871333594055534
+24 1000
+tensor(0.9917, device='cuda:0')
+#pred positives 2810
+#groundtruth positives 2378
+#total pred 113787
+#hit 1789
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6896684656900539
+24 1250
+tensor(1.0910, device='cuda:0')
+#pred positives 2827
+#groundtruth positives 2378
+#total pred 113787
+#hit 1788
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6870317002881845
+24 1500
+tensor(1.0343, device='cuda:0')
+#pred positives 2918
+#groundtruth positives 2378
+#total pred 113787
+#hit 1828
+Num target obj head accuracy: 0.9896103739738464
+f1 0.690332326283988
+24 1750
+tensor(1.0862, device='cuda:0')
+#pred positives 2829
+#groundtruth positives 2378
+#total pred 113787
+#hit 1785
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6856155175724986
+24 2000
+tensor(1.2628, device='cuda:0')
+#pred positives 2799
+#groundtruth positives 2378
+#total pred 113787
+#hit 1798
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6946107784431137
+25 0
+tensor(0.8700, device='cuda:0')
+#pred positives 2735
+#groundtruth positives 2378
+#total pred 113787
+#hit 1767
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6911793467631527
+25 250
+tensor(0.8133, device='cuda:0')
+#pred positives 2676
+#groundtruth positives 2378
+#total pred 113787
+#hit 1731
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6850019786307875
+25 500
+tensor(0.8897, device='cuda:0')
+#pred positives 2831
+#groundtruth positives 2378
+#total pred 113787
+#hit 1797
+Num target obj head accuracy: 0.9879870414733887
+f1 0.6899596851602995
+25 750
+tensor(1.0947, device='cuda:0')
+#pred positives 2770
+#groundtruth positives 2378
+#total pred 113787
+#hit 1774
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6891996891996891
+25 1000
+tensor(0.9130, device='cuda:0')
+#pred positives 2737
+#groundtruth positives 2378
+#total pred 113787
+#hit 1763
+Num target obj head accuracy: 0.9876623153686523
+f1 0.6893450635386119
+25 1250
+tensor(1.0467, device='cuda:0')
+#pred positives 2774
+#groundtruth positives 2378
+#total pred 113787
+#hit 1781
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6913819875776398
+25 1500
+tensor(0.7791, device='cuda:0')
+#pred positives 2749
+#groundtruth positives 2378
+#total pred 113787
+#hit 1779
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6939730836746636
+25 1750
+tensor(0.9735, device='cuda:0')
+#pred positives 2740
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+Num target obj head accuracy: 0.9886363744735718
+f1 0.69831965611567
+25 2000
+tensor(1.0235, device='cuda:0')
+#pred positives 2806
+#groundtruth positives 2378
+#total pred 113787
+#hit 1798
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6936728395061728
+26 0
+tensor(0.9106, device='cuda:0')
+#pred positives 2775
+#groundtruth positives 2378
+#total pred 113787
+#hit 1795
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6966815447312246
+26 250
+tensor(0.8650, device='cuda:0')
+#pred positives 2752
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+Num target obj head accuracy: 0.9902597665786743
+f1 0.689278752436647
+26 500
+tensor(0.7119, device='cuda:0')
+#pred positives 2598
+#groundtruth positives 2378
+#total pred 113787
+#hit 1725
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6933279742765274
+26 750
+tensor(0.9032, device='cuda:0')
+#pred positives 2742
+#groundtruth positives 2378
+#total pred 113787
+#hit 1745
+Num target obj head accuracy: 0.984415590763092
+f1 0.6816406249999999
+26 1000
+tensor(0.9067, device='cuda:0')
+#pred positives 2869
+#groundtruth positives 2378
+#total pred 113787
+#hit 1812
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6906803887935963
+26 1250
+tensor(0.9057, device='cuda:0')
+#pred positives 2678
+#groundtruth positives 2378
+#total pred 113787
+#hit 1754
+Num target obj head accuracy: 0.9909090995788574
+f1 0.6938291139240507
+26 1500
+tensor(0.9389, device='cuda:0')
+#pred positives 2754
+#groundtruth positives 2378
+#total pred 113787
+#hit 1783
+Num target obj head accuracy: 0.9905844330787659
+f1 0.6948558067030398
+26 1750
+tensor(0.9544, device='cuda:0')
+#pred positives 2875
+#groundtruth positives 2378
+#total pred 113787
+#hit 1816
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6914144298496098
+26 2000
+tensor(0.9565, device='cuda:0')
+#pred positives 2773
+#groundtruth positives 2378
+#total pred 113787
+#hit 1790
+Num target obj head accuracy: 0.9909090995788574
+f1 0.695010677538342
+27 0
+tensor(0.8674, device='cuda:0')
+#pred positives 2764
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6950602878257487
+27 250
+tensor(0.7418, device='cuda:0')
+#pred positives 2627
+#groundtruth positives 2378
+#total pred 113787
+#hit 1726
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6897102897102897
+27 500
+tensor(0.6632, device='cuda:0')
+#pred positives 2582
+#groundtruth positives 2378
+#total pred 113787
+#hit 1734
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6991935483870968
+27 750
+tensor(0.7998, device='cuda:0')
+#pred positives 2635
+#groundtruth positives 2378
+#total pred 113787
+#hit 1725
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6882106523040096
+27 1000
+tensor(0.8480, device='cuda:0')
+#pred positives 2897
+#groundtruth positives 2378
+#total pred 113787
+#hit 1815
+Num target obj head accuracy: 0.9909090995788574
+f1 0.6881516587677725
+27 1250
+tensor(0.9014, device='cuda:0')
+#pred positives 2765
+#groundtruth positives 2378
+#total pred 113787
+#hit 1764
+Num target obj head accuracy: 0.989935040473938
+f1 0.6859809449737507
+27 1500
+tensor(1.1021, device='cuda:0')
+#pred positives 2808
+#groundtruth positives 2378
+#total pred 113787
+#hit 1779
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6860779020439646
+27 1750
+tensor(0.8564, device='cuda:0')
+#pred positives 2785
+#groundtruth positives 2378
+#total pred 113787
+#hit 1770
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6856478791400349
+27 2000
+tensor(0.8436, device='cuda:0')
+#pred positives 2780
+#groundtruth positives 2378
+#total pred 113787
+#hit 1779
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6898022489336952
+28 0
+tensor(0.6914, device='cuda:0')
+#pred positives 2682
+#groundtruth positives 2378
+#total pred 113787
+#hit 1752
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6924901185770751
+28 250
+tensor(0.6509, device='cuda:0')
+#pred positives 2716
+#groundtruth positives 2378
+#total pred 113787
+#hit 1759
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6906164114644681
+28 500
+tensor(0.7806, device='cuda:0')
+#pred positives 2812
+#groundtruth positives 2378
+#total pred 113787
+#hit 1769
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6816955684007707
+28 750
+tensor(0.8802, device='cuda:0')
+#pred positives 2820
+#groundtruth positives 2378
+#total pred 113787
+#hit 1810
+Num target obj head accuracy: 0.989935040473938
+f1 0.6964217006540977
+28 1000
+tensor(0.7372, device='cuda:0')
+#pred positives 2745
+#groundtruth positives 2378
+#total pred 113787
+#hit 1783
+Num target obj head accuracy: 0.989935040473938
+f1 0.6960765176654304
+28 1250
+tensor(0.6681, device='cuda:0')
+#pred positives 2677
+#groundtruth positives 2378
+#total pred 113787
+#hit 1758
+Num target obj head accuracy: 0.989935040473938
+f1 0.6955489614243324
+28 1500
+tensor(0.8456, device='cuda:0')
+#pred positives 2779
+#groundtruth positives 2378
+#total pred 113787
+#hit 1801
+Num target obj head accuracy: 0.9902597665786743
+f1 0.6984681016094628
+28 1750
+tensor(0.7460, device='cuda:0')
+#pred positives 2772
+#groundtruth positives 2378
+#total pred 113787
+#hit 1793
+Num target obj head accuracy: 0.9896103739738464
+f1 0.6963106796116505
+28 2000
+tensor(0.7103, device='cuda:0')
+#pred positives 2705
+#groundtruth positives 2378
+#total pred 113787
+#hit 1772
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6972260476096793
+29 0
+tensor(0.7974, device='cuda:0')
+#pred positives 2767
+#groundtruth positives 2378
+#total pred 113787
+#hit 1788
+Num target obj head accuracy: 0.9873376488685608
+f1 0.6950437317784256
+29 250
+tensor(0.6349, device='cuda:0')
+#pred positives 2854
+#groundtruth positives 2378
+#total pred 113787
+#hit 1805
+Num target obj head accuracy: 0.9883117079734802
+f1 0.6899847094801224
+29 500
+tensor(0.7398, device='cuda:0')
+#pred positives 2768
+#groundtruth positives 2378
+#total pred 113787
+#hit 1790
+Num target obj head accuracy: 0.9870129823684692
+f1 0.6956859696851924
+29 750
+tensor(0.6560, device='cuda:0')
+#pred positives 2678
+#groundtruth positives 2378
+#total pred 113787
+#hit 1782
+Num target obj head accuracy: 0.9863636493682861
+f1 0.7049050632911392
+29 1000
+tensor(0.8024, device='cuda:0')
+#pred positives 2700
+#groundtruth positives 2378
+#total pred 113787
+#hit 1752
+Num target obj head accuracy: 0.9886363744735718
+f1 0.6900354470263883
+29 1250
+tensor(0.6623, device='cuda:0')
+#pred positives 2798
+#groundtruth positives 2378
+#total pred 113787
+#hit 1801
+Num target obj head accuracy: 0.9873376488685608
+f1 0.695904173106646
+29 1500
+tensor(0.9014, device='cuda:0')
+#pred positives 2806
+#groundtruth positives 2378
+#total pred 113787
+#hit 1790
+Num target obj head accuracy: 0.9889610409736633
+f1 0.6905864197530865
+29 1750
+tensor(0.7238, device='cuda:0')
+#pred positives 2671
+#groundtruth positives 2378
+#total pred 113787
+#hit 1743
+Num target obj head accuracy: 0.9892857074737549
+f1 0.6904337492572786
+29 2000
+tensor(0.7110, device='cuda:0')
+#pred positives 2798
+#groundtruth positives 2378
+#total pred 113787
+#hit 1780
+Num target obj head accuracy: 0.9886363744735718
+f1 0.687789799072643
+DONE !!!
+Best F1: 0.7049050632911392
+***********************************
+Finished job: train.py --NAME UNITER_basic_all_objmen_numTargetObjs --obj_id True --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False --obj_men True --num_target_objs_head True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037483.1.GPU25-3:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Thu 14 Jul 18:08:58 GMT 2022
+***********************************

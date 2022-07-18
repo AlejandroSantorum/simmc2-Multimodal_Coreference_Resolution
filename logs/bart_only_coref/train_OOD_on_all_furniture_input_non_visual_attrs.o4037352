@@ -1,0 +1,28 @@
+***********************************
+Starting job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/new_datasets/all_furniture_predict.txt --train_target_file=../data_object_special/new_datasets/all_furniture_target.txt --eval_input_file=../data_object_special/new_datasets/in_domain_predict.txt --eval_target_file=../data_object_special/new_datasets/in_domain_target.txt --output_dir=../coref_models/train_on_furniture_non_visual_attrs --train_batch_size=8 --output_eval_file=../coref_models/train_on_furniture_non_visual_attrs/report.txt --num_train_epochs=12 --eval_steps=3000 --warmup_steps=8000 --input_attrs True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037352.1.GPU25-3:/usr/local/bin:/bin:/usr/bin; TIME=Fri  8 Jul 15:07:38 GMT 2022
+***********************************
+
+Setting free GPU to number: 3
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/bart_only_coref/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+No multiple free GPUs...
+Data file : ../data_object_special/new_datasets/in_domain_predict.txt
+Done Load Main File....
+Truncating from 8986 examples to 8984
+total coref result: 4674 7097 176423
+EVALUATION: {'fashion_coref': tensor(0.0358, device='cuda:0'), 'furniture_coref': 0, 'coref_info': 'rec: 0.6585881358320417, prec: 0.026493144317917734, f1: 0.050937227550130776'}
+Data file : ../data_object_special/new_datasets/all_furniture_predict.txt
+Done Load Main File....
+Truncating from 12620 examples to 12616
+checkpoint saving!!
+checkpoint saving!!
+Data file : ../data_object_special/new_datasets/in_domain_predict.txt
+Done Load Main File....
+Truncating from 8986 examples to 8984
+total coref result: 1149 7097 4620
+EVALUATION: {'fashion_coref': tensor(0.5237, device='cuda:0'), 'furniture_coref': 0, 'coref_info': 'rec: 0.16189939411018742, prec: 0.2487012987012987, f1: 0.19612528804301443'}
+checkpoint saving!!
+checkpoint saving!!
+***********************************
+Finished job: run_train_bart_coref.py --add_special_tokens=../data_object_special/simmc_special_tokens.json --item2id=./item2id.json --train_input_file=../data_object_special/new_datasets/all_furniture_predict.txt --train_target_file=../data_object_special/new_datasets/all_furniture_target.txt --eval_input_file=../data_object_special/new_datasets/in_domain_predict.txt --eval_target_file=../data_object_special/new_datasets/in_domain_target.txt --output_dir=../coref_models/train_on_furniture_non_visual_attrs --train_batch_size=8 --output_eval_file=../coref_models/train_on_furniture_non_visual_attrs/report.txt --num_train_epochs=12 --eval_steps=3000 --warmup_steps=8000 --input_attrs True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037352.1.GPU25-3:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Fri  8 Jul 19:21:28 GMT 2022
+***********************************

@@ -1,0 +1,10 @@
+***********************************
+Starting job: run_eval_bart_coref.py --prompts_from_file=../data_object_special/new_datasets/devtest_only_fashion_predict.txt --path_output=../results/devtest_only_fashion/predictions_non_visual_attrs_devtest_fashion_cp381.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../coref_models/model_non_visual_attrs/checkpoint-38120 --input_attrs True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037364.1.GPU25-1:/usr/local/bin:/bin:/usr/bin; TIME=Fri  8 Jul 20:32:38 GMT 2022
+***********************************
+
+Setting free GPU to number: 1
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/bart_only_coref/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+***********************************
+Finished job: run_eval_bart_coref.py --prompts_from_file=../data_object_special/new_datasets/devtest_only_fashion_predict.txt --path_output=../results/devtest_only_fashion/predictions_non_visual_attrs_devtest_fashion_cp381.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../coref_models/model_non_visual_attrs/checkpoint-38120 --input_attrs True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037364.1.GPU25-1:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Fri  8 Jul 20:36:06 GMT 2022
+***********************************

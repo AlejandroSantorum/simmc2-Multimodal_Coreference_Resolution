@@ -1,0 +1,10 @@
+***********************************
+Starting job: run_eval_bart_coref.py --prompts_from_file=../data_object_special/new_datasets/in_domain_predict.txt --path_output=../results/in_domain/predictions_non_visual_attrs_in_domain.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../coref_models/train_OOD_non_visual_attrs/checkpoint-21948 --input_attrs True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037385.1.GPU25-0:/usr/local/bin:/bin:/usr/bin; TIME=Sat  9 Jul 15:40:53 GMT 2022
+***********************************
+
+Setting free GPU to number: 0
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/bart_only_coref/scripts
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+***********************************
+Finished job: run_eval_bart_coref.py --prompts_from_file=../data_object_special/new_datasets/in_domain_predict.txt --path_output=../results/in_domain/predictions_non_visual_attrs_in_domain.txt --item2id=./item2id.json --add_special_tokens=../data_object_special/simmc_special_tokens.json --model_dir=../coref_models/train_OOD_non_visual_attrs/checkpoint-21948 --input_attrs True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037385.1.GPU25-0:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Sat  9 Jul 15:45:56 GMT 2022
+***********************************
