@@ -43,7 +43,7 @@ def infer(args):
 
     # Load models
     if MODEL == 'UNITER':
-        model = Modified_Uniter(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men'], arg_dict['pred_men']).to(device)
+        model = Modified_Uniter(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men'], arg_dict['pred_men'], n_target_objs_head=arg_dict['num_target_objs_head']).to(device)
     elif MODEL == 'LXMERT':
         model = Modified_Lxmert(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men']).to(device)
     model.load_state_dict(torch.load(f'./trained/{CHECKPOINT}.bin', map_location=device)['model_state_dict'])
@@ -69,6 +69,7 @@ def infer(args):
             extended_attention_mask = batch['extended_attention_mask'].to(device)
             output_mask = batch['output_mask'].to(device)
             reference = batch['reference'].to(device)
+            num_gt_targets = batch['num_gt_targets'].to(device)
             scene_seg = batch['scene_segs'].to(device)
             kb_id = batch['KB_ids'].to(device)
             rel_mask_left = batch['rel_mask_left'].to(device).long()
@@ -90,6 +91,8 @@ def infer(args):
             if MODEL == "UNITER":
                 if arg_dict['pred_men']:
                     pred, pred_men = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down)
+                elif arg_dict['num_target_objs_head']:
+                    pred, num_target_objs_logits = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
                 else:
                     pred = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
             elif MODEL == 'LXMERT':
@@ -103,11 +106,33 @@ def infer(args):
             logit_line_out = []
             dial_idx = dial_idx[0]
             round_idx = round_idx[0]
+            USE_NUM_TARGET_OBJS_HEAD_ALWAYS = False # False is usually better
 
-            for idx, prediction in enumerate(pred):
-                if prediction > 0:
-                    line_out.append(obj_ids[0][idx].item())
-                logit_line_out.append([prediction.item(), truth[idx].item()])
+            if arg_dict['num_target_objs_head']:
+                pred_n_target_objs = torch.argmax(num_target_objs_logits, dim=1)[0]
+                if pred_n_target_objs == 0:
+                    for idx, prediction in enumerate(pred):
+                        logit_line_out.append([prediction.item(), truth[idx].item()])
+                else:
+                    n_predictions = torch.sum((pred > 0))
+                    if USE_NUM_TARGET_OBJS_HEAD_ALWAYS or pred_n_target_objs > n_predictions:
+                        # the model is 'under-predicting' accordingly num target objs head
+                        highest_probs_indices = pred.argsort()[-pred_n_target_objs.item():].tolist()[0]
+                        for idx, prediction in enumerate(pred):
+                            if idx in highest_probs_indices:
+                                line_out.append(obj_ids[0][idx].item())
+                            logit_line_out.append([prediction.item(), truth[idx].item()])
+                    else:
+                        for idx, prediction in enumerate(pred):
+                            if prediction > 0:
+                                line_out.append(obj_ids[0][idx].item())
+                            logit_line_out.append([prediction.item(), truth[idx].item()])
+
+            else: # normal case: no head predicting the number of target objects
+                for idx, prediction in enumerate(pred):
+                    if prediction > 0:
+                        line_out.append(obj_ids[0][idx].item())
+                    logit_line_out.append([prediction.item(), truth[idx].item()])
             
             try:
                 out[dial_idx][round_idx] = line_out
@@ -217,6 +242,7 @@ if __name__ == '__main__':
     parser.add_argument('--more_roi', default=False)
 
     parser.add_argument('--visual_attrs', default=False)
+    parser.add_argument('--num_target_objs_head', default=False) # Auxiliary task to predict the number of referred objects
 
     args = parser.parse_args()
     

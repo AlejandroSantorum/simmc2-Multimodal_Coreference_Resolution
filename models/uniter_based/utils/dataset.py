@@ -101,7 +101,7 @@ class UNITER_on_CLIP_BERT_Dataset(Dataset):
 
     def __getitem__(self, index):
         line = self.data[index]
-        dial, objects, reference, obj_ids, obj_pos, obj_bbox, scenes, KB_ids, scene_segs, obj_rels, obj_mens = line['dial'], line['objects'], line['reference_mask'], line['candidate_ids'], line['candidate_pos'], line['candidate_bbox'], line['scenes'], line['KB_ids'], line['scene_seg'], line['candidate_relations'], line['candidate_mentioned']
+        dial, objects, reference, num_gt_targets, obj_ids, obj_pos, obj_bbox, scenes, KB_ids, scene_segs, obj_rels, obj_mens = line['dial'], line['objects'], line['reference_mask'], len(line['reference_idx']), line['candidate_ids'], line['candidate_pos'], line['candidate_bbox'], line['scenes'], line['KB_ids'], line['scene_seg'], line['candidate_relations'], line['candidate_mentioned']
         
         # Retrive add extra ROI features (#roi, 1024)
         if self.more_roi:
@@ -290,15 +290,16 @@ class UNITER_on_CLIP_BERT_Dataset(Dataset):
         segment_ids_uncased = torch.tensor([segment_ids_uncased])
 
         reference = torch.tensor(reference)
+        num_gt_targets = torch.tensor([num_gt_targets])
 
         round_idx = line['round_idx']
         dial_idx = line['dial_idx']
 
-        return input_ids, txt_seg_ids, input_ids_uncased, input_mask_uncased, segment_ids_uncased, vis_mask, vis_feats, vis_feats_rcnn, KB_ids, obj_ids, obj_men, pos_x, pos_y, pos_z, bboxes, bboxes_lxmert, vis_seg, extended_attention_mask, output_mask, reference, dial_idx, round_idx, obj_embs, scene_segs, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_embs_SBERT
+        return input_ids, txt_seg_ids, input_ids_uncased, input_mask_uncased, segment_ids_uncased, vis_mask, vis_feats, vis_feats_rcnn, KB_ids, obj_ids, obj_men, pos_x, pos_y, pos_z, bboxes, bboxes_lxmert, vis_seg, extended_attention_mask, output_mask, reference, num_gt_targets, dial_idx, round_idx, obj_embs, scene_segs, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_embs_SBERT
 
 def mr_collate(data):
     
-    input_ids, txt_seg_ids, input_ids_uncased, input_mask_uncased, segment_ids_uncased, vis_mask, vis_feats, vis_feats_rcnn, KB_ids, obj_ids, obj_men, pos_x, pos_y, pos_z, bboxes, bboxes_lxmert, vis_seg, extended_attention_mask, output_mask, reference, dial_idx, round_idx, obj_embs, scene_segs, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_embs_SBERT = data[0]
+    input_ids, txt_seg_ids, input_ids_uncased, input_mask_uncased, segment_ids_uncased, vis_mask, vis_feats, vis_feats_rcnn, KB_ids, obj_ids, obj_men, pos_x, pos_y, pos_z, bboxes, bboxes_lxmert, vis_seg, extended_attention_mask, output_mask, reference, num_gt_targets, dial_idx, round_idx, obj_embs, scene_segs, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_embs_SBERT = data[0]
     vis_feats = vis_feats.unsqueeze(0)
     vis_feats_rcnn = vis_feats_rcnn.unsqueeze(0)
     bboxes = bboxes.unsqueeze(0)
@@ -311,7 +312,7 @@ def mr_collate(data):
     for idx, line in enumerate(data):
         if idx == 0:
             continue
-        input_ids_l, txt_seg_ids_l, input_ids_uncased_l, input_mask_uncased_l, segment_ids_uncased_l, vis_mask_l, vis_feats_l, vis_feats_rcnn_l, KB_ids_l, obj_ids_l, obj_men_l, pos_x_l, pos_y_l, pos_z_l, bboxes_l, bboxes_lxmert_l, vis_seg_l, extended_attention_mask_l, output_mask_l, reference_l, dial_idx_l, round_idx_l, obj_embs_l, scene_segs_l, rel_mask_left_l, rel_mask_right_l, rel_mask_up_l, rel_mask_down_l, obj_embs_SBERT_l = line 
+        input_ids_l, txt_seg_ids_l, input_ids_uncased_l, input_mask_uncased_l, segment_ids_uncased_l, vis_mask_l, vis_feats_l, vis_feats_rcnn_l, KB_ids_l, obj_ids_l, obj_men_l, pos_x_l, pos_y_l, pos_z_l, bboxes_l, bboxes_lxmert_l, vis_seg_l, extended_attention_mask_l, output_mask_l, reference_l, num_gt_targets_l, dial_idx_l, round_idx_l, obj_embs_l, scene_segs_l, rel_mask_left_l, rel_mask_right_l, rel_mask_up_l, rel_mask_down_l, obj_embs_SBERT_l = line 
         vis_feats_l = vis_feats_l.unsqueeze(0)
         vis_feats_rcnn_l = vis_feats_rcnn_l.unsqueeze(0)
         bboxes_l = bboxes_l.unsqueeze(0)
@@ -339,6 +340,7 @@ def mr_collate(data):
         extended_attention_mask = torch.cat((extended_attention_mask, extended_attention_mask_l), dim=0)
         output_mask = torch.cat((output_mask, output_mask_l), dim=1)
         reference = torch.cat((reference,reference_l), dim=0)
+        num_gt_targets = torch.cat((num_gt_targets,num_gt_targets_l), dim=0)
         dial_idx.append(dial_idx_l)
         round_idx.append(round_idx_l)
         obj_embs = torch.cat((obj_embs, obj_embs_l), dim=0)
@@ -369,7 +371,8 @@ def mr_collate(data):
         'vis_seg': vis_seg, 
         'extended_attention_mask': extended_attention_mask, 
         'output_mask': output_mask, 
-        'reference': reference, 
+        'reference': reference,
+        'num_gt_targets': num_gt_targets,
         'dial_idx': dial_idx,       
         'round_idx': round_idx,
         'obj_embs': obj_embs,

@@ -1,6 +1,8 @@
 import os
 import argparse
 import torch
+import numpy as np
+from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 from torch.cuda.amp import GradScaler, autocast
 from transformers import get_linear_schedule_with_warmup
@@ -11,6 +13,7 @@ from utils.dataset import make_loader
 from model.modified_uniter import Modified_Uniter
 from model.modified_lxmert import Modified_Lxmert
 from model.model_utils import make_KBid_emb_init
+
 
 def train(args):
     # Constant setup
@@ -58,6 +61,7 @@ def train(args):
         model.eval()
         with torch.no_grad():
             total_hit, total_pred_positive, total_truth_positive, total_loss, total_pred = 0, 0, 0, [], 0
+            n_target_objs_acc_list = []
             for idx, batch in enumerate(dev_loader):
                 input_ids = batch['input_ids'].to(device)
                 txt_seg_ids = batch['txt_seg_ids'].to(device)
@@ -74,6 +78,7 @@ def train(args):
                 extended_attention_mask = batch['extended_attention_mask'].to(device)
                 output_mask = batch['output_mask'].to(device)
                 reference = batch['reference'].to(device)
+                num_gt_targets = batch['num_gt_targets'].to(device)
                 scene_seg = batch['scene_segs'].to(device)
                 kb_id = batch['KB_ids'].to(device)
                 rel_mask_left = batch['rel_mask_left'].to(device).long()
@@ -90,13 +95,18 @@ def train(args):
                 if MODEL == "UNITER":
                     if arg_dict['pred_men']:
                         pred, pred_men = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down)
+                    elif arg_dict['num_target_objs_head']:
+                        pred, num_target_objs_logits = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
                     else:
                         pred = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
                 elif MODEL == 'LXMERT':
                     pred = model(input_ids_uncased, input_mask_uncased, segment_ids_uncased, bboxes_lxmert, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, vis_mask, obj_men=obj_men)
                 
+                # shape of pred before reshaping: (batch, 512, 1)
                 pred = pred.reshape(1,-1)
+                # shape of pred after reshaping: (1, batch*512)
                 pred = pred[output_mask==1].reshape(-1,1)
+                # shape of pred after masking + reshaping: (n_scene_objs, 1)
                 truth = reference.float().reshape(-1,1)
                 loss = criterion(pred, truth).detach()
 
@@ -107,6 +117,11 @@ def train(args):
                 pred_positive = torch.sum(pred > 0).detach()
                 truth_positive = torch.sum(truth > 0.5).detach()
 
+                if arg_dict['num_target_objs_head']:
+                    pred_n_target_objs = torch.argmax(num_target_objs_logits, dim=1)
+                    n_target_objs_accuracy = torch.sum((pred_n_target_objs == num_gt_targets))/len(num_gt_targets)
+                    n_target_objs_acc_list.append(n_target_objs_accuracy.detach().item())
+
                 total_loss.append(float(loss))
                 total_hit += int(hit)
                 total_pred_positive += int(pred_positive)
@@ -116,6 +131,8 @@ def train(args):
             print('#groundtruth positives',total_truth_positive)
             print('#total pred', total_pred)
             print('#hit', total_hit)
+            if arg_dict['num_target_objs_head']:
+                print('Num target obj head accuracy:', torch.tensor(n_target_objs_acc_list).mean().item())
             total_loss = sum(total_loss)/len(total_loss)
             if (total_pred_positive == 0):
                 total_pred_positive = 1e10
@@ -130,7 +147,7 @@ def train(args):
 
     # Training setup
     if MODEL == 'UNITER':
-        model = Modified_Uniter(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men'], arg_dict['pred_men']).to(device)
+        model = Modified_Uniter(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men'], arg_dict['pred_men'], n_target_objs_head=arg_dict['num_target_objs_head']).to(device)
     elif MODEL == 'LXMERT':
         model = Modified_Lxmert(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men']).to(device)
 
@@ -147,6 +164,7 @@ def train(args):
 
     criterion = FocalLoss(gamma=GAMMA, alpha=ALPHA)
     criterion_men = FocalLoss(gamma=args.men_gamma, alpha=args.men_alpha)
+    criterion_n_target_objs = FocalLoss(gamma=args.men_gamma, alpha=args.men_alpha)
     optimizer = torch.optim.Adam(model.parameters(), lr=LR)
     if SCHEDULER == 'linear':
         scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps=1000, num_training_steps=len(train_loader)*N_EPOCH)
@@ -178,6 +196,7 @@ def train(args):
             extended_attention_mask = batch['extended_attention_mask'].to(device)
             output_mask = batch['output_mask'].to(device)
             reference = batch['reference'].to(device)
+            num_gt_targets = batch['num_gt_targets'].to(device)
             scene_seg = batch['scene_segs'].to(device)
             kb_id = batch['KB_ids'].to(device)
             rel_mask_left = batch['rel_mask_left'].to(device).long()
@@ -196,14 +215,30 @@ def train(args):
             if MODEL == "UNITER":
                 if arg_dict['pred_men']:
                     pred, pred_men = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down)
+                elif arg_dict['num_target_objs_head']:
+                    pred, num_target_objs_logits = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
                 else:
                     pred = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
             elif MODEL == 'LXMERT':
                 pred = model(input_ids_uncased, input_mask_uncased, segment_ids_uncased, bboxes_lxmert, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, vis_mask, obj_men=obj_men)
 
+
+            # shape of pred before reshaping: (batch, 512, 1)
             pred = pred.reshape(1,-1)
+            # shape of pred after reshaping: (1, batch*512)
             pred = pred[output_mask==1].reshape(-1,1)
+            # shape of pred after masking + reshaping: (n_scene_objs_batch, 1)
             loss = criterion(pred, truth)
+
+            if arg_dict['num_target_objs_head']:
+                gt_targets_array = torch.zeros(num_gt_targets.shape[0], 4).to(device)
+                for i in range(len(num_gt_targets)):
+                    idx = num_gt_targets[i] if num_gt_targets[i] < 3 else 3
+                    gt_targets_array[i][idx] = 1
+
+                loss_num_objs_head = criterion_n_target_objs(num_target_objs_logits, gt_targets_array)
+                # Right now we are re-using pred_men weightss
+                loss = args.men_weight * loss_num_objs_head + (1 - args.men_weight) * loss
 
             if arg_dict['pred_men']:
                 pred_men = pred_men.reshape(1,-1)
@@ -291,8 +326,10 @@ if __name__ == '__main__':
     parser.add_argument('--more_roi', default=False)
 
     parser.add_argument('--SPLIT', default='train')
-    parser.add_argument('--visual_attrs', default=False)
+    parser.add_argument('--visual_attrs', default=False) # not fully implemented!
+    parser.add_argument('--num_target_objs_head', default=False) # Auxiliary task to predict the number of referred objects
 
     args = parser.parse_args()
 
+    print("About to train")
     train(args)
