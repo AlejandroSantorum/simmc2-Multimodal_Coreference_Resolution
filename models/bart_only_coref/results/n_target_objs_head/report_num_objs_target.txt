@@ -1,0 +1,14 @@
+{
+    "object_rec": 0.7753824756606398,
+    "object_prec": 0.7307641892777559,
+    "object_f1": 0.7524124434847155,
+    "object_f1_stderr": 0.005009046139186347
+}
+
+# NOTES:
+    - These results are using 'under-predicting' strategy.
+    - If we always use num_target_objs_head we get 74.5%
+    - The vanilla version of this trained model (not using n_target_head) gets 74.3%
+    - Learning rates when training:
+        coref head: 10 * 0.3 = 3
+        num_target_objs_head: 1
