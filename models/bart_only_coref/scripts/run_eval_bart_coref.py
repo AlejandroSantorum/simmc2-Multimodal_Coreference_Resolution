@@ -15,7 +15,7 @@ from torch.utils.data import DataLoader, Dataset, SequentialSampler
 from torch.nn.utils.rnn import pad_sequence
 from transformers import BartForConditionalGeneration, BartTokenizerFast
 
-from run_train_bart_coref import BoxEmbedding, CorefEncoderHead
+from run_train_bart_coref import BoxEmbedding, CorefEncoderHead, NumObjectsHead
 
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(name)s -   %(message)s",
@@ -37,6 +37,7 @@ START_OF_MULTIMODAL_CONTEXTS = "<SOM>"
 END_OF_MULTIMODAL_CONTEXTS = "<EOM>"
 START_OF_OBJ_TOKEN = "<SOO>"
 END_OF_OBJ_TOKEN = "<EOO>"
+NO_COREF = "<NOCOREF>"
 
 def set_seed(args):
     np.random.seed(args.seed)
@@ -116,10 +117,10 @@ def insert_attributes(line):
 ATTR_NAME_LIST = ['color', 'type', 'brand', 'price']
 #ALL_FASH_ATTR_NAME_LIST = ['assetType', 'customerReview', 'color', 'pattern', 'sleeveLength', 'type', 'price', 'size']
 #ALL_FURN_ATTR_NAME_LIST = ['brand', 'color', 'customerRating', 'materials', 'price', 'type']
-FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
-FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
-#FASH_ATTR_NAME_LIST = ['brand', 'price',  'customerReview', 'size']
-#FURN_ATTR_NAME_LIST = ['brand', 'price', 'customerRating', 'materials']
+#FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
+#FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
+FASH_ATTR_NAME_LIST = ['brand', 'price',  'customerReview', 'size']
+FURN_ATTR_NAME_LIST = ['brand', 'price', 'customerRating', 'materials']
 def get_attribute_embeddings(line_ids, tokenizer, model, device):
     line_object_embeddings = []
     for abs_id in line_ids:
@@ -254,6 +255,8 @@ class GenerationDataset(Dataset):
         self.examples = encode_text.input_ids
         self.examples_attention_mask = encode_text.attention_mask
 
+        nocoref_symbol_id = get_input_id(tokenizer, NO_COREF)[0]
+        self.nocoref_symbol_pos = []
         self.misc = []  # [ [ {pos, is_fashion}, ... ], ...]
         id2index, id2fashion_st, id2furniture_st = id_converter(tokenizer)
         for idx, tokenized_line in enumerate(self.examples):
@@ -264,6 +267,8 @@ class GenerationDataset(Dataset):
                 EOM_last_idx = EOM_indices[-1]
             else:
                 EOM_last_idx = -1
+            
+            self.nocoref_symbol_pos.append(tl.index(nocoref_symbol_id))
 
             is_fashion = True
             for token_id in tl:
@@ -300,8 +305,8 @@ class GenerationDataset(Dataset):
 
     def __getitem__(self, i):
         if self.img_embeds:
-            return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.scene_names[i]
-        return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i]
+            return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.nocoref_symbol_pos[i], self.scene_names[i]
+        return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), self.original_lines[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.nocoref_symbol_pos[i]
 
 def main():
     parser = argparse.ArgumentParser()
@@ -372,7 +377,7 @@ def main():
         required=True,
         help="Path to output predictions in a line separated text file.",
     )
-    ### New:
+    ### New added arguments are below here: ###
     parser.add_argument(
         "--input_attrs",
         default=False
@@ -385,7 +390,10 @@ def main():
         "--obj_img_embeddings",
         default=False
     )
-
+    parser.add_argument(
+        "--num_objs_head",
+        default=False
+    )
     args = parser.parse_args()
 
     args.device = torch.device(
@@ -416,9 +424,14 @@ def main():
     else:
         img_embeds = False
         coref_enc_head = CorefEncoderHead(model.config.d_model).to(args.device)
+    num_objs_head = None
+    if args.num_objs_head:
+        num_objs_head = NumObjectsHead(model.config.d_model).to(args.device)
 
     box_embedding.load_state_dict(checkpoint['box_embedding_dict'])
     coref_enc_head.load_state_dict(checkpoint['coref_enc_head'])
+    if args.num_objs_head:
+        num_objs_head.load_state_dict(checkpoint['num_objs_head'])
     
     args.length = adjust_length_to_model(
         args.length, max_sequence_length=model.config.max_position_embeddings
@@ -432,16 +445,17 @@ def main():
         boxes = list(map(lambda x: x[3], examples))
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
+        nocoref_symbol_pos = list(map(lambda x: x[6], examples))
         if img_embeds:
-            scene_names = list(map(lambda x: x[6], examples))
+            scene_names = list(map(lambda x: x[7], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
             enc_input_pad = pad_sequence(enc_input, batch_first=True, padding_value=tokenizer.pad_token_id)
         enc_attention_pad = pad_sequence(enc_attention_mask, batch_first=True, padding_value=0)
         if img_embeds:
-            return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line, scene_names
-        return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line
+            return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line, nocoref_symbol_pos, scene_names
+        return enc_input_pad, enc_attention_pad, original_lines, boxes, misc, obj_ids_per_line, nocoref_symbol_pos
 
     with open(args.item2id, 'r') as f:
         item2id = json.load(f)
@@ -467,8 +481,9 @@ def main():
         boxes = batch[3] # batch, num_obj_per_line, 6
         misc = batch[4]  # batch, num_obj_per_line, dict
         obj_ids_per_line = batch[5] # batch, num_obj_per_line, num_attrs
+        nocoref_symbol_pos = batch[6]
         if img_embeds:
-            scene_names = batch[6] # batch, SCENE_EMBEDDING_SIZE
+            scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
         batch_size = len(misc)
 
         with torch.no_grad():
@@ -487,10 +502,12 @@ def main():
                             inputs_embeds[b_idx][pos] += torch.reshape(embs, (-1,))
 
             encoder_outputs = model.model.encoder(inputs_embeds=inputs_embeds, attention_mask=enc_input_attention, return_dict=True)  # check this line
+        
+        if args.num_objs_head:
+            num_pred_target_objs = torch.stack([num_objs_head(encoder_outputs.last_hidden_state[b_idx][nocoref_symbol_pos[b_idx]]) for b_idx in range(batch_size)])
 
         coref_obj_list = []
         for b_idx in range(batch_size):
-            coref_obj_each_batch = []
             for obj_idx in range(len(misc[b_idx])):
                 pos = misc[b_idx][obj_idx]['pos']
                 # hidden_concat: (num_obj, 2*model)
@@ -530,10 +547,22 @@ def main():
 
             coref = coref_enc_head(hidden_concat)
 
-            coref_predict = coref.argmax(dim=1).tolist()  # (num_objs)
-            for i, coref_signal in enumerate(coref_predict):
-                if coref_signal:
-                    coref_obj_each_batch.append(obj_indices[i])
+            coref_obj_each_batch = []
+            # predicting using just the coref head
+            coref_predict = coref.argmax(dim=1).tolist()  # (num_objs) 
+            if args.num_objs_head: # predicting using num_targets head
+                # shape of num_pred_target_objs: # batch, 4
+                # shape of coref: # num_objs_in_scene, 2
+                coref_predict = get_predictions_given_pred_num_targets(num_pred_target_objs[b_idx], coref, coref_predict)
+                # translating array indices to object indices
+                for array_id in coref_predict:
+                    coref_obj_each_batch.append(obj_indices[array_id])
+            else:
+                # translating array indices to object indices
+                for i, coref_signal in enumerate(coref_predict):
+                    if coref_signal:
+                        coref_obj_each_batch.append(obj_indices[i])
+            
             coref_obj_list.append(coref_obj_each_batch)
 
         for j in range(len(coref_obj_list)):
@@ -543,7 +572,28 @@ def main():
     with open(args.path_output, "w") as f_out:
         f_out.write("\n".join(results_coref_replaced))
     
-    return 
+    return
+
+
+USE_NUM_TARGET_OBJS_HEAD_ALWAYS = False # False is almost always better
+def get_predictions_given_pred_num_targets(num_pred_target_objs, coref_head_output, coref_head_predictions):
+    num_pred_targets = num_pred_target_objs.argmax().item()
+    if num_pred_targets == 0: # delete this?
+        return []
+    
+    n_pred_objs = sum(coref_head_predictions)
+
+    if USE_NUM_TARGET_OBJS_HEAD_ALWAYS or n_pred_objs < num_pred_targets: # the model is expected to be under-predicting
+        # getting the indices of the 'N' positive predictions with highest probability
+        coref_probs = coref_head_output.softmax(dim=1) # batch, 2
+        referred_probs = coref_probs[:,1] # batch
+        highest_probs_indices = referred_probs.argsort()[-num_pred_targets:]
+        return highest_probs_indices
+    
+    # returning indices of signals (will be transformed to object indices later)
+    return [idx for idx, signal in enumerate(coref_head_predictions) if signal]
+
+
 
 if __name__ == "__main__":
     main()

@@ -77,6 +77,7 @@ START_OF_MULTIMODAL_CONTEXTS = "<SOM>"
 END_OF_MULTIMODAL_CONTEXTS = "<EOM>"
 START_OF_OBJ_TOKEN = "<SOO>"
 END_OF_OBJ_TOKEN = "<EOO>"
+NO_COREF = "<NOCOREF>"
 
 ###################################################################################
 TRAIN_SCENES_FILE="../data_object_special/simmc2_scenes_train.txt"
@@ -240,12 +241,22 @@ class LineByLineDataset(Dataset):
         
         assert len(target_lines) == len(self.examples)
         
+        n_targets_list = []
         corefs = []  # [ [corefobj1(index), corefobj2], [corefobj1], [...], ...]
         for line in target_lines:
             dst_start = line.index('Belief State : ')
             dst_end = line.index('<EOB>')
             dst = line[dst_start:dst_end]
             coref_referred = [obj_index for obj_index in re.findall(r"<[^<^>^ ]+>", dst)]
+            #### NEW: NUMBER OF TARGETS (3 or more are counted as 3)
+            coref_start = line.index(') <')
+            coref_end = line.index('> <EOB>', coref_start)
+            coref_part = line[coref_start:coref_end]
+            objs_referred = [obj for obj in re.findall(r"<[^<^>^ ]+>", coref_part)]
+            # adding the number of target objects if this number is < 3, otherwise 3 (not differentiating when the no. objs is >= 3)
+            n_targets = len(objs_referred) if len(objs_referred)<3 else 3
+            n_targets_list.append(n_targets)
+            # appending actual indices of referred objects
             corefs.append(coref_referred)
             # if 'availableSizes =' in dst:                
             #     available_sizes = [ast.literal_eval(availSize.split('=')[1].strip()) for availSize in re.findall(r"availableSizes = \[.*\]", dst)][0]
@@ -258,7 +269,9 @@ class LineByLineDataset(Dataset):
             # targets.append('=====' + after_belief_state)
             targets.append(after_belief_state)
         self.generation = targets
-
+        
+        nocoref_id = get_input_id(tokenizer, NO_COREF)[0] # we're going to use <NOCOREF> symbol to predict the no. of targets
+        self.num_target_objs = [] # [(position, label), (position, label), (position, label)], 
         self.misc = []  # [ [ {pos, coref_label, is_fashion}, ... ], ...]
         id2index, id2fashion_st, id2furniture_st = id_converter(tokenizer)
         for idx, tokenized_line in enumerate(self.examples):
@@ -269,6 +282,8 @@ class LineByLineDataset(Dataset):
                 EOM_last_idx = EOM_indices[-1]
             else:
                 EOM_last_idx = -1
+            
+            self.num_target_objs.append((tl.index(nocoref_id), n_targets_list[idx]))
 
             is_fashion = True
             for token_id in tl:
@@ -308,10 +323,10 @@ class LineByLineDataset(Dataset):
     def __getitem__(self, i):
         if self.img_embeds:
             return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
-                self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.scene_names[i]
+                self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.num_target_objs[i], self.scene_names[i]
         else:
             return torch.tensor(self.examples[i], dtype=torch.long), torch.tensor(self.examples_attention_mask[i], dtype=torch.long), \
-                self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i]
+                self.generation[i], self.boxes[i], self.misc[i], self.obj_ids_per_line[i], self.num_target_objs[i]
 
 
 def get_dataset(args, tokenizer, all_objects_meta, train=True):
@@ -333,6 +348,7 @@ def get_dataset(args, tokenizer, all_objects_meta, train=True):
         dataset.boxes = dataset.boxes[:-n]
         dataset.misc = dataset.misc[:-n]
         dataset.obj_ids_per_line = dataset.obj_ids_per_line[:-n]
+        dataset.num_target_objs = dataset.num_target_objs[:-n]
         if img_embeds:
             dataset.scene_names = dataset.scene_names[:-n]
     return dataset
@@ -346,6 +362,15 @@ class BoxEmbedding(nn.Module):
     def forward(self, box_feat):
         transformed_box = self.box_layer_norm(self.box_linear(box_feat))
         return transformed_box
+
+### NEW: Trying to predict the number of referred objects (number of targets)
+class NumObjectsHead(nn.Module):
+    def __init__(self, hidden_dim):
+        super(NumObjectsHead, self).__init__()
+        self.num_objs_linear = nn.Linear(hidden_dim, 4) # 4 to run multi-class classification. Classes: 0 objs, 1 obj, 2 objs, 3 or more objs 
+    def forward(self, num_objs_vector):
+        num_objs_cls = self.num_objs_linear(num_objs_vector)
+        return num_objs_cls
 
 class CorefEncoderHead(nn.Module):
     def __init__(self, hidden_dim, scene_embed_size=0):
@@ -480,7 +505,7 @@ def train_embedding_clip_way(args, model, tokenizer, all_objects_meta, num_iter=
 
 
 
-def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta):
+def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta, num_objs_head=None):
     img_embeds = args.obj_img_embeddings or args.scene_embeddings
 
     def collate_bart(examples):
@@ -490,8 +515,9 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
+        num_target_objs = list(map(lambda x: x[6], examples))
         if img_embeds:
-            scene_names = list(map(lambda x: x[6], examples))
+            scene_names = list(map(lambda x: x[7], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -501,10 +527,10 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
 
         if img_embeds:
             return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                   boxes, misc, obj_ids_per_line, scene_names
+                   boxes, misc, obj_ids_per_line, num_target_objs, scene_names
         else:
             return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                   boxes, misc, obj_ids_per_line
+                   boxes, misc, obj_ids_per_line, num_target_objs
     
     train_dataset = get_dataset(args, tokenizer, all_objects_meta, train=True)
     train_sampler = RandomSampler(train_dataset)
@@ -537,6 +563,8 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
         }
 
     ]
+    if args.num_objs_head:
+        optimizer_grouped_parameters.append({"params": num_objs_head.parameters()})
     optimizer = AdamW(
         optimizer_grouped_parameters, 
         lr=args.learning_rate, eps=args.adam_epsilon
@@ -557,6 +585,8 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
 
     for net in [model, box_embedding, coref_enc_head]:
         net.train()
+    if args.num_objs_head:
+        num_objs_head.train()
 
     global_step = 0
     epochs_trained = 0
@@ -605,8 +635,9 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
             boxes = batch[4] # batch, num_obj_per_line, 6
             misc = batch[5]  # batch, num_obj_per_line, dict
             obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
+            num_target_objs = batch[7] # batch, 2, 1 # (position, label)
             if img_embeds:
-                scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
+                scene_names = batch[8] # batch, SCENE_EMBEDDING_SIZE
 
             # follow `class BartEncoder`. shape of (batch, seqlen, d_model)
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
@@ -638,6 +669,14 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
             
             model_loss = model_outputs.loss
             enc_last_state = model_outputs.encoder_last_hidden_state  # (bs, seqlen, d_model)
+
+            if args.num_objs_head:
+                num_target_objs_true_labels = torch.tensor([num_target_objs[b_idx][1] for b_idx in range(batch_size)]).to(args.device)
+                num_target_objs_logits = torch.stack([num_objs_head(enc_last_state[b_idx][num_target_objs[b_idx][0]]) for b_idx in range(batch_size) ])
+                print(num_target_objs[0][1])
+                print('shape labels', num_target_objs_true_labels.shape)
+                print('shape logits', num_target_objs_logits.shape)
+                num_target_objs_loss = CELoss(num_target_objs_logits, num_target_objs_true_labels)
 
             misc_loss = 0
             for b_idx in range(batch_size):  # in a batch
@@ -683,28 +722,36 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                 misc_loss += loss_per_line
             misc_loss /= batch_size
 
-            (0.3*misc_loss).backward()
+            if args.num_objs_head:
+                (num_target_objs_loss + 0.3*misc_loss).backward()
+            else:
+                (0.3*misc_loss).backward()
 
             tr_loss += model_loss.item()
             parameters_to_clip = [p for p in model.parameters() if p.grad is not None] + \
                                  [p for p in box_embedding.parameters() if p.grad is not None] + \
                                  [p for p in coref_enc_head.parameters() if p.grad is not None]
-            
+            if args.num_objs_head:
+                parameters_to_clip += [p for p in num_objs_head.parameters() if p.grad is not None]
             torch.nn.utils.clip_grad_norm_(parameters_to_clip, args.max_grad_norm)
             optimizer.step()
             scheduler.step()
             model.zero_grad()
             box_embedding.zero_grad()
             coref_enc_head.zero_grad()
+            if args.num_objs_head:
+                num_objs_head.zero_grad()
             global_step += 1
             
             if global_step % args.embedding_train_steps == 0:
                 train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_ongoing)
 
             if (global_step % args.eval_steps == 0) and (global_step > 15000):
-                results = evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta)
+                results = evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta, num_objs_head=num_objs_head)
                 for net in [model, box_embedding, coref_enc_head]:
                     net.train()
+                if args.num_objs_head:
+                    num_objs_head.train()
 
             if args.save_steps > 0 and (global_step % args.save_steps == 0) and (global_step > 15000):
                 print('checkpoint saving!!')
@@ -717,9 +764,16 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                 tokenizer.save_pretrained(output_dir)
                 torch.save(args, os.path.join(output_dir, "training_args.bin"))
                 logger.info("Saving model checkpoint to %s", output_dir)
-                torch.save({'box_embedding_dict': box_embedding.state_dict(),
-                            'coref_enc_head': coref_enc_head.state_dict()},
-                            os.path.join(output_dir, 'aux_nets.pt'))
+                if args.num_objs_head:
+                    torch.save({'box_embedding_dict': box_embedding.state_dict(),
+                                'coref_enc_head': coref_enc_head.state_dict(),
+                                'num_objs_head': num_objs_head.state_dict()},
+                                os.path.join(output_dir, 'aux_nets.pt'))
+                else:
+                    torch.save({'box_embedding_dict': box_embedding.state_dict(),
+                                'coref_enc_head': coref_enc_head.state_dict()},
+                                os.path.join(output_dir, 'aux_nets.pt'))
+
     
     print('checkpoint saving!!')
     checkpoint_prefix = "checkpoint"
@@ -731,14 +785,20 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
     tokenizer.save_pretrained(output_dir)
     torch.save(args, os.path.join(output_dir, "training_args.bin"))
     logger.info("Saving model checkpoint to %s", output_dir)
-    torch.save({'box_embedding_dict': box_embedding.state_dict(),
-                'coref_enc_head': coref_enc_head.state_dict()},
-                os.path.join(output_dir, 'aux_nets.pt'))
+    if args.num_objs_head:
+        torch.save({'box_embedding_dict': box_embedding.state_dict(),
+                    'coref_enc_head': coref_enc_head.state_dict(),
+                    'num_objs_head': num_objs_head.state_dict()},
+                    os.path.join(output_dir, 'aux_nets.pt'))
+    else:
+        torch.save({'box_embedding_dict': box_embedding.state_dict(),
+                    'coref_enc_head': coref_enc_head.state_dict()},
+                    os.path.join(output_dir, 'aux_nets.pt'))
 
     return global_step, tr_loss/global_step
 
 
-def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta):
+def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta, num_objs_head=None):
     img_embeds = args.obj_img_embeddings or args.scene_embeddings
     
     def collate_eval_bart(examples):
@@ -748,8 +808,9 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         boxes = list(map(lambda x: x[3], examples))  
         misc = list(map(lambda x: x[4], examples))
         obj_ids_per_line = list(map(lambda x: x[5], examples))
+        num_target_objs = list(map(lambda x: x[6], examples))
         if img_embeds:
-            scene_names = list(map(lambda x: x[6], examples))
+            scene_names = list(map(lambda x: x[7], examples))
         if tokenizer._pad_token is None:
             enc_input_pad = pad_sequence(enc_input, batch_first=True)
         else:
@@ -759,10 +820,10 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
 
         if img_embeds:
             return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                   boxes, misc, obj_ids_per_line, scene_names
+                   boxes, misc, obj_ids_per_line, num_target_objs, scene_names
         else:
             return enc_input_pad, enc_attention_pad, decoder_input_pad.input_ids, decoder_input_pad.attention_mask, \
-                   boxes, misc, obj_ids_per_line
+                   boxes, misc, obj_ids_per_line, num_target_objs
     
     def add_dicts(d1, d2):
         return {k: d1[k] + d2[k] for k in d1}
@@ -780,6 +841,8 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
     # Eval!
     for net in [model, box_embedding, coref_enc_head]:
         net.eval()
+    if args.num_objs_head:
+        num_objs_head.eval()
     logger.info("***** Running evaluation *****")
     logger.info("  Num examples = %d", len(eval_dataset))
     logger.info("  Batch size = %d", args.eval_batch_size)
@@ -787,7 +850,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
     eval_loss = 0.0
     nb_eval_steps = 0
 
-    report_template = {'fashion_coref': 0, 'furniture_coref': 0}
+    report_template = {'fashion_coref': 0, 'furniture_coref': 0, 'num_target_objs_accuracy': 0}
     total_report = copy.deepcopy(report_template)
 
     n_pred_objects = 0
@@ -804,8 +867,9 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         boxes = batch[4] # batch, num_obj_per_line, 6
         misc = batch[5]  # batch, num_obj_per_line, dict
         obj_ids_per_line = batch[6] # batch, num_obj_per_line, num_attrs
+        num_target_objs = batch[7] # batch, 2, 1 # (position, label)
         if img_embeds:
-            scene_names = batch[7] # batch, SCENE_EMBEDDING_SIZE
+            scene_names = batch[8] # batch, SCENE_EMBEDDING_SIZE
 
         with torch.no_grad():
             inputs_embeds = model.model.encoder.embed_tokens(enc_input) * model.model.encoder.embed_scale
@@ -835,6 +899,12 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         enc_last_state = model_outputs.encoder_last_hidden_state  # (bs, seqlen, d_model)
 
         batch_report = copy.deepcopy(report_template)
+
+        if args.num_objs_head:
+            num_target_objs_true_labels = torch.tensor([num_target_objs[b_idx][1] for b_idx in range(batch_size)]).to(args.device)
+            num_target_objs_logits = torch.stack([num_objs_head(enc_last_state[b_idx][num_target_objs[b_idx][0]]) for b_idx in range(batch_size) ])
+            num_target_objs_report = (num_target_objs_true_labels == num_target_objs_logits.argmax(dim=1)).float().mean() # averaged over a batch
+            batch_report['num_target_objs_accuracy'] = num_target_objs_report
         
         for b_idx in range(batch_size):  # in a batch
             
@@ -876,6 +946,7 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
             coref_label = torch.tensor([misc[b_idx][obj_idx]['coref_label'] for obj_idx in range(len(misc[b_idx]))]).to(args.device)  # (num_obj)  0 or 1
             n_true_objects += coref_label.sum().item()
             coref = coref_enc_head(hidden_concat)  # (num_obj, num_logits)
+
             if is_fashion:
                 num_fashions += 1
                 n_pred_objects += coref.argmax(dim=1).sum().item()
@@ -890,6 +961,8 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
         total_report = add_dicts(total_report, batch_report)
         nb_eval_steps += 1
 
+    if args.num_objs_head:
+        total_report['num_target_objs_accuracy'] /= nb_eval_steps
     for k, v in total_report.items():
         if ('fashion' in k) and num_fashions:
             total_report[k] = v/num_fashions
@@ -1021,7 +1094,7 @@ def main():
         default=42, # usually 42
         type=int,
     )
-    ### New:
+    ### New added arguments are below here: ###
     parser.add_argument(
         "--input_attrs",
         default=False
@@ -1032,6 +1105,10 @@ def main():
     )
     parser.add_argument(
         "--obj_img_embeddings",
+        default=False
+    )
+    parser.add_argument(
+        "--num_objs_head",
         default=False
     )
     args = parser.parse_args()
@@ -1072,6 +1149,9 @@ def main():
         coref_enc_head = CorefEncoderHead(model.config.d_model, scene_embed_size=SCENE_EMBEDDING_SIZE).to(args.device)
     else:
         coref_enc_head = CorefEncoderHead(model.config.d_model).to(args.device)
+    num_objs_head = None
+    if args.num_objs_head:
+        num_objs_head = NumObjectsHead(model.config.d_model).to(args.device)
     
     with open(args.item2id, 'r') as f:
         item2id = json.load(f)
@@ -1096,9 +1176,9 @@ def main():
     train_embedding_clip_way(args, model, tokenizer, all_objects_meta, args.embedding_train_epochs_start)
 
     # For debuging: temporal
-    evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta)
+    evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta, num_objs_head=num_objs_head)
     
-    global_step, train_loss = train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta)
+    global_step, train_loss = train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_meta, num_objs_head=num_objs_head)
 
 
 if __name__ == '__main__':
