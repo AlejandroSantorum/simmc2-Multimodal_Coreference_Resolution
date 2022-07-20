@@ -3,7 +3,7 @@ from model.Transformers_VQA_master.vqa_model import VQAModel
 from model.model_utils import ObjPositionalEncoding
 
 class Modified_Uniter(torch.nn.Module):
-    def __init__(self, obj_id, vis_feats_clip, vis_feats_rcnn, pos, scene_seg, obj_embs_bert, obj_embs_sbert, kb_id_bert, kb_id_sbert, attn_bias=False, graph_attn=False, obj_men=False, pred_men=False, n_target_objs_head=False):
+    def __init__(self, obj_id, vis_feats_clip, vis_feats_rcnn, pos, scene_seg, obj_embs_bert, obj_embs_sbert, kb_id_bert, kb_id_sbert, attn_bias=False, graph_attn=False, obj_men=False, pred_men=False, n_target_objs_head=False,  mentioned_and_new_head=False):
         super(Modified_Uniter, self).__init__()
 
         self.obj_id = obj_id
@@ -25,6 +25,7 @@ class Modified_Uniter(torch.nn.Module):
         self.graph_attn = graph_attn
 
         self.n_target_objs_head = n_target_objs_head
+        self.mentioned_and_new_head = mentioned_and_new_head
 
         # Load pretrained UNITER
         self.uniter = VQAModel(num_answers=69, model='uniter', attn_bias=attn_bias, graph_attn=graph_attn)
@@ -73,7 +74,13 @@ class Modified_Uniter(torch.nn.Module):
         # Auxiliary task to predict the number of targets
         if self.n_target_objs_head:
             self.numTargetObjsHead = torch.nn.Linear(768, 4) # 4 for multi-class classification: 0 targets, 1 target, 2 targets, 3+ targets
-            
+        
+        # Auxiliary task to predict the number of previously mentioned targets and number of new targets
+        if self.mentioned_and_new_head:
+            self.numMentionedTargetsHead = torch.nn.Linear(768, 4) # 4 for multi-class classification: 0 targets, 1 target, 2 targets, 3+ targets
+            self.numNewTargetsHead = torch.nn.Linear(768, 4) # 4 for multi-class classification: 0 targets, 1 target, 2 targets, 3+ targets
+
+
     def forward(self, input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left=None, rel_mask_right=None, rel_mask_up=None, rel_mask_down=None, obj_men=None):
         # combine object features
 
@@ -152,6 +159,12 @@ class Modified_Uniter(torch.nn.Module):
             cls_token_embeddings = lang_v_feats[:,0,:] # (batch, 1, 768) = (batch, 768)
             head_output = self.numTargetObjsHead(cls_token_embeddings) # (batch, 4)
             return out, head_output
+        
+        if self.mentioned_and_new_head:
+            cls_token_embeddings = lang_v_feats[:,0,:] # (batch, 1, 768) = (batch, 768)
+            mentioned_head_output = self.numMentionedTargetsHead(cls_token_embeddings) # (batch, 4)
+            new_head_output = self.numNewTargetsHead(cls_token_embeddings) # (batch, 4)
+            return out, mentioned_head_output, new_head_output
 
         return out
 

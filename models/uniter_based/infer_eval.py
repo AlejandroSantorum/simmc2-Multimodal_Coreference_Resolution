@@ -43,7 +43,7 @@ def infer(args):
 
     # Load models
     if MODEL == 'UNITER':
-        model = Modified_Uniter(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men'], arg_dict['pred_men'], n_target_objs_head=arg_dict['num_target_objs_head']).to(device)
+        model = Modified_Uniter(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men'], arg_dict['pred_men'], n_target_objs_head=arg_dict['num_target_objs_head'], mentioned_and_new_head=arg_dict['mentioned_and_new_head']).to(device)
     elif MODEL == 'LXMERT':
         model = Modified_Lxmert(arg_dict['obj_id'], arg_dict['vis_feats_clip'], arg_dict['vis_feats_rcnn'], arg_dict['pos'], arg_dict['scene_seg'], arg_dict['obj_embs_bert'], arg_dict['obj_embs_sbert'], arg_dict['kb_id_bert'], arg_dict['kb_id_sbert'], arg_dict['attn_bias'], arg_dict['graph_attn'], arg_dict['obj_men']).to(device)
     model.load_state_dict(torch.load(f'./trained/{CHECKPOINT}.bin', map_location=device)['model_state_dict'])
@@ -69,6 +69,8 @@ def infer(args):
             extended_attention_mask = batch['extended_attention_mask'].to(device)
             output_mask = batch['output_mask'].to(device)
             reference = batch['reference'].to(device)
+            num_mentioned_targets = batch['num_mentioned_targets'].to(device)
+            num_new_targets = batch['num_new_targets'].to(device)
             num_gt_targets = batch['num_gt_targets'].to(device)
             scene_seg = batch['scene_segs'].to(device)
             kb_id = batch['KB_ids'].to(device)
@@ -93,6 +95,8 @@ def infer(args):
                     pred, pred_men = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down)
                 elif arg_dict['num_target_objs_head']:
                     pred, num_target_objs_logits = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
+                elif arg_dict['mentioned_and_new_head']:
+                    pred, num_mentioned_targets_logits, num_new_targets_logits = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
                 else:
                     pred = model(input_ids, txt_seg_ids, vis_seg, bboxes, extended_attention_mask, obj_ids, vis_feats_clip, vis_feats_rcnn, pos_x, pos_y, pos_z, scene_seg, kb_embs_bert, kb_embs_sbert, kb_id, rel_mask_left, rel_mask_right, rel_mask_up, rel_mask_down, obj_men=obj_men)
             elif MODEL == 'LXMERT':
@@ -102,37 +106,81 @@ def infer(args):
             pred = pred[output_mask==1].reshape(-1,1)
 
             obj_ids -= 1 # -1 for padding. 0 is a valid index
-            line_out = []
-            logit_line_out = []
             dial_idx = dial_idx[0]
             round_idx = round_idx[0]
-            USE_NUM_TARGET_OBJS_HEAD_ALWAYS = False # False is usually better
+
+            # normal case: no head predicting the number of target objects
+            line_out = []
+            logit_line_out = []
+            for idx, prediction in enumerate(pred):
+                if prediction > 0:
+                    line_out.append(obj_ids[0][idx].item())
+                logit_line_out.append([prediction.item(), truth[idx].item()])
 
             if arg_dict['num_target_objs_head']:
                 pred_n_target_objs = torch.argmax(num_target_objs_logits, dim=1)[0]
                 if pred_n_target_objs == 0:
+                    line_out = []; logit_line_out = []
                     for idx, prediction in enumerate(pred):
                         logit_line_out.append([prediction.item(), truth[idx].item()])
                 else:
                     n_predictions = torch.sum((pred > 0))
-                    if USE_NUM_TARGET_OBJS_HEAD_ALWAYS or pred_n_target_objs > n_predictions:
+                    if pred_n_target_objs > n_predictions:
                         # the model is 'under-predicting' accordingly num target objs head
+                        line_out = []; logit_line_out = []
                         highest_probs_indices = pred.argsort()[-pred_n_target_objs.item():].tolist()[0]
                         for idx, prediction in enumerate(pred):
                             if idx in highest_probs_indices:
                                 line_out.append(obj_ids[0][idx].item())
                             logit_line_out.append([prediction.item(), truth[idx].item()])
+            
+            elif arg_dict['mentioned_and_new_head']:
+                line_out = []; logit_line_out = []
+                pred_n_mentioned_targets = torch.argmax(num_mentioned_targets_logits, dim=1)[0]
+                pred_n_new_targets = torch.argmax(num_new_targets_logits, dim=1)[0]
+                if pred_n_mentioned_targets==0 and pred_n_new_targets==0:
+                    for idx, prediction in enumerate(pred):
+                        logit_line_out.append([prediction.item(), truth[idx].item()])
+                else:
+                    '''
+                    print(BATCH_SIZE)
+                    print(pred.shape)
+                    print(obj_men.shape)
+                    print(obj_men[0])
+                    exit()
+                    '''
+                    mentioned_pred = torch.tensor([p for i,p in enumerate(pred) if obj_men[0][i]==1])
+                    mentioned_ids = [i for i,p in enumerate(pred) if obj_men[0][i]==1]
+                    new_pred = torch.tensor([p for i,p in enumerate(pred) if obj_men[0][i]==0])
+                    new_ids = [i for i,p in enumerate(pred) if obj_men[0][i]==0]
+                    n_mentioned_predictions = torch.sum((mentioned_pred > 0))
+                    n_new_predictions = torch.sum((new_pred > 0))
+                    if pred_n_mentioned_targets > n_mentioned_predictions:
+                        n = min(pred_n_mentioned_targets, len(mentioned_pred))
+                        highest_mentioned_probs_indices = mentioned_pred.argsort()[-n:].tolist()
+                        for idx, prediction in enumerate(mentioned_pred):
+                            if idx in highest_mentioned_probs_indices:
+                                line_out.append(obj_ids[0][mentioned_ids[idx]].item())
+                            logit_line_out.append([prediction.item(), truth[mentioned_ids[idx]].item()])
                     else:
-                        for idx, prediction in enumerate(pred):
+                        for idx, prediction in enumerate(mentioned_pred):
                             if prediction > 0:
-                                line_out.append(obj_ids[0][idx].item())
-                            logit_line_out.append([prediction.item(), truth[idx].item()])
+                                line_out.append(obj_ids[0][mentioned_ids[idx]].item())
+                            logit_line_out.append([prediction.item(), truth[mentioned_ids[idx]].item()])
 
-            else: # normal case: no head predicting the number of target objects
-                for idx, prediction in enumerate(pred):
-                    if prediction > 0:
-                        line_out.append(obj_ids[0][idx].item())
-                    logit_line_out.append([prediction.item(), truth[idx].item()])
+                    if pred_n_new_targets > n_new_predictions:
+                        n = min(pred_n_new_targets, len(new_pred))
+                        highest_new_probs_indices = new_pred.argsort()[-n:].tolist()
+                        for idx, prediction in enumerate(new_pred):
+                            if idx in highest_new_probs_indices:
+                                line_out.append(obj_ids[0][new_ids[idx]].item())
+                            logit_line_out.append([prediction.item(), truth[new_ids[idx]].item()])
+                    else:
+                        for idx, prediction in enumerate(new_pred):
+                            if prediction > 0:
+                                line_out.append(obj_ids[0][new_ids[idx]].item())
+                            logit_line_out.append([prediction.item(), truth[new_ids[idx]].item()])
+
             
             try:
                 out[dial_idx][round_idx] = line_out
@@ -243,7 +291,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--visual_attrs', default=False)
     parser.add_argument('--num_target_objs_head', default=False) # Auxiliary task to predict the number of referred objects
-
+    parser.add_argument('--mentioned_and_new_head', default=False) # Auxiliary task to predict the number of mentioned and new target objs
     args = parser.parse_args()
     
     infer(args)
