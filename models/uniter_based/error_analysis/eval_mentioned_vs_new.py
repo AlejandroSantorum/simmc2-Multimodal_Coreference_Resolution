@@ -12,7 +12,7 @@ def rec_prec_f1(n_correct, n_true, n_pred):
 
 def main():
     test_data_path = "../processed/devtest.json"
-    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_numTargetObjs_devtest.json"
+    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_noIDs_numMentionedTargets_devtest.json"
 
     results_path = predictions_file_path[:predictions_file_path.find('/eval_')]
     model_name = predictions_file_path[predictions_file_path.find("/eval_")+len("/eval_"):predictions_file_path.find(".json")]
