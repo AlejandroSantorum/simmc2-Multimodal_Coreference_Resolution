@@ -19,7 +19,7 @@ def parse_objects_from_simmc2_format(data):
 
 def main():
     predictions_file_path = "../output/eval_UNITER_basic_all_objmen_devtest.json"
-    model_name = predictions_file_path[predictions_file_path.find("/eval")+len("/eval"):predictions_file_path.find(".json")]
+    model_name = predictions_file_path[predictions_file_path.find("/eval_")+len("/eval_"):predictions_file_path.find(".json")]
     target_file_path = "../data/simmc2_dials_dstc10_devtest.json"
     output_file_path = "./span_reports/span_report_"+model_name+".txt"
 

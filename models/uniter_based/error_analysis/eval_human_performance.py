@@ -25,11 +25,11 @@ def main():
     n_true = 0
     n_correct = 0
     for i in range(len(predictions)):
-        n_pred += len(predictions[i])
-        n_true += len(test_data[i]['reference_idx'])
+        n_pred += len(set(predictions[i]))
+        n_true += len(set(test_data[i]['reference_idx']))
 
         reference = [test_data[i]['candidate_ids'][idx] for idx in test_data[i]['reference_idx']]
-        n_correct += len(set(reference).intersection(predictions[i]))
+        n_correct += len(set(reference).intersection(set(predictions[i])))
 
     rec, prec, f1 = rec_prec_f1(n_correct, n_true, n_pred)
     print("F1 score:", f1)
