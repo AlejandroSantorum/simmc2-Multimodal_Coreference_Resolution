@@ -1,3 +1,4 @@
+import argparse
 import json
 import pprint
 
@@ -10,13 +11,15 @@ def rec_prec_f1(n_correct, n_true, n_pred):
     return rec, prec, f1
 
 
-def main():
-    test_data_path = "../processed/devtest.json"
-    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_noIDs_numMentionedTargets_devtest.json"
-
-    results_path = predictions_file_path[:predictions_file_path.find('/eval_')]
-    model_name = predictions_file_path[predictions_file_path.find("/eval_")+len("/eval_"):predictions_file_path.find(".json")]
-    output_file_path = results_path + "/split_f1_report_"+model_name+".txt"
+def main(args):
+    test_data_path = args.test_data_path
+    predictions_file_path = args.predictions_file_path
+    if args.output_file_path != '':
+        output_file_path = args.output_file_path
+    else:
+        results_path = predictions_file_path[:predictions_file_path.find('/eval_')]
+        model_name = predictions_file_path[predictions_file_path.find("/eval_")+len("/eval_"):predictions_file_path.find(".json")]
+        output_file_path = results_path + "/split_f1_report_"+model_name+".txt"
 
     with open(test_data_path, 'r') as f:
         test_data = json.load(f)
@@ -92,4 +95,14 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    # path of the test set data
+    parser.add_argument('--test_data_path', default='../processed/devtest.json')
+    # path of the model predictions file
+    parser.add_argument('--predictions_file_path', default='../output/eval_UNITER_basic_all_objmen_noIDs_devtest.json')
+    # path to store the analysis results: by default their are placed in the 'output' folder
+    parser.add_argument('--output_file_path', default='')
+    
+    args = parser.parse_args()
+    main(args)
