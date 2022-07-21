@@ -6,6 +6,6 @@ The following directories contain all the logs generated after executing the exp
 - [`bart_coref`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/logs/bart_coref): experiments on the BART-based model removing all heads that are *not* related with coreference resolution.
 - [`bart_only_coref`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/logs/bart_only_coref): experiments on the BART-based model removing all heads but the one performing coreference resolution.
 - [`bart_only_coref_n_targets_head`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/logs/bart_only_coref_n_targets_head): experiments on the BART-based model that uses just coreference head, adding an additional head that tries to predict the number of referred objects (targets).
-- [`unter`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/logs/uniter):
+- [`uniter`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/logs/uniter):
 experiments on the UNITER-based model.
-- [`unter_n_targets_head`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/logs/uniter_n_targets_head): experiments on the UNITER-based model, adding an additional head that tries to predict the number of referred objects (targets).
+- [`uniter_n_targets_head`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/logs/uniter_n_targets_head): experiments on the UNITER-based model, adding an additional head that tries to predict the number of referred objects (targets).
