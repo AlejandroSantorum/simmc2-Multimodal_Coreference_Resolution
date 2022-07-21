@@ -67,7 +67,7 @@ $ git lfs pull
 ----------------------------------------------
 ## Models
 
-The folder [models](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models) contains all the investigated system in this project:
+The folder [`models`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models) contains all the investigated systems in this project:
 
 - [KAIST_BART_based](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/KAIST_BART_based): replication of the model described in [*"Tackling Situated Multi-Modal Task-Oriented Dialogs with a Single Transformer Model"*](https://openreview.net/forum?id=NajekV9uBas), using the [open source code](https://github.com/KAIST-AILab/DSTC10-SIMMC) of the original team.
 - [bart_coref](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_coref): previous system modified by removing other task heads that are *not* related with coreference resolution.
