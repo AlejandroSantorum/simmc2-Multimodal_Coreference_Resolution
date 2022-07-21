@@ -1,7 +1,9 @@
 import json
+import argparse
 import pprint
 from convert_baseline import parse_flattened_results_from_file
 from evaluate_only_coref import parse_line_only_coref
+
 
 def rec_prec_f1(n_correct, n_true, n_pred):
     rec = n_correct / n_true if n_true != 0 else 0
@@ -31,13 +33,15 @@ def extract_mentioned_ids(example):
     return list(mentioned_ids)
 
 
-def main():
-    test_data_path = "../data_object_special/simmc2_dials_dstc10_devtest_target.txt"
-    predictions_file_path = "../results/n_target_objs_head/predictions_num_objs_target.txt"
-
-    results_path = predictions_file_path[:predictions_file_path.find('/predictions_')]
-    model_name = predictions_file_path[predictions_file_path.find("/predictions_")+len("/predictions_"):predictions_file_path.find(".txt")]
-    output_file_path = results_path + "/split_f1_report_"+model_name+".txt"
+def main(args):
+    test_data_path = args.test_data_path
+    predictions_file_path = args.predictions_file_path
+    if args.output_file_path != '':
+        output_file_path = args.output_file_path
+    else:
+        results_path = predictions_file_path[:predictions_file_path.find('/predictions_')]
+        model_name = predictions_file_path[predictions_file_path.find("/predictions_")+len("/predictions_"):predictions_file_path.find(".txt")]
+        output_file_path = results_path + "/split_f1_report_"+model_name+".txt"
 
     with open(test_data_path, 'r') as f:
         test_data = f.readlines()
@@ -61,7 +65,10 @@ def main():
     for line_idx in range(len(test_data)):
         test_data_line = test_data[line_idx]
         pred_line = predictions[line_idx]
-        target_ids = list_target[line_idx][0]['objects']
+        try:
+            target_ids = list_target[line_idx][0]['objects']
+        except:
+            target_ids = []
         pred_ids = parse_line_only_coref(pred_line)[0]['objects']
 
         mentioned_ids = extract_mentioned_ids(test_data_line)
@@ -110,4 +117,14 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    # path of the test set data (targets)
+    parser.add_argument('--test_data_path', default='../data_object_special/simmc2_dials_dstc10_devtest_target.txt')
+    # path of the model predictions file
+    parser.add_argument('--predictions_file_path', default='../results/devtest/predictions_input_all_attrs_cp381.txt')
+    # path to store the analysis results: by default their are placed in the 'output' folder
+    parser.add_argument('--output_file_path', default='')
+    
+    args = parser.parse_args()
+    main(args)
