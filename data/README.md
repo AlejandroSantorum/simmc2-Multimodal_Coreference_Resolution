@@ -1,6 +1,8 @@
 
 # SIMMC 2.0 Dataset
+This directory contains the files of the SIMMC2.0 dataset. They can be downloaded following the instructions below provided in the [SIMMC2.0 repository](https://github.com/facebookresearch/simmc2). Another option is to download them from the following link: [https://drive.google.com/file/d/1L6k0s4uFvEJZyWRp8N8NtoQ0k_VsV0Kl/view?usp=sharing](https://drive.google.com/file/d/1L6k0s4uFvEJZyWRp8N8NtoQ0k_VsV0Kl/view?usp=sharing).
 
+-------------------------------------
 ## Summary
 
 Our challenge focuses on the new SIMMC 2.0 dataset, which is grounded in an immersive virtual environment in the shopping domain: furniture and fashion.
