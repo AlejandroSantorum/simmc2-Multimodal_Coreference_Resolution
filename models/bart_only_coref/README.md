@@ -188,25 +188,4 @@ The predictions and the final report can be found in the directory [`results`](h
 TODO TODO TODO TODO
 
 ## References
-```
-@article{kottur2021simmc,
-  title={SIMMC 2.0: A Task-oriented Dialog Dataset for Immersive Multimodal Conversations},
-  author={Kottur, Satwik and Moon, Seungwhan and Geramifard, Alborz and Damavandi, Babak},
-  journal={arXiv preprint arXiv:2104.08667},
-  year={2021}
-}
-
-@article{lewis2019bart,
-  title={Bart: Denoising sequence-to-sequence pre-training for natural language generation, translation, and comprehension},
-  author={Lewis, Mike and Liu, Yinhan and Goyal, Naman and Ghazvininejad, Marjan and Mohamed, Abdelrahman and Levy, Omer and Stoyanov, Ves and Zettlemoyer, Luke},
-  journal={arXiv preprint arXiv:1910.13461},
-  year={2019}
-}
-
-@article{radford2021learning,
-  title={Learning transferable visual models from natural language supervision},
-  author={Radford, Alec and Kim, Jong Wook and Hallacy, Chris and Ramesh, Aditya and Goh, Gabriel and Agarwal, Sandhini and Sastry, Girish and Askell, Amanda and Mishkin, Pamela and Clark, Jack and others},
-  journal={arXiv preprint arXiv:2103.00020},
-  year={2021}
-}
-```
+TODO
