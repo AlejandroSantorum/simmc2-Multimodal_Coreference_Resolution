@@ -1,9 +1,9 @@
-# data_object_special: preprocessed datasets for BART-based model
-This fodler contains the preprocessed datasets to be fed into the BART-based model and execute all the experiments of the proejct.
+# data_object_special: preprocessed datasets for BART-based model
+This folder contains the preprocessed datasets to be fed into the BART-based model and execute all the experiments of the project.
 
 
 ## Download the folder
-This fodler ([`data_object_special`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special) contains the majority of the preprocessed files and they can be directly downloaded cloning this repository. However, some special data files for some experiments are too large. They can be generated using the suitable scripts detailed in [`processing_data`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/processing_data) folder, or simple by downloading the full version of this folder: [data_object_special.zip](https://drive.google.com/file/d/1LsnwUyt_ZG-e1OS-Hiud7ERvU8jpD4KA/view?usp=sharing).
+This folder ([`data_object_special`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special)) contains the majority of the preprocessed files and they can be directly downloaded cloning this repository. However, some special data files for some experiments are too large. They can be generated using the suitable scripts detailed in [`processing_data`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/processing_data) folder, or simple by downloading the full version of this folder: [data_object_special.zip](https://drive.google.com/file/d/1LsnwUyt_ZG-e1OS-Hiud7ERvU8jpD4KA/view?usp=sharing).
 
 
 ## File description
@@ -24,7 +24,7 @@ This fodler ([`data_object_special`](https://github.com/AlejandroSantorum/simmc2
     - *canonicalIDs*: data masking canonical IDs.
     - *dials*: data masking dialog history.
     - *globalIDs*: data masking global IDs.
-    - *objmen*: dat masking multimodal context (mentioned objects). 
+    - *objmen*: data masking multimodal context (mentioned objects). 
 - [`new_datasets`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/new_datasets): folder that contains the datasets forthe **cross-domain experiments**. They are generated using as **reference the partition** used for the [UNITER-based model](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based), so the results in both models could be compared. The referece sets are located inside `new_datasets` folder in [`reference_sets`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/new_datasets/reference_sets):
     - `all_furniture_predict.txt`: all examples of the furniture domain from original simmc2 training and devtest sets.
     - `all_furniture_target.txt`: all labels (targets) of the furniture domain from original simmc2 training and devtest sets.
@@ -40,5 +40,5 @@ This fodler ([`data_object_special`](https://github.com/AlejandroSantorum/simmc2
     - `out_of_domain_target.txt`: subset of 9.5 K furniture label (targets) used for testing.
     - `train_seen_unseen_OOD_predict.txt`: subset of 14.6K fashion examples used for training.
     - `train_seen_unseen_OOD_target.txt`: subset of 14.6K fashion labels (targets) used for training.
-- [`random_test_subset`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/random_test_subset): folder that contains a random subset (100 random examples) of the `devtest` set. This dataset is used to **estimate the human performance**on coreference resolution.
+- [`random_test_subset`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/random_test_subset): folder that contains a random subset (100 random examples) of the `devtest` set. This dataset is used to **estimate the human performance** on coreference resolution.
 
