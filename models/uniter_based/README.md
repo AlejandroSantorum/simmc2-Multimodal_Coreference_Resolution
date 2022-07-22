@@ -161,3 +161,10 @@ python get_report.py \
     --MODEL_EVAL_FILE ../../output/logit/eval_UNITER_basic_both_objid_pos_sceneseg_bothBERT_devtest.json
 ```
 This is an example. Please change the path for the predictions file using the argument `--MODEL_EVAL_FILE`.
+
+
+## **Pre-trained and fine-tuned models**
+TODO TODO TODO TODO
+
+## References
+TODO

@@ -182,10 +182,3 @@ python ../evaluation_tools/evaluate_only_coref.py \
 ```
 The predictions and the final report can be found in the directory [`results`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/results). For more detailed information visit the folder [`scripts`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/scripts).
 
-
-
-## **Pre-trained and fine-tuned models**
-TODO TODO TODO TODO
-
-## References
-TODO
