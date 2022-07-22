@@ -37,8 +37,8 @@ Run the script `rearrange.sh` to rearrange the `data` folder in the following fo
 ```
 
 
-## Preprocessed data
-The dataset is preprocessed to be fed into the BART-based model. The folder [`data_object_special`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special) contains the majority of the preprocessed files and they can be directly downloaded cloning this repository. However, some special data files for some experiments are too large. They can be generated using the suitable scripts detailed below, or simple by downloading the full version of this folder: [data_object_special.zip](https://drive.google.com/file/d/1LsnwUyt_ZG-e1OS-Hiud7ERvU8jpD4KA/view?usp=sharing).
+## **Preprocessed data**
+The dataset is preprocessed to be fed into the BART-based model. The folder [`data_object_special`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special) contains the majority of the preprocessed files and they can be directly downloaded cloning this repository. However, some special data files for some experiments are too large. They can be generated using the suitable scripts detailed in [`processing_data`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/processing_data) folder, or simple by downloading the full version of this folder: [data_object_special.zip](https://drive.google.com/file/d/1LsnwUyt_ZG-e1OS-Hiud7ERvU8jpD4KA/view?usp=sharing).
 
 
 ### **Data Preprocessing**
@@ -57,7 +57,7 @@ python convert.py \
   --image_folder ../data/images \
 ```
 
-For example, for devtest dataset, 
+For example, for devtest dataset:
 ```bash
 python convert.py \
   --input_path_json=../data/simmc2_dials_dstc10_devtest.json \
@@ -127,7 +127,7 @@ qsub -l h=stg-gpu25,virtual_gpu_free=12000M,gpu=1,gpu_queue=1,arch=*64*,test=*,c
         --eval_steps=3000  \
         --warmup_steps=8000
 ```
-where `SCRIPTS_PATH` is the path of the script to execute a executable in the GPU cluster. As an example, in my case it would be `SCRIPTS_PATH="/rmt/dialogue2/interns/alejandro/scripts/"`.
+where `SCRIPTS_PATH` is the path of the script to run a executable in the GPU cluster. As an example, in my case it would be `SCRIPTS_PATH="/rmt/dialogue2/interns/alejandro/scripts/"`.
 
 These are just some examples. For more detailed information visit the folder [`scripts`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/scripts).
 
@@ -164,7 +164,7 @@ qsub -l h=stg-gpu25,virtual_gpu_free=8000M,gpu=1,gpu_queue=1,arch=*64*,test=*,ce
         --add_special_tokens=../data_object_special/simmc_special_tokens.json \
         --model_dir=../coref_models/model_only_coref/checkpoint-38000
 ```
-where `SCRIPTS_PATH` is the path of the script to execute a executable in the GPU cluster. As an example, in my case it would be `SCRIPTS_PATH="/rmt/dialogue2/interns/alejandro/scripts/"`.
+where `SCRIPTS_PATH` is the path of the script to run a executable in the GPU cluster. As an example, in my case it would be `SCRIPTS_PATH="/rmt/dialogue2/interns/alejandro/scripts/"`.
 
 These are just some examples. For more detailed information visit the folder [`scripts`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/scripts).
 
