@@ -1,4 +1,4 @@
-# GPT-2 Baseline for MM Coreference Resolution
+# GPT-2 Baseline for MM Coreference Resolution
 
 This directory contains the code and the scripts for running the baseline model provided by Facebook Research in [SIMMC2.0 mm_dst](https://github.com/facebookresearch/simmc2/tree/main/model/mm_dst).
 
@@ -21,7 +21,7 @@ To train the GPT-2 baseline execute:
         --per_gpu_eval_batch_size=4
 ```
 
-### Evaluating
+### Evaluating
 To evaluate the GPT-2 baseline execute:
 ```bash
     python -m gpt2_dst.scripts.run_generation \
@@ -34,7 +34,7 @@ To evaluate the GPT-2 baseline execute:
         --path_output=./gpt2_dst/results/simmc2_dials_dstc10_devtest_predicted.txt
 ```
 
-### Getting performance
+### Getting performance
 To get the report after evaluating the GPT-2 baseline just execute:
 ```bash
     python -m gpt2_dst.scripts.evaluate \
