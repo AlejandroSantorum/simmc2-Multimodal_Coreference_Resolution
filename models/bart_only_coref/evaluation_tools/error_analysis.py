@@ -118,11 +118,11 @@ def add_error_case_pdf(pdf, dialogue, image, ex_num):
 
 
 def main(args):
-    model_name = "BART_input_all_attrs"
-    predictions_file_path = "../results/devtest/predictions_input_all_attrs_cp381.txt"
-    target_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_target.txt"
-    test_examples_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_predict.txt"
-    test_scenes_file_path = "../data_object_special/simmc2_scenes_devtest.txt"
+    model_name = args.model_name
+    predictions_file_path = args.predictions_file_path
+    target_file_path = args.targets_file_path
+    test_examples_file_path = args.test_examples_file_path
+    test_scenes_file_path = args.test_scenes_file_path
 
     # Convert the data from the GPT-2 friendly format to JSON
     list_target = parse_flattened_results_from_file(target_file_path)
@@ -194,8 +194,20 @@ def main(args):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
+
+    # model name
+    parser.add_argument('--model_name', default="BART_only_coref")
+    # path of the file with the predictions
+    parser.add_argument('--predictions_file_path', default="../results/devtest/predictions_input_all_attrs_cp381.txt")
+    # path of the file with the test examples
+    parser.add_argument('--test_examples_file_path', default="../data_object_special/simmc2_dials_dstc10_devtest_predict.txt")
+    # path of the file with the targets
+    parser.add_argument('--targets_file_path', default="../data_object_special/simmc2_dials_dstc10_devtest_target.txt")
+    # path of the file with the scenes of the used test set
+    parser.add_argument('--test_scenes_file_path', default="../data_object_special/simmc2_scenes_devtest.txt")
+    # number of random errors to sample
     parser.add_argument('--n_errors', default=50, type=int)
-    parser.add_argument('--error_imgs_file', default="", type=str) # TODO
+
     args = parser.parse_args()
 
     main(args)

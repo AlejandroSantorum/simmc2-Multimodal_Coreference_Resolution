@@ -1,11 +1,12 @@
 import json
 import pprint
+import argparse
 from evaluate_only_coref import parse_for_only_coref
 from convert_baseline import parse_flattened_results_from_file
 
 
-def main():
-    predictions_file_path = "../results/devtest/predictions_input_all_attrs_cp381.txt"
+def main(args):
+    predictions_file_path = args.predictions_file_path
     model_name = predictions_file_path[predictions_file_path.find("/predictions_")+len("/predictions_"):predictions_file_path.find(".txt")]
     target_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_target.txt"
     output_file_path = "../results/devtest/span_report_"+model_name+".txt"
@@ -55,4 +56,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    # path of the model predictions file
+    parser.add_argument('--predictions_file_path', default='../results/devtest/predictions_input_all_attrs_cp381.txt')
+    
+    args = parser.parse_args()
+    main(args)

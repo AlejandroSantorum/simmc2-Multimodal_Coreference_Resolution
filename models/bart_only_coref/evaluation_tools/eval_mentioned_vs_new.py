@@ -123,7 +123,7 @@ if __name__ == "__main__":
     parser.add_argument('--test_data_path', default='../data_object_special/simmc2_dials_dstc10_devtest_target.txt')
     # path of the model predictions file
     parser.add_argument('--predictions_file_path', default='../results/devtest/predictions_input_all_attrs_cp381.txt')
-    # path to store the analysis results: by default their are placed in the 'output' folder
+    # path to store the analysis results: by default their are placed in the 'results' folder
     parser.add_argument('--output_file_path', default='')
     
     args = parser.parse_args()
