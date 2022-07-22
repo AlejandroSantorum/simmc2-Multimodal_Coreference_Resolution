@@ -63,6 +63,7 @@ You may need to pull using Git LFS:
 $ git lfs pull
 ```
 
+The dataset can also be downloaded from the following link: [data.zip](https://drive.google.com/file/d/1L6k0s4uFvEJZyWRp8N8NtoQ0k_VsV0Kl/view?usp=sharing).
 
 ----------------------------------------------
 ## Models
