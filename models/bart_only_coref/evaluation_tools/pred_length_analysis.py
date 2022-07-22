@@ -7,8 +7,8 @@ from convert_baseline import parse_flattened_results_from_file
 
 def main(args):
     predictions_file_path = args.predictions_file_path
+    target_file_path = args.targets_file_path
     model_name = predictions_file_path[predictions_file_path.find("/predictions_")+len("/predictions_"):predictions_file_path.find(".txt")]
-    target_file_path = "../data_object_special/simmc2_dials_dstc10_devtest_target.txt"
     output_file_path = "../results/devtest/span_report_"+model_name+".txt"
 
     # Convert the data from the GPT-2 friendly format to JSON
@@ -60,6 +60,8 @@ if __name__ == "__main__":
 
     # path of the model predictions file
     parser.add_argument('--predictions_file_path', default='../results/devtest/predictions_input_all_attrs_cp381.txt')
+    # path of the file with the targets
+    parser.add_argument('--targets_file_path', default='../data_object_special/simmc2_dials_dstc10_devtest_target.txt')
     
     args = parser.parse_args()
     main(args)
