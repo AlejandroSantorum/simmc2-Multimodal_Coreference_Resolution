@@ -10,5 +10,11 @@ This folder contains the tools to process the data for different BART-based mode
     python get_scenes_special_dataset.py
 ```
 will create the files `simmc2_scenes_dev.txt`, `simmc2_scenes_devtest.txt` and `simmc2_scenes_train.txt` in [`data_object_special`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special) folder.
-- `get_seen_unseen_outdomain_sets.py`: script to get the **datasets for the cross-domain experiments**. They need the reference sets chosen for the [UNITER-based model](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based) located at [`reference_sets`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/new_datasets/reference_sets) folder. Again, these datasets need to be the same for both models so the results are comparable.
-- `mask_datasets.py`: script to generate the masked datasets located at [`masked_datasets`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/masked_datasets).
+- `get_seen_unseen_outdomain_sets.py`: script to get the **datasets for the cross-domain experiments**. They need the reference sets chosen for the [UNITER-based model](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based) located at [`reference_sets`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/new_datasets/reference_sets) folder. Again, these datasets need to be the same for both models so the results are comparable. Execute
+```bash
+    python get_seen_unseen_outdomain_sets.py
+```
+- `mask_datasets.py`: script to generate the masked datasets located at [`masked_datasets`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/masked_datasets). Execute
+```bash
+    python mask_datasets.py
+```
