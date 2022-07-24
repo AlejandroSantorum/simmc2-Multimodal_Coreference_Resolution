@@ -40,3 +40,4 @@ Typical output of previous command:
                                    'Recall': 0.7425885755603759}
 }
 ```
+As we can see, the **overall performance of the combined model** is about **0.802 F1 score**.
