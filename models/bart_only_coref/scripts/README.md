@@ -1,16 +1,16 @@
-# Scripts: BART-based model source code
+# Scripts: BART-based model source code
 This folder contains all the scripts and the source code to run all the experiments of this project.
 
 Index:
-    1. [GPU grid execution](##1.-execution-on-a-gpu-cluster)
-        [1.1 Training](###1.1-training)
-        [1.2 Evaluating](###1.2-evaluating)
-        [1.3 Getting the report](###1.3-getting-the-report)
+1. [GPU grid execution](1.-execution-on-a-gpu-cluster)
+    1. [Training](1.1-training)
+    2. [Evaluating](1.2-evaluating)
+    3. [Getting the report](1.3-getting-the-report)
 
-    2. [Local/CPU execution](##2.-local-or-cpu-execution)
-        [2.1 Training](###2.1-training)
-        [2.2 Evaluating](###2.2-evaluating)
-        [2.3 Getting the report](###2.3-getting-the-report)
+2. [Local/CPU execution](2.-local-or-cpu-execution)
+    1. [Training](2.1-training)
+    2. [Evaluating](2.2-evaluating)
+    3. [Getting the report](2.3-getting-the-report)
 
 ------------------------------------
 
