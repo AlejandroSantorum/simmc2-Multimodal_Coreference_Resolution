@@ -1,4 +1,4 @@
-import json, pprint
+import json, pprint, argparse
 from utils import parse_line_only_coref, rec_prec_f1
 
 
@@ -42,14 +42,12 @@ def open_bart_file(bart_file_path):
 
 
 
-def main():
-    model_for_new_objs_path = '../model_outputs/predictions_BART_input_all_attrs_cp381.txt'
-    model_for_mentioned_objs_path = '../model_outputs/predictions_UNITER_basic_all_objmen_noIDs_devtest.json'
-    target_file_path = '../targets/simmc2_dials_dstc10_devtest.json'
-    mentioned_filepath = '../utils/mentioned_ids.json'
+def main(args):
+    model_for_new_objs_path = args.model_for_new_objs_path
+    model_for_mentioned_objs_path = args.model_for_mentioned_objs_path
+    target_file_path = args.targets_file_path
+    mentioned_filepath = args.mentioned_ids_path
 
-    #men_predictions = open_file(model_for_mentioned_objs_path)
-    #new_predictions = open_file(model_for_new_objs_path)
     men_predictions = open_uniter_file(model_for_mentioned_objs_path)
     new_predictions = open_bart_file(model_for_new_objs_path)
     with open(mentioned_filepath, 'r') as f:
@@ -125,4 +123,16 @@ def main():
     pprint.pprint(report)
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+
+    # path of the BART model predictions file (will focus on non-mentioned objects)
+    parser.add_argument('--model_for_new_objs_path', default='../model_outputs/predictions_BART_input_all_attrs_cp381.txt')
+    # path of the UNITER model predictions file (will focus on mentioned objects)
+    parser.add_argument('--model_for_mentioned_objs_path', default='../model_outputs/predictions_UNITER_basic_all_objmen_noIDs_devtest.json')
+    # path of the file with the targets
+    parser.add_argument('--targets_file_path', default='../targets/simmc2_dials_dstc10_devtest.json')
+    # path file with the mentioned object IDs
+    parser.add_argument('--mentioned_ids_path', default='../utils/mentioned_ids.json')
+
+    args = parser.parse_args()
+    main(args)

@@ -1,5 +1,4 @@
-import json
-from utils import extract_mentioned_ids
+import json, argparse
 
 
 def extract_mentioned_ids(example):
@@ -22,9 +21,9 @@ def extract_mentioned_ids(example):
     return list(mentioned_ids)
 
 
-def main():
-    file_path = './simmc2_dials_dstc10_devtest_predict.txt'
-    store_path = './mentioned_ids.json'
+def main(args):
+    file_path = args.test_file_path
+    store_path = args.store_path
 
     with open(file_path, 'r') as f:
         data = f.readlines()
@@ -39,4 +38,12 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+
+    # path of the file with the test examples
+    parser.add_argument('--test_file_path', default='./simmc2_dials_dstc10_devtest_predict.txt')
+    # path to store the resulting file
+    parser.add_argument('--store_path', default='./mentioned_ids.json')
+
+    args = parser.parse_args()
+    main(args)
