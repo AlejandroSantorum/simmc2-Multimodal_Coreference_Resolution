@@ -117,11 +117,17 @@ def insert_attributes(line):
 ATTR_NAME_LIST = ['color', 'type', 'brand', 'price']
 #ALL_FASH_ATTR_NAME_LIST = ['assetType', 'customerReview', 'color', 'pattern', 'sleeveLength', 'type', 'price', 'size']
 #ALL_FURN_ATTR_NAME_LIST = ['brand', 'color', 'customerRating', 'materials', 'price', 'type']
-#FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
-#FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
-FASH_ATTR_NAME_LIST = ['brand', 'price',  'customerReview', 'size']
-FURN_ATTR_NAME_LIST = ['brand', 'price', 'customerRating', 'materials']
-def get_attribute_embeddings(line_ids, tokenizer, model, device):
+ALL_FASH_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'assetType', 'customerReview', 'pattern', 'size']
+ALL_FURN_ATTR_NAME_LIST = ['color', 'type', 'brand', 'price', 'customerRating', 'materials']
+NONVIS_FASH_ATTR_NAME_LIST = ['brand', 'price',  'customerReview', 'size']
+NONVIS_FURN_ATTR_NAME_LIST = ['brand', 'price', 'customerRating', 'materials']
+def get_attribute_embeddings(line_ids, tokenizer, model, device, add_visual=False):
+    if add_visual:
+        fash_attribute_name_list =  ALL_FASH_ATTR_NAME_LIST
+        furn_attribute_name_list =  ALL_FURN_ATTR_NAME_LIST
+    else:
+        fash_attribute_name_list =  NONVIS_FASH_ATTR_NAME_LIST
+        furn_attribute_name_list =  NONVIS_FURN_ATTR_NAME_LIST
     line_object_embeddings = []
     for abs_id in line_ids:
         # get object type
@@ -129,9 +135,9 @@ def get_attribute_embeddings(line_ids, tokenizer, model, device):
         abs_id = int(abs_id[1:])
         # get object attributes
         if meta == '1': # fashion
-            object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) for attr_name in FASH_ATTR_NAME_LIST]
+            object_attrs = [str(fash_meta[id2name_fash[abs_id]][attr_name]) for attr_name in fash_attribute_name_list]
         elif meta == '2': # furniture
-            object_attrs = [str(fur_meta[id2name_fur[abs_id]][attr_name]) for attr_name in FURN_ATTR_NAME_LIST]
+            object_attrs = [str(fur_meta[id2name_fur[abs_id]][attr_name]) for attr_name in furn_attribute_name_list]
         else:
             print("Error: unknown domain:", meta)
             exit()
@@ -379,7 +385,11 @@ def main():
     )
     ### New added arguments are below here: ###
     parser.add_argument(
-        "--input_attrs",
+        "--non_visual_attrs",
+        default=False
+    )
+    parser.add_argument(
+        "--all_attrs",
         default=False
     )
     parser.add_argument(
@@ -494,8 +504,11 @@ def main():
                     pos = misc[b_idx][obj_idx]['pos']
                     inputs_embeds[b_idx][pos] += box_embedded[obj_idx]
                 
-                if args.input_attrs:
-                    line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
+                if args.non_visual_attrs or args.all_attrs:
+                    if args.all_attrs:
+                        line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device, add_visual=True)
+                    else:
+                        line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
                     for idx, abs_id_embs in enumerate(line_embeddings):
                         pos = misc[b_idx][idx]['pos']
                         for embs in abs_id_embs:
