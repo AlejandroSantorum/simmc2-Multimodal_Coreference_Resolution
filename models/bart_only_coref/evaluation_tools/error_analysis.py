@@ -34,12 +34,13 @@ def set_up_pdf(title=""):
 def get_dialogue_history(example_idx, test_data):
     example = test_data[example_idx]
     dial = example[:example.find(' <SOO>')]
-
+    """
     som_idx = dial.find('<SOM>')
     while som_idx != -1:
         eom_idx = dial.find('<EOM>', som_idx)
         dial = dial[:som_idx] + dial[eom_idx+len('<EOM>'):]
         som_idx = dial.find('<SOM>', som_idx+1)
+    """
     return dial
 
 
@@ -118,7 +119,10 @@ def add_error_case_pdf(pdf, dialogue, image, ex_num):
 
 
 def main(args):
-    model_name = args.model_name
+    if not args.model_name:
+        model_name = args.predictions_file_path[args.predictions_file_path.find('predictions_')+len('predictions_') : args.predictions_file_path.find('.txt')]
+    else:
+        model_name = args.model_name
     predictions_file_path = args.predictions_file_path
     target_file_path = args.targets_file_path
     test_examples_file_path = args.test_examples_file_path
@@ -196,7 +200,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
     # model name
-    parser.add_argument('--model_name', default="BART_only_coref")
+    parser.add_argument('--model_name', default="")
     # path of the file with the predictions
     parser.add_argument('--predictions_file_path', default="../results/devtest/predictions_input_all_attrs_cp381.txt")
     # path of the file with the test examples
