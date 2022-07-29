@@ -1,5 +1,5 @@
 import json
-
+import argparse
 
 def rec_prec_f1(n_correct, n_true, n_pred):
     rec = n_correct / n_true if n_true != 0 else 0
@@ -9,9 +9,9 @@ def rec_prec_f1(n_correct, n_true, n_pred):
     return rec, prec, f1
 
 
-def main():
-    predictions_path = "./pdf_error_analysis/estim_human_perform_asantorum.json"
-    subset_data_path = "../processed/random_test_subset/random_devtest_samples.json"
+def main(args):
+    predictions_path = args.predictions_path
+    subset_data_path = args.subset_data_path
 
     with open(predictions_path, 'r') as f:
         predictions = json.load(f)
@@ -39,4 +39,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--predictions_path', default="./pdf_error_analysis/estim_human_perform_asantorum.json")
+    parser.add_argument('--subset_data_path', default="../processed/random_test_subset/random_devtest_samples.json")
+
+    args = parser.parse_args()
+    main(args)
