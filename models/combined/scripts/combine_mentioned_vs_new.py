@@ -126,9 +126,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # path of the BART model predictions file (will focus on non-mentioned objects)
-    parser.add_argument('--model_for_new_objs_path', default='../model_outputs/predictions_BART_input_all_attrs_cp381.txt')
+    parser.add_argument('--model_for_new_objs_path', default='../model_outputs/predictions_BART_num_targets_input_all_attrs_10_1.txt')
     # path of the UNITER model predictions file (will focus on mentioned objects)
-    parser.add_argument('--model_for_mentioned_objs_path', default='../model_outputs/predictions_UNITER_basic_all_objmen_noIDs_devtest.json')
+    parser.add_argument('--model_for_mentioned_objs_path', default='../model_outputs/predictions_UNITER_basic_all_objmen_noIDs_numTargetObjs_025.json')
     # path of the file with the targets
     parser.add_argument('--targets_file_path', default='../targets/simmc2_dials_dstc10_devtest.json')
     # path file with the mentioned object IDs
@@ -136,3 +136,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     main(args)
+
+    # Note: mentioned objects are taken from BART dialogue history. Remember that
+    #   UNITER and BART-based model use different dialogue history window sizes.
+    #   Ambiguous dialogues are ignored (like the UNITER-based model is doing, but not BART)
