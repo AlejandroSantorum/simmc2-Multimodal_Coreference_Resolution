@@ -722,17 +722,15 @@ def train(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_met
                     hidden_concat = torch.cat([hidden_concat, scene_embedding], dim=1)
 
                 coref = coref_enc_head(hidden_concat)  # (num_obj, num_logits)
-                #loss_per_line = 10 * CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device))
                 loss_per_line = CELoss(coref, torch.tensor(coref_label, dtype=torch.long).to(args.device))
 
                 misc_loss += loss_per_line
             misc_loss /= batch_size
 
             if args.num_objs_head:
-                #(num_target_objs_loss + 0.3*misc_loss).backward()
                 (num_target_objs_loss + 10*misc_loss).backward()
             else:
-                (0.3*misc_loss).backward()
+                (3*misc_loss).backward()
 
             tr_loss += model_loss.item()
             parameters_to_clip = [p for p in model.parameters() if p.grad is not None] + \
@@ -892,7 +890,6 @@ def evaluate(args, model, tokenizer, box_embedding, coref_enc_head, all_objects_
                         line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device, add_visual=True)
                     else:
                         line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
-                    line_embeddings = get_attribute_embeddings(obj_ids_per_line[b_idx], tokenizer, model, args.device)
                     for idx, abs_id_embs in enumerate(line_embeddings):
                         pos = misc[b_idx][idx]['pos']
                         for embs in abs_id_embs:
