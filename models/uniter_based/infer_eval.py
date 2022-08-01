@@ -142,13 +142,6 @@ def infer(args):
                     for idx, prediction in enumerate(pred):
                         logit_line_out.append([prediction.item(), truth[idx].item()])
                 else:
-                    '''
-                    print(BATCH_SIZE)
-                    print(pred.shape)
-                    print(obj_men.shape)
-                    print(obj_men[0])
-                    exit()
-                    '''
                     mentioned_pred = torch.tensor([p for i,p in enumerate(pred) if obj_men[0][i]==1])
                     mentioned_ids = [i for i,p in enumerate(pred) if obj_men[0][i]==1]
                     new_pred = torch.tensor([p for i,p in enumerate(pred) if obj_men[0][i]==0])
@@ -211,6 +204,9 @@ def infer(args):
     elif SPLIT == 'out_of_domain':
         with open(f'./processed/new_datasets/out_of_domain_target.json', 'r') as data_file:
             data = json.load(data_file)
+    elif SPLIT == 'random_test_subset':
+        with open(f'./processed/random_test_subset/random_devtest_target.json', 'r') as data_file:
+            data = json.load(data_file)
     else: 
         with open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', 'r') as data_file:
             data = json.load(data_file)
@@ -218,12 +214,13 @@ def infer(args):
     for dial in data['dialogue_data']:
         dial_mentions = []
         dial_idx = dial['dialogue_idx']
-        for round_idx, round in enumerate(dial['dialogue']):
+        for round in dial['dialogue']:
             try:
                 if round['disambiguation_label'] == 1:
                     continue
             except:
                 pass
+            round_idx = round['turn_idx']
             round['transcript_annotated']['act_attributes']['objects_real'] = round['transcript_annotated']['act_attributes']['objects']
             round['transcript_annotated']['act_attributes']['objects'] = out[dial_idx][round_idx]
             for obj_idx in out[dial_idx][round_idx]:
@@ -252,6 +249,8 @@ def infer(args):
         json_target = json.load(open(f'./processed/new_datasets/in_domain_held_out_target.json', 'r'))               
     elif SPLIT == 'out_of_domain':
         json_target = json.load(open(f'./processed/new_datasets/out_of_domain_target.json', 'r'))
+    elif SPLIT == 'random_test_subset':
+        json_target = json.load(open(f'./processed/random_test_subset/random_devtest_target.json', 'r'))
     else:
         json_target = json.load(open(f'./data/simmc2_dials_dstc10_{SPLIT}.json', "r"))
     json_predicted = data

@@ -30,6 +30,8 @@ class UNITER_on_CLIP_BERT_Dataset(Dataset):
             self.file_path = f'{PROCESSED_ROOT}/new_datasets/in_domain_held_out_test.json'
         elif split == 'out_of_domain':
             self.file_path = f'{PROCESSED_ROOT}/new_datasets/out_of_domain_test.json'
+        elif split == 'random_test_subset':
+            self.file_path = f'{PROCESSED_ROOT}/random_test_subset/random_devtest_samples.json'
         else:
             self.file_path = f'{PROCESSED_ROOT}/{split}.json'
 
