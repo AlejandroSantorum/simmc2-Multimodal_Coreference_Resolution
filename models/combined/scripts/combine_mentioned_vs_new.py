@@ -126,7 +126,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     # path of the BART model predictions file (will focus on non-mentioned objects)
-    parser.add_argument('--model_for_new_objs_path', default='../model_outputs/predictions_BART_num_targets_input_all_attrs_10_1.txt')
+    parser.add_argument('--model_for_new_objs_path', default='../model_outputs/predictions_BART_num_targets_input_all_attrs_6_1_cp57.txt')
     # path of the UNITER model predictions file (will focus on mentioned objects)
     parser.add_argument('--model_for_mentioned_objs_path', default='../model_outputs/predictions_UNITER_basic_all_objmen_noIDs_numTargetObjs_025.json')
     # path of the file with the targets
