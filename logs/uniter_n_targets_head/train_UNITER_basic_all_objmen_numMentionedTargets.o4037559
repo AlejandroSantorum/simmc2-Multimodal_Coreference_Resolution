@@ -1,0 +1,2500 @@
+***********************************
+Starting job: train.py --NAME UNITER_basic_all_objmen_numMentionedTargets --obj_id True --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False --obj_men True --mentioned_and_new_head True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037559.1.GPU25-2:/usr/local/bin:/bin:/usr/bin; TIME=Mon 18 Jul 16:43:23 GMT 2022
+***********************************
+
+Setting free GPU to number: 2
+/rmt/dialogue2/interns/alejandro/simmc2-Multimodal_Coreference_Resolution/models/uniter_based
+Linux stg-gpu25.crl.toshiba.co.uk 3.10.0-1160.59.1.el7.x86_64 #1 SMP Wed Feb 23 16:47:03 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+UNITER_basic_all_objmen_numMentionedTargets batch_size=16, Adam_lr=5e-06, FocalAlpha=5, GAMMA=2, scheduler=False
+
+obj_id
+True
+vis_feats_clip
+True
+vis_feats_rcnn
+True
+pos
+True
+scene_seg
+True
+obj_embs_bert
+True
+obj_embs_sbert
+True
+kb_id_bert
+False
+kb_id_sbert
+False
+attn_bias
+False
+graph_attn
+False
+obj_men
+True
+pred_men
+False
+more_roi
+False
+cuda
+Load UNITER PreTrained Model from ./model/Transformers_VQA_master/models/pretrained/uniter-base.pt
+
+Weights in loaded but not in model:
+cls.predictions.bias
+cls.predictions.decoder.weight
+cls.predictions.transform.LayerNorm.bias
+cls.predictions.transform.LayerNorm.weight
+cls.predictions.transform.dense.bias
+cls.predictions.transform.dense.weight
+feat_regress.bias
+feat_regress.net.0.bias
+feat_regress.net.0.weight
+feat_regress.net.2.bias
+feat_regress.net.2.weight
+feat_regress.weight
+itm_output.bias
+itm_output.weight
+region_classifier.net.0.bias
+region_classifier.net.0.weight
+region_classifier.net.2.bias
+region_classifier.net.2.weight
+region_classifier.net.3.bias
+region_classifier.net.3.weight
+uniter.img_embeddings.mask_embedding.weight
+
+Weights in model but not in loaded:
+
+0 0
+tensor(34.2742, device='cuda:0')
+#pred positives 324
+#groundtruth positives 2378
+#total pred 113787
+#hit 0
+Num mentioned targets head accuracy: 0.13863636553287506
+Num new targets head accuracy: 0.7840909361839294
+f1 0
+0 250
+tensor(29.2290, device='cuda:0')
+#pred positives 5783
+#groundtruth positives 2378
+#total pred 113787
+#hit 1297
+Num mentioned targets head accuracy: 0.6899350881576538
+Num new targets head accuracy: 0.7840909361839294
+f1 0.31785320426418334
+0 500
+tensor(25.7275, device='cuda:0')
+#pred positives 5833
+#groundtruth positives 2378
+#total pred 113787
+#hit 1327
+Num mentioned targets head accuracy: 0.6899350881576538
+Num new targets head accuracy: 0.7840909361839294
+f1 0.32322494215077335
+0 750
+tensor(24.0174, device='cuda:0')
+#pred positives 4508
+#groundtruth positives 2378
+#total pred 113787
+#hit 1193
+Num mentioned targets head accuracy: 0.6899350881576538
+Num new targets head accuracy: 0.7840909361839294
+f1 0.3465001452221899
+0 1000
+tensor(22.5441, device='cuda:0')
+#pred positives 4754
+#groundtruth positives 2378
+#total pred 113787
+#hit 1277
+Num mentioned targets head accuracy: 0.692532479763031
+Num new targets head accuracy: 0.7840909361839294
+f1 0.3581043185642176
+0 1250
+tensor(20.9135, device='cuda:0')
+#pred positives 3560
+#groundtruth positives 2378
+#total pred 113787
+#hit 1262
+Num mentioned targets head accuracy: 0.7558441758155823
+Num new targets head accuracy: 0.7935065031051636
+f1 0.4250589424048501
+0 1500
+tensor(19.6362, device='cuda:0')
+#pred positives 3792
+#groundtruth positives 2378
+#total pred 113787
+#hit 1354
+Num mentioned targets head accuracy: 0.8425324559211731
+Num new targets head accuracy: 0.8512986898422241
+f1 0.4388978930307942
+0 1750
+tensor(17.2129, device='cuda:0')
+#pred positives 3781
+#groundtruth positives 2378
+#total pred 113787
+#hit 1397
+Num mentioned targets head accuracy: 0.8548701405525208
+Num new targets head accuracy: 0.8538960814476013
+f1 0.45364507225198897
+0 2000
+tensor(16.9928, device='cuda:0')
+#pred positives 2818
+#groundtruth positives 2378
+#total pred 113787
+#hit 1259
+Num mentioned targets head accuracy: 0.8688311576843262
+Num new targets head accuracy: 0.8665584325790405
+f1 0.48460354118552734
+1 0
+tensor(16.3334, device='cuda:0')
+#pred positives 3912
+#groundtruth positives 2378
+#total pred 113787
+#hit 1475
+Num mentioned targets head accuracy: 0.8646103739738464
+Num new targets head accuracy: 0.8659090995788574
+f1 0.4689984101748808
+1 250
+tensor(15.1237, device='cuda:0')
+#pred positives 3871
+#groundtruth positives 2378
+#total pred 113787
+#hit 1483
+Num mentioned targets head accuracy: 0.8788961172103882
+Num new targets head accuracy: 0.8701298832893372
+f1 0.4746359417506801
+1 500
+tensor(15.5185, device='cuda:0')
+#pred positives 3479
+#groundtruth positives 2378
+#total pred 113787
+#hit 1406
+Num mentioned targets head accuracy: 0.8688311576843262
+Num new targets head accuracy: 0.8724026083946228
+f1 0.48010927095782824
+1 750
+tensor(14.9272, device='cuda:0')
+#pred positives 3516
+#groundtruth positives 2378
+#total pred 113787
+#hit 1466
+Num mentioned targets head accuracy: 0.891883134841919
+Num new targets head accuracy: 0.8909090757369995
+f1 0.497455039022735
+1 1000
+tensor(15.5785, device='cuda:0')
+#pred positives 4021
+#groundtruth positives 2378
+#total pred 113787
+#hit 1560
+Num mentioned targets head accuracy: 0.8954545259475708
+Num new targets head accuracy: 0.892532467842102
+f1 0.4875761837787154
+1 1250
+tensor(13.7997, device='cuda:0')
+#pred positives 4040
+#groundtruth positives 2378
+#total pred 113787
+#hit 1598
+Num mentioned targets head accuracy: 0.8961039185523987
+Num new targets head accuracy: 0.8944805264472961
+f1 0.4979744468681832
+1 1500
+tensor(13.9324, device='cuda:0')
+#pred positives 4261
+#groundtruth positives 2378
+#total pred 113787
+#hit 1661
+Num mentioned targets head accuracy: 0.8912337422370911
+Num new targets head accuracy: 0.9029220938682556
+f1 0.5003765627353518
+1 1750
+tensor(13.9812, device='cuda:0')
+#pred positives 4606
+#groundtruth positives 2378
+#total pred 113787
+#hit 1733
+Num mentioned targets head accuracy: 0.8896104097366333
+Num new targets head accuracy: 0.90064936876297
+f1 0.49627720504009165
+1 2000
+tensor(13.3686, device='cuda:0')
+#pred positives 4685
+#groundtruth positives 2378
+#total pred 113787
+#hit 1797
+Num mentioned targets head accuracy: 0.9025974273681641
+Num new targets head accuracy: 0.9029220938682556
+f1 0.5088489310491292
+2 0
+tensor(13.2228, device='cuda:0')
+#pred positives 3773
+#groundtruth positives 2378
+#total pred 113787
+#hit 1658
+Num mentioned targets head accuracy: 0.8999999761581421
+Num new targets head accuracy: 0.9019480347633362
+f1 0.5390993334417169
+2 250
+tensor(12.1648, device='cuda:0')
+#pred positives 4035
+#groundtruth positives 2378
+#total pred 113787
+#hit 1728
+Num mentioned targets head accuracy: 0.90064936876297
+Num new targets head accuracy: 0.9061688184738159
+f1 0.5389053485108374
+2 500
+tensor(11.9889, device='cuda:0')
+#pred positives 4443
+#groundtruth positives 2378
+#total pred 113787
+#hit 1791
+Num mentioned targets head accuracy: 0.8980519771575928
+Num new targets head accuracy: 0.9064934849739075
+f1 0.525142940917754
+2 750
+tensor(11.1539, device='cuda:0')
+#pred positives 4453
+#groundtruth positives 2378
+#total pred 113787
+#hit 1811
+Num mentioned targets head accuracy: 0.90064936876297
+Num new targets head accuracy: 0.9110389351844788
+f1 0.5302298345776606
+2 1000
+tensor(12.0117, device='cuda:0')
+#pred positives 4538
+#groundtruth positives 2378
+#total pred 113787
+#hit 1838
+Num mentioned targets head accuracy: 0.9087662100791931
+Num new targets head accuracy: 0.9149350523948669
+f1 0.5315211104684789
+2 1250
+tensor(10.9612, device='cuda:0')
+#pred positives 4327
+#groundtruth positives 2378
+#total pred 113787
+#hit 1829
+Num mentioned targets head accuracy: 0.9051948189735413
+Num new targets head accuracy: 0.9120129942893982
+f1 0.5455630126771066
+2 1500
+tensor(10.7566, device='cuda:0')
+#pred positives 4177
+#groundtruth positives 2378
+#total pred 113787
+#hit 1821
+Num mentioned targets head accuracy: 0.9029220938682556
+Num new targets head accuracy: 0.9090909361839294
+f1 0.5556064073226544
+2 1750
+tensor(11.0892, device='cuda:0')
+#pred positives 4195
+#groundtruth positives 2378
+#total pred 113787
+#hit 1851
+Num mentioned targets head accuracy: 0.9097402691841125
+Num new targets head accuracy: 0.9191558361053467
+f1 0.5632131446827933
+2 2000
+tensor(10.9873, device='cuda:0')
+#pred positives 4146
+#groundtruth positives 2378
+#total pred 113787
+#hit 1843
+Num mentioned targets head accuracy: 0.9107142686843872
+Num new targets head accuracy: 0.9194805026054382
+f1 0.564990803188228
+3 0
+tensor(10.6018, device='cuda:0')
+#pred positives 3917
+#groundtruth positives 2378
+#total pred 113787
+#hit 1808
+Num mentioned targets head accuracy: 0.90811687707901
+Num new targets head accuracy: 0.9165584444999695
+f1 0.5744241461477363
+3 250
+tensor(9.4343, device='cuda:0')
+#pred positives 4317
+#groundtruth positives 2378
+#total pred 113787
+#hit 1889
+Num mentioned targets head accuracy: 0.9188311696052551
+Num new targets head accuracy: 0.9240259528160095
+f1 0.564301717699776
+3 500
+tensor(9.2263, device='cuda:0')
+#pred positives 4438
+#groundtruth positives 2378
+#total pred 113787
+#hit 1902
+Num mentioned targets head accuracy: 0.9201298952102661
+Num new targets head accuracy: 0.9224026203155518
+f1 0.5580985915492958
+3 750
+tensor(9.1826, device='cuda:0')
+#pred positives 4255
+#groundtruth positives 2378
+#total pred 113787
+#hit 1880
+Num mentioned targets head accuracy: 0.9204545617103577
+Num new targets head accuracy: 0.9272727370262146
+f1 0.5668626564148952
+3 1000
+tensor(9.5646, device='cuda:0')
+#pred positives 4585
+#groundtruth positives 2378
+#total pred 113787
+#hit 1943
+Num mentioned targets head accuracy: 0.9185065031051636
+Num new targets head accuracy: 0.9253246784210205
+f1 0.5580927761022547
+3 1250
+tensor(9.2414, device='cuda:0')
+#pred positives 4087
+#groundtruth positives 2378
+#total pred 113787
+#hit 1863
+Num mentioned targets head accuracy: 0.9201298952102661
+Num new targets head accuracy: 0.923701286315918
+f1 0.5763341067285382
+3 1500
+tensor(9.0982, device='cuda:0')
+#pred positives 4136
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num mentioned targets head accuracy: 0.9178571701049805
+Num new targets head accuracy: 0.9256493449211121
+f1 0.5756831439975437
+3 1750
+tensor(9.5744, device='cuda:0')
+#pred positives 4115
+#groundtruth positives 2378
+#total pred 113787
+#hit 1898
+Num mentioned targets head accuracy: 0.9198051691055298
+Num new targets head accuracy: 0.9256493449211121
+f1 0.5846296011088864
+3 2000
+tensor(9.2256, device='cuda:0')
+#pred positives 4241
+#groundtruth positives 2378
+#total pred 113787
+#hit 1932
+Num mentioned targets head accuracy: 0.9214285612106323
+Num new targets head accuracy: 0.9275974035263062
+f1 0.5837739839854964
+4 0
+tensor(8.4777, device='cuda:0')
+#pred positives 4228
+#groundtruth positives 2378
+#total pred 113787
+#hit 1927
+Num mentioned targets head accuracy: 0.9246753454208374
+Num new targets head accuracy: 0.9298701286315918
+f1 0.5834090221011202
+4 250
+tensor(7.9034, device='cuda:0')
+#pred positives 4000
+#groundtruth positives 2378
+#total pred 113787
+#hit 1897
+Num mentioned targets head accuracy: 0.9233766198158264
+Num new targets head accuracy: 0.9253246784210205
+f1 0.5948573220445281
+4 500
+tensor(8.0981, device='cuda:0')
+#pred positives 4181
+#groundtruth positives 2378
+#total pred 113787
+#hit 1915
+Num mentioned targets head accuracy: 0.9240259528160095
+Num new targets head accuracy: 0.9311688542366028
+f1 0.5839304772068913
+4 750
+tensor(7.6413, device='cuda:0')
+#pred positives 3995
+#groundtruth positives 2378
+#total pred 113787
+#hit 1884
+Num mentioned targets head accuracy: 0.9227272868156433
+Num new targets head accuracy: 0.9292207956314087
+f1 0.5912443119410012
+4 1000
+tensor(7.7756, device='cuda:0')
+#pred positives 4278
+#groundtruth positives 2378
+#total pred 113787
+#hit 1953
+Num mentioned targets head accuracy: 0.9201298952102661
+Num new targets head accuracy: 0.926948070526123
+f1 0.5868389423076922
+4 1250
+tensor(7.6623, device='cuda:0')
+#pred positives 3806
+#groundtruth positives 2378
+#total pred 113787
+#hit 1884
+Num mentioned targets head accuracy: 0.9253246784210205
+Num new targets head accuracy: 0.9285714030265808
+f1 0.6093143596377749
+4 1500
+tensor(8.1142, device='cuda:0')
+#pred positives 4203
+#groundtruth positives 2378
+#total pred 113787
+#hit 1943
+Num mentioned targets head accuracy: 0.9201298952102661
+Num new targets head accuracy: 0.9275974035263062
+f1 0.5904877678164413
+4 1750
+tensor(7.5498, device='cuda:0')
+#pred positives 3939
+#groundtruth positives 2378
+#total pred 113787
+#hit 1923
+Num mentioned targets head accuracy: 0.9298701286315918
+Num new targets head accuracy: 0.932467520236969
+f1 0.6088333069495013
+4 2000
+tensor(7.7611, device='cuda:0')
+#pred positives 4233
+#groundtruth positives 2378
+#total pred 113787
+#hit 1968
+Num mentioned targets head accuracy: 0.9246753454208374
+Num new targets head accuracy: 0.9298701286315918
+f1 0.5953713507790047
+5 0
+tensor(7.8344, device='cuda:0')
+#pred positives 4081
+#groundtruth positives 2378
+#total pred 113787
+#hit 1966
+Num mentioned targets head accuracy: 0.9233766198158264
+Num new targets head accuracy: 0.9288961291313171
+f1 0.608762966403468
+5 250
+tensor(6.7370, device='cuda:0')
+#pred positives 3692
+#groundtruth positives 2378
+#total pred 113787
+#hit 1879
+Num mentioned targets head accuracy: 0.9298701286315918
+Num new targets head accuracy: 0.9344155788421631
+f1 0.6191103789126854
+5 500
+tensor(6.5686, device='cuda:0')
+#pred positives 3728
+#groundtruth positives 2378
+#total pred 113787
+#hit 1884
+Num mentioned targets head accuracy: 0.926948070526123
+Num new targets head accuracy: 0.9298701286315918
+f1 0.617097936455945
+5 750
+tensor(6.8631, device='cuda:0')
+#pred positives 3927
+#groundtruth positives 2378
+#total pred 113787
+#hit 1937
+Num mentioned targets head accuracy: 0.9256493449211121
+Num new targets head accuracy: 0.9292207956314087
+f1 0.6144329896907216
+5 1000
+tensor(6.6087, device='cuda:0')
+#pred positives 4009
+#groundtruth positives 2378
+#total pred 113787
+#hit 1948
+Num mentioned targets head accuracy: 0.9256493449211121
+Num new targets head accuracy: 0.9295454621315002
+f1 0.6099890402379835
+5 1250
+tensor(7.0121, device='cuda:0')
+#pred positives 3873
+#groundtruth positives 2378
+#total pred 113787
+#hit 1929
+Num mentioned targets head accuracy: 0.9279220700263977
+Num new targets head accuracy: 0.932467520236969
+f1 0.6171812509998401
+5 1500
+tensor(6.9132, device='cuda:0')
+#pred positives 3734
+#groundtruth positives 2378
+#total pred 113787
+#hit 1912
+Num mentioned targets head accuracy: 0.9305194616317749
+Num new targets head accuracy: 0.9321428537368774
+f1 0.6256544502617801
+5 1750
+tensor(6.8702, device='cuda:0')
+#pred positives 3815
+#groundtruth positives 2378
+#total pred 113787
+#hit 1927
+Num mentioned targets head accuracy: 0.9298701286315918
+Num new targets head accuracy: 0.9321428537368774
+f1 0.6223155175197804
+5 2000
+tensor(6.7444, device='cuda:0')
+#pred positives 3569
+#groundtruth positives 2378
+#total pred 113787
+#hit 1890
+Num mentioned targets head accuracy: 0.9295454621315002
+Num new targets head accuracy: 0.9334415793418884
+f1 0.6356145955944174
+6 0
+tensor(5.8440, device='cuda:0')
+#pred positives 3611
+#groundtruth positives 2378
+#total pred 113787
+#hit 1895
+Num mentioned targets head accuracy: 0.9285714030265808
+Num new targets head accuracy: 0.9298701286315918
+f1 0.6328268492235766
+6 250
+tensor(5.4005, device='cuda:0')
+#pred positives 3428
+#groundtruth positives 2378
+#total pred 113787
+#hit 1872
+Num mentioned targets head accuracy: 0.9256493449211121
+Num new targets head accuracy: 0.9308441281318665
+f1 0.6448501550120564
+6 500
+tensor(5.6670, device='cuda:0')
+#pred positives 3568
+#groundtruth positives 2378
+#total pred 113787
+#hit 1876
+Num mentioned targets head accuracy: 0.9298701286315918
+Num new targets head accuracy: 0.9321428537368774
+f1 0.631012445341406
+6 750
+tensor(5.7610, device='cuda:0')
+#pred positives 3772
+#groundtruth positives 2378
+#total pred 113787
+#hit 1931
+Num mentioned targets head accuracy: 0.9253246784210205
+Num new targets head accuracy: 0.9318181872367859
+f1 0.6279674796747968
+6 1000
+tensor(5.9258, device='cuda:0')
+#pred positives 3812
+#groundtruth positives 2378
+#total pred 113787
+#hit 1949
+Num mentioned targets head accuracy: 0.9314935207366943
+Num new targets head accuracy: 0.9366883039474487
+f1 0.6297253634894993
+6 1250
+tensor(6.1335, device='cuda:0')
+#pred positives 3854
+#groundtruth positives 2378
+#total pred 113787
+#hit 1960
+Num mentioned targets head accuracy: 0.9308441281318665
+Num new targets head accuracy: 0.9344155788421631
+f1 0.6290115532734275
+6 1500
+tensor(5.8833, device='cuda:0')
+#pred positives 3808
+#groundtruth positives 2378
+#total pred 113787
+#hit 1954
+Num mentioned targets head accuracy: 0.9292207956314087
+Num new targets head accuracy: 0.9340909123420715
+f1 0.6317491108955706
+6 1750
+tensor(6.0134, device='cuda:0')
+#pred positives 3656
+#groundtruth positives 2378
+#total pred 113787
+#hit 1932
+Num mentioned targets head accuracy: 0.9295454621315002
+Num new targets head accuracy: 0.9334415793418884
+f1 0.6403712296983759
+6 2000
+tensor(5.9789, device='cuda:0')
+#pred positives 3621
+#groundtruth positives 2378
+#total pred 113787
+#hit 1926
+Num mentioned targets head accuracy: 0.9292207956314087
+Num new targets head accuracy: 0.93376624584198
+f1 0.642107017836306
+7 0
+tensor(5.8532, device='cuda:0')
+#pred positives 3456
+#groundtruth positives 2378
+#total pred 113787
+#hit 1890
+Num mentioned targets head accuracy: 0.9331169128417969
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6479259513198492
+7 250
+tensor(4.9797, device='cuda:0')
+#pred positives 3677
+#groundtruth positives 2378
+#total pred 113787
+#hit 1929
+Num mentioned targets head accuracy: 0.9292207956314087
+Num new targets head accuracy: 0.9295454621315002
+f1 0.6371593724194881
+7 500
+tensor(5.0456, device='cuda:0')
+#pred positives 3495
+#groundtruth positives 2378
+#total pred 113787
+#hit 1899
+Num mentioned targets head accuracy: 0.9285714030265808
+Num new targets head accuracy: 0.9344155788421631
+f1 0.6466882342925251
+7 750
+tensor(5.3690, device='cuda:0')
+#pred positives 3738
+#groundtruth positives 2378
+#total pred 113787
+#hit 1963
+Num mentioned targets head accuracy: 0.9321428537368774
+Num new targets head accuracy: 0.9379870295524597
+f1 0.6419228253760628
+7 1000
+tensor(5.0847, device='cuda:0')
+#pred positives 3469
+#groundtruth positives 2378
+#total pred 113787
+#hit 1889
+Num mentioned targets head accuracy: 0.9340909123420715
+Num new targets head accuracy: 0.9347402453422546
+f1 0.6461433213613819
+7 1250
+tensor(5.5052, device='cuda:0')
+#pred positives 3794
+#groundtruth positives 2378
+#total pred 113787
+#hit 1966
+Num mentioned targets head accuracy: 0.9334415793418884
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6370706416072586
+7 1500
+tensor(5.1488, device='cuda:0')
+#pred positives 3344
+#groundtruth positives 2378
+#total pred 113787
+#hit 1862
+Num mentioned targets head accuracy: 0.9344155788421631
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6508213911219852
+7 1750
+tensor(5.2824, device='cuda:0')
+#pred positives 3628
+#groundtruth positives 2378
+#total pred 113787
+#hit 1938
+Num mentioned targets head accuracy: 0.9314935207366943
+Num new targets head accuracy: 0.9360389709472656
+f1 0.6453546453546453
+7 2000
+tensor(5.2880, device='cuda:0')
+#pred positives 3602
+#groundtruth positives 2378
+#total pred 113787
+#hit 1954
+Num mentioned targets head accuracy: 0.9373376369476318
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6535117056856188
+8 0
+tensor(4.8772, device='cuda:0')
+#pred positives 3553
+#groundtruth positives 2378
+#total pred 113787
+#hit 1923
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9373376369476318
+f1 0.648457258472433
+8 250
+tensor(4.5244, device='cuda:0')
+#pred positives 3786
+#groundtruth positives 2378
+#total pred 113787
+#hit 1960
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9357143044471741
+f1 0.63595068137573
+8 500
+tensor(4.5736, device='cuda:0')
+#pred positives 3356
+#groundtruth positives 2378
+#total pred 113787
+#hit 1895
+Num mentioned targets head accuracy: 0.9360389709472656
+Num new targets head accuracy: 0.9386363625526428
+f1 0.6609696546913151
+8 750
+tensor(4.5431, device='cuda:0')
+#pred positives 3544
+#groundtruth positives 2378
+#total pred 113787
+#hit 1899
+Num mentioned targets head accuracy: 0.9344155788421631
+Num new targets head accuracy: 0.9366883039474487
+f1 0.6413373860182371
+8 1000
+tensor(4.5269, device='cuda:0')
+#pred positives 3428
+#groundtruth positives 2378
+#total pred 113787
+#hit 1897
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9402597546577454
+f1 0.6534619359283501
+8 1250
+tensor(4.4935, device='cuda:0')
+#pred positives 3348
+#groundtruth positives 2378
+#total pred 113787
+#hit 1887
+Num mentioned targets head accuracy: 0.93376624584198
+Num new targets head accuracy: 0.9373376369476318
+f1 0.659098847362906
+8 1500
+tensor(4.7989, device='cuda:0')
+#pred positives 3363
+#groundtruth positives 2378
+#total pred 113787
+#hit 1898
+Num mentioned targets head accuracy: 0.9353896379470825
+Num new targets head accuracy: 0.9366883039474487
+f1 0.6612088486326423
+8 1750
+tensor(4.4232, device='cuda:0')
+#pred positives 3481
+#groundtruth positives 2378
+#total pred 113787
+#hit 1926
+Num mentioned targets head accuracy: 0.9366883039474487
+Num new targets head accuracy: 0.9422078132629395
+f1 0.6574500768049154
+8 2000
+tensor(4.7218, device='cuda:0')
+#pred positives 3284
+#groundtruth positives 2378
+#total pred 113787
+#hit 1862
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6577181208053691
+9 0
+tensor(4.7350, device='cuda:0')
+#pred positives 3319
+#groundtruth positives 2378
+#total pred 113787
+#hit 1873
+Num mentioned targets head accuracy: 0.9353896379470825
+Num new targets head accuracy: 0.9386363625526428
+f1 0.657539055643321
+9 250
+tensor(4.0243, device='cuda:0')
+#pred positives 3295
+#groundtruth positives 2378
+#total pred 113787
+#hit 1882
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9379870295524597
+f1 0.6634937422880309
+9 500
+tensor(4.1345, device='cuda:0')
+#pred positives 3366
+#groundtruth positives 2378
+#total pred 113787
+#hit 1889
+Num mentioned targets head accuracy: 0.9357143044471741
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6577298050139275
+9 750
+tensor(4.0939, device='cuda:0')
+#pred positives 3440
+#groundtruth positives 2378
+#total pred 113787
+#hit 1924
+Num mentioned targets head accuracy: 0.9350649118423462
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6613956686146443
+9 1000
+tensor(4.3619, device='cuda:0')
+#pred positives 3513
+#groundtruth positives 2378
+#total pred 113787
+#hit 1932
+Num mentioned targets head accuracy: 0.9360389709472656
+Num new targets head accuracy: 0.9373376369476318
+f1 0.6559158037684603
+9 1250
+tensor(4.2161, device='cuda:0')
+#pred positives 3292
+#groundtruth positives 2378
+#total pred 113787
+#hit 1888
+Num mentioned targets head accuracy: 0.9373376369476318
+Num new targets head accuracy: 0.9399350881576538
+f1 0.6659611992945326
+9 1500
+tensor(4.0177, device='cuda:0')
+#pred positives 3581
+#groundtruth positives 2378
+#total pred 113787
+#hit 1942
+Num mentioned targets head accuracy: 0.9379870295524597
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6517872126195671
+9 1750
+tensor(4.4613, device='cuda:0')
+#pred positives 3502
+#groundtruth positives 2378
+#total pred 113787
+#hit 1921
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6534013605442177
+9 2000
+tensor(4.2548, device='cuda:0')
+#pred positives 3496
+#groundtruth positives 2378
+#total pred 113787
+#hit 1905
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6486210418794689
+10 0
+tensor(3.6586, device='cuda:0')
+#pred positives 3408
+#groundtruth positives 2378
+#total pred 113787
+#hit 1902
+Num mentioned targets head accuracy: 0.9360389709472656
+Num new targets head accuracy: 0.9402597546577454
+f1 0.6574490148634636
+10 250
+tensor(3.5120, device='cuda:0')
+#pred positives 3115
+#groundtruth positives 2378
+#total pred 113787
+#hit 1823
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9386363625526428
+f1 0.6637538685599854
+10 500
+tensor(3.5161, device='cuda:0')
+#pred positives 3148
+#groundtruth positives 2378
+#total pred 113787
+#hit 1838
+Num mentioned targets head accuracy: 0.9314935207366943
+Num new targets head accuracy: 0.93376624584198
+f1 0.6652189648932321
+10 750
+tensor(3.6538, device='cuda:0')
+#pred positives 3323
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9402597546577454
+f1 0.6577793369584284
+10 1000
+tensor(3.7817, device='cuda:0')
+#pred positives 3320
+#groundtruth positives 2378
+#total pred 113787
+#hit 1868
+Num mentioned targets head accuracy: 0.9357143044471741
+Num new targets head accuracy: 0.9373376369476318
+f1 0.6556686556686557
+10 1250
+tensor(3.8103, device='cuda:0')
+#pred positives 3171
+#groundtruth positives 2378
+#total pred 113787
+#hit 1848
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9386363625526428
+f1 0.6660659578302397
+10 1500
+tensor(3.6798, device='cuda:0')
+#pred positives 3207
+#groundtruth positives 2378
+#total pred 113787
+#hit 1844
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9386363625526428
+f1 0.6603401969561326
+10 1750
+tensor(3.7265, device='cuda:0')
+#pred positives 3442
+#groundtruth positives 2378
+#total pred 113787
+#hit 1934
+Num mentioned targets head accuracy: 0.9344155788421631
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6646048109965635
+10 2000
+tensor(3.8466, device='cuda:0')
+#pred positives 3405
+#groundtruth positives 2378
+#total pred 113787
+#hit 1927
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9409090876579285
+f1 0.6664361058274253
+11 0
+tensor(4.0964, device='cuda:0')
+#pred positives 3352
+#groundtruth positives 2378
+#total pred 113787
+#hit 1918
+Num mentioned targets head accuracy: 0.9396103620529175
+Num new targets head accuracy: 0.9409090876579285
+f1 0.6694589877835952
+11 250
+tensor(3.3462, device='cuda:0')
+#pred positives 3311
+#groundtruth positives 2378
+#total pred 113787
+#hit 1903
+Num mentioned targets head accuracy: 0.9344155788421631
+Num new targets head accuracy: 0.93376624584198
+f1 0.6690103708911935
+11 500
+tensor(3.4006, device='cuda:0')
+#pred positives 3381
+#groundtruth positives 2378
+#total pred 113787
+#hit 1921
+Num mentioned targets head accuracy: 0.9353896379470825
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6671297100191006
+11 750
+tensor(3.3953, device='cuda:0')
+#pred positives 3180
+#groundtruth positives 2378
+#total pred 113787
+#hit 1850
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6657070888808925
+11 1000
+tensor(3.0981, device='cuda:0')
+#pred positives 3204
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num mentioned targets head accuracy: 0.9373376369476318
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6718022214260122
+11 1250
+tensor(3.5281, device='cuda:0')
+#pred positives 3262
+#groundtruth positives 2378
+#total pred 113787
+#hit 1902
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9405844211578369
+f1 0.674468085106383
+11 1500
+tensor(3.3111, device='cuda:0')
+#pred positives 3219
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9415584206581116
+f1 0.6700017866714312
+11 1750
+tensor(3.6013, device='cuda:0')
+#pred positives 3300
+#groundtruth positives 2378
+#total pred 113787
+#hit 1895
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.94123375415802
+f1 0.6674885523071504
+11 2000
+tensor(3.5169, device='cuda:0')
+#pred positives 3185
+#groundtruth positives 2378
+#total pred 113787
+#hit 1869
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6719396009347475
+12 0
+tensor(3.2599, device='cuda:0')
+#pred positives 3177
+#groundtruth positives 2378
+#total pred 113787
+#hit 1869
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6729072907290728
+12 250
+tensor(3.1376, device='cuda:0')
+#pred positives 3352
+#groundtruth positives 2378
+#total pred 113787
+#hit 1905
+Num mentioned targets head accuracy: 0.93376624584198
+Num new targets head accuracy: 0.9366883039474487
+f1 0.6649214659685864
+12 500
+tensor(2.9117, device='cuda:0')
+#pred positives 3046
+#groundtruth positives 2378
+#total pred 113787
+#hit 1840
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.942532479763031
+f1 0.6784660766961652
+12 750
+tensor(2.9280, device='cuda:0')
+#pred positives 2934
+#groundtruth positives 2378
+#total pred 113787
+#hit 1789
+Num mentioned targets head accuracy: 0.9353896379470825
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6735692771084337
+12 1000
+tensor(3.0040, device='cuda:0')
+#pred positives 3159
+#groundtruth positives 2378
+#total pred 113787
+#hit 1862
+Num mentioned targets head accuracy: 0.9396103620529175
+Num new targets head accuracy: 0.9431818127632141
+f1 0.6725663716814159
+12 1250
+tensor(3.0946, device='cuda:0')
+#pred positives 3153
+#groundtruth positives 2378
+#total pred 113787
+#hit 1866
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9415584206581116
+f1 0.6747423612366661
+12 1500
+tensor(3.1183, device='cuda:0')
+#pred positives 3068
+#groundtruth positives 2378
+#total pred 113787
+#hit 1848
+Num mentioned targets head accuracy: 0.932467520236969
+Num new targets head accuracy: 0.9379870295524597
+f1 0.6786632390745501
+12 1750
+tensor(3.0187, device='cuda:0')
+#pred positives 3082
+#groundtruth positives 2378
+#total pred 113787
+#hit 1848
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.94123375415802
+f1 0.676923076923077
+12 2000
+tensor(3.1713, device='cuda:0')
+#pred positives 3234
+#groundtruth positives 2378
+#total pred 113787
+#hit 1862
+Num mentioned targets head accuracy: 0.9288961291313171
+Num new targets head accuracy: 0.9318181872367859
+f1 0.6635780470420528
+13 0
+tensor(3.3492, device='cuda:0')
+#pred positives 3214
+#groundtruth positives 2378
+#total pred 113787
+#hit 1899
+Num mentioned targets head accuracy: 0.9379870295524597
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6791845493562232
+13 250
+tensor(2.6131, device='cuda:0')
+#pred positives 3119
+#groundtruth positives 2378
+#total pred 113787
+#hit 1846
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.942532479763031
+f1 0.6716390758595597
+13 500
+tensor(2.7226, device='cuda:0')
+#pred positives 3039
+#groundtruth positives 2378
+#total pred 113787
+#hit 1842
+Num mentioned targets head accuracy: 0.9344155788421631
+Num new targets head accuracy: 0.9370129704475403
+f1 0.6800812257707217
+13 750
+tensor(2.7090, device='cuda:0')
+#pred positives 3067
+#groundtruth positives 2378
+#total pred 113787
+#hit 1834
+Num mentioned targets head accuracy: 0.9360389709472656
+Num new targets head accuracy: 0.9366883039474487
+f1 0.673645546372819
+13 1000
+tensor(2.8675, device='cuda:0')
+#pred positives 3178
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num mentioned targets head accuracy: 0.9396103620529175
+Num new targets head accuracy: 0.94123375415802
+f1 0.6749460043196545
+13 1250
+tensor(2.8445, device='cuda:0')
+#pred positives 2991
+#groundtruth positives 2378
+#total pred 113787
+#hit 1815
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.94123375415802
+f1 0.6761035574594897
+13 1500
+tensor(2.7971, device='cuda:0')
+#pred positives 3105
+#groundtruth positives 2378
+#total pred 113787
+#hit 1849
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9399350881576538
+f1 0.6744482947291629
+13 1750
+tensor(2.7799, device='cuda:0')
+#pred positives 3110
+#groundtruth positives 2378
+#total pred 113787
+#hit 1852
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9399350881576538
+f1 0.6749271137026239
+13 2000
+tensor(2.6436, device='cuda:0')
+#pred positives 3000
+#groundtruth positives 2378
+#total pred 113787
+#hit 1816
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6753439940498326
+14 0
+tensor(3.0874, device='cuda:0')
+#pred positives 3145
+#groundtruth positives 2378
+#total pred 113787
+#hit 1869
+Num mentioned targets head accuracy: 0.9366883039474487
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6768060836501901
+14 250
+tensor(2.5576, device='cuda:0')
+#pred positives 2883
+#groundtruth positives 2378
+#total pred 113787
+#hit 1791
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9399350881576538
+f1 0.6808591522524234
+14 500
+tensor(2.5449, device='cuda:0')
+#pred positives 3250
+#groundtruth positives 2378
+#total pred 113787
+#hit 1874
+Num mentioned targets head accuracy: 0.9321428537368774
+Num new targets head accuracy: 0.9350649118423462
+f1 0.6659559346126511
+14 750
+tensor(2.5712, device='cuda:0')
+#pred positives 2882
+#groundtruth positives 2378
+#total pred 113787
+#hit 1779
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.9409090876579285
+f1 0.676425855513308
+14 1000
+tensor(2.6353, device='cuda:0')
+#pred positives 3014
+#groundtruth positives 2378
+#total pred 113787
+#hit 1827
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6776706231454006
+14 1250
+tensor(2.6883, device='cuda:0')
+#pred positives 3072
+#groundtruth positives 2378
+#total pred 113787
+#hit 1865
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6844036697247706
+14 1500
+tensor(2.5558, device='cuda:0')
+#pred positives 3183
+#groundtruth positives 2378
+#total pred 113787
+#hit 1883
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6772163279985614
+14 1750
+tensor(2.4118, device='cuda:0')
+#pred positives 2883
+#groundtruth positives 2378
+#total pred 113787
+#hit 1798
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9415584206581116
+f1 0.6835202432997529
+14 2000
+tensor(2.5328, device='cuda:0')
+#pred positives 3003
+#groundtruth positives 2378
+#total pred 113787
+#hit 1819
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.942532479763031
+f1 0.6760825125441368
+15 0
+tensor(2.8533, device='cuda:0')
+#pred positives 3169
+#groundtruth positives 2378
+#total pred 113787
+#hit 1877
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6767622138092663
+15 250
+tensor(2.2434, device='cuda:0')
+#pred positives 2903
+#groundtruth positives 2378
+#total pred 113787
+#hit 1797
+Num mentioned targets head accuracy: 0.9357143044471741
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6805529255822761
+15 500
+tensor(2.0860, device='cuda:0')
+#pred positives 2990
+#groundtruth positives 2378
+#total pred 113787
+#hit 1827
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9402597546577454
+f1 0.6807004470938897
+15 750
+tensor(2.3517, device='cuda:0')
+#pred positives 3006
+#groundtruth positives 2378
+#total pred 113787
+#hit 1844
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9373376369476318
+f1 0.6849925705794949
+15 1000
+tensor(2.4567, device='cuda:0')
+#pred positives 2984
+#groundtruth positives 2378
+#total pred 113787
+#hit 1837
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6851920925027974
+15 1250
+tensor(2.3642, device='cuda:0')
+#pred positives 3033
+#groundtruth positives 2378
+#total pred 113787
+#hit 1838
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9396103620529175
+f1 0.6793568656440584
+15 1500
+tensor(2.3975, device='cuda:0')
+#pred positives 2785
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+Num mentioned targets head accuracy: 0.9428571462631226
+Num new targets head accuracy: 0.9448052048683167
+f1 0.684873135773775
+15 1750
+tensor(2.4283, device='cuda:0')
+#pred positives 2900
+#groundtruth positives 2378
+#total pred 113787
+#hit 1819
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6892762410003789
+15 2000
+tensor(2.3102, device='cuda:0')
+#pred positives 2968
+#groundtruth positives 2378
+#total pred 113787
+#hit 1841
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6887392442947998
+16 0
+tensor(2.2264, device='cuda:0')
+#pred positives 3019
+#groundtruth positives 2378
+#total pred 113787
+#hit 1851
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.942532479763031
+f1 0.6859366314619233
+16 250
+tensor(1.8730, device='cuda:0')
+#pred positives 2912
+#groundtruth positives 2378
+#total pred 113787
+#hit 1811
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.942532479763031
+f1 0.6846880907372401
+16 500
+tensor(1.9444, device='cuda:0')
+#pred positives 2988
+#groundtruth positives 2378
+#total pred 113787
+#hit 1842
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6865449124114797
+16 750
+tensor(2.0067, device='cuda:0')
+#pred positives 2888
+#groundtruth positives 2378
+#total pred 113787
+#hit 1813
+Num mentioned targets head accuracy: 0.9396103620529175
+Num new targets head accuracy: 0.942532479763031
+f1 0.6885681731864793
+16 1000
+tensor(1.9990, device='cuda:0')
+#pred positives 3088
+#groundtruth positives 2378
+#total pred 113787
+#hit 1868
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.9422078132629395
+f1 0.6834979875594586
+16 1250
+tensor(2.2163, device='cuda:0')
+#pred positives 2890
+#groundtruth positives 2378
+#total pred 113787
+#hit 1819
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9418830871582031
+f1 0.690584662110858
+16 1500
+tensor(2.1167, device='cuda:0')
+#pred positives 2989
+#groundtruth positives 2378
+#total pred 113787
+#hit 1845
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9396103620529175
+f1 0.6875349357182783
+16 1750
+tensor(2.0868, device='cuda:0')
+#pred positives 3077
+#groundtruth positives 2378
+#total pred 113787
+#hit 1875
+Num mentioned targets head accuracy: 0.9396103620529175
+Num new targets head accuracy: 0.9405844211578369
+f1 0.687442713107241
+16 2000
+tensor(2.2296, device='cuda:0')
+#pred positives 2938
+#groundtruth positives 2378
+#total pred 113787
+#hit 1813
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.9379870295524597
+f1 0.68209179834462
+17 0
+tensor(2.2580, device='cuda:0')
+#pred positives 2866
+#groundtruth positives 2378
+#total pred 113787
+#hit 1794
+Num mentioned targets head accuracy: 0.93376624584198
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6842105263157894
+17 250
+tensor(1.9311, device='cuda:0')
+#pred positives 2882
+#groundtruth positives 2378
+#total pred 113787
+#hit 1795
+Num mentioned targets head accuracy: 0.9308441281318665
+Num new targets head accuracy: 0.9350649118423462
+f1 0.6825095057034221
+17 500
+tensor(1.8552, device='cuda:0')
+#pred positives 2970
+#groundtruth positives 2378
+#total pred 113787
+#hit 1836
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9444805383682251
+f1 0.6866118175018698
+17 750
+tensor(1.8684, device='cuda:0')
+#pred positives 2976
+#groundtruth positives 2378
+#total pred 113787
+#hit 1818
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.94123375415802
+f1 0.6791184161374674
+17 1000
+tensor(1.8894, device='cuda:0')
+#pred positives 3031
+#groundtruth positives 2378
+#total pred 113787
+#hit 1842
+Num mentioned targets head accuracy: 0.9399350881576538
+Num new targets head accuracy: 0.9441558718681335
+f1 0.6810870770937327
+17 1250
+tensor(2.0155, device='cuda:0')
+#pred positives 2848
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6838882510524301
+17 1500
+tensor(1.8647, device='cuda:0')
+#pred positives 2830
+#groundtruth positives 2378
+#total pred 113787
+#hit 1786
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6858678955453148
+17 1750
+tensor(1.9988, device='cuda:0')
+#pred positives 3096
+#groundtruth positives 2378
+#total pred 113787
+#hit 1864
+Num mentioned targets head accuracy: 0.9366883039474487
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6810376324442821
+17 2000
+tensor(2.0516, device='cuda:0')
+#pred positives 3019
+#groundtruth positives 2378
+#total pred 113787
+#hit 1850
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6855660552158608
+18 0
+tensor(2.0389, device='cuda:0')
+#pred positives 2881
+#groundtruth positives 2378
+#total pred 113787
+#hit 1800
+Num mentioned targets head accuracy: 0.9379870295524597
+Num new targets head accuracy: 0.942532479763031
+f1 0.6845407872219053
+18 250
+tensor(1.7944, device='cuda:0')
+#pred positives 2875
+#groundtruth positives 2378
+#total pred 113787
+#hit 1804
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6868456120312202
+18 500
+tensor(1.8292, device='cuda:0')
+#pred positives 2854
+#groundtruth positives 2378
+#total pred 113787
+#hit 1804
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9386363625526428
+f1 0.6896024464831804
+18 750
+tensor(1.6160, device='cuda:0')
+#pred positives 3005
+#groundtruth positives 2378
+#total pred 113787
+#hit 1848
+Num mentioned targets head accuracy: 0.9366883039474487
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6866059817945384
+18 1000
+tensor(1.8182, device='cuda:0')
+#pred positives 2874
+#groundtruth positives 2378
+#total pred 113787
+#hit 1774
+Num mentioned targets head accuracy: 0.9344155788421631
+Num new targets head accuracy: 0.9360389709472656
+f1 0.6755521706016756
+18 1250
+tensor(1.9055, device='cuda:0')
+#pred positives 2889
+#groundtruth positives 2378
+#total pred 113787
+#hit 1793
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6808429846212265
+18 1500
+tensor(1.8383, device='cuda:0')
+#pred positives 2957
+#groundtruth positives 2378
+#total pred 113787
+#hit 1828
+Num mentioned targets head accuracy: 0.9373376369476318
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6852858481724461
+18 1750
+tensor(1.7846, device='cuda:0')
+#pred positives 2880
+#groundtruth positives 2378
+#total pred 113787
+#hit 1806
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6869532141498669
+18 2000
+tensor(1.8765, device='cuda:0')
+#pred positives 3075
+#groundtruth positives 2378
+#total pred 113787
+#hit 1858
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9402597546577454
+f1 0.6814597469282964
+19 0
+tensor(1.7644, device='cuda:0')
+#pred positives 2865
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9415584206581116
+f1 0.6816707991607858
+19 250
+tensor(1.4358, device='cuda:0')
+#pred positives 2851
+#groundtruth positives 2378
+#total pred 113787
+#hit 1785
+Num mentioned targets head accuracy: 0.9399350881576538
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6827309236947791
+19 500
+tensor(1.7391, device='cuda:0')
+#pred positives 2897
+#groundtruth positives 2378
+#total pred 113787
+#hit 1807
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9399350881576538
+f1 0.6851184834123223
+19 750
+tensor(1.5468, device='cuda:0')
+#pred positives 2911
+#groundtruth positives 2378
+#total pred 113787
+#hit 1804
+Num mentioned targets head accuracy: 0.9366883039474487
+Num new targets head accuracy: 0.9396103620529175
+f1 0.6821705426356588
+19 1000
+tensor(1.6305, device='cuda:0')
+#pred positives 2850
+#groundtruth positives 2378
+#total pred 113787
+#hit 1777
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9431818127632141
+f1 0.6798010711553175
+19 1250
+tensor(1.9085, device='cuda:0')
+#pred positives 2854
+#groundtruth positives 2378
+#total pred 113787
+#hit 1796
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6865443425076453
+19 1500
+tensor(1.6809, device='cuda:0')
+#pred positives 2750
+#groundtruth positives 2378
+#total pred 113787
+#hit 1777
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6930577223088923
+19 1750
+tensor(1.7068, device='cuda:0')
+#pred positives 2858
+#groundtruth positives 2378
+#total pred 113787
+#hit 1807
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6902215431627197
+19 2000
+tensor(1.6863, device='cuda:0')
+#pred positives 2877
+#groundtruth positives 2378
+#total pred 113787
+#hit 1801
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9448052048683167
+f1 0.6854424357754519
+20 0
+tensor(1.6021, device='cuda:0')
+#pred positives 2906
+#groundtruth positives 2378
+#total pred 113787
+#hit 1807
+Num mentioned targets head accuracy: 0.9431818127632141
+Num new targets head accuracy: 0.9441558718681335
+f1 0.6839515518546556
+20 250
+tensor(1.4056, device='cuda:0')
+#pred positives 2797
+#groundtruth positives 2378
+#total pred 113787
+#hit 1779
+Num mentioned targets head accuracy: 0.9428571462631226
+Num new targets head accuracy: 0.9457792043685913
+f1 0.687536231884058
+20 500
+tensor(1.3018, device='cuda:0')
+#pred positives 2874
+#groundtruth positives 2378
+#total pred 113787
+#hit 1777
+Num mentioned targets head accuracy: 0.9350649118423462
+Num new targets head accuracy: 0.9383116960525513
+f1 0.6766945925361767
+20 750
+tensor(1.3248, device='cuda:0')
+#pred positives 2841
+#groundtruth positives 2378
+#total pred 113787
+#hit 1791
+Num mentioned targets head accuracy: 0.9409090876579285
+Num new targets head accuracy: 0.9454545378684998
+f1 0.6863383789998084
+20 1000
+tensor(1.4486, device='cuda:0')
+#pred positives 2708
+#groundtruth positives 2378
+#total pred 113787
+#hit 1735
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.94123375415802
+f1 0.6822650412898151
+20 1250
+tensor(1.7104, device='cuda:0')
+#pred positives 2934
+#groundtruth positives 2378
+#total pred 113787
+#hit 1808
+Num mentioned targets head accuracy: 0.942532479763031
+Num new targets head accuracy: 0.9431818127632141
+f1 0.680722891566265
+20 1500
+tensor(1.6496, device='cuda:0')
+#pred positives 2863
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9409090876579285
+f1 0.6746804045029574
+20 1750
+tensor(1.5623, device='cuda:0')
+#pred positives 2889
+#groundtruth positives 2378
+#total pred 113787
+#hit 1790
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9441558718681335
+f1 0.6797038162141636
+20 2000
+tensor(1.4834, device='cuda:0')
+#pred positives 2882
+#groundtruth positives 2378
+#total pred 113787
+#hit 1800
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9444805383682251
+f1 0.6844106463878327
+21 0
+tensor(1.6696, device='cuda:0')
+#pred positives 2854
+#groundtruth positives 2378
+#total pred 113787
+#hit 1783
+Num mentioned targets head accuracy: 0.9340909123420715
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6815749235474007
+21 250
+tensor(1.3372, device='cuda:0')
+#pred positives 2891
+#groundtruth positives 2378
+#total pred 113787
+#hit 1797
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9438311457633972
+f1 0.682102865818941
+21 500
+tensor(1.4434, device='cuda:0')
+#pred positives 2842
+#groundtruth positives 2378
+#total pred 113787
+#hit 1765
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6762452107279694
+21 750
+tensor(1.4186, device='cuda:0')
+#pred positives 2756
+#groundtruth positives 2378
+#total pred 113787
+#hit 1746
+Num mentioned targets head accuracy: 0.9428571462631226
+Num new targets head accuracy: 0.9470779299736023
+f1 0.6801714063108688
+21 1000
+tensor(1.3856, device='cuda:0')
+#pred positives 2761
+#groundtruth positives 2378
+#total pred 113787
+#hit 1753
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9441558718681335
+f1 0.6822338976454563
+21 1250
+tensor(1.2553, device='cuda:0')
+#pred positives 2904
+#groundtruth positives 2378
+#total pred 113787
+#hit 1791
+Num mentioned targets head accuracy: 0.9396103620529175
+Num new targets head accuracy: 0.942532479763031
+f1 0.6781522150700492
+21 1500
+tensor(1.3553, device='cuda:0')
+#pred positives 2865
+#groundtruth positives 2378
+#total pred 113787
+#hit 1781
+Num mentioned targets head accuracy: 0.9308441281318665
+Num new targets head accuracy: 0.9331169128417969
+f1 0.6793820331871067
+21 1750
+tensor(1.5920, device='cuda:0')
+#pred positives 2847
+#groundtruth positives 2378
+#total pred 113787
+#hit 1777
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6801913875598087
+21 2000
+tensor(1.4749, device='cuda:0')
+#pred positives 2962
+#groundtruth positives 2378
+#total pred 113787
+#hit 1806
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9422078132629395
+f1 0.6764044943820224
+22 0
+tensor(1.4821, device='cuda:0')
+#pred positives 2976
+#groundtruth positives 2378
+#total pred 113787
+#hit 1817
+Num mentioned targets head accuracy: 0.9347402453422546
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6787448636533433
+22 250
+tensor(1.0339, device='cuda:0')
+#pred positives 2680
+#groundtruth positives 2378
+#total pred 113787
+#hit 1733
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6852510873863188
+22 500
+tensor(1.3877, device='cuda:0')
+#pred positives 3035
+#groundtruth positives 2378
+#total pred 113787
+#hit 1798
+Num mentioned targets head accuracy: 0.9301947951316833
+Num new targets head accuracy: 0.9347402453422546
+f1 0.6643266210973583
+22 750
+tensor(1.3136, device='cuda:0')
+#pred positives 2680
+#groundtruth positives 2378
+#total pred 113787
+#hit 1721
+Num mentioned targets head accuracy: 0.9399350881576538
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6805061289047055
+22 1000
+tensor(1.2995, device='cuda:0')
+#pred positives 2744
+#groundtruth positives 2378
+#total pred 113787
+#hit 1737
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.94123375415802
+f1 0.6782506833268256
+22 1250
+tensor(1.2532, device='cuda:0')
+#pred positives 2758
+#groundtruth positives 2378
+#total pred 113787
+#hit 1741
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9415584206581116
+f1 0.6779595015576324
+22 1500
+tensor(1.3051, device='cuda:0')
+#pred positives 2756
+#groundtruth positives 2378
+#total pred 113787
+#hit 1737
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6766653681340086
+22 1750
+tensor(1.2329, device='cuda:0')
+#pred positives 2892
+#groundtruth positives 2378
+#total pred 113787
+#hit 1784
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.94123375415802
+f1 0.6770398481973435
+22 2000
+tensor(1.4366, device='cuda:0')
+#pred positives 2805
+#groundtruth positives 2378
+#total pred 113787
+#hit 1770
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9422078132629395
+f1 0.683002122322979
+23 0
+tensor(1.1565, device='cuda:0')
+#pred positives 2790
+#groundtruth positives 2378
+#total pred 113787
+#hit 1767
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9441558718681335
+f1 0.6838235294117647
+23 250
+tensor(1.0265, device='cuda:0')
+#pred positives 2959
+#groundtruth positives 2378
+#total pred 113787
+#hit 1818
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6812816188870152
+23 500
+tensor(1.0252, device='cuda:0')
+#pred positives 2790
+#groundtruth positives 2378
+#total pred 113787
+#hit 1769
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6845975232198143
+23 750
+tensor(1.2216, device='cuda:0')
+#pred positives 2809
+#groundtruth positives 2378
+#total pred 113787
+#hit 1774
+Num mentioned targets head accuracy: 0.9438311457633972
+Num new targets head accuracy: 0.9464285969734192
+f1 0.6840177366493155
+23 1000
+tensor(1.2885, device='cuda:0')
+#pred positives 2808
+#groundtruth positives 2378
+#total pred 113787
+#hit 1775
+Num mentioned targets head accuracy: 0.9431818127632141
+Num new targets head accuracy: 0.9448052048683167
+f1 0.6845352873119938
+23 1250
+tensor(1.1445, device='cuda:0')
+#pred positives 2694
+#groundtruth positives 2378
+#total pred 113787
+#hit 1737
+Num mentioned targets head accuracy: 0.9448052048683167
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6849369085173501
+23 1500
+tensor(1.2493, device='cuda:0')
+#pred positives 2798
+#groundtruth positives 2378
+#total pred 113787
+#hit 1760
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.9399350881576538
+f1 0.6800618238021638
+23 1750
+tensor(1.2136, device='cuda:0')
+#pred positives 2896
+#groundtruth positives 2378
+#total pred 113787
+#hit 1816
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.942532479763031
+f1 0.6886613576033371
+23 2000
+tensor(1.2766, device='cuda:0')
+#pred positives 2802
+#groundtruth positives 2378
+#total pred 113787
+#hit 1769
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9418830871582031
+f1 0.683011583011583
+24 0
+tensor(1.1445, device='cuda:0')
+#pred positives 2789
+#groundtruth positives 2378
+#total pred 113787
+#hit 1766
+Num mentioned targets head accuracy: 0.9431818127632141
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6835688020127735
+24 250
+tensor(0.9944, device='cuda:0')
+#pred positives 2700
+#groundtruth positives 2378
+#total pred 113787
+#hit 1756
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9422078132629395
+f1 0.6916108704214258
+24 500
+tensor(1.1013, device='cuda:0')
+#pred positives 2788
+#groundtruth positives 2378
+#total pred 113787
+#hit 1778
+Num mentioned targets head accuracy: 0.942532479763031
+Num new targets head accuracy: 0.9448052048683167
+f1 0.6883468834688347
+24 750
+tensor(1.0714, device='cuda:0')
+#pred positives 2623
+#groundtruth positives 2378
+#total pred 113787
+#hit 1718
+Num mentioned targets head accuracy: 0.9422078132629395
+Num new targets head accuracy: 0.9441558718681335
+f1 0.6870625874825036
+24 1000
+tensor(1.2285, device='cuda:0')
+#pred positives 2773
+#groundtruth positives 2378
+#total pred 113787
+#hit 1766
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6856920986216268
+24 1250
+tensor(1.1898, device='cuda:0')
+#pred positives 2841
+#groundtruth positives 2378
+#total pred 113787
+#hit 1802
+Num mentioned targets head accuracy: 0.9379870295524597
+Num new targets head accuracy: 0.942532479763031
+f1 0.6905537459283387
+24 1500
+tensor(1.1227, device='cuda:0')
+#pred positives 2760
+#groundtruth positives 2378
+#total pred 113787
+#hit 1763
+Num mentioned targets head accuracy: 0.9379870295524597
+Num new targets head accuracy: 0.94123375415802
+f1 0.6862592448423511
+24 1750
+tensor(1.2483, device='cuda:0')
+#pred positives 2784
+#groundtruth positives 2378
+#total pred 113787
+#hit 1781
+Num mentioned targets head accuracy: 0.942532479763031
+Num new targets head accuracy: 0.942532479763031
+f1 0.6900426191398683
+24 2000
+tensor(1.1826, device='cuda:0')
+#pred positives 2845
+#groundtruth positives 2378
+#total pred 113787
+#hit 1785
+Num mentioned targets head accuracy: 0.9376623630523682
+Num new targets head accuracy: 0.9415584206581116
+f1 0.6835152211372775
+25 0
+tensor(1.0468, device='cuda:0')
+#pred positives 2768
+#groundtruth positives 2378
+#total pred 113787
+#hit 1772
+Num mentioned targets head accuracy: 0.9422078132629395
+Num new targets head accuracy: 0.9444805383682251
+f1 0.6886902448503692
+25 250
+tensor(0.8380, device='cuda:0')
+#pred positives 2598
+#groundtruth positives 2378
+#total pred 113787
+#hit 1707
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6860932475884245
+25 500
+tensor(1.0345, device='cuda:0')
+#pred positives 2655
+#groundtruth positives 2378
+#total pred 113787
+#hit 1715
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9451298713684082
+f1 0.6815020862308762
+25 750
+tensor(1.2320, device='cuda:0')
+#pred positives 2867
+#groundtruth positives 2378
+#total pred 113787
+#hit 1771
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.94123375415802
+f1 0.6753098188751192
+25 1000
+tensor(1.0631, device='cuda:0')
+#pred positives 2779
+#groundtruth positives 2378
+#total pred 113787
+#hit 1751
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.9396103620529175
+f1 0.6790769827419042
+25 1250
+tensor(1.1231, device='cuda:0')
+#pred positives 2773
+#groundtruth positives 2378
+#total pred 113787
+#hit 1760
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6833624538924481
+25 1500
+tensor(1.1400, device='cuda:0')
+#pred positives 2678
+#groundtruth positives 2378
+#total pred 113787
+#hit 1752
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.94123375415802
+f1 0.6930379746835443
+25 1750
+tensor(0.9882, device='cuda:0')
+#pred positives 2785
+#groundtruth positives 2378
+#total pred 113787
+#hit 1786
+Num mentioned targets head accuracy: 0.9396103620529175
+Num new targets head accuracy: 0.942532479763031
+f1 0.6918458260701142
+25 2000
+tensor(1.1142, device='cuda:0')
+#pred positives 2928
+#groundtruth positives 2378
+#total pred 113787
+#hit 1814
+Num mentioned targets head accuracy: 0.9409090876579285
+Num new targets head accuracy: 0.9409090876579285
+f1 0.6837542404824728
+26 0
+tensor(1.1171, device='cuda:0')
+#pred positives 2726
+#groundtruth positives 2378
+#total pred 113787
+#hit 1760
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9418830871582031
+f1 0.689655172413793
+26 250
+tensor(0.9001, device='cuda:0')
+#pred positives 2811
+#groundtruth positives 2378
+#total pred 113787
+#hit 1784
+Num mentioned targets head accuracy: 0.9431818127632141
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6876084023896706
+26 500
+tensor(1.0050, device='cuda:0')
+#pred positives 2805
+#groundtruth positives 2378
+#total pred 113787
+#hit 1762
+Num mentioned targets head accuracy: 0.9370129704475403
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6799151070808412
+26 750
+tensor(0.9686, device='cuda:0')
+#pred positives 2726
+#groundtruth positives 2378
+#total pred 113787
+#hit 1744
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9422078132629395
+f1 0.683385579937304
+26 1000
+tensor(0.7912, device='cuda:0')
+#pred positives 2676
+#groundtruth positives 2378
+#total pred 113787
+#hit 1726
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9454545378684998
+f1 0.6830233478432924
+26 1250
+tensor(0.9171, device='cuda:0')
+#pred positives 2717
+#groundtruth positives 2378
+#total pred 113787
+#hit 1752
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6877330716388617
+26 1500
+tensor(0.9435, device='cuda:0')
+#pred positives 2709
+#groundtruth positives 2378
+#total pred 113787
+#hit 1747
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9415584206581116
+f1 0.6868488303518773
+26 1750
+tensor(1.0111, device='cuda:0')
+#pred positives 2760
+#groundtruth positives 2378
+#total pred 113787
+#hit 1757
+Num mentioned targets head accuracy: 0.9441558718681335
+Num new targets head accuracy: 0.9454545378684998
+f1 0.6839237057220708
+26 2000
+tensor(1.1440, device='cuda:0')
+#pred positives 2899
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.9422078132629395
+f1 0.6772787568694334
+27 0
+tensor(0.9732, device='cuda:0')
+#pred positives 2892
+#groundtruth positives 2378
+#total pred 113787
+#hit 1808
+Num mentioned targets head accuracy: 0.9428571462631226
+Num new targets head accuracy: 0.9431818127632141
+f1 0.6861480075901328
+27 250
+tensor(0.9358, device='cuda:0')
+#pred positives 2883
+#groundtruth positives 2378
+#total pred 113787
+#hit 1804
+Num mentioned targets head accuracy: 0.942532479763031
+Num new targets head accuracy: 0.9448052048683167
+f1 0.685801178483178
+27 500
+tensor(0.7832, device='cuda:0')
+#pred positives 2761
+#groundtruth positives 2378
+#total pred 113787
+#hit 1762
+Num mentioned targets head accuracy: 0.9392856955528259
+Num new targets head accuracy: 0.9409090876579285
+f1 0.685736524615684
+27 750
+tensor(0.9119, device='cuda:0')
+#pred positives 2768
+#groundtruth positives 2378
+#total pred 113787
+#hit 1763
+Num mentioned targets head accuracy: 0.9418830871582031
+Num new targets head accuracy: 0.9444805383682251
+f1 0.6851923824329577
+27 1000
+tensor(0.9819, device='cuda:0')
+#pred positives 2790
+#groundtruth positives 2378
+#total pred 113787
+#hit 1778
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.9444805383682251
+f1 0.6880804953560372
+27 1250
+tensor(0.7493, device='cuda:0')
+#pred positives 2696
+#groundtruth positives 2378
+#total pred 113787
+#hit 1748
+Num mentioned targets head accuracy: 0.9402597546577454
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6890027591643675
+27 1500
+tensor(1.0924, device='cuda:0')
+#pred positives 2809
+#groundtruth positives 2378
+#total pred 113787
+#hit 1775
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.9435064792633057
+f1 0.6844033159822633
+27 1750
+tensor(0.9974, device='cuda:0')
+#pred positives 2783
+#groundtruth positives 2378
+#total pred 113787
+#hit 1769
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9392856955528259
+f1 0.6855260608409223
+27 2000
+tensor(0.7724, device='cuda:0')
+#pred positives 2703
+#groundtruth positives 2378
+#total pred 113787
+#hit 1753
+Num mentioned targets head accuracy: 0.9386363625526428
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6900216492816375
+28 0
+tensor(1.0582, device='cuda:0')
+#pred positives 2749
+#groundtruth positives 2378
+#total pred 113787
+#hit 1747
+Num mentioned targets head accuracy: 0.9399350881576538
+Num new targets head accuracy: 0.9422078132629395
+f1 0.6814901501852936
+28 250
+tensor(0.7171, device='cuda:0')
+#pred positives 2648
+#groundtruth positives 2378
+#total pred 113787
+#hit 1743
+Num mentioned targets head accuracy: 0.9451298713684082
+Num new targets head accuracy: 0.9451298713684082
+f1 0.6935933147632312
+28 500
+tensor(0.9877, device='cuda:0')
+#pred positives 2802
+#groundtruth positives 2378
+#total pred 113787
+#hit 1787
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6899613899613899
+28 750
+tensor(0.8753, device='cuda:0')
+#pred positives 2655
+#groundtruth positives 2378
+#total pred 113787
+#hit 1699
+Num mentioned targets head accuracy: 0.9389610290527344
+Num new targets head accuracy: 0.9405844211578369
+f1 0.6751440492747863
+28 1000
+tensor(0.8111, device='cuda:0')
+#pred positives 2666
+#groundtruth positives 2378
+#total pred 113787
+#hit 1716
+Num mentioned targets head accuracy: 0.9363636374473572
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6804123711340206
+28 1250
+tensor(0.9052, device='cuda:0')
+#pred positives 2672
+#groundtruth positives 2378
+#total pred 113787
+#hit 1733
+Num mentioned targets head accuracy: 0.9353896379470825
+Num new targets head accuracy: 0.94123375415802
+f1 0.6863366336633664
+28 1500
+tensor(0.9672, device='cuda:0')
+#pred positives 2828
+#groundtruth positives 2378
+#total pred 113787
+#hit 1771
+Num mentioned targets head accuracy: 0.9344155788421631
+Num new targets head accuracy: 0.94123375415802
+f1 0.6803688052247406
+28 1750
+tensor(0.8677, device='cuda:0')
+#pred positives 2786
+#groundtruth positives 2378
+#total pred 113787
+#hit 1778
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6886134779240899
+28 2000
+tensor(0.8651, device='cuda:0')
+#pred positives 2675
+#groundtruth positives 2378
+#total pred 113787
+#hit 1730
+Num mentioned targets head accuracy: 0.9418830871582031
+Num new targets head accuracy: 0.9448052048683167
+f1 0.6847417375816347
+29 0
+tensor(0.9399, device='cuda:0')
+#pred positives 2711
+#groundtruth positives 2378
+#total pred 113787
+#hit 1768
+Num mentioned targets head accuracy: 0.9422078132629395
+Num new targets head accuracy: 0.9454545378684998
+f1 0.6948319905678916
+29 250
+tensor(0.7517, device='cuda:0')
+#pred positives 2736
+#groundtruth positives 2378
+#total pred 113787
+#hit 1773
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9441558718681335
+f1 0.6933906922174423
+29 500
+tensor(0.7724, device='cuda:0')
+#pred positives 2678
+#groundtruth positives 2378
+#total pred 113787
+#hit 1728
+Num mentioned targets head accuracy: 0.9379870295524597
+Num new targets head accuracy: 0.942532479763031
+f1 0.6835443037974684
+29 750
+tensor(0.7466, device='cuda:0')
+#pred positives 2681
+#groundtruth positives 2378
+#total pred 113787
+#hit 1748
+Num mentioned targets head accuracy: 0.9415584206581116
+Num new targets head accuracy: 0.9428571462631226
+f1 0.6910456611978653
+29 1000
+tensor(0.7394, device='cuda:0')
+#pred positives 2649
+#groundtruth positives 2378
+#total pred 113787
+#hit 1718
+Num mentioned targets head accuracy: 0.94123375415802
+Num new targets head accuracy: 0.9438311457633972
+f1 0.6835090511239308
+29 1250
+tensor(0.7722, device='cuda:0')
+#pred positives 2708
+#groundtruth positives 2378
+#total pred 113787
+#hit 1732
+Num mentioned targets head accuracy: 0.9357143044471741
+Num new targets head accuracy: 0.9389610290527344
+f1 0.6810853322847031
+29 1500
+tensor(0.6975, device='cuda:0')
+#pred positives 2729
+#groundtruth positives 2378
+#total pred 113787
+#hit 1765
+Num mentioned targets head accuracy: 0.9405844211578369
+Num new targets head accuracy: 0.9418830871582031
+f1 0.6912081456823967
+29 1750
+tensor(0.8141, device='cuda:0')
+#pred positives 2751
+#groundtruth positives 2378
+#total pred 113787
+#hit 1769
+Num mentioned targets head accuracy: 0.93376624584198
+Num new targets head accuracy: 0.93376624584198
+f1 0.689803080522519
+29 2000
+tensor(0.6915, device='cuda:0')
+#pred positives 2698
+#groundtruth positives 2378
+#total pred 113787
+#hit 1753
+Num mentioned targets head accuracy: 0.9383116960525513
+Num new targets head accuracy: 0.942532479763031
+f1 0.6907013396375099
+DONE !!!
+Best F1: 0.6948319905678916
+***********************************
+Finished job: train.py --NAME UNITER_basic_all_objmen_numMentionedTargets --obj_id True --vis_feats_clip True --vis_feats_rcnn True --pos True --scene_seg True --obj_embs_bert True --obj_embs_sbert True --kb_id_bert False --kb_id_sbert False --obj_men True --mentioned_and_new_head True  PATH=/rmt/dialogue2/interns/alejandro/anaconda3/envs/mmcr_env/bin:/tmp/4037559.1.GPU25-2:/usr/local/bin:/bin:/usr/bin; GPU=+_GPUUU; TIME=Tue 19 Jul 16:10:15 GMT 2022
+***********************************
