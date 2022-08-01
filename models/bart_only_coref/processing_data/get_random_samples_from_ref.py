@@ -13,8 +13,8 @@ def main():
     BAG_PRED_TEST_SET_PATH = "../data_object_special/simmc2_dials_dstc10_devtest_predict.txt"
     BAG_TARGET_TEST_SET_PATH = "../data_object_special/simmc2_dials_dstc10_devtest_target.txt"
 
-    PRED_STORE_PATH = "../data_object_special/random_test_subset/random_devtest_samples_predict.json"
-    TARGET_STORE_PATH = "../data_object_special/random_test_subset/random_devtest_samples_target.json"
+    PRED_STORE_PATH = "../data_object_special/random_test_subset/random_devtest_samples_predict.txt"
+    TARGET_STORE_PATH = "../data_object_special/random_test_subset/random_devtest_samples_target.txt"
 
     with open(BAG_PRED_TEST_SET_PATH, 'r') as f:
         pred_data = f.readlines()
