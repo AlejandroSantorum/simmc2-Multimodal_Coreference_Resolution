@@ -41,7 +41,7 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--predictions_path', default="./pdf_error_analysis/estim_human_perform_asantorum.json")
+    parser.add_argument('--predictions_path', default="./estimate_human_performance/estim_human_perform_asantorum.json")
     parser.add_argument('--subset_data_path', default="../processed/random_test_subset/random_devtest_samples.json")
 
     args = parser.parse_args()

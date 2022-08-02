@@ -9,7 +9,8 @@ def main(args):
     predictions_file_path = args.predictions_file_path
     target_file_path = args.targets_file_path
     model_name = predictions_file_path[predictions_file_path.find("/predictions_")+len("/predictions_"):predictions_file_path.find(".txt")]
-    output_file_path = "../results/devtest/span_report_"+model_name+".txt"
+    results_folder = predictions_file_path[predictions_file_path.find('results/')+len('results/'):predictions_file_path.find('/predictions')]
+    output_file_path = "../results/"+results_folder+"/span_report_"+model_name+".txt"
 
     # Convert the data from the GPT-2 friendly format to JSON
     list_target = parse_flattened_results_from_file(target_file_path)

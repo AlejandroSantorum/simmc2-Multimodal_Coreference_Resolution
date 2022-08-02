@@ -1,0 +1,7 @@
+{
+    "Total no. examples with any wrong objects": 1806,
+    "No. wrong examples over-predicting": 460,
+    "No. wrong examples under-predicting": 79,
+    "No. wrong examples with zero targets but several predictions": 15,
+    "No. wrong examples with several targets but zero predictions": 12
+}

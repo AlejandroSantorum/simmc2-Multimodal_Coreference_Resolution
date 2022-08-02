@@ -1,4 +1,5 @@
 import json
+import argparse
 import pprint
 
 
@@ -17,10 +18,10 @@ def parse_objects_from_simmc2_format(data):
 
 
 
-def main():
-    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_devtest.json"
+def main(args):
+    predictions_file_path = args.predictions_file_path
     model_name = predictions_file_path[predictions_file_path.find("/eval_")+len("/eval_"):predictions_file_path.find(".json")]
-    target_file_path = "../data/simmc2_dials_dstc10_devtest.json"
+    target_file_path = args.targets_file_path
     output_file_path = "./span_reports/span_report_"+model_name+".txt"
 
     # Reading predictions file and parsing it
@@ -75,4 +76,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--predictions_file_path', default="../output/eval_UNITER_basic_all_objmen_devtest.json")
+    parser.add_argument('--targets_file_path', default="../data/simmc2_dials_dstc10_devtest.json")
+
+    args = parser.parse_args()
+    main(args)
