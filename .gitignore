@@ -37,3 +37,4 @@ models/bart_only_coref/coref_models/*
 **/error_images/*.png
 **/tmp_error_images/*.png
 **/pdf_error_analysis/*.pdf
+**/estimate_human_performance/*.pdf
