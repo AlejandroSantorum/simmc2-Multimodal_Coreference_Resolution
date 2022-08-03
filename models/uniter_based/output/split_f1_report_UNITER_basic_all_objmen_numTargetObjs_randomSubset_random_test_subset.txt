@@ -1,0 +1,17 @@
+{
+    "performance on mentioned objects": {
+        "F1 score": 0.9107142857142857,
+        "Precision": 0.9107142857142857,
+        "Recall": 0.9107142857142857
+    },
+    "performance on new objects": {
+        "F1 score": 0.5945945945945946,
+        "Precision": 0.5238095238095238,
+        "Recall": 0.6875
+    },
+    "overall performance": {
+        "F1 score": 0.8322147651006712,
+        "Precision": 0.8051948051948052,
+        "Recall": 0.8611111111111112
+    }
+}
