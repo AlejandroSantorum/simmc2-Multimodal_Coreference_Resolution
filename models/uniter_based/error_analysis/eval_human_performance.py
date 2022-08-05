@@ -1,5 +1,6 @@
 import json
 import argparse
+import pprint
 
 def rec_prec_f1(n_correct, n_true, n_pred):
     rec = n_correct / n_true if n_true != 0 else 0
@@ -20,21 +21,57 @@ def main(args):
         test_data = json.load(f)
     
     assert len(test_data) == len(predictions)
-    
-    n_pred = 0
-    n_true = 0
-    n_correct = 0
+
+    # mentioned objects subset
+    n_pred_men = 0
+    n_true_men = 0
+    n_correct_men = 0
+    # new objects subset
+    n_pred_new = 0
+    n_true_new = 0
+    n_correct_new = 0
     for i in range(len(predictions)):
-        n_pred += len(set(predictions[i]))
-        n_true += len(set(test_data[i]['reference_idx']))
-
+        mentioned_ids = [id for j,id in enumerate(test_data[i]['candidate_ids']) if test_data[i]['candidate_mentioned'][j]]
         reference = [test_data[i]['candidate_ids'][idx] for idx in test_data[i]['reference_idx']]
-        n_correct += len(set(reference).intersection(set(predictions[i])))
 
-    rec, prec, f1 = rec_prec_f1(n_correct, n_true, n_pred)
-    print("F1 score:", f1)
-    print("Precision:", prec)
-    print("Recall:", rec)
+        pred_mentioned_ids = [id for id in predictions[i] if id in mentioned_ids]
+        pred_new_ids = [id for id in predictions[i] if id not in mentioned_ids]
+        real_mentioned_ids = [id for id in reference if id in mentioned_ids]
+        real_new_ids = [id for id in reference if id not in mentioned_ids]
+
+        n_pred_men += len(set(pred_mentioned_ids))
+        n_pred_new += len(set(pred_new_ids))
+
+        n_true_men += len(set(real_mentioned_ids))
+        n_true_new += len(set(real_new_ids))
+
+        n_correct_men += len(set(real_mentioned_ids).intersection(set(pred_mentioned_ids)))
+        n_correct_new += len(set(real_new_ids).intersection(set(pred_new_ids)))
+    
+    rec_men, prec_men, f1_men = rec_prec_f1(n_correct_men, n_true_men, n_pred_men)
+    rec_new, prec_new, f1_new = rec_prec_f1(n_correct_new, n_true_new, n_pred_new)
+    rec, prec, f1 = rec_prec_f1(n_correct_men+n_correct_new, n_true_men+n_true_new, n_pred_men+n_pred_new)
+
+    report = {'performance on mentioned objects':
+                {
+                    'F1 score': f1_men,
+                    'Precision': prec_men,
+                    'Recall': rec_men
+                },
+              'performance on new objects':
+                {
+                    'F1 score': f1_new,
+                    'Precision': prec_new,
+                    'Recall': rec_new
+                },
+              'overall performance':
+                {
+                    'F1 score': f1,
+                    'Precision': prec,
+                    'Recall': rec
+                }}
+
+    pprint.pprint(report)
 
 
 
