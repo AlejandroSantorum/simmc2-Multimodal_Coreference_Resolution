@@ -22,22 +22,22 @@ python get_mentioned_ids.py \
 ```bash
 python combine_mentioned_vs_new.py \
     --model_for_new_objs_path ../model_outputs/predictions_BART_input_all_attrs_cp381.txt \
-    --model_for_mentioned_objs_path ../model_outputs/predictions_UNITER_basic_all_objmen_noIDs_devtest.json \
+    --model_for_mentioned_objs_path ../model_outputs/predictions_UNITER_basic_all_objmen_noIDs_numTargetObjs_025.json \
     --targets_file_path ../targets/simmc2_dials_dstc10_devtest.json \
     --mentioned_ids_path ../utils/mentioned_ids.json
 ```
 Typical output of previous command:
 ```bash
 {
-    'overall performance': {'F1 score': 0.8022403426406393,
-                            'Precision': 0.7759719566602932,
-                            'Recall': 0.8303495311167945},
-    'performance on mentioned objects': {'F1 score': 0.8503699229956213,
-                                         'Precision': 0.7990919409761634,
-                                         'Recall': 0.9086802194256212},
+    'overall performance': {'F1 score': 0.8062905641537693,
+                            'Precision': 0.787420770355924,
+                            'Recall': 0.8260869565217391},
+    'performance on mentioned objects': {'F1 score': 0.8587692307692308,
+                                         'Precision': 0.8206409879447222,
+                                         'Recall': 0.9006131010003227},
     'performance on new objects': {'F1 score': 0.7444726350126857,
                                    'Precision': 0.7463662790697675,
                                    'Recall': 0.7425885755603759}
 }
 ```
-As we can see, the **overall performance of the combined model** is about **0.802 F1 score**.
+As we can see, the **overall performance of the combined model** is about **0.806 F1 score**.
