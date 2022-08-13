@@ -584,13 +584,19 @@ def main():
 
     with open(args.path_output, "w") as f_out:
         f_out.write("\n".join(results_coref_replaced))
+
+    if args.num_objs_head:
+        acc = calc_accuracy_aux_head(args.prompts_from_file)
+        print("Accuracy of auxiliary task output head:", acc)
     
     return
 
-
+# global variable to store all predicted no. of targets to compute aux. head accuracy
+ALL_NUM_PRED_TARGETS = []
 USE_NUM_TARGET_OBJS_HEAD_ALWAYS = False # False is almost always better
 def get_predictions_given_pred_num_targets(num_pred_target_objs, coref_head_output, coref_head_predictions):
     num_pred_targets = num_pred_target_objs.argmax().item()
+    ALL_NUM_PRED_TARGETS.append(num_pred_targets)
     if num_pred_targets == 0: # delete this?
         return []
     
@@ -606,6 +612,31 @@ def get_predictions_given_pred_num_targets(num_pred_target_objs, coref_head_outp
     # returning indices of signals (will be transformed to object indices later)
     return [idx for idx, signal in enumerate(coref_head_predictions) if signal]
 
+
+def calc_accuracy_aux_head(prompts_from_file):
+    targets_filepath = prompts_from_file[:prompts_from_file.find("predict.txt")]+"target.txt"
+    with open(targets_filepath, 'r') as f:
+        target_data = f.readlines()
+
+    assert len(target_data) == len(ALL_NUM_PRED_TARGETS)
+
+    n_correct = 0
+    for i,line in enumerate(target_data):
+        n_target_objs = get_num_targets_from_line(line)
+        if n_target_objs == ALL_NUM_PRED_TARGETS[i]:
+            n_correct += 1
+    
+    return n_correct/len(ALL_NUM_PRED_TARGETS) * 100
+
+
+def get_num_targets_from_line(line):
+    splits = line.split('<EOB>')
+    splits = splits[0].split(") <")
+    splits = splits[1].split(" >")
+    splits = splits[0].split(",")
+    if splits == [' ']:
+        return 0
+    return len(splits)
 
 
 if __name__ == "__main__":
