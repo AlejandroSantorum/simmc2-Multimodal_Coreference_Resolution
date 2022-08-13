@@ -99,11 +99,11 @@ def add_error_case_pdf(pdf, dialogue, image, ex_num):
 
 
 def main(args):
-    model_name = "UNITER_objmen_noIDs_devtest"
-    predictions_file_path = "../output/eval_UNITER_basic_all_objmen_noIDs_devtest.json"
-    target_file_path = "../data/simmc2_dials_dstc10_devtest.json"
-    test_examples_file_path = "../processed/devtest.json"
-    test_scenes_file_path = "../processed/simmc2_scenes_devtest.txt"
+    predictions_file_path = args.predictions_file_path
+    model_name = predictions_file_path[predictions_file_path.find("/eval_")+len("/eval_"):predictions_file_path.find(".json")]
+    target_file_path = args.targets_file_path
+    test_examples_file_path = args.test_examples_file_path
+    test_scenes_file_path = args.test_scenes_file_path
 
     # Reading predictions file and parsing it
     with open(predictions_file_path, 'r') as f:
@@ -183,8 +183,20 @@ def main(args):
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
+
+    # model name
+    parser.add_argument('--model_name', default="")
+    # path of the file with the predictions
+    parser.add_argument('--predictions_file_path', default="../output/eval_UNITER_basic_all_objmen_noIDs_devtest.json")
+    # path of the file with the test examples
+    parser.add_argument('--test_examples_file_path', default="../processed/devtest.json")
+    # path of the file with the targets
+    parser.add_argument('--targets_file_path', default="../data/simmc2_dials_dstc10_devtest.json")
+    # path of the file with the scenes of the used test set
+    parser.add_argument('--test_scenes_file_path', default="../processed/simmc2_scenes_devtest.txt")
+    # number of random errors to sample
     parser.add_argument('--n_errors', default=50, type=int)
-    parser.add_argument('--error_imgs_file', default="", type=str) # TODO
+
     args = parser.parse_args()
 
     main(args)
