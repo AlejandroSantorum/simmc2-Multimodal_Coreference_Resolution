@@ -1,4 +1,4 @@
-# evaluation tools for BART-based model
+# Evaluation tools for BART-based model
 This folder contains the evaluation tools to assess BART-based model performance.
 
 - `convert_baseline.py`: script for converting the main SIMMC datasets (.JSON format) into the line-by-line stringified format, and back.
