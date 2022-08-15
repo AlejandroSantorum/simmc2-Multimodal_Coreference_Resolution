@@ -173,6 +173,15 @@ python get_report.py \
 ```
 This is an example. Please change the path for the predictions file using the argument `--MODEL_EVAL_FILE`.
 
+
+## Modifications to boost the performance
+- UNITER-based model **including an additional auxiliary task output head** that predicts the number of referred objects in the last utterance. The object predictions are modified accordingly the output of this auxiliary task head using a set of heuristics.
+![UNITER-based model diagram with auxiliary head](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_uniter_aux_head_marking_new.png)
+<!---
+<img src="imgs/detailed_uniter_aux_head_marking_new.png" width=650 height=320 alt="UNITER-based model diagram with auxiliary head diagram">
+-->
+
+
 ## References
 ```
 @article{kottur2021simmc,
