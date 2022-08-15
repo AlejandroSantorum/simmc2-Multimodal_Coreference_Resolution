@@ -3,6 +3,12 @@
 ## Overview
 The BART-based system here is a modified version of the one proposed in [*"Tackling Situated Multi-Modal Task-Oriented Dialogs with a Single Transformer Model"*](https://openreview.net/forum?id=NajekV9uBas) by the KAIST-AIPR Laboratory for the [DSTC10](https://sites.google.com/dstc.community/dstc10/home) competition. The version included here just uses the task-specific head focused on MM Coreference Resolution.
 
+The overview diagram is as follows:
+![Only Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/1head_bart_diagram.png)
+<!---
+<img src="imgs/1head_bart_diagram.png" width=650 height=320 alt="Only Coref BART-based model diagram">
+-->
+
 Several improvements are investigated and they are explained further below.
 
 
@@ -182,3 +188,11 @@ python ../evaluation_tools/evaluate_only_coref.py \
 ```
 The predictions and the final report can be found in the directory [`results`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/results). For more detailed information visit the folder [`scripts`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/scripts).
 
+
+## Modifications to boost the performance
+
+- BART-based model using only Coreference head including non-visual and visual attributes in the input:
+![Only Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_bart_diagram_attrs_emphasized.png)
+<!---
+<img src="imgs/detailed_bart_diagram_attrs_emphasized.png" width=650 height=320 alt="Only Coref BART-based model detailed diagram">
+-->
