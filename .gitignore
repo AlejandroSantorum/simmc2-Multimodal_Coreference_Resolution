@@ -27,6 +27,7 @@ models/KAIST_BART_based/multi_task/*
 # BART only Coreference Resolution data
 models/bart_coref/data
 models/bart_coref/coref_models/*
+!models/bart_coref/coref_models/README.md
 
 # BART deleting explicitly all heads but Coref
 models/bart_only_coref/data
