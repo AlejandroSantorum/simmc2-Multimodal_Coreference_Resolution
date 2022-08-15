@@ -4,15 +4,12 @@
 
 Our Model is a jointly-learned end-to-end model that can be evaluated for all sub-tasks. We attach task-specific heads on encoder (disambiguation / coreference resolution / retrieval ) and decoder (language-modeling) of BART along with auxiliary heads for additional supervision signals. Moreover, we align the item vectors with their respective attribute tokens in the BART token embedding. We use item token vectors instead of features from vision models for representing scene objects.
 
-## **Environment**
-Install the conda virtual environment by:
-```shell
-conda env create -f env.yml
-```
-Download  `nltk`'s `punkt` model (for response generation evaluation) by:
-```shell
-python -c "import nltk; nltk.download('punkt')"
-```
+The BART-based model described in [*"Tackling Situated Multi-Modal Task-Oriented Dialogs with a Single Transformer Model"*](https://openreview.net/forum?id=NajekV9uBas) tackles all SIMMC2 tasks at the same time. The overview diagram is as follows:
+![4-head BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/kaist_solution_overview.png)
+<!---
+<img src="imgs/kaist_solution_overview.png" width=650 height=320 alt="4-head BART-based model diagram">
+-->
+
 ## **Dataset**
 
 Download the dataset from [repository][simmc2] via git-lfs. Run the script `rearrange.sh` to rearrange the `data` folder in the following format.
@@ -92,13 +89,6 @@ python convert.py \
 Since our model is jointly trained on all subtasks, the additional target files are needed.
 
 e.g `simmc2_dials_dstc10_train_disambiguation_label.txt`, `simmc2_dials_dstc10_train_response.txt` for disambiguation-task and retrieval-task, respectively. These are already uploaded in the directory `data_object_special`.
-
-## Model overview
-The BART-based model described in [*"Tackling Situated Multi-Modal Task-Oriented Dialogs with a Single Transformer Model"*](https://openreview.net/forum?id=NajekV9uBas) tackles all SIMMC2 tasks at the same time. The overview diagram is as follows:
-![4-head BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/kaist_solution_overview.png)
-<!---
-<img src="imgs/kaist_solution_overview.png" width=650 height=320 alt="4-head BART-based model diagram">
--->
 
 ## **Training**
 Our model is jointly trained with losses from each tasks based on BART.

@@ -1,18 +1,17 @@
-# KAIST-AIPRLab DSTC10-SIMMC2 Submission
+# BART-based model focused on MM Coreference Resolution
 
 ## Overview
+The BART-based system here is a modified version of the one proposed in [*"Tackling Situated Multi-Modal Task-Oriented Dialogs with a Single Transformer Model"*](https://openreview.net/forum?id=NajekV9uBas) by the KAIST-AIPR Laboratory for the [DSTC10](https://sites.google.com/dstc.community/dstc10/home) competition. The version included here just focuses on MM Coreference Resolution and only keeps output heads that assess this task: **coref head**, **empty_coref head** and **attributes heads**:
+- **coref head**: task-specific output head that tries to identify whether an object has been referred.
+- **empty_coref head**: this auxiliary task head predicts whether in the last utterance the user referred to any object. If the output signal of this head is positive, then all the predicted referred objects by the coreference head are overwritten and set to false.
+- **attributes heads**: There exists one head per possible attribute. Given an object encoding, these heads try to identify the object's non-visual and visual attributes.
 
-Our Model is a jointly-learned end-to-end model that can be evaluated for all sub-tasks. We attach task-specific heads on encoder (disambiguation / coreference resolution / retrieval ) and decoder (language-modeling) of BART along with auxiliary heads for additional supervision signals. Moreover, we align the item vectors with their respective attribute tokens in the BART token embedding. We use item token vectors instead of features from vision models for representing scene objects.
+The overview diagram is as follows:
+![Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/bart_coref_diagram.png)
+<!---
+<img src="imgs/bart_coref_diagram.png" width=650 height=320 alt="Coref BART-based model diagram">
+-->
 
-## **Environment**
-Install the conda virtual environment by:
-```shell
-conda env create -f env.yml
-```
-Download  `nltk`'s `punkt` model (for response generation evaluation) by:
-```shell
-python -c "import nltk; nltk.download('punkt')"
-```
 ## **Dataset**
 
 Download the dataset from [repository][simmc2] via git-lfs. Run the script `rearrange.sh` to rearrange the `data` folder in the following format.
@@ -43,13 +42,11 @@ Download the dataset from [repository][simmc2] via git-lfs. Run the script `rear
 ```
 
 ## **Model Parameters**
-Since our model is jointly trained on all tasks, we only need a single model for all subtasks. Download the model parameters by one of the following methods:
+There are two pre-trained models available at Google Drive:
+- BART-based model only using output heads focused on MM Coreference Resolution: [bart_coref](https://drive.google.com/drive/folders/129-4HfFSl5Pa3g_FB1eiAbiWAfMrM_yP?usp=sharing).
+- BART-based model only using **empty_coref_head** and **coref_head**. The attributes head is *deactivated*: [bart_coref_no_attrs](https://drive.google.com/drive/folders/1v37k1_88wA2kPxcdQ2A5VNYCH_nJkHKL?usp=sharing).
 
-1.  Download from Google Drive: [checkpoint-22000.zip](https://drive.google.com/file/d/1ffPkx1bcJrYL7nN88FCXDs5HrUc_SJhJ/view?usp=sharing)
-2.  Download with `gdown`
-```shell
-gdown --id 1ffPkx1bcJrYL7nN88FCXDs5HrUc_SJhJ
-```
+The downloaded parameters should be stored in [`coref_models`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_coref/coref_models) folder. This folder with the pre-trained models can also be directly downloaded from Google Drive: [coref_models.zip](https://drive.google.com/file/d/1wv4W_kbqlo0Phlg5q9G_qwmYvNulXbad/view?usp=sharing).
 
 ## **Data Preprocessing**
 For our model input, preprocess the datasets to reformat the data. 
