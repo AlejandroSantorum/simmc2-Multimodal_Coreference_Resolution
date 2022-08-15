@@ -52,6 +52,11 @@ The original SIMMC2.0 dataset is hosted in [Meta's GitHub Repository](https://gi
 The dataset is preprocessed to be fed into the UNITER-based model. The folder [`processed`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based/processed) contains the preprocessed files and they should be downloaded from [processed.zip](https://drive.google.com/file/d/1FtZ7EopmZ0WX8I0WPz8yLVsI61LDG6H_/view?usp=sharing), or from the [original repository](https://github.com/i-need-sleep/MMCoref_Cleaned/tree/main/processed).
 
 
+## **Pre-trained and fine-tuned models**
+All the parameters of the models investigated throughout this project can be downloaded from Google Drive: [trained_models](https://drive.google.com/drive/folders/1yF5eLE3E7tZMKKKnYUcaTYUDsunJtXKd?usp=sharing).
+They should be placed in [`trained`](https://github.com/i-need-sleep/MMCoref_Cleaned/tree/main/trained) folder, since this is the directory where the models are searched by the evaluation scripts.
+
+
 ## **Training**
 The folders [`sh/train`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based/sh/train) and [`sh/grid_train`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based/sh/grid_train) contain scripts to train the UNITER-based model in your computer or in a GPU grid, respectively. 
 
@@ -162,9 +167,20 @@ python get_report.py \
 ```
 This is an example. Please change the path for the predictions file using the argument `--MODEL_EVAL_FILE`.
 
-
-## **Pre-trained and fine-tuned models**
-TODO TODO TODO TODO
-
 ## References
-TODO
+```
+@article{kottur2021simmc,
+  title={SIMMC 2.0: A Task-oriented Dialog Dataset for Immersive Multimodal Conversations},
+  author={Kottur, Satwik and Moon, Seungwhan and Geramifard, Alborz and Damavandi, Babak},
+  journal={arXiv preprint arXiv:2104.08667},
+  year={2021}
+}
+
+@article{HuangUNITER,
+    author={Yichen Huang and Yuchen Wang and Yik{-}Cheung Tam},
+    title={{UNITER}-Based {S}ituated {C}oreference {R}esolution with Rich Multimodal Input},
+    journal={Computing Research Repository (CoRR)},
+    year={2021},
+    note={\url{https://arxiv.org/abs/2112.03521}}
+}
+```
