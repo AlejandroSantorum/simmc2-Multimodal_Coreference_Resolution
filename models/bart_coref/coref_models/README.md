@@ -1,6 +1,6 @@
-# Pre-trained models
+# Pre-trained and fine-tuned models
 
-The pre-trained models can be directly downloaded using the following links.
+The pre-trained and fine-tuned models can be directly downloaded using the following links.
 
 - BART-based model only using output heads focused on MM Coreference Resolution: [bart_coref](https://drive.google.com/drive/folders/129-4HfFSl5Pa3g_FB1eiAbiWAfMrM_yP?usp=sharing).
 - BART-based model only using **empty_coref_head** and **coref_head**. The attributes head is *deactivated*: [bart_coref_no_attrs](https://drive.google.com/drive/folders/1v37k1_88wA2kPxcdQ2A5VNYCH_nJkHKL?usp=sharing).
