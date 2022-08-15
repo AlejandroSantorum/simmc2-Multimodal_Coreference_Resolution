@@ -3,6 +3,12 @@
 ## Overview
 The UNITER-based system here is a modified version of the one proposed in [*"UNITER-Based Situated Coreference Resolution with Rich Multimodal Input"*](https://arxiv.org/abs/2112.03521) by the New York University of Shanghai for the [DSTC10](https://sites.google.com/dstc.community/dstc10/home) competition. The code here is a modified version of the one publicly available in [Yichen Huang's repository](https://github.com/i-need-sleep/MMCoref_Cleaned).
 
+The UNITER-based model described in [*"UNITER-Based Situated Coreference Resolution with Rich Multimodal Input"*](https://arxiv.org/abs/2112.03521) tackles the Coreference Resolution task. The overview diagram is as follows:
+![UNITER-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/uniter_solution_diagram.png)
+<!---
+<img src="imgs/uniter_solution_diagram.png" width=650 height=320 alt="UNITER-based model diagram">
+-->
+
 Several improvements are investigated and they are explained further below.
 
 ## **Dataset**
@@ -54,7 +60,7 @@ The dataset is preprocessed to be fed into the UNITER-based model. The folder [`
 
 ## **Pre-trained and fine-tuned models**
 All the parameters of the models investigated throughout this project can be downloaded from Google Drive: [trained_models](https://drive.google.com/drive/folders/1yF5eLE3E7tZMKKKnYUcaTYUDsunJtXKd?usp=sharing).
-They should be placed in [`trained`](https://github.com/i-need-sleep/MMCoref_Cleaned/tree/main/trained) folder, since this is the directory where the models are searched by the evaluation scripts.
+They should be placed in [`trained`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based/trained) folder, since this is the directory where the models are searched by the evaluation scripts.
 
 
 ## **Training**
@@ -180,7 +186,6 @@ This is an example. Please change the path for the predictions file using the ar
     author={Yichen Huang and Yuchen Wang and Yik{-}Cheung Tam},
     title={{UNITER}-Based {S}ituated {C}oreference {R}esolution with Rich Multimodal Input},
     journal={Computing Research Repository (CoRR)},
-    year={2021},
-    note={\url{https://arxiv.org/abs/2112.03521}}
+    year={2021}
 }
 ```
