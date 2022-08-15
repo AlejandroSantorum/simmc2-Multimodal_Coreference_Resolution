@@ -91,6 +91,13 @@ Since our model is jointly trained on all subtasks, the additional target files 
 
 e.g `simmc2_dials_dstc10_train_disambiguation_label.txt`, `simmc2_dials_dstc10_train_response.txt` for disambiguation-task and retrieval-task, respectively. These are already uploaded in the directory `data_object_special`.
 
+## Model overview
+The BART-based model described in [*"Tackling Situated Multi-Modal Task-Oriented Dialogs with a Single Transformer Model"*](https://openreview.net/forum?id=NajekV9uBas) tackles all SIMMC2 tasks at the same time. The overview diagram is as follows:
+![4-head BART-based model diagram](https://raw.githubusercontent.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/main/imgs/kaist_solution_overview.png)
+<!---
+<img src="imgs/kaist_solution_overview.png" width=650 height=320 alt="4-head BART-based model diagram">
+-->
+
 ## **Training**
 Our model is jointly trained with losses from each tasks based on BART.
 
