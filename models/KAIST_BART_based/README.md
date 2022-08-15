@@ -43,13 +43,15 @@ Download the dataset from [repository][simmc2] via git-lfs. Run the script `rear
 ```
 
 ## **Model Parameters**
-Since our model is jointly trained on all tasks, we only need a single model for all subtasks. Download the model parameters by one of the following methods:
+Since our model is jointly trained on all tasks, we only need a single model for all subtasks. Download the model parameters by one of the following methods and store them in [`multi_task`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/KAIST_BART_based/multi_task) folder.
 
 1.  Download from Google Drive: [checkpoint-22000.zip](https://drive.google.com/file/d/1ffPkx1bcJrYL7nN88FCXDs5HrUc_SJhJ/view?usp=sharing)
 2.  Download with `gdown`
 ```shell
 gdown --id 1ffPkx1bcJrYL7nN88FCXDs5HrUc_SJhJ
 ```
+3.  Another option is to download our replication of the previous original model from Google Drive: [checkpoint-38000](https://drive.google.com/drive/folders/1lg-7NhPjgaA9T7ulbXDj2ilESVfY4yZB?usp=sharing)
+
 
 ## **Data Preprocessing**
 For our model input, preprocess the datasets to reformat the data. 

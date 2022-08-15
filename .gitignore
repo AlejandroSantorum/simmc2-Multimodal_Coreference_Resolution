@@ -21,7 +21,8 @@ models/uniter_based/trained
 
 # KAIST data and checkpoints
 models/KAIST_BART_based/data
-models/KAIST_BART_based/multi_task/
+models/KAIST_BART_based/multi_task/*
+!models/KAIST_BART_based/multi_task/README.md
 
 # BART only Coreference Resolution data
 models/bart_coref/data
