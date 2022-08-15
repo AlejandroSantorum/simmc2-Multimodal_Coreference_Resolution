@@ -42,7 +42,7 @@ Download the dataset from [repository][simmc2] via git-lfs. Run the script `rear
 ```
 
 ## **Model Parameters**
-There are two pre-trained models available at Google Drive:
+There are two fine-tuned models available at Google Drive:
 - BART-based model only using output heads focused on MM Coreference Resolution: [bart_coref](https://drive.google.com/drive/folders/129-4HfFSl5Pa3g_FB1eiAbiWAfMrM_yP?usp=sharing).
 - BART-based model only using **empty_coref_head** and **coref_head**. The attributes head is *deactivated*: [bart_coref_no_attrs](https://drive.google.com/drive/folders/1v37k1_88wA2kPxcdQ2A5VNYCH_nJkHKL?usp=sharing).
 

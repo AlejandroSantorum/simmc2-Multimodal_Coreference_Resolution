@@ -34,6 +34,7 @@ models/bart_only_coref/data
 models/bart_only_coref/data_object_special/new_datasets/*.txt
 models/bart_only_coref/data_object_special/new_datasets/reference_sets/*.json
 models/bart_only_coref/coref_models/*
+!models/bart_only_coref/coref_models/README.md
 
 # error analysis files
 **/error_images/*.png

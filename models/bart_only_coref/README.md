@@ -42,6 +42,13 @@ Run the script `rearrange.sh` to rearrange the `data` folder in the following fo
 ./data/images/cloth_store_1416238_woman_20_6.png
 ```
 
+## **Model Parameters**
+All the fine-tuned models for the experiments of this project can be downloaded individually from this folder from Google Drive: [coref_models](https://drive.google.com/drive/folders/13ZNu1qCg8mfvroj1PsjVJIuzElhDoycH?usp=sharing).
+
+The entire collection of models can be directly downloaded from: [coref_models.zip](https://drive.google.com/file/d/11LupifQrhIN1uSwqU946KhEBK9OEpENV/view?usp=sharing).
+
+The downloaded parameters should be stored in [`coref_models`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/coref_models) folder. As said before, this folder with the fine-tuned models can also be directly downloaded from Google Drive: [coref_models.zip](https://drive.google.com/file/d/11LupifQrhIN1uSwqU946KhEBK9OEpENV/view?usp=sharing).
+
 
 ## **Preprocessed data**
 The dataset is preprocessed to be fed into the BART-based model. The folder [`data_object_special`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special) contains the majority of the preprocessed files and they can be directly downloaded cloning this repository. However, some special data files for some experiments are too large. They can be generated using the suitable scripts detailed in [`processing_data`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/processing_data) folder, or simple by downloading the full version of this folder: [data_object_special.zip](https://drive.google.com/file/d/1LsnwUyt_ZG-e1OS-Hiud7ERvU8jpD4KA/view?usp=sharing).
