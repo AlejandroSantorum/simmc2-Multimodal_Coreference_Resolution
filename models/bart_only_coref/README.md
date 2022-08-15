@@ -191,8 +191,14 @@ The predictions and the final report can be found in the directory [`results`](h
 
 ## Modifications to boost the performance
 
-- BART-based model using only Coreference head including non-visual and visual attributes in the input:
+- BART-based model using only Coreference head **including non-visual and visual attributes in the input**. A training/test example is processed as explained in the following detailed diagram:
 ![Only Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_bart_diagram_attrs_emphasized.png)
 <!---
 <img src="imgs/detailed_bart_diagram_attrs_emphasized.png" width=650 height=320 alt="Only Coref BART-based model detailed diagram">
+-->
+
+- BART-based model using only Coreference head **including an additional auxiliary task output head** that predicts the number of referred objects in the last utterance. The object predictions are modified accordingly the output of this auxiliary task head using a set of heuristics.
+![Only Coref BART-based model diagram with auxiliary head](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_bart_aux_head_marking_new.png)
+<!---
+<img src="imgs/detailed_bart_aux_head_marking_new.png" width=650 height=320 alt="Only Coref BART-based model with auxiliary head diagram">
 -->
