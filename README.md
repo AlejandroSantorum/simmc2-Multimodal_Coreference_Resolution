@@ -95,7 +95,12 @@ The folder [`models`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Cor
 ## Main models and improvements
 
 - The **BART-based model** was the main studied system since it was the winner of the DSTC10 challenge. First, we showed that other task-specific heads were not beneficial for the overall performance. Additionally, auxiliary task heads (*empty_coref* and *attributes* heads) were proven to be not helpful.
-The **proposed improvements** consist of including textual descriptions of the object in the BART's input in the form of list of attributes, as shown in the following detailed diagram.
+![Only Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/1head_bart_diagram.png)
+<!---
+<img src="imgs/1head_bart_diagram.png" width=650 height=320 alt="Only Coref BART-based model diagram">
+-->
+
+The **proposed improvements** consist of including textual descriptions of the objects in the BART's input in the form of list of attributes, as shown in the following detailed diagram.
 ![Only Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_bart_diagram_attrs_emphasized.png)
 <!---
 <img src="imgs/detailed_bart_diagram_attrs_emphasized.png" width=650 height=320 alt="Only Coref BART-based model detailed diagram">
@@ -106,7 +111,13 @@ Moreover, including an auxiliary task head that predicts the number of referred 
 <img src="imgs/detailed_bart_aux_head_marking_new.png" width=650 height=320 alt="Only Coref BART-based model with auxiliary head diagram">
 -->
 
-- The **UNITER-based model** was studied focusing on its multimodal properties. First, we showed that the usage of object IDs was not necessary and the overall performance increased after removing them. Similar to the BART system, including an auxiliary task head that predicts the number of referred objects in the last utterance boosted the overall performance of the model. The object predictions are again modified accordingly the output of this auxiliary task head using a set of heuristics.
+- The **UNITER-based model** was studied focusing on its multimodal properties. First, we showed that the usage of object IDs was not necessary and the overall performance increased after removing them.
+![UNITER-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/uniter_solution_diagram.png)
+<!---
+<img src="imgs/uniter_solution_diagram.png" width=650 height=320 alt="UNITER-based model diagram">
+-->
+
+Similar to the BART system, including an auxiliary task head that predicts the number of referred objects in the last utterance boosted the overall performance of the model. The object predictions are again modified accordingly the output of this auxiliary task head using a set of heuristics.
 ![UNITER-based model diagram with auxiliary head](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_uniter_aux_head_marking_new.png)
 <!---
 <img src="imgs/detailed_uniter_aux_head_marking_new.png" width=650 height=320 alt="UNITER-based model diagram with auxiliary head diagram">
