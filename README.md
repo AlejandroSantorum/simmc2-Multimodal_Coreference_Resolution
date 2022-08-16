@@ -92,7 +92,7 @@ The folder [`models`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Cor
 
 
 ----------------------------------------------
-## Main models and improvements
+## Main models, proposed modifications and improvements
 
 - The **BART-based model** was the main studied system since it was the winner of the DSTC10 challenge. First, we showed that other task-specific heads were not beneficial for the overall performance. Additionally, auxiliary task heads (*empty_coref* and *attributes* heads) were proven to be not helpful.
 ![Only Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/1head_bart_diagram.png)
@@ -122,6 +122,25 @@ Similar to the BART system, including an auxiliary task head that predicts the n
 <!---
 <img src="imgs/detailed_uniter_aux_head_marking_new.png" width=650 height=320 alt="UNITER-based model diagram with auxiliary head diagram">
 -->
+
+- **Model combination**: UNITER and BART-based models are both combined together since the UNITER-based model is better at identifying referred objects previously mentioned in the conversation context, whether the BART-based model excels at recognizing items just referred in the last user utterance. Each model would focus on the set of objects accordingly their strengths.
+
+----------------------------------------------
+## Main results
+
+| Model description                                          | Author                               | Overall F1 Score  |
+| :----------                                                | :------------                        | :-------:         |
+| UNITER-based model submitted to DSTC10                     | Y. Huang et.al. (NYU Shanghai)       | 0.674             |
+| UNITER-based model improved post-evaluation                | Y. Huang et.al. (NYU Shanghai)       | 0.728             |
+| BART-based model submitted to DSTC10                       | H. Lee et. al.  (KAIST AI Lab)       | 0.743             |
+| UNITER-based model post-evaluation + removing obj. IDs     | A. Santorum (Cambridge University)   | 0.758             |
+| UNITER-based model post-eval + noIDs + auxiliary task head | A. Santorum (Cambridge University)   | 0.761             |
+| BART-based model + non-visual input attributes             | A. Santorum (Cambridge Unviersity)   | 0.760             |
+| BART-based model + visual+non-visual input attributes      | A. Santorum (Cambridge Unviersity)   | 0.771             |
+| BART-based model + auxiliary task head                     | A. Santorum (Cambridge Unviersity)   | 0.752             |
+| BART-based model + aux. task head + all input attrs.       | A. Santorum (Cambridge Unviersity)   | 0.775             |
+| Model combination (version legal on DSTC10)                | A. Santorum (Cambridge Unviersity)   | **0.800**         |
+| Model combination (overpowered w.r.t. DSTC10 rules)        | A. Santorum (Cambridge Unviersity)   | 0.806             |
 
 
 ----------------------------------------------
