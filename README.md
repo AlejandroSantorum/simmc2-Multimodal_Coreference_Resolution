@@ -1,4 +1,17 @@
-# (SIMMC 2.0) Challenge 2021: Multimodal Coreference Resolution task
+# SIMMC 2.0 Challenge 2021: Multimodal Coreference Resolution task
+
+Project carried out as my **dissertation** for the **MPhil in Machine Learning and Machine Intelligence at the University of Cambridge**.
+
+Multimodal Coreference Resolution is defined as the task of identifying which word or expression co-refer to the same entity within a certain context. The context is defined using both visual (images, videos) and natural language (dialog, textual descriptions) modalities. This is a crucial problem since many visual agents have to link coreferences (e.g. pronouns) to their corresponding general reference (e.g. nouns or noun phrases), and only then solve their main task, such a object grounding or visual question asnwering.
+![Definition Coreferene Resolution](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/define_coref_resolution.png)
+<!---
+<img src="imgs/define_coref_resolution.png" width=650 height=320 alt="Definition Coreferene Resolution">
+-->
+
+The [final version of the masters thesis](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/thesis_report/AlejandroSantorum_MLMI_dissertation.pdf) can be found in [`thesis_report`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/thesis_report) directory.
+
+---------------------------------------------
+## Challenge overview
 The second Situated Interactive MultiModal Conversations (SIMMC 2.0) Challenge 2021. Project focused on the second subtask: Multimodal Coreference Resolution.
 
 The [official GitHub Repository](https://github.com/facebookresearch/simmc2) of the challenge is published by [Meta Research](https://github.com/facebookresearch) team.
@@ -76,3 +89,61 @@ The folder [`models`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Cor
 - [`bart_only_coref`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref): previous system modified by removing all specific-task heads but the one performing coreference resolution. Auxiliary task heads are also deleted. This is the main directory where the majority of experiments on the [BART-based model](https://openreview.net/forum?id=NajekV9uBas) are available and described.
 - [`uniter_based`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based): replication of the model described in [*"UNITER-Based Situated Coreference Resolution with Rich Multimodal Input"*](https://arxiv.org/abs/2112.03521), using the [open source code](https://github.com/i-need-sleep/MMCoref_Cleaned) of the original team. This is also the main directory where the majority of experiments on the [UNITER-based model](https://arxiv.org/abs/2112.03521) are available and described.
 - [`combined`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/combined): simple system that combines the predictions of one of the best BART-based models with one of the best UNITER-based models to obtain a boost in performance due to the ensemble of both solutions.
+
+
+----------------------------------------------
+## Main models and improvements
+
+- The **BART-based model** was the main studied system since it was the winner of the DSTC10 challenge. First, we showed that other task-specific heads were not beneficial for the overall performance. Additionally, auxiliary task heads (*empty_coref* and *attributes* heads) were proven to be not helpful.
+The **proposed improvements** consist of including textual descriptions of the object in the BART's input in the form of list of attributes, as shown in the following detailed diagram.
+![Only Coref BART-based model diagram](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_bart_diagram_attrs_emphasized.png)
+<!---
+<img src="imgs/detailed_bart_diagram_attrs_emphasized.png" width=650 height=320 alt="Only Coref BART-based model detailed diagram">
+-->
+Moreover, including an auxiliary task head that predicts the number of referred objects in the last utterance boosted the overall performance of the model. The object predictions are modified accordingly the output of this auxiliary task head using a set of heuristics.
+![Only Coref BART-based model diagram with auxiliary head](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_bart_aux_head_marking_new.png)
+<!---
+<img src="imgs/detailed_bart_aux_head_marking_new.png" width=650 height=320 alt="Only Coref BART-based model with auxiliary head diagram">
+-->
+
+- The **UNITER-based model** was studied focusing on its multimodal properties. First, we showed that the usage of object IDs was not necessary and the overall performance increased after removing them. Similar to the BART system, including an auxiliary task head that predicts the number of referred objects in the last utterance boosted the overall performance of the model. The object predictions are again modified accordingly the output of this auxiliary task head using a set of heuristics.
+![UNITER-based model diagram with auxiliary head](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/detailed_uniter_aux_head_marking_new.png)
+<!---
+<img src="imgs/detailed_uniter_aux_head_marking_new.png" width=650 height=320 alt="UNITER-based model diagram with auxiliary head diagram">
+-->
+
+
+----------------------------------------------
+## License
+The project is lecensed under the BSD 3-Clause License. A copy of the [license](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/LICENSE) can be found along with the code.
+
+
+----------------------------------------------
+## Acknowledgements
+
+I would like to thank my two supervisors, Dr. Svetlana Stoyanchev and Prof. Kate Knill for their countless suggestions, guidance and support throughout the whole project. I am truly grateful for inspiring and teaching me during these last months. I would also like to thank Dr. Simon Keizer and Dr. Rama Doddipatla for their time and insightful discussions at every meeting. I am highly thankful to Toshiba Europe Ltd. for the provided computing resources during the internship, and the Cambridge University Engineering Department for all the given service in the last year.
+
+
+----------------------------------------------
+## Attribution
+
+This project has been developed by Alejandro Santorum Varela (2022) as part of the dissertation for the MPhil in Machine Learning and Machine Intelligence at the University of Cambridge, supervised by Dr. Svetlana Stoyanchev (Toshiba Europe Ltd.) and Dr. Kate Knill (Cambridge University Engineering Department).
+
+If you happen to use the open sourced code of this project in your work or research, please cite it:
+
+A. Santorum, "Multimodal Coreference Resolution", [https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution), 2022. MLMI MPhil dissertation at the University of Cambridge.
+
+The corresponding BibTex entry is
+
+```
+@misc{
+    author = {Alejandro Santorum},
+    title = {Multimodal Coreference Resolution},
+    year = {2022},
+    howpublished = {\url{https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution}},
+    note = {MLMI MPhil dissertation at the University of Cambridge}
+}
+```
+
+
+
