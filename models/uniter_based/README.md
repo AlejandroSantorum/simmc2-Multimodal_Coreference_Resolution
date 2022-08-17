@@ -57,6 +57,10 @@ The original SIMMC2.0 dataset is hosted in [Meta's GitHub Repository](https://gi
 ## **Preprocessed data**
 The dataset is preprocessed to be fed into the UNITER-based model. The folder [`processed`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based/processed) contains the preprocessed files and they should be downloaded from [processed.zip](https://drive.google.com/file/d/1FtZ7EopmZ0WX8I0WPz8yLVsI61LDG6H_/view?usp=sharing), or from the [original repository](https://github.com/i-need-sleep/MMCoref_Cleaned/tree/main/processed).
 
+Additionally, pre-trained models should be downloaded from the provided links:
+- [`pretrained`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based/pretrained) directory.
+- [`Transformers_VQA_master_models`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/uniter_based/model/Transformers_VQA_master/models/pretrained) directory.
+
 
 ## **Pre-trained and fine-tuned models**
 All the parameters of the models investigated throughout this project can be downloaded from Google Drive: [trained_models](https://drive.google.com/drive/folders/1yF5eLE3E7tZMKKKnYUcaTYUDsunJtXKd?usp=sharing).
