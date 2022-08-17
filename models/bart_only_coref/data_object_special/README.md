@@ -40,5 +40,5 @@ This folder ([`data_object_special`](https://github.com/AlejandroSantorum/simmc2
     - `out_of_domain_target.txt`: subset of 9.5 K furniture label (targets) used for testing.
     - `train_seen_unseen_OOD_predict.txt`: subset of 14.6K fashion examples used for training.
     - `train_seen_unseen_OOD_target.txt`: subset of 14.6K fashion labels (targets) used for training.
-- [`random_test_subset`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/random_test_subset): folder that contains a random subset (100 random examples) of the `devtest` set. This dataset is used to **estimate the human performance** on coreference resolution.
+- [`random_test_subset`](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/tree/main/models/bart_only_coref/data_object_special/random_test_subset): folder that contains a random subset (100 random examples) of the `devtest` set. This dataset is used to **estimate the human performance** on coreference resolution. The **PDF containing the 100 random examples to be annotated and estimate human-level performance** can be downloaded from Google Drive: [estimate_human_performance.pdf](https://drive.google.com/file/d/1hBwRHJhLPFgTnPDhAPHPYMeGW9c25obh/view?usp=sharing).
 
