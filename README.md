@@ -135,12 +135,12 @@ Similar to the BART system, including an auxiliary task head that predicts the n
 | BART-based model submitted to DSTC10                       | H. Lee et. al.  (KAIST AI Lab)       | 0.743             |
 | UNITER-based model post-evaluation + removing obj. IDs     | A. Santorum (Cambridge University)   | 0.758             |
 | UNITER-based model post-eval + noIDs + auxiliary task head | A. Santorum (Cambridge University)   | 0.761             |
-| BART-based model + non-visual input attributes             | A. Santorum (Cambridge Unviersity)   | 0.760             |
-| BART-based model + visual+non-visual input attributes      | A. Santorum (Cambridge Unviersity)   | 0.771             |
-| BART-based model + auxiliary task head                     | A. Santorum (Cambridge Unviersity)   | 0.752             |
-| BART-based model + aux. task head + all input attrs.       | A. Santorum (Cambridge Unviersity)   | 0.775             |
-| Model combination (version legal on DSTC10)                | A. Santorum (Cambridge Unviersity)   | **0.800**         |
-| Model combination (overpowered w.r.t. DSTC10 rules)        | A. Santorum (Cambridge Unviersity)   | 0.806             |
+| BART-based model + non-visual input attributes             | A. Santorum (Cambridge University)   | 0.760             |
+| BART-based model + visual+non-visual input attributes      | A. Santorum (Cambridge University)   | 0.771             |
+| BART-based model + auxiliary task head                     | A. Santorum (Cambridge University)   | 0.752             |
+| BART-based model + aux. task head + all input attrs.       | A. Santorum (Cambridge University)   | 0.775             |
+| Model combination (version legal on DSTC10)                | A. Santorum (Cambridge University)   | **0.800**         |
+| Model combination (overpowered w.r.t. DSTC10 rules)        | A. Santorum (Cambridge University)   | 0.806             |
 
 
 ----------------------------------------------
