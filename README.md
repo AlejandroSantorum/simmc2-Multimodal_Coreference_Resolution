@@ -1,6 +1,6 @@
 # SIMMC 2.0 Challenge 2021: Multimodal Coreference Resolution task
 
-Project carried out as my **dissertation** for the **MPhil in Machine Learning and Machine Intelligence at the University of Cambridge**.
+Project carried out as my **dissertation** for the **MPhil in Machine Learning and Machine Intelligence at the University of Cambridge**, awarded with a distinction (band A+).
 
 Multimodal Coreference Resolution is defined as the task of identifying which word or expression co-refer to the same entity within a certain context. The context is defined using both visual (images, videos) and natural language (dialog, textual descriptions) modalities. This is a crucial problem since many visual agents have to link coreferences (e.g. pronouns) to their corresponding general reference (e.g. nouns or noun phrases), and only then solve their main task, such a object grounding or visual question asnwering.
 ![Definition Coreferene Resolution](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/define_coref_resolution.png)
