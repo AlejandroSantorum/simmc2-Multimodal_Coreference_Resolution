@@ -1,5 +1,5 @@
 import json, pprint, argparse
-from utils import parse_line_only_coref, rec_prec_f1
+from utils import parse_line_only_coref, rec_prec_f1, d_f1
 
 
 def open_file(file_path):
@@ -101,23 +101,30 @@ def main(args):
     rec_new, prec_new, f1_new = rec_prec_f1(n_correct_new, n_true_new, n_pred_new)
     rec, prec, f1 = rec_prec_f1(n_correct_men+n_correct_new, n_true_men+n_true_new, n_pred_men+n_pred_new)
 
+    stderr_men = d_f1(n_correct_men, n_true_men, n_pred_men)
+    stderr_new = d_f1(n_correct_new, n_true_new, n_pred_new)
+    stderr = d_f1(n_correct_men+n_correct_new, n_true_men+n_true_new, n_pred_men+n_pred_new)
+
     report = {'performance on mentioned objects':
                 {
                     'F1 score': f1_men,
                     'Precision': prec_men,
-                    'Recall': rec_men
+                    'Recall': rec_men,
+                    'Std. error': stderr_men
                 },
               'performance on new objects':
                 {
                     'F1 score': f1_new,
                     'Precision': prec_new,
-                    'Recall': rec_new
+                    'Recall': rec_new,
+                    'Std. error': stderr_new
                 },
               'overall performance':
                 {
                     'F1 score': f1,
                     'Precision': prec,
-                    'Recall': rec
+                    'Recall': rec,
+                    'Std. error': stderr
                 }}
 
     pprint.pprint(report)
