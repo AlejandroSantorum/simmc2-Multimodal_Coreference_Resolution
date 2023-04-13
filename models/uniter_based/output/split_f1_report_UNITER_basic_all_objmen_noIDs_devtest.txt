@@ -2,16 +2,19 @@
     "performance on mentioned objects": {
         "F1 score": 0.8373907195696032,
         "Precision": 0.7802005012531328,
-        "Recall": 0.9036284470246735
+        "Recall": 0.9036284470246735,
+        "Std. error": 0.005934947220197888
     },
     "performance on new objects": {
         "F1 score": 0.643723113023074,
         "Precision": 0.6109873793615441,
-        "Recall": 0.6801652892561983
+        "Recall": 0.6801652892561983,
+        "Std. error": 0.00945939371171954
     },
     "overall performance": {
         "F1 score": 0.7584668101043908,
         "Precision": 0.711998803111909,
-        "Recall": 0.8114236999147485
+        "Recall": 0.8114236999147485,
+        "Std. error": 0.005374121244364262
     }
 }

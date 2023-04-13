@@ -1,6 +1,7 @@
 import argparse
 import json
 import pprint
+import numpy as np
 
 
 def rec_prec_f1(n_correct, n_true, n_pred):
@@ -9,6 +10,31 @@ def rec_prec_f1(n_correct, n_true, n_pred):
     f1 = 2 * prec * rec / (prec + rec) if (prec + rec) != 0 else 0
 
     return rec, prec, f1
+
+
+def d_f1(n_correct, n_true, n_pred):
+    # 1/r + 1/p = 2/F1
+    # dr / r^2 + dp / p^2 = 2dF1 /F1^2
+    # dF1 = 1/2 F1^2 (dr/r^2 + dp/p^2)
+    dr = b_stderr(n_true, n_correct)
+    dp = b_stderr(n_pred, n_correct)
+
+    r = n_correct / n_true
+    p = n_correct / n_pred
+    f1 = 2 * p * r / (p + r) if p + r != 0 else 0
+
+    d_f1 = 0.5 * f1 ** 2 * (dr / r ** 2 + dp / p ** 2)
+    return d_f1
+
+
+def b_stderr(n_total, n_pos):
+    return np.std(b_arr(n_total, n_pos)) / np.sqrt(n_total)
+
+
+def b_arr(n_total, n_pos):
+    out = np.zeros(int(n_total))
+    out[: int(n_pos)] = 1.0
+    return out
 
 
 def main(args):
@@ -66,31 +92,37 @@ def main(args):
     rec_new, prec_new, f1_new = rec_prec_f1(n_correct_new, n_true_new, n_pred_new)
     rec, prec, f1 = rec_prec_f1(n_correct_men+n_correct_new, n_true_men+n_true_new, n_pred_men+n_pred_new)
 
+    stderr_men = d_f1(n_correct_men, n_true_men, n_pred_men)
+    stderr_new = d_f1(n_correct_new, n_true_new, n_pred_new)
+    stderr = d_f1(n_correct_men+n_correct_new, n_true_men+n_true_new, n_pred_men+n_pred_new)
+
     report = {'performance on mentioned objects':
                 {
                     'F1 score': f1_men,
                     'Precision': prec_men,
-                    'Recall': rec_men
+                    'Recall': rec_men,
+                    'Std. error': stderr_men
                 },
               'performance on new objects':
                 {
                     'F1 score': f1_new,
                     'Precision': prec_new,
-                    'Recall': rec_new
+                    'Recall': rec_new,
+                    'Std. error': stderr_new
                 },
               'overall performance':
                 {
                     'F1 score': f1,
                     'Precision': prec,
-                    'Recall': rec
-                }}
+                    'Recall': rec,
+                    'Std. error': stderr
+                }
+            }
 
     print("REPORT splitting mentioned and new objects of:", model_name)
     pprint.pprint(report)
     with open(output_file_path, 'w') as f:
         json.dump(report, f, indent=4)
-
-
 
 
 
