@@ -1,0 +1,43 @@
+cff-version: 1.2.0
+message: "If you use this work in your research or project, please cite it using the following metadata."
+authors:
+- family-names: "Santorum Varela"
+  given-names: "Alejandro"
+  orcid: "https://orcid.org/0000-0003-3555-9501"
+- family-names: "Svetlana"
+  given-names: "Stoyanchev"
+- family-names: "Keizer"
+  given-names: "Simon"
+  orcid: "https://orcid.org/0000-0003-0173-8966"
+- family-names: "Doddipatla"
+  given-names: "Rama"
+  orcid: "https://orcid.org/0000-0003-1061-9512"
+- family-names: "Knill"
+  given-names: "Kate"
+  orcid: "https://orcid.org/0000-0003-1292-2769"
+title: "scikit-rmt: Random Matrix Theory python package"
+doi: 10.1109/TASLP.2023.3304468
+date-released: 2023-08-11
+url: "https://doi.org/10.1109/TASLP.2023.3304468"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Santorum Varela"
+    given-names: "Alejandro"
+    orcid: "https://orcid.org/0000-0003-3555-9501"
+  - family-names: "Svetlana"
+    given-names: "Stoyanchev"
+  - family-names: "Keizer"
+    given-names: "Simon"
+    orcid: "https://orcid.org/0000-0003-0173-8966"
+  - family-names: "Doddipatla"
+    given-names: "Rama"
+    orcid: "https://orcid.org/0000-0003-1061-9512"
+  - family-names: "Knill"
+    given-names: "Kate"
+    orcid: "https://orcid.org/0000-0003-1292-2769"
+  doi: 10.1109/TASLP.2023.3304468
+  journal: "IEEE/ACM Transactions on Audio, Speech, and Language Processing"
+  title: "Entity Resolution in Situated Dialog with Unimodal and Multimodal Transformers"
+  month: 8
+  year: 2023
