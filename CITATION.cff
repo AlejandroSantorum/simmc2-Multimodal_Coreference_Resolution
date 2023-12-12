@@ -41,3 +41,6 @@ preferred-citation:
   title: "Entity Resolution in Situated Dialog with Unimodal and Multimodal Transformers"
   month: 8
   year: 2023
+  volume: 32
+  start: 704  # first page number
+  end: 713    # last page number

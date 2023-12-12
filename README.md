@@ -2,6 +2,8 @@
 
 Project carried out as my **dissertation** for the **MPhil in Machine Learning and Machine Intelligence at the University of Cambridge**, awarded with a distinction (band A+).
 
+An article based on this research was developed with title *"Entity Resolution in Situated Dialog With Unimodal and Multimodal Transformers"*, and it was accepted and published in IEEE/ACM Transactions on Audio, Speech, and Language Processing. For more info visit the [section about IEEE TASLP](#article-in-ieee-taslp).
+
 Multimodal Coreference Resolution is defined as the task of identifying which word or expression co-refer to the same entity within a certain context. The context is defined using both visual (images, videos) and natural language (dialog, textual descriptions) modalities. This is a crucial problem since many visual agents have to link coreferences (e.g. pronouns) to their corresponding general reference (e.g. nouns or noun phrases), and only then solve their main task, such a object grounding or visual question asnwering.
 ![Definition Coreferene Resolution](https://github.com/AlejandroSantorum/simmc2-Multimodal_Coreference_Resolution/blob/main/imgs/define_coref_resolution.png)
 <!---
@@ -175,5 +177,21 @@ The corresponding BibTex entry is
 }
 ```
 
+----------------------------------------------
+## Article in IEEE TASLP
 
+An article based on the work of this project was developed and it got successfully accepted in IEEE/ACM Transactions on Audio, Speech, and Language Processing with title *"Entity Resolution in Situated Dialog With Unimodal and Multimodal Transformers"*. The paper is available at [ieeexplore.ieee.org](https://ieeexplore.ieee.org/document/10214620).
 
+The BibTex entry is
+
+```
+@article{
+    author = {Alejandro Santorum, Svetlana Stoyanchev, Simon Keizer, Rama Doddipatla, Kate Knill},
+    title = {Entity Resolution in Situated Dialog with Unimodal and Multimodal Transformers},
+    journal = {IEEE/ACM Transactions on Audio, Speech, and Language Processing},
+    year = {2023},
+    doi = {10.1109/TASLP.2023.3304468},
+    volume = {32},
+    pages = {704--713},
+}
+```
